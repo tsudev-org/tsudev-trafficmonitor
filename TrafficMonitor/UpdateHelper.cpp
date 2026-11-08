@@ -3,6 +3,10 @@
 #include "SimpleXML.h"
 #include "Common.h"
 #include "TrafficMonitor.h"
+#include <bcrypt.h>
+#include <wincrypt.h>
+#pragma comment(lib, "bcrypt.lib")
+#pragma comment(lib, "crypt32.lib")
 
 
 CUpdateHelper::CUpdateHelper()
@@ -23,14 +27,81 @@ bool CUpdateHelper::CheckForUpdate()
 {
     //Bản Việt hóa: chỉ dùng một nguồn cập nhật duy nhất là repo GitHub của TrafficMonitor-VN (xem ForkConfig.h).
     //Lựa chọn nguồn Gitee (nếu có trong cấu hình cũ) được bỏ qua.
-    wstring version_info;
+    //Từ V1.88-vn: chỉ tin thông tin phiên bản có chữ ký hợp lệ (version_signed.xml + .sig trong bản phát hành mới nhất).
+    //Tệp version_utf8.info không chữ ký chỉ còn phục vụ các bản cũ (V1.86-vn, V1.87-vn).
     m_row_data = true;
-    if (!CCommon::GetURL(FORK_VERSION_INFO_RAW_URL, version_info, true))     //Lấy thông tin phiên bản
+    m_signature_invalid = false;
+    std::string version_info_bytes, signature;
+    if (!CCommon::GetURL(FORK_SIGNED_VERSION_URL, version_info_bytes) || !CCommon::GetURL(FORK_SIGNED_VERSION_SIG_URL, signature))
         return false;
 
-    ParseUpdateInfo(version_info);
+    if (!VerifySignature(version_info_bytes, signature))
+    {
+        if (theApp.m_debug_log)
+            CCommon::WriteLog(L"CheckForUpdate: invalid signature of version info, update ignored.", theApp.m_log_path.c_str());
+        m_signature_invalid = true;
+        m_version.clear();
+        return true;    //Kết nối thành công nhưng dữ liệu không đáng tin: GetVersion() rỗng => báo lỗi dữ liệu
+    }
+
+    //Bỏ BOM UTF-8 (nếu có) rồi chuyển sang Unicode
+    if (version_info_bytes.size() >= 3 && version_info_bytes.compare(0, 3, "\xEF\xBB\xBF") == 0)
+        version_info_bytes.erase(0, 3);
+    ParseUpdateInfo(CCommon::StrToUnicode(version_info_bytes.c_str(), true));
 
     return true;
+}
+
+bool CUpdateHelper::VerifySignature(const std::string& data, const std::string& signature_base64)
+{
+    //Giải mã khóa công khai X||Y từ chuỗi hex
+    const char* hex = FORK_UPDATE_PUBLIC_KEY_HEX;
+    const size_t KEY_LEN = 32;
+    if (strlen(hex) != KEY_LEN * 4)
+        return false;
+    std::vector<BYTE> key_blob(sizeof(BCRYPT_ECCKEY_BLOB) + KEY_LEN * 2);
+    auto* header = reinterpret_cast<BCRYPT_ECCKEY_BLOB*>(key_blob.data());
+    header->dwMagic = BCRYPT_ECDSA_PUBLIC_P256_MAGIC;
+    header->cbKey = static_cast<ULONG>(KEY_LEN);
+    for (size_t i = 0; i < KEY_LEN * 2; i++)
+    {
+        unsigned int value{};
+        if (sscanf_s(hex + i * 2, "%2x", &value) != 1)
+            return false;
+        key_blob[sizeof(BCRYPT_ECCKEY_BLOB) + i] = static_cast<BYTE>(value);
+    }
+
+    //Giải mã chữ ký base64 (bỏ khoảng trắng/xuống dòng ở cuối); chữ ký thô r||s phải đúng 64 byte
+    std::string sig_text = signature_base64;
+    while (!sig_text.empty() && isspace(static_cast<unsigned char>(sig_text.back())))
+        sig_text.pop_back();
+    if (sig_text.empty() || sig_text.size() > 256)
+        return false;
+    BYTE sig[128]{};
+    DWORD sig_len = sizeof(sig);
+    if (!CryptStringToBinaryA(sig_text.c_str(), static_cast<DWORD>(sig_text.size()), CRYPT_STRING_BASE64, sig, &sig_len, nullptr, nullptr)
+        || sig_len != KEY_LEN * 2)
+        return false;
+
+    bool verified{ false };
+    BCRYPT_ALG_HANDLE hash_alg{}, ecdsa_alg{};
+    BCRYPT_HASH_HANDLE hash{};
+    BCRYPT_KEY_HANDLE key{};
+    BYTE digest[32]{};
+    if (BCRYPT_SUCCESS(BCryptOpenAlgorithmProvider(&hash_alg, BCRYPT_SHA256_ALGORITHM, nullptr, 0))
+        && BCRYPT_SUCCESS(BCryptCreateHash(hash_alg, &hash, nullptr, 0, nullptr, 0, 0))
+        && BCRYPT_SUCCESS(BCryptHashData(hash, reinterpret_cast<PUCHAR>(const_cast<char*>(data.data())), static_cast<ULONG>(data.size()), 0))
+        && BCRYPT_SUCCESS(BCryptFinishHash(hash, digest, sizeof(digest), 0))
+        && BCRYPT_SUCCESS(BCryptOpenAlgorithmProvider(&ecdsa_alg, BCRYPT_ECDSA_P256_ALGORITHM, nullptr, 0))
+        && BCRYPT_SUCCESS(BCryptImportKeyPair(ecdsa_alg, nullptr, BCRYPT_ECCPUBLIC_BLOB, &key, key_blob.data(), static_cast<ULONG>(key_blob.size()), 0)))
+    {
+        verified = BCRYPT_SUCCESS(BCryptVerifySignature(key, nullptr, digest, sizeof(digest), sig, sig_len, 0));
+    }
+    if (key) BCryptDestroyKey(key);
+    if (hash) BCryptDestroyHash(hash);
+    if (ecdsa_alg) BCryptCloseAlgorithmProvider(ecdsa_alg, 0);
+    if (hash_alg) BCryptCloseAlgorithmProvider(hash_alg, 0);
+    return verified;
 }
 
 bool CUpdateHelper::IsTrustedDownloadUrl(const std::wstring& url)
@@ -129,6 +200,16 @@ void CUpdateHelper::ParseUpdateInfo(wstring version_info)
     m_link64 = version_xml.GetNode(str_link_tag_x64.c_str(), str_source_tag);
     m_link = version_xml.GetNode(str_link_tag.c_str(), str_source_tag);
     m_link_arm64ec = version_xml.GetNode(str_link_tag_arm64ec.c_str(), str_source_tag);
+    //SHA-256 của từng gói (chỉ có trong version_signed.xml); chỉ nhận chuỗi 64 ký tự hex
+    auto LoadSha256 = [&](const wchar_t* node) {
+        std::wstring value = version_xml.GetNode(node, str_source_tag);
+        if (value.size() != 64 || value.find_first_not_of(L"0123456789abcdef") != std::wstring::npos)
+            value.clear();
+        return value;
+    };
+    m_sha256 = LoadSha256(L"sha256");
+    m_sha256_x64 = LoadSha256(L"sha256_x64");
+    m_sha256_arm64ec = LoadSha256(L"sha256_arm64ec");
 
     //Mọi liên kết tải (nếu có) đều phải đáng tin cậy; chỉ cần một liên kết không hợp lệ là bỏ toàn bộ thông tin cập nhật
     auto IsAcceptable = [](const std::wstring& url) { return url.empty() || IsTrustedDownloadUrl(url); };
@@ -173,6 +254,26 @@ const std::wstring& CUpdateHelper::GetLink64() const
 const std::wstring& CUpdateHelper::GetLinkArm64ec() const
 {
     return m_link_arm64ec;
+}
+
+const std::wstring& CUpdateHelper::GetSha256() const
+{
+    return m_sha256;
+}
+
+const std::wstring& CUpdateHelper::GetSha256x64() const
+{
+    return m_sha256_x64;
+}
+
+const std::wstring& CUpdateHelper::GetSha256Arm64ec() const
+{
+    return m_sha256_arm64ec;
+}
+
+bool CUpdateHelper::IsSignatureInvalid() const
+{
+    return m_signature_invalid;
 }
 
 const std::wstring& CUpdateHelper::GetContentsVi() const
