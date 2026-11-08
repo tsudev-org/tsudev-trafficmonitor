@@ -1,0 +1,117 @@
+# Phát hành: khi đẩy tag dạng V1.86-vn, build bản Lite cho 3 nền tảng, đóng gói zip,
+# tạo SHA256SUMS.txt, chứng thực nguồn gốc build (provenance) và tạo GitHub Release.
+#
+# Quy trình phát hành:
+#   1. Cập nhật VERSION trong TrafficMonitor/stdafx.h và version_utf8.info (liên kết tải, nội dung cập nhật).
+#   2. git tag V<phiên bản>-vn && git push origin V<phiên bản>-vn
+name: Release
+
+on:
+  push:
+    tags: ["V*-vn"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag cần phát hành (ví dụ V1.86-vn), tag phải tồn tại"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.arch }}
+    runs-on: windows-2022   # Ghim VS 2022 (v143 + MFC); windows-latest dùng VS 2026 chưa có MFC cho v143
+    permissions:
+      contents: read
+      id-token: write       # cần cho chứng thực nguồn gốc build
+      attestations: write
+    strategy:
+      matrix:
+        include:
+          - platform: x64
+            arch: x64
+            outdir: Bin/x64/Release (lite)
+          - platform: x86
+            arch: x86
+            outdir: Bin/Release (lite)
+          - platform: ARM64EC
+            arch: arm64ec
+            outdir: Bin/ARM64EC/Release (lite)
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+          persist-credentials: false
+
+      - uses: microsoft/setup-msbuild@v3
+
+      - name: Xác định phiên bản
+        id: ver
+        shell: pwsh
+        run: |
+          $tag = "${{ github.event.inputs.tag || github.ref_name }}"
+          if ($tag -notmatch '^V(\d+(\.\d+){0,3})-vn$') { Write-Error "Tag không hợp lệ: $tag"; exit 1 }
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+          "version=$($Matches[1])" >> $env:GITHUB_OUTPUT
+
+      - name: Build
+        run: msbuild TrafficMonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143
+
+      - name: Đóng gói
+        id: pkg
+        shell: pwsh
+        run: |
+          $name = "TrafficMonitor-VN_V${{ steps.ver.outputs.version }}_${{ matrix.arch }}_Lite"
+          $stage = Join-Path $env:RUNNER_TEMP "$name\TrafficMonitor"
+          New-Item -ItemType Directory -Force -Path $stage | Out-Null
+          Copy-Item "${{ matrix.outdir }}\TrafficMonitor.exe" $stage
+          Get-ChildItem "${{ matrix.outdir }}\*.dll" -ErrorAction SilentlyContinue | Copy-Item -Destination $stage
+          Copy-Item "TrafficMonitor\skins" $stage -Recurse
+          Remove-Item (Join-Path $stage "skins\xml_test") -Recurse -Force -ErrorAction SilentlyContinue
+          # Giấy phép Anti 996 yêu cầu kèm nguyên văn giấy phép trong mọi bản phân phối
+          Copy-Item LICENSE, LICENSE_CN, LICENSE_VI.md, NOTICE.md, README.md, SECURITY.md $stage
+          $zip = "$name.zip"
+          Compress-Archive -Path $stage -DestinationPath $zip -Force
+          "zip=$zip" >> $env:GITHUB_OUTPUT
+
+      - name: Chứng thực nguồn gốc build
+        # Artifact attestation miễn phí cho repo công khai; repo riêng tư cần GitHub Enterprise Cloud
+        if: ${{ !github.event.repository.private }}
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: ${{ steps.pkg.outputs.zip }}
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.arch }}
+          path: ${{ steps.pkg.outputs.zip }}
+          if-no-files-found: error
+
+  publish:
+    name: Tạo GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Tạo SHA256SUMS.txt
+        working-directory: dist
+        run: sha256sum *.zip | tee SHA256SUMS.txt
+
+      - name: Tạo Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        run: |
+          gh release create "$TAG" dist/*.zip dist/SHA256SUMS.txt \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "TrafficMonitor-VN $TAG" \
+            --notes "Xem nhật ký thay đổi: https://github.com/$GITHUB_REPOSITORY/blob/main/UpdateLog/update_log_vi.md
+
+          Kiểm tra mã băm SHA-256 trong SHA256SUMS.txt và chứng thực nguồn gốc build (gh attestation verify) trước khi sử dụng — xem SECURITY.md."

@@ -1,0 +1,9 @@
+# Tự động đề xuất cập nhật phiên bản GitHub Actions (vá lỗ hổng chuỗi cung ứng CI)
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "ci"

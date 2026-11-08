@@ -1,0 +1,41 @@
+name: Báo lỗi
+description: Gửi báo cáo lỗi cho TrafficMonitor-VN
+labels: ["bug"]
+body:
+  - type: checkboxes
+    attributes:
+      label: Điều kiện trước khi gửi
+      options:
+        - label: Tôi đã tìm trong danh sách [issues](https://github.com/tsudev-tsudev/TrafficMonitor-VN/issues) và không thấy lỗi tương tự.
+          required: true
+        - label: Tôi đã đọc kỹ [Câu hỏi thường gặp](https://github.com/tsudev-tsudev/TrafficMonitor-VN/blob/main/Help.md).
+          required: true
+        - label: Báo cáo này KHÔNG chứa thông tin nhạy cảm (mật khẩu, khóa, địa chỉ IP nội bộ...). Lỗ hổng bảo mật vui lòng báo riêng theo SECURITY.md.
+          required: true
+  - type: input
+    attributes:
+      label: Phiên bản TrafficMonitor-VN đang dùng
+      description: Nhấp chuột phải vào biểu tượng TrafficMonitor ở khay hệ thống, chọn `Trợ giúp` → `Giới thiệu`.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Phiên bản hệ điều hành
+      description: Ví dụ Windows 11 24H2 (build 26100), x64
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Mô tả lỗi
+      description: "Để dễ quản lý, vui lòng không gộp nhiều lỗi không liên quan vào cùng một issue. Nêu rõ các bước tái hiện, kết quả mong đợi và kết quả thực tế."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Nhật ký lỗi (log)
+      description: "Tệp nhật ký nằm trong thư mục cấu hình của TrafficMonitor (mặc định %AppData%\\TrafficMonitor). Nội dung sẽ được tự động định dạng thành mã."
+      render: shell
+  - type: textarea
+    attributes:
+      label: Thông tin bổ sung
+      description: "Ảnh chụp màn hình hoặc thông tin khác (nếu có)."

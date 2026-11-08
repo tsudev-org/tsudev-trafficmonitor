@@ -1,0 +1,22 @@
+# Quy ước định dạng chung cho dự án TrafficMonitor-VN
+root = true
+
+[*]
+charset = utf-8-bom
+end_of_line = crlf
+insert_final_newline = false
+
+[*.{cpp,h,c,hpp}]
+indent_style = space
+indent_size = 4
+
+[*.{rc,rc2}]
+charset = unset
+
+[*.{md,yml,yaml,json}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+
+[*.yml]
+end_of_line = lf
