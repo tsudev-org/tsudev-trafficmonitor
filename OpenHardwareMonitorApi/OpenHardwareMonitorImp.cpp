@@ -133,13 +133,13 @@ namespace OpenHardwareMonitorApi
             {
                 String^ name = hardware->Sensors[i]->Name;
                 if (name != L"Bus Speed")
-                    m_all_cpu_clock[ClrStringToStdWstring(name)] = Convert::ToDouble(hardware->Sensors[i]->Value);
+                    m_all_cpu_clock[ClrStringToStdWstring(name)] = Convert::ToSingle(hardware->Sensors[i]->Value);
             }
         }
         float sum{};
         for (auto i : m_all_cpu_clock)
             sum += i.second;
-        freq = sum / m_all_cpu_clock.size() / 1000.0;
+        freq = sum / static_cast<float>(m_all_cpu_clock.size()) / 1000.0f;   //MHz -> GHz (float, tránh C4244)
         return true;
     }
 
@@ -152,7 +152,7 @@ namespace OpenHardwareMonitorApi
                 String^ name = hardware->Sensors[i]->Name;
                 if (name != L"CPU Total")
                 {
-                    cpu_usage = Convert::ToDouble(hardware->Sensors[i]->Value);
+                    cpu_usage = Convert::ToSingle(hardware->Sensors[i]->Value);
                     return true;
                 }
             }
@@ -182,7 +182,7 @@ namespace OpenHardwareMonitorApi
             //Tìm thấy cảm biến nhiệt độ
             if (hardware->Sensors[i]->SensorType == SensorType::Temperature)
             {
-                float cur_temperture = Convert::ToDouble(hardware->Sensors[i]->Value);
+                float cur_temperture = Convert::ToSingle(hardware->Sensors[i]->Value);
                 all_temperature.push_back(cur_temperture);
                 if (hardware->Sensors[i]->Name == temperature_name) //Nếu tìm thấy cảm biến nhiệt độ có tên temperature_name thì lưu nhiệt độ vào core_temperature
                     core_temperature = cur_temperture;
@@ -222,7 +222,7 @@ namespace OpenHardwareMonitorApi
             {
                 String^ name = hardware->Sensors[i]->Name;
                 //Lưu nhiệt độ của từng cảm biến CPU
-                m_all_cpu_temperature[ClrStringToStdWstring(name)] = Convert::ToDouble(hardware->Sensors[i]->Value);
+                m_all_cpu_temperature[ClrStringToStdWstring(name)] = Convert::ToSingle(hardware->Sensors[i]->Value);
             }
         }
         //Tính nhiệt độ trung bình
@@ -244,7 +244,7 @@ namespace OpenHardwareMonitorApi
             //Tìm thấy tải (load)
             if (hardware->Sensors[i]->SensorType == SensorType::Load)
             {
-                float cur_gpu_usage = Convert::ToDouble(hardware->Sensors[i]->Value);
+                float cur_gpu_usage = Convert::ToSingle(hardware->Sensors[i]->Value);
                 if (hardware->Sensors[i]->Name == L"GPU Core")
                 {
                     gpu_usage = cur_gpu_usage;
@@ -269,7 +269,7 @@ namespace OpenHardwareMonitorApi
             {
                 if (hardware->Sensors[i]->Name == L"Total Activity")
                 {
-                    hdd_usage = Convert::ToDouble(hardware->Sensors[i]->Value);
+                    hdd_usage = Convert::ToSingle(hardware->Sensors[i]->Value);
                     return true;
                 }
             }
