@@ -1535,7 +1535,7 @@ void CTrafficMonitorDlg::DoMonitorAcquisition()
         //theApp.m_hdd_temperature = theApp.m_pMonitor->HDDTemperature();
         theApp.m_main_board_temperature = theApp.m_pMonitor->MainboardTemperature();
         if (!gpu_usage_acquired)
-            theApp.m_gpu_usage = theApp.m_pMonitor->GpuUsage();
+            theApp.m_gpu_usage = static_cast<int>(theApp.m_pMonitor->GpuUsage());     //Phần trăm, bỏ phần lẻ như trước
         if (!cpu_freq_acquired)
             theApp.m_cpu_freq = theApp.m_pMonitor->CpuFreq();
         //Lấy nhiệt độ CPU
@@ -1586,7 +1586,7 @@ void CTrafficMonitorDlg::DoMonitorAcquisition()
                     iter = theApp.m_pMonitor->AllHDDUsage().begin();
                     theApp.m_general_data.hard_disk_name = iter->first;
                 }
-                theApp.m_hdd_usage = iter->second;
+                theApp.m_hdd_usage = static_cast<int>(iter->second);
             }
             else
             {
