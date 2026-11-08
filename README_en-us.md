@@ -4,7 +4,13 @@
 [![CodeQL](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/tsudev-trafficmonitor/codeql.yml?branch=main&label=CodeQL&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/codeql.yml)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
 
+<img src="./website/public/brand/logo-mark.png" alt="tsudev" height="56">
+
 # TrafficMonitor-VN
+
+Network speed, CPU and RAM monitor for Windows — the Vietnamese-localized, security-hardened edition of TrafficMonitor.
+
+A [tsudev](https://tsudev.com) product. Product page: [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com). Product class **C** (offline, no account; network is used only for update checks and the on-demand public IP lookup).
 
 TrafficMonitor-VN is a **Vietnamese-localized and security-hardened** fork of [TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor) by zhongyang219. It defaults to a Vietnamese UI, ships a complete embedded Vietnamese language pack, and adds HTTPS-only networking, strict update-link validation, DLL-hijacking protection and Control Flow Guard/CET/ASLR/DEP build hardening. See [SECURITY.md](./SECURITY.md) (Vietnamese) for details.
 

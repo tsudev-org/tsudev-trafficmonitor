@@ -45,6 +45,10 @@
 #define FORK_PLUGIN_DOWNLOAD_URL    L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/Plugin.md"
 #define FORK_PLUGIN_DEV_GUIDE_URL   L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/PhatTrienPlugin.md"
 
+// Hệ sinh thái tsudev (ECOSYSTEM_IDENTITY mục 2.3: hộp thoại Giới thiệu có liên kết tới tsudev.com)
+#define TSUDEV_HOME_URL             L"https://tsudev.com"
+#define FORK_PRODUCT_URL            L"https://trafficmonitor.tsudev.com"
+
 // Repo gốc (giữ để ghi công tác giả theo yêu cầu giấy phép)
 #define UPSTREAM_REPO_URL           L"https://github.com/zhongyang219/TrafficMonitor"
 

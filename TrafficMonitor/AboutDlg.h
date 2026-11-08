@@ -18,7 +18,8 @@ protected:
     CLinkStatic m_mail;             //Siêu liên kết “Liên hệ tác giả”
     CLinkStatic m_acknowledgement;  //Siêu liên kết “Lời cảm ơn”
     CLinkStatic m_github;           //Siêu liên kết “GitHub”
-    CLinkStatic m_gitee;            //Siêu liên kết “Gitee”
+    CLinkStatic m_gitee;            //Siêu liên kết “Dự án gốc”
+    CLinkStatic m_tsudev;           //Siêu liên kết “tsudev.com”
     CLinkStatic m_license;          //Siêu liên kết “Giấy phép mã nguồn mở”
     CToolTipCtrl m_tool_tip;            //Chú giải (tooltip) khi trỏ chuột vào
     CLinkStatic m_translator_static;
