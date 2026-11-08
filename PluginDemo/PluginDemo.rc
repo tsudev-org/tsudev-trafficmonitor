@@ -1,0 +1,254 @@
+﻿// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Vietnamese (Vietnam) resources - Tài nguyên tiếng Việt
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_VIT)
+LANGUAGE LANG_VIETNAMESE, SUBLANG_DEFAULT
+#pragma code_page(65001)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_OPTIONS_DIALOG DIALOGEX 0, 0, 165, 77
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Thiết lập ngày và giờ"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "Đồng ý",IDOK,50,56,50,14
+    PUSHBUTTON      "Hủy",IDCANCEL,108,56,50,14
+    GROUPBOX        "Định dạng",IDC_STATIC,7,7,151,45
+    CONTROL         "Hiển thị giây",IDC_SHOW_SECOND_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,21,63,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_OPTIONS_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 158
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 70
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_OPTIONS_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "042a04b0"
+        BEGIN
+            VALUE "CompanyName", "By ZhongYang"
+            VALUE "FileDescription", "Plugin Demo for TrafficMonitor"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "PluginDe.dll"
+            VALUE "LegalCopyright", "Copyright (C) 2021 By ZhongYang"
+            VALUE "OriginalFilename", "PluginDe.dll"
+            VALUE "ProductName", "Plugin Demo for TrafficMonitor"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x42a, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON                    "res\\icon.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+IDB_PNG1                PNG                     "res\\icon1.png"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_PLUGIN_NAME         "Plugin mẫu cho TrafficMonitor"
+    IDS_PLUGIN_DESCRIPTION  "Plugin mẫu cho TrafficMonitor, cung cấp ví dụ để nhà phát triển xây dựng plugin cho TrafficMonitor."
+    IDS_TIME                "Giờ"
+    IDS_DATE                "Ngày"
+    IDS_CUSTOM_DRAW_ITEM    "Ví dụ tự vẽ"
+    IDS_CUSTOM_DRAW_ITEM2   "Ví dụ tự vẽ biểu tượng và văn bản"
+END
+
+#endif    // Vietnamese (Vietnam) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources - Tài nguyên tiếng Anh (Mỹ)
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(65001)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_OPTIONS_DIALOG DIALOGEX 0, 0, 165, 74
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Time and date settings"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,50,53,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,108,53,50,14
+    GROUPBOX        "Format",IDC_STATIC,7,7,151,42
+    CONTROL         "Show seconds",IDC_SHOW_SECOND_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,21,63,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_OPTIONS_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 158
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 67
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_OPTIONS_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_PLUGIN_NAME         "A sample plug-in for TrafficMonitor."
+    IDS_PLUGIN_DESCRIPTION  "A sample plug-in for TrafficMonitor, providing an example for developers to develop TrafficMonitor plug-ins."
+    IDS_TIME                "Time"
+    IDS_DATE                "Date"
+    IDS_CUSTOM_DRAW_ITEM    "Custom draw example"
+    IDS_CUSTOM_DRAW_ITEM2   "Custom draw icon and text example"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

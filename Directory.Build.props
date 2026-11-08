@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Directory.Build.props — Gia cố bảo mật cho mọi project C++ trong TrafficMonitor-VN.
+  MSBuild tự động import tệp này cho tất cả project nằm trong thư mục con.
+
+  Áp dụng cho cấu hình Release (gồm "Release" và "Release (lite)"):
+    /sdl              : bật kiểm tra SDL bổ sung (cảnh báo nguy hiểm thành lỗi, khởi tạo con trỏ...)
+    /GS               : kiểm tra tràn bộ đệm trên stack (stack cookie)
+    /guard:cf         : Control Flow Guard — chặn chuyển luồng thực thi tới địa chỉ không hợp lệ
+    /DYNAMICBASE      : ASLR — ngẫu nhiên hóa địa chỉ nạp
+    /HIGHENTROPYVA    : ASLR 64-bit entropy cao (chỉ x64)
+    /NXCOMPAT         : DEP — cấm thực thi mã trên vùng dữ liệu
+    /CETCOMPAT        : tương thích Intel CET Shadow Stack (x86/x64)
+
+  Lưu ý: project C++/CLI (CLRSupport=true, ví dụ OpenHardwareMonitorApi) không hỗ trợ /guard:cf và /CETCOMPAT
+  nên được loại trừ khỏi hai cờ này.
+-->
+<Project>
+  <ItemDefinitionGroup Condition="$(Configuration.StartsWith('Release'))">
+    <ClCompile>
+      <SDLCheck>true</SDLCheck>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <ControlFlowGuard Condition="'$(CLRSupport)' != 'true'">Guard</ControlFlowGuard>
+    </ClCompile>
+    <Link>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <CETCompat Condition="'$(CLRSupport)' != 'true' and ('$(Platform)' == 'Win32' or '$(Platform)' == 'x64')">true</CETCompat>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="$(Configuration.StartsWith('Release')) and '$(Platform)' == 'x64'">
+    <Link>
+      <HighEntropyVA>true</HighEntropyVA>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

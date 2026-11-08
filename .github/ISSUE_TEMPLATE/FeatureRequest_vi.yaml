@@ -1,0 +1,28 @@
+name: Đề xuất tính năng
+description: Đề xuất một tính năng mới cho TrafficMonitor-VN
+labels: ["enhancement"]
+body:
+  - type: checkboxes
+    attributes:
+      label: Điều kiện trước khi gửi
+      options:
+        - label: Tôi đã tìm trong danh sách [issues](https://github.com/tsudev-tsudev/TrafficMonitor-VN/issues) và chưa có đề xuất tương tự.
+          required: true
+        - label: Tôi đã đọc [README](https://github.com/tsudev-tsudev/TrafficMonitor-VN#readme) và tính năng này chưa có sẵn.
+          required: true
+  - type: input
+    attributes:
+      label: Phiên bản TrafficMonitor-VN đang dùng
+      description: Nhấp chuột phải vào biểu tượng TrafficMonitor ở khay hệ thống, chọn `Trợ giúp` → `Giới thiệu`.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Mô tả tính năng
+      description: "Mỗi issue chỉ nên đề xuất một tính năng. Hãy mô tả vấn đề cần giải quyết và cách bạn mong muốn nó hoạt động."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Thông tin bổ sung
+      description: "Thông tin khác bạn muốn cung cấp (nếu có)."

@@ -1,0 +1,15 @@
+﻿<root>
+	<version>1.87</version>
+	<GitHub>
+		<link>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x86_Lite.zip</link>
+		<link_x64>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x64_Lite.zip</link_x64>
+		<link_arm64ec>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_arm64ec_Lite.zip</link_arm64ec>
+		<link_without_temperature>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x86_Lite.zip</link_without_temperature>
+		<link_without_temperature_x64>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x64_Lite.zip</link_without_temperature_x64>
+		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_arm64ec_Lite.zip</link_without_temperature_arm64ec>
+	</GitHub>
+	<update_contents>
+		<contents_vi>Bản V1.87-vn. Kho mã chuyển sang github.com/tsudev-tsudev/tsudev-trafficmonitor; các lần kiểm tra cập nhật sau sẽ dùng kho mới.\nTự chọn đúng card mạng đang dùng (bỏ qua card ảo Hyper-V/WSL); nhãn cửa sổ nổi đổi thành ↑/↓.\nSửa crash có thể xảy ra khi mở Quản lý Plugin lúc đang kiểm tra cập nhật; sửa lỗi menu plugin trên bản 64-bit.\nLiên kết Kho giao diện, Plugin, hướng dẫn chuyển về trang tiếng Việt; sửa nhiều chỗ chữ bị cắt hoặc lặp.</contents_vi>
+		<contents_en>Release V1.87-vn. The repository moved to github.com/tsudev-tsudev/tsudev-trafficmonitor; future update checks use the new repository.\nAutomatically selects the active network adapter (skips Hyper-V/WSL virtual adapters); floating window labels are now ↑/↓.\nFixed a possible crash when opening Plugin Manager during an update check; fixed plugin menus on 64-bit builds.\nSkin, plugin and guide links now open Vietnamese pages; fixed several truncated or duplicated texts.</contents_en>
+	</update_contents>
+</root>

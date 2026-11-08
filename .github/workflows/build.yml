@@ -1,0 +1,82 @@
+# Build kiểm tra cho mỗi lần push/PR: bản Lite cho x86, x64, ARM64EC + kiểm tra bản Việt hóa
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Quyền tối thiểu: chỉ đọc mã nguồn
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  i18n-check:
+    name: Kiểm tra Việt hóa
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Kiểm tra gói ngôn ngữ và mã nguồn
+        run: python3 -I tools/check_i18n.py
+
+  build:
+    name: Build ${{ matrix.platform }}
+    needs: i18n-check
+    runs-on: windows-2022   # Ghim VS 2022 (v143 + MFC); windows-latest dùng VS 2026 chưa có MFC cho v143
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: x64
+            outdir: Bin/x64/Release (lite)
+          - platform: x86
+            outdir: Bin/Release (lite)
+          - platform: ARM64EC
+            outdir: Bin/ARM64EC/Release (lite)
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Thêm MSBuild vào PATH
+        uses: microsoft/setup-msbuild@v3
+
+      - name: Build TrafficMonitor (Lite)
+        env:
+          # Coi các cảnh báo ép kiểu số / cắt con trỏ / ký tự ngoài code page là lỗi để không phát sinh lại
+          CL: /we4244 /we4267 /we4018 /we4302 /we4311 /we4566
+        run: msbuild TrafficMonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143
+
+      - name: Kiểm tra cờ bảo mật của tệp thực thi
+        shell: pwsh
+        run: |
+          $exe = Join-Path "${{ matrix.outdir }}" "TrafficMonitor.exe"
+          $dumpbin = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -find "VC\Tools\MSVC\**\bin\Hostx64\x64\dumpbin.exe" | Select-Object -First 1
+          $headers = & $dumpbin /headers /loadconfig $exe | Out-String
+          $required = @("Dynamic base", "NX compatible", "Guard")
+          if ("${{ matrix.platform }}" -ne "ARM64EC") { $required += "CET compatible" }
+          $missing = $required | Where-Object { $headers -notmatch [regex]::Escape($_) }
+          if ($missing) { Write-Error "Thiếu cờ bảo mật: $($missing -join ', ')"; exit 1 }
+          Write-Host "Đủ cờ bảo mật: $($required -join ', ')"
+
+      - name: Tải lên artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: TrafficMonitor-VN_${{ matrix.platform }}_Lite_${{ github.sha }}
+          path: |
+            ${{ matrix.outdir }}/TrafficMonitor.exe
+            ${{ matrix.outdir }}/*.dll
+            ${{ matrix.outdir }}/*.pdb
+          if-no-files-found: error
+          retention-days: 14

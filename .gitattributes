@@ -1,0 +1,13 @@
+# Mã nguồn C++ và tài nguyên giữ nguyên định dạng gốc (CRLF), không để git tự chuyển đổi
+*.cpp   -text diff
+*.h     -text diff
+*.rc    -text diff=utf16
+*.rc2   -text diff=utf16
+*.ini   -text diff
+*.vcxproj* -text
+*.sln   -text
+*.dll   binary
+*.ico   binary
+*.bmp   binary
+*.png   binary
+.github/** text eol=lf
