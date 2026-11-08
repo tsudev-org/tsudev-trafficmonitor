@@ -4,7 +4,7 @@
 
 Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tại [update_log_en-us.md](./update_log_en-us.md).
 
-## Chưa phát hành
+## V1.88-vn (2026-11-09) — Bản cập nhật có chữ ký số
 
 ### Nhận diện tsudev
 * Thông tin tệp chương trình: nhà phát hành `tsudev`, `Copyright (c) 2026 tsudev` (giữ ghi công ZhongYang), kèm `https://tsudev.com`.
@@ -18,6 +18,9 @@ Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tạ
 * **Thông tin phiên bản có chữ ký:** kiểm tra cập nhật đọc `version_signed.xml` của bản phát hành mới nhất và chỉ tin khi chữ ký ECDSA P-256 hợp lệ (xác minh bằng Windows CNG, khóa công khai nhúng trong ứng dụng); chỉ báo cập nhật khi phiên bản lớn hơn bản đang chạy. Hộp thoại cập nhật hiện SHA-256 của gói để đối chiếu sau khi tải.
 * Truy cập mạng: sau khi theo chuyển hướng, URL cuối phải là HTTPS và thuộc danh sách máy chủ cho phép.
 * SECURITY.md: mô tả chuỗi tin cậy (chữ ký → SHA-256 → chứng thực build) và cách tự kiểm tra.
+
+### Bản đầy đủ (đo nhiệt độ)
+* Đọc giá trị cảm biến dạng `float` thay vì `double` rồi ép ngầm; ép kiểu tường minh mức dùng GPU/ổ cứng. CI build thêm bản đầy đủ x64 (không phát hành) với cùng mức kiểm tra cảnh báo như bản Lite.
 
 ## V1.87-vn (2026-11-08) — Bản cầu nối sang kho mã mới
 
