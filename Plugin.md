@@ -22,7 +22,7 @@ Quản lý plugin tại **Cài đặt** → **Cài đặt Chung** → **Nâng ca
 
 * **Plugin mẫu** `PluginDemo` (ngày, giờ, mục tự vẽ) được dựng cùng mã nguồn của TrafficMonitor-VN trong thư mục [`PluginDemo`](./PluginDemo); dùng để thử nghiệm và làm mẫu khi viết plugin.
 * **Plugin của dự án gốc**: tác giả TrafficMonitor (zhongyang219) phát hành bộ plugin riêng tại kho [TrafficMonitorPlugins](https://github.com/zhongyang219/TrafficMonitorPlugins). Các plugin này **không do TrafficMonitor-VN phát triển hay kiểm duyệt**, nhưng dùng chung giao diện plugin nên chạy được trên TrafficMonitor-VN. Hộp thoại **Quản lý Plugin** đánh dấu khi có phiên bản mới hơn của các plugin này.
-* **Plugin của bạn**: xem [Phát triển plugin](./PhatTrienPlugin.md). Muốn giới thiệu plugin trên trang này, hãy mở [Issue](https://github.com/tsudev-tsudev/TrafficMonitor-VN/issues) kèm liên kết mã nguồn.
+* **Plugin của bạn**: xem [Phát triển plugin](./PhatTrienPlugin.md). Muốn giới thiệu plugin trên trang này, hãy mở [Issue](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues) kèm liên kết mã nguồn.
 
 ## Khắc phục sự cố
 

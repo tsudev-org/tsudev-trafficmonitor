@@ -1,8 +1,8 @@
 **Tiếng Việt | [English](./README_en-us.md)**
 
-[![Build](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/TrafficMonitor-VN/build.yml?branch=main&label=Build&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/TrafficMonitor-VN/actions/workflows/build.yml)
-[![CodeQL](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/TrafficMonitor-VN/codeql.yml?branch=main&label=CodeQL&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/TrafficMonitor-VN/actions/workflows/codeql.yml)
-[![Release](https://img.shields.io/github/v/release/tsudev-tsudev/TrafficMonitor-VN?style=flat-square)](https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/latest)
+[![Build](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/tsudev-trafficmonitor/build.yml?branch=main&label=Build&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/tsudev-trafficmonitor/codeql.yml?branch=main&label=CodeQL&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/codeql.yml)
+[![Release](https://img.shields.io/github/v/release/tsudev-tsudev/tsudev-trafficmonitor?style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest)
 [![License](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
 
 # TrafficMonitor-VN
@@ -22,7 +22,7 @@
 ### Bảo mật
 | Hạng mục | Bản gốc | TrafficMonitor-VN |
 |---|---|---|
-| Nguồn cập nhật | GitHub hoặc Gitee | Chỉ repo TrafficMonitor-VN trên GitHub |
+| Nguồn cập nhật | GitHub hoặc Gitee | Chỉ repo tsudev-trafficmonitor trên GitHub |
 | Kiểm tra liên kết tải bản cập nhật | Chấp nhận mọi đường dẫn `github.com/`, `gitee.com/` | Chỉ chấp nhận trang Releases của repo này, chặn `..`, `@`, `?`, `#`, `%`, chỉ `.zip`/`.exe` |
 | So sánh phiên bản | So sánh chuỗi (sai khi `1.100` vs `1.86`) | So sánh theo số |
 | Giao thức tải dữ liệu | Mọi giao thức `OpenURL` hỗ trợ (kể cả `file://`, `ftp://`) | **Chỉ HTTPS**, có timeout, giới hạn 1 MB, không cache/cookie |
@@ -35,8 +35,8 @@ Chi tiết xem [SECURITY.md](./SECURITY.md).
 
 ## Tải về
 
-* Bản phát hành: [Releases](https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/latest). Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` — hãy đối chiếu mã băm trước khi chạy (xem [SECURITY.md](./SECURITY.md#kiểm-tra-tính-toàn-vẹn-tệp-tải-về)).
-* Bản build thử nghiệm: tab [Actions](https://github.com/tsudev-tsudev/TrafficMonitor-VN/actions/workflows/build.yml) (cần đăng nhập GitHub).
+* Bản phát hành: [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` — hãy đối chiếu mã băm trước khi chạy (xem [SECURITY.md](./SECURITY.md#kiểm-tra-tính-toàn-vẹn-tệp-tải-về)).
+* Bản build thử nghiệm: tab [Actions](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml) (cần đăng nhập GitHub).
 
 TrafficMonitor-VN **chỉ** được phát hành qua repo GitHub trên. Mọi trang web khác tự xưng là “trang chính thức” đều không liên quan.
 
@@ -129,7 +129,7 @@ Cấu hình riêng của bản Việt hóa (repo, URL cập nhật, ngôn ngữ 
 
 ### Đồng bộ với dự án gốc
 
-Lịch sử commit của TrafficMonitor-VN đã được viết lại (tiêu đề commit dịch sang tiếng Việt), nên không còn chung lịch sử với dự án gốc và không thể `git merge` trực tiếp. Để lấy bản sửa mới từ dự án gốc, hãy áp dụng từng thay đổi bằng bản vá:
+Repo này bắt đầu bằng một commit nhập mã nguồn (từ bản V1.87-vn); lịch sử commit trước đó, gồm cả lịch sử của dự án gốc, được lưu ở repo cũ [tsudev-tsudev/TrafficMonitor-VN](https://github.com/tsudev-tsudev/TrafficMonitor-VN) (chỉ đọc). Vì vậy repo không chung lịch sử với dự án gốc và không thể `git merge` trực tiếp. Để lấy bản sửa mới từ dự án gốc, hãy áp dụng từng thay đổi bằng bản vá:
 
 ```bash
 git remote add upstream https://github.com/zhongyang219/TrafficMonitor.git   # chỉ cần một lần
@@ -142,7 +142,7 @@ Commit dự án gốc đã đồng bộ gần nhất: `930f175` (v1.86). Vì ch�
 
 ## Đóng góp
 
-* Báo lỗi / đề xuất: [Issues](https://github.com/tsudev-tsudev/TrafficMonitor-VN/issues/new/choose).
+* Báo lỗi / đề xuất: [Issues](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues/new/choose).
 * Lỗ hổng bảo mật: **không** đăng công khai, xem [SECURITY.md](./SECURITY.md).
 * Nhật ký thay đổi: [UpdateLog/update_log_vi.md](./UpdateLog/update_log_vi.md).
 
