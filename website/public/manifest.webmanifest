@@ -1,0 +1,16 @@
+{
+  "name": "TrafficMonitor-VN | tsudev",
+  "short_name": "TrafficMonitor",
+  "description": "Theo dõi tốc độ mạng, CPU, RAM trên Windows, giao diện tiếng Việt.",
+  "lang": "vi",
+  "start_url": "/",
+  "display": "browser",
+  "theme_color": "#EEF4FB",
+  "background_color": "#EEF4FB",
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/android-chrome-maskable-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/android-chrome-maskable-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

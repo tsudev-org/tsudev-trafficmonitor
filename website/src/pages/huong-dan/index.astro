@@ -1,0 +1,16 @@
+---
+import TaiLieu from '../../components/TaiLieu.astro';
+
+const trang = [
+  { href: '/huong-dan/hoi-dap/', t: 'Hỏi đáp', d: 'Các câu hỏi thường gặp: hiện trên thanh tác vụ, số liệu không khớp, lỗi khi chạy.' },
+  { href: '/huong-dan/kho-giao-dien/', t: 'Kho giao diện', d: 'Các mẫu giao diện (skin) có sẵn và cách đổi.' },
+  { href: '/huong-dan/tu-lam-giao-dien/', t: 'Tự làm giao diện', d: 'Cấu trúc tệp skin, bố cục, hình nền, màu chữ.' },
+  { href: '/huong-dan/plugin/', t: 'Plugin', d: 'Cài và quản lý plugin để hiện thêm thông số.' },
+  { href: '/huong-dan/phat-trien-plugin/', t: 'Phát triển plugin', d: 'Viết plugin riêng bằng C++ theo giao diện ITMPlugin.' },
+];
+---
+<TaiLieu tieuDe="Hướng dẫn" moTa="Hướng dẫn dùng TrafficMonitor-VN: hỏi đáp thường gặp, đổi và tự làm giao diện, cài plugin, viết plugin riêng bằng C++ cho Windows." duongDan="/huong-dan/" html="<h1>Hướng dẫn</h1>">
+  <ul class="the-luoi">
+    {trang.map((x) => <li class="the"><h3><a href={x.href}>{x.t}</a></h3><p>{x.d}</p></li>)}
+  </ul>
+</TaiLieu>

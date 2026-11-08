@@ -1,0 +1,57 @@
+---
+import Trang from '../layouts/Trang.astro';
+import { banMoiNhat, REPO, TEN_KIEN_TRUC } from '../lib/noi-dung';
+
+const ban = await banMoiNhat();
+const mb = (b: number) => `${(b / 1024 / 1024).toFixed(1)} MB`;
+---
+<Trang tieuDe="Tải về" moTa="Tải TrafficMonitor-VN cho Windows x64, x86, ARM64EC; kèm mã SHA-256 và cách kiểm tra chứng thực nguồn gốc build trước khi chạy." duongDan="/tai-ve/">
+  <div class="khung tai-lieu">
+    <nav class="tai-lieu__menu" aria-label="Tải về">
+      <p>Tải về</p>
+      <ul>
+        <li><a href="#chon-goi">Chọn gói</a></li>
+        <li><a href="#kiem-tra">Kiểm tra tệp</a></li>
+        <li><a href="#cai-dat">Cài đặt</a></li>
+      </ul>
+    </nav>
+    <article class="van-ban">
+      <h1>Tải TrafficMonitor-VN {ban.phienBan}</h1>
+      <p>Phát hành ngày {ban.ngay}. Mọi gói đều được build tự động trên GitHub Actions từ mã nguồn công khai; trang này chỉ dẫn tới <a href={ban.url} target="_blank" rel="noopener noreferrer">trang phát hành trên GitHub</a>, không lưu bản sao.</p>
+
+      <h2 id="chon-goi">Chọn gói</h2>
+      <div class="goi">
+        {ban.goi.map((g) => (
+          <div class="goi__muc">
+            <div>
+              <h3>{TEN_KIEN_TRUC[g.kienTruc] ?? g.kienTruc}</h3>
+              <p class="goi__ten">{g.ten} · {mb(g.kichThuoc)}</p>
+            </div>
+            <a class={`nut ${g.kienTruc === 'x64' ? 'nut--chinh' : 'nut--phu'}`} href={g.url}>Tải về</a>
+            {g.sha256 && <p class="goi__bam">SHA-256: {g.sha256}</p>}
+          </div>
+        ))}
+      </div>
+      <p>Không chắc máy mình dùng bản nào? Mở <strong>Cài đặt → Hệ thống → Giới thiệu</strong>, xem dòng <em>Loại hệ thống</em>. Phần lớn máy hiện nay dùng bản <strong>x64</strong>.</p>
+
+      <h2 id="kiem-tra">Kiểm tra tệp trước khi chạy</h2>
+      <p>1. So mã SHA-256 của tệp tải về với mã ở trên (hoặc tệp <code>SHA256SUMS.txt</code> trong trang phát hành). Trong PowerShell:</p>
+      <pre><code>Get-FileHash .\TrafficMonitor-VN_V{ban.phienBan}_x64_Lite.zip -Algorithm SHA256</code></pre>
+      <p>2. Kiểm tra chứng thực nguồn gốc build (cần <a href="https://cli.github.com/" target="_blank" rel="noopener noreferrer">GitHub CLI</a>):</p>
+      <pre><code>gh attestation verify TrafficMonitor-VN_V{ban.phienBan}_x64_Lite.zip -R {REPO}</code></pre>
+      <div class="chu-y">
+        <p><strong>Chỉ tải từ trang này hoặc trang GitHub của dự án.</strong> Mọi trang khác tự xưng là "trang chính thức" đều không liên quan.</p>
+        <p>Ứng dụng tự kiểm tra bản cập nhật: thông tin phiên bản được ký số và hộp thoại cập nhật hiện mã SHA-256 để bạn đối chiếu. Xem <a href="/bao-mat/">Bảo mật</a>.</p>
+      </div>
+
+      <h2 id="cai-dat">Cài đặt</h2>
+      <ol>
+        <li>Giải nén tệp zip vào một thư mục cố định, ví dụ <code>C:\Tools\TrafficMonitor</code>.</li>
+        <li>Chạy <code>TrafficMonitor.exe</code>. Giao diện mặc định là tiếng Việt.</li>
+        <li>Muốn hiện tốc độ trên thanh tác vụ: nhấp chuột phải vào cửa sổ nổi, chọn <strong>Hiện ở dưới Taskbar</strong>.</li>
+        <li>Nếu báo thiếu <code>MSVC*.dll</code> hoặc <code>mfc*.dll</code>, cài <a href="https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist" target="_blank" rel="noopener noreferrer">Microsoft Visual C++ Redistributable</a>.</li>
+      </ol>
+      <p>Câu hỏi thường gặp ở trang <a href="/huong-dan/hoi-dap/">Hỏi đáp</a>.</p>
+    </article>
+  </div>
+</Trang>
