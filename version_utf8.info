@@ -1,12 +1,12 @@
 ﻿<root>
 	<version>1.87</version>
 	<GitHub>
-		<link>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x86_Lite.zip</link>
-		<link_x64>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x64_Lite.zip</link_x64>
-		<link_arm64ec>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_arm64ec_Lite.zip</link_arm64ec>
-		<link_without_temperature>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x86_Lite.zip</link_without_temperature>
-		<link_without_temperature_x64>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x64_Lite.zip</link_without_temperature_x64>
-		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_arm64ec_Lite.zip</link_without_temperature_arm64ec>
+		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x86_Lite.zip</link>
+		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x64_Lite.zip</link_x64>
+		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_arm64ec_Lite.zip</link_arm64ec>
+		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x86_Lite.zip</link_without_temperature>
+		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_x64_Lite.zip</link_without_temperature_x64>
+		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.87-vn/TrafficMonitor-VN_V1.87_arm64ec_Lite.zip</link_without_temperature_arm64ec>
 	</GitHub>
 	<update_contents>
 		<contents_vi>Bản V1.87-vn. Kho mã chuyển sang github.com/tsudev-tsudev/tsudev-trafficmonitor; các lần kiểm tra cập nhật sau sẽ dùng kho mới.\nTự chọn đúng card mạng đang dùng (bỏ qua card ảo Hyper-V/WSL); nhãn cửa sổ nổi đổi thành ↑/↓.\nSửa crash có thể xảy ra khi mở Quản lý Plugin lúc đang kiểm tra cập nhật; sửa lỗi menu plugin trên bản 64-bit.\nLiên kết Kho giao diện, Plugin, hướng dẫn chuyển về trang tiếng Việt; sửa nhiều chỗ chữ bị cắt hoặc lặp.</contents_vi>

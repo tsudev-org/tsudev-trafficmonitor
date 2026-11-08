@@ -5,9 +5,9 @@ body:
     attributes: 
       label: Prerequisites
       options:
-        - label: I have searched for related issues in the [issues](https://github.com/tsudev-tsudev/TrafficMonitor-VN/issues) list.
+        - label: I have searched for related issues in the [issues](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues) list.
           required: true
-        - label: I have read the [wiki](https://github.com/tsudev-tsudev/TrafficMonitor-VN#readme) page and make sure that the current version of TrafficMonitor does not provide this feature.
+        - label: I have read the [wiki](https://github.com/tsudev-tsudev/tsudev-trafficmonitor#readme) page and make sure that the current version of TrafficMonitor does not provide this feature.
           required: true
   - type: input
     attributes:

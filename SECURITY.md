@@ -2,13 +2,13 @@
 
 ## Phiên bản được hỗ trợ
 
-Chỉ **bản phát hành mới nhất** trên trang [Releases](https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/latest) nhận bản vá bảo mật.
+Chỉ **bản phát hành mới nhất** trên trang [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest) nhận bản vá bảo mật.
 
 ## Báo cáo lỗ hổng
 
 **Không** báo lỗ hổng bảo mật qua Issues công khai.
 
-Hãy dùng tính năng **[Private vulnerability reporting](https://github.com/tsudev-tsudev/TrafficMonitor-VN/security/advisories/new)** của GitHub (tab *Security* → *Report a vulnerability*). Vui lòng cung cấp:
+Hãy dùng tính năng **[Private vulnerability reporting](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/security/advisories/new)** của GitHub (tab *Security* → *Report a vulnerability*). Vui lòng cung cấp:
 
 * Phiên bản, kiến trúc (x86/x64/ARM64EC), phiên bản Windows.
 * Mô tả lỗ hổng, mức ảnh hưởng và các bước tái hiện (PoC tối thiểu nếu có).
@@ -30,7 +30,7 @@ So sánh kết quả với dòng tương ứng trong `SHA256SUMS.txt`. Nếu kh�
 Bản phát hành còn kèm **chứng thực nguồn gốc build** (build provenance attestation) của GitHub. Có thể xác minh bằng GitHub CLI:
 
 ```bash
-gh attestation verify TrafficMonitor-VN_V1.86_x64_Lite.zip --repo tsudev-tsudev/TrafficMonitor-VN
+gh attestation verify TrafficMonitor-VN_V1.86_x64_Lite.zip --repo tsudev-tsudev/tsudev-trafficmonitor
 ```
 
 ## Mô hình mối đe dọa và biện pháp đã áp dụng
@@ -41,7 +41,7 @@ TrafficMonitor là ứng dụng desktop chạy với quyền người dùng (b�
 *Rủi ro:* tệp thông tin phiên bản bị giả mạo (tấn công chuỗi cung ứng, MITM) dẫn người dùng tới tệp độc hại.
 
 * Chỉ tải `version_utf8.info` từ repo này qua **HTTPS** (chứng chỉ TLS luôn được kiểm tra).
-* Liên kết tải phải bắt đầu **chính xác** bằng `https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/download/`, không chứa `..`, `@`, `?`, `#`, `%`, `\`, khoảng trắng hay ký tự điều khiển, và chỉ trỏ tới `.zip`/`.exe`. Liên kết được kiểm tra **hai lần** (khi phân tích và ngay trước khi mở).
+* Liên kết tải phải bắt đầu **chính xác** bằng `https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/`, không chứa `..`, `@`, `?`, `#`, `%`, `\`, khoảng trắng hay ký tự điều khiển, và chỉ trỏ tới `.zip`/`.exe`. Liên kết được kiểm tra **hai lần** (khi phân tích và ngay trước khi mở).
 * Chương trình **không tự tải và không tự chạy** bản cập nhật; chỉ mở trang tải trong trình duyệt sau khi người dùng đồng ý.
 * Chuỗi phiên bản được kiểm tra định dạng và so sánh theo số.
 

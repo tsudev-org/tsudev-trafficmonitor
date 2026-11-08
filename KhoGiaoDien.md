@@ -39,7 +39,7 @@ Xem [Hướng dẫn tạo skin](./HuongDanTaoSkin.md): bố cục, toạ độ t
 
 ## Đóng góp skin
 
-Bạn có skin muốn chia sẻ? Mở [Issue](https://github.com/tsudev-tsudev/TrafficMonitor-VN/issues) hoặc Pull Request thêm thư mục skin vào `TrafficMonitor/skins` kèm:
+Bạn có skin muốn chia sẻ? Mở [Issue](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues) hoặc Pull Request thêm thư mục skin vào `TrafficMonitor/skins` kèm:
 
 * ảnh nền do bạn tự thiết kế hoặc có quyền phân phối lại (không dùng logo, nhân vật, hình ảnh có bản quyền của bên thứ ba);
 * tên tác giả trong `skin_author` của tệp cấu hình;

@@ -142,10 +142,10 @@ Xem cách cài, nguồn plugin và khắc phục sự cố tại trang [Plugin](
 
 1. Khởi động lại chương trình và **tắt toàn bộ** mục trong **Cài đặt Chung** → **Theo dõi Phần cứng** — phần lớn sự cố liên quan đến tính năng này.
 2. Nếu vẫn lỗi, vào **Nâng cao** → **Quản lý Plugin...** và vô hiệu hóa mọi plugin rồi khởi động lại. (Nếu chương trình không mở được, xóa các tệp `.dll` trong thư mục `plugins` cạnh `TrafficMonitor.exe`.)
-3. Nếu đã loại trừ hai nguyên nhân trên, hãy [tạo issue báo lỗi](https://github.com/tsudev-tsudev/TrafficMonitor-VN/issues/new/choose) kèm nội dung trong cửa sổ báo lỗi.
+3. Nếu đã loại trừ hai nguyên nhân trên, hãy [tạo issue báo lỗi](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues/new/choose) kèm nội dung trong cửa sổ báo lỗi.
 
 ### Góp ý, báo lỗi
 
-Vui lòng gửi qua [GitHub Issues của TrafficMonitor-VN](https://github.com/tsudev-tsudev/TrafficMonitor-VN/issues). Hãy mô tả chi tiết lỗi, thông báo lỗi, các bước đã thử, kèm ảnh chụp màn hình và tệp cấu hình (**Cài đặt Chung** → **Mở thư mục**) nếu có thể. **Không** đính kèm thông tin nhạy cảm.
+Vui lòng gửi qua [GitHub Issues của TrafficMonitor-VN](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues). Hãy mô tả chi tiết lỗi, thông báo lỗi, các bước đã thử, kèm ảnh chụp màn hình và tệp cấu hình (**Cài đặt Chung** → **Mở thư mục**) nếu có thể. **Không** đính kèm thông tin nhạy cảm.
 
 Lỗ hổng bảo mật vui lòng báo riêng theo hướng dẫn trong [SECURITY.md](./SECURITY.md), không đăng công khai.
