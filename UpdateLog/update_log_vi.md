@@ -6,6 +6,11 @@ Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tạ
 
 ## Chưa phát hành
 
+### Nhận diện tsudev
+* Thông tin tệp chương trình: nhà phát hành `tsudev`, `Copyright (c) 2026 tsudev` (giữ ghi công ZhongYang), kèm `https://tsudev.com`.
+* Hộp thoại Giới thiệu thêm liên kết tới [tsudev.com](https://tsudev.com).
+* Trang sản phẩm [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com): tải về kèm SHA-256, hướng dẫn, nhật ký, bảo mật.
+
 ### Bảo mật
 * Mọi URL ứng dụng dùng (kể cả ghi công thư viện bên thứ ba và dịch vụ tra IP công cộng) khai báo một chỗ duy nhất trong `ForkConfig.h`; bỏ hàm thử nghiệm không dùng gọi tới một trang bên ngoài.
 * Thêm `tools/check_urls.py` chạy trong CI: chặn `http://`, URL ngoài danh sách cho phép và URL viết thẳng trong mã C++ ngoài `ForkConfig.h`; kiểm tra liên kết còn sống hằng tuần.

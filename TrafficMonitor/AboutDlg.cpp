@@ -27,6 +27,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_OPENHARDWAREMONITOR_LINK, m_openhardwaremonitor_link);
     DDX_Control(pDX, IDC_TINYXML2_LINK, m_tinyxml2_link);
     DDX_Control(pDX, IDC_STATIC_GITEE, m_gitee);
+    DDX_Control(pDX, IDC_STATIC_TSUDEV, m_tsudev);
 }
 
 CString CAboutDlg::GetDonateList()
@@ -76,6 +77,7 @@ BOOL CAboutDlg::OnInitDialog()
     m_mail.SetURL(CString(FORK_REPO_URL) + _T("/issues"));   //Thiết lập siêu liên kết
     m_github.SetURL(FORK_REPO_URL);
     m_gitee.SetURL(UPSTREAM_REPO_URL);
+    m_tsudev.SetURL(TSUDEV_HOME_URL);
     m_acknowledgement.SetLinkIsURL(false);
     m_license.SetLinkIsURL(false);
 
@@ -87,6 +89,7 @@ BOOL CAboutDlg::OnInitDialog()
     m_acknowledgement.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_github.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_gitee.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
+    m_tsudev.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_license.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
 
     //Thiết lập thông tin phiên bản
@@ -125,6 +128,7 @@ BOOL CAboutDlg::OnInitDialog()
     m_tool_tip.AddTool(&m_mail, CCommon::LoadText(IDS_SEND_EMAIL_TO_ATHOUR, _T("\r\n")) + m_mail.GetURL());
     m_tool_tip.AddTool(&m_github, CCommon::LoadText(IDS_GOTO_GITHUB, _T("\r\n")) + FORK_REPO_URL);
     m_tool_tip.AddTool(&m_gitee, CCommon::LoadText(IDS_GOTO_GITEE, _T("\r\n")) + UPSTREAM_REPO_URL);
+    m_tool_tip.AddTool(&m_tsudev, TSUDEV_HOME_URL);
     m_tool_tip.AddTool(&m_openhardwaremonitor_link, m_openhardwaremonitor_link.GetURL());
     m_tool_tip.AddTool(&m_tinyxml2_link, m_tinyxml2_link.GetURL());
 

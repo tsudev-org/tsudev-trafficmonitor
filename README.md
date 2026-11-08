@@ -5,7 +5,13 @@
 [![Release](https://img.shields.io/github/v/release/tsudev-tsudev/tsudev-trafficmonitor?style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest)
 [![License](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
 
+<img src="./website/public/brand/logo-mark.png" alt="tsudev" height="56">
+
 # TrafficMonitor-VN
+
+Theo dõi tốc độ mạng, CPU, RAM trên Windows — bản Việt hóa và gia cố bảo mật của TrafficMonitor.
+
+Một sản phẩm của [tsudev](https://tsudev.com). Trang sản phẩm: [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com). Hạng sản phẩm **C** (chạy ngoại tuyến, không tài khoản; mạng chỉ dùng để kiểm tra bản cập nhật và tra IP công cộng khi người dùng bấm).
 
 **TrafficMonitor-VN** là bản Việt hóa và gia cố bảo mật của [TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor) — phần mềm giám sát tốc độ mạng, mức sử dụng CPU/RAM/GPU/ổ cứng trên Windows với cửa sổ nổi và hiển thị trực tiếp trên thanh tác vụ (Taskbar).
 
@@ -151,4 +157,4 @@ Commit dự án gốc đã đồng bộ gần nhất: `930f175` (v1.86). Vì ch�
 Phát hành theo giấy phép **"Anti 996" License 1.0** — xem [LICENSE](./LICENSE) (bản tiếng Anh) và [LICENSE_CN](./LICENSE_CN) (bản tiếng Trung). Bản dịch tiếng Việt chỉ để tham khảo: [LICENSE_VI.md](./LICENSE_VI.md).
 
 Copyright (c) 2017-2026 zhongyang219 (dự án gốc — bắt buộc giữ theo điều 1 của giấy phép).
-Phần Việt hóa, gia cố bảo mật và các thay đổi của TrafficMonitor-VN: Copyright (c) 2026 tsudev-tsudev. Chi tiết phân định bản quyền xem [NOTICE.md](./NOTICE.md).
+Phần Việt hóa, gia cố bảo mật và các thay đổi của TrafficMonitor-VN: Copyright (c) 2026 tsudev. Chi tiết phân định bản quyền xem [NOTICE.md](./NOTICE.md).

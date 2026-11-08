@@ -5,7 +5,7 @@
 Phần Việt hóa, gia cố bảo mật, sửa lỗi, tài liệu tiếng Việt và mọi thay đổi khác do TrafficMonitor-VN thực hiện (xem lịch sử commit từ commit Việt hóa đầu tiên trở đi và [UpdateLog/update_log_vi.md](./UpdateLog/update_log_vi.md)):
 
 ```
-Copyright (c) 2026 tsudev-tsudev
+Copyright (c) 2026 tsudev (tài khoản GitHub tsudev-tsudev)
 ```
 
 Các thay đổi này được phát hành theo cùng giấy phép với dự án gốc: **"Anti 996" License 1.0** ([LICENSE](./LICENSE)).
