@@ -1034,7 +1034,7 @@ CCommon::PublicIpResult CCommon::GetInternetIp2(wstring& ip_address, wstring& ip
     user_agent += VERSION;
     //Lưu ý: phải có "/" trước "?". Với "https://api.ipify.org?format=json", WinINet làm mất phần query
     //nên ipify trả về văn bản thuần thay vì JSON.
-    if (!GetURL((ipv6 ? L"https://api6.ipify.org/?format=json" : L"https://api.ipify.org/?format=json"), raw_string, true, user_agent))
+    if (!GetURL((ipv6 ? PUBLIC_IP_V6_URL : PUBLIC_IP_V4_URL), raw_string, true, user_agent))
         return PublicIpResult::FAILED;
 
     //Phân tích phản hồi và kiểm tra định dạng trước khi hiển thị

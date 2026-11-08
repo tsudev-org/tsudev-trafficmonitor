@@ -8,13 +8,6 @@
 #include "MessageDlg.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void TestHttpQequest()
-{
-    wstring result;
-    bool rtn = CCommon::GetURL(L"https://v4.yinghualuo.cn/bejson", result, true, L"TrafficMonitor_V1.78");
-    int a = 0;
-}
-
 static void TestGetLicense()
 {
     CString license_str;
@@ -94,7 +87,6 @@ CTest::~CTest()
 
 void CTest::Test()
 {
-    //TestHttpQequest();
     //TestGetLicense();
     //TestSkin();
     //TestCrash();

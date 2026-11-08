@@ -1,0 +1,24 @@
+# Kiểm tra liên kết còn sống (HTTP) hằng tuần. Không chặn PR; khi có liên kết hỏng, lần chạy báo lỗi để chủ repo xử lý.
+name: Kiểm tra liên kết
+
+on:
+  schedule:
+    - cron: "17 2 * * 1"   # 09:17 thứ Hai (giờ Việt Nam)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    name: Liên kết còn sống
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: Kiểm tra liên kết
+        run: python3 -I tools/check_urls.py --live

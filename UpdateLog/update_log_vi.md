@@ -4,6 +4,13 @@
 
 Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tại [update_log_en-us.md](./update_log_en-us.md).
 
+## Chưa phát hành
+
+### Bảo mật
+* Mọi URL ứng dụng dùng (kể cả ghi công thư viện bên thứ ba và dịch vụ tra IP công cộng) khai báo một chỗ duy nhất trong `ForkConfig.h`; bỏ hàm thử nghiệm không dùng gọi tới một trang bên ngoài.
+* Thêm `tools/check_urls.py` chạy trong CI: chặn `http://`, URL ngoài danh sách cho phép và URL viết thẳng trong mã C++ ngoài `ForkConfig.h`; kiểm tra liên kết còn sống hằng tuần.
+* GitHub Actions ghim theo SHA commit; tạo Release cần duyệt qua environment `release`.
+
 ## V1.87-vn (2026-11-08) — Bản cầu nối sang kho mã mới
 
 ### Chuyển kho mã

@@ -29,6 +29,8 @@ jobs:
           python-version: "3.12"
       - name: Kiểm tra gói ngôn ngữ và mã nguồn
         run: python3 -I tools/check_i18n.py
+      - name: Kiểm tra URL (chỉ HTTPS, danh sách cho phép, URL C++ chỉ ở ForkConfig.h)
+        run: python3 -I tools/check_urls.py
 
   build:
     name: Build ${{ matrix.platform }}

@@ -79,8 +79,8 @@ BOOL CAboutDlg::OnInitDialog()
     m_acknowledgement.SetLinkIsURL(false);
     m_license.SetLinkIsURL(false);
 
-    m_openhardwaremonitor_link.SetURL(_T("https://github.com/LibreHardwareMonitor/LibreHardwareMonitor"));
-    m_tinyxml2_link.SetURL(_T("https://github.com/leethomason/tinyxml2"));
+    m_openhardwaremonitor_link.SetURL(THIRD_PARTY_LIBREHARDWAREMONITOR_URL);
+    m_tinyxml2_link.SetURL(THIRD_PARTY_TINYXML2_URL);
     m_openhardwaremonitor_link.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_tinyxml2_link.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_mail.SetBackgroundColor(GetSysColor(COLOR_WINDOW));

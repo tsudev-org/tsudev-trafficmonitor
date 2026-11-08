@@ -39,6 +39,14 @@
 // Các plugin này do dự án gốc phát triển nên phiên bản được tra trực tiếp từ nguồn phát hành của chúng (HTTPS).
 #define UPSTREAM_PLUGINS_VERSION_URL L"https://raw.githubusercontent.com/zhongyang219/TrafficMonitorPlugins/main/plugins_version.xml"
 
+// Ghi công thư viện bên thứ ba (hộp thoại Giới thiệu)
+#define THIRD_PARTY_LIBREHARDWAREMONITOR_URL L"https://github.com/LibreHardwareMonitor/LibreHardwareMonitor"
+#define THIRD_PARTY_TINYXML2_URL    L"https://github.com/leethomason/tinyxml2"
+
+// Dịch vụ tra cứu IP công cộng (chỉ trả về IP, chỉ gọi khi người dùng yêu cầu)
+#define PUBLIC_IP_V4_URL            L"https://api.ipify.org/?format=json"
+#define PUBLIC_IP_V6_URL            L"https://api6.ipify.org/?format=json"
+
 // Ngôn ngữ mặc định khi chưa có cấu hình (lần chạy đầu tiên).
 // Định dạng: "<BCP-47>|<DISPLAY_NAME>|<TRANSLATOR>" — phải khớp với phần [general] của language\Vietnamese.ini
 #define DEFAULT_LANGUAGE_CONFIG     L"vi-VN|Tiếng Việt|Lieutrung"
