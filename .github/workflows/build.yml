@@ -82,3 +82,22 @@ jobs:
             ${{ matrix.outdir }}/*.pdb
           if-no-files-found: error
           retention-days: 14
+
+  build-full:
+    # Bản đầy đủ (có đo nhiệt độ qua OpenHardwareMonitorApi C++/CLI) không phát hành, nhưng vẫn build để
+    # bắt cảnh báo/lỗi trong mã #ifndef WITHOUT_TEMPERATURE. Không phải check bắt buộc của PR.
+    name: Build bản đầy đủ x64 (không phát hành)
+    needs: i18n-check
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Thêm MSBuild vào PATH
+        uses: microsoft/setup-msbuild@30375c66a4eea26614e0d39710365f22f8b0af57  # v3.0.0
+
+      - name: Build TrafficMonitor (bản đầy đủ)
+        env:
+          CL: /we4244 /we4267 /we4018 /we4302 /we4311 /we4566
+        run: msbuild TrafficMonitor.sln -m -restore -p:Configuration=Release -p:Platform=x64 -p:PlatformToolset=v143
