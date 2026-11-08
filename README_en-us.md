@@ -1,7 +1,7 @@
 **[Tiếng Việt](./README.md) | English**
 
-[![Build](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/TrafficMonitor-VN/build.yml?branch=main&label=Build&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/TrafficMonitor-VN/actions/workflows/build.yml)
-[![CodeQL](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/TrafficMonitor-VN/codeql.yml?branch=main&label=CodeQL&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/TrafficMonitor-VN/actions/workflows/codeql.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/tsudev-trafficmonitor/build.yml?branch=main&label=Build&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/tsudev-trafficmonitor/codeql.yml?branch=main&label=CodeQL&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/codeql.yml)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
 
 # TrafficMonitor-VN
@@ -12,11 +12,11 @@ TrafficMonitor is a network monitoring software with floating window feature for
 
 # Related Links
 
-Download the latest release from [Releases](https://github.com/tsudev-tsudev/TrafficMonitor-VN/releases/latest). Each release includes `SHA256SUMS.txt` and a GitHub build provenance attestation.
+Download the latest release from [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Each release includes `SHA256SUMS.txt` and a GitHub build provenance attestation.
 
 If you encounter any problems, please [click here](./Help_en-us.md) for frequently asked questions.
 
-CI builds are available from [Actions](https://github.com/tsudev-tsudev/TrafficMonitor-VN/actions/workflows/build.yml).
+CI builds are available from [Actions](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml).
 
 TrafficMonitor relies on the Microsoft Visual C++ runtime. If an error prompts "Cannot find MSVC*.dll" when the program starts, please install the [latest supported Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist).
 
@@ -126,7 +126,7 @@ It should also be noted that the temperature monitoring function is turned off b
 
 # Disclaimer
 
-TrafficMonitor-VN is distributed **only** through [github.com/tsudev-tsudev/TrafficMonitor-VN](https://github.com/tsudev-tsudev/TrafficMonitor-VN). The original TrafficMonitor is distributed by its author at [github.com/zhongyang219/TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor). Any other site claiming to be "official" is unrelated.
+TrafficMonitor-VN is distributed **only** through [github.com/tsudev-tsudev/tsudev-trafficmonitor](https://github.com/tsudev-tsudev/tsudev-trafficmonitor). The original TrafficMonitor is distributed by its author at [github.com/zhongyang219/TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor). Any other site claiming to be "official" is unrelated.
 
 # License
 
