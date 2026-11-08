@@ -1,0 +1,34 @@
+---
+// Khung trang tài liệu: menu bên trái + nội dung HTML sinh từ Markdown của repo.
+import Trang from '../layouts/Trang.astro';
+import { REPO_URL } from '../lib/noi-dung';
+
+interface Props { tieuDe: string; moTa: string; duongDan: string; html: string; nguon?: string }
+const { tieuDe, moTa, duongDan, html, nguon } = Astro.props;
+export const MENU = [
+  { href: '/huong-dan/', ten: 'Tổng quan' },
+  { href: '/huong-dan/hoi-dap/', ten: 'Hỏi đáp' },
+  { href: '/huong-dan/kho-giao-dien/', ten: 'Kho giao diện' },
+  { href: '/huong-dan/tu-lam-giao-dien/', ten: 'Tự làm giao diện' },
+  { href: '/huong-dan/plugin/', ten: 'Plugin' },
+  { href: '/huong-dan/phat-trien-plugin/', ten: 'Phát triển plugin' },
+  { href: '/nhat-ky/', ten: 'Nhật ký cập nhật' },
+  { href: '/bao-mat/', ten: 'Bảo mật' },
+  { href: '/ban-quyen/', ten: 'Bản quyền' },
+];
+---
+<Trang tieuDe={tieuDe} moTa={moTa} duongDan={duongDan}>
+  <div class="khung tai-lieu">
+    <nav class="tai-lieu__menu" aria-label="Tài liệu">
+      <p>Tài liệu</p>
+      <ul>
+        {MENU.map((m) => <li><a href={m.href} aria-current={m.href === duongDan ? 'page' : undefined}>{m.ten}</a></li>)}
+      </ul>
+    </nav>
+    <article class="van-ban">
+      <Fragment set:html={html} />
+      <slot />
+      {nguon && <p class="goi__ten">Nguồn trang: <a href={`${REPO_URL}/blob/main/${nguon}`} target="_blank" rel="noopener noreferrer">{nguon}</a> trên GitHub.</p>}
+    </article>
+  </div>
+</Trang>

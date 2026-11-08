@@ -1,0 +1,95 @@
+---
+import Trang from '../layouts/Trang.astro';
+import { banMoiNhat, REPO_URL } from '../lib/noi-dung';
+
+const ban = await banMoiNhat();
+const x64 = ban.goi.find((g) => g.kienTruc === 'x64');
+const tinhNang = [
+  { t: 'Tốc độ mạng theo thời gian thực', d: 'Tốc độ tải lên, tải xuống hiện trên cửa sổ nổi nhỏ gọn hoặc ngay trên thanh tác vụ Windows.' },
+  { t: 'CPU, RAM, GPU, ổ cứng', d: 'Theo dõi mức sử dụng tài nguyên máy cùng lúc với tốc độ mạng; tùy chọn hiện biểu đồ trên thanh tác vụ.' },
+  { t: 'Giao diện tiếng Việt đầy đủ', d: 'Mặc định tiếng Việt ngay lần chạy đầu, dịch đủ 100% chuỗi giao diện, tài liệu hướng dẫn bằng tiếng Việt.' },
+  { t: 'Thống kê lưu lượng', d: 'Lưu lượng đã dùng theo ngày, tháng, năm; cảnh báo khi dùng hết hạn mức dữ liệu trong ngày.' },
+  { t: 'Đổi giao diện (skin), plugin', d: 'Hơn mười mẫu giao diện có sẵn, tự làm mẫu riêng; mở rộng thông số bằng plugin.' },
+  { t: 'Chạy ngoại tuyến, không tài khoản', d: 'Không thu thập dữ liệu. Mạng chỉ dùng để kiểm tra bản cập nhật và tra IP công cộng khi bạn bấm.' },
+];
+const baoMat = [
+  { t: 'Bản cập nhật có chữ ký', d: 'Thông tin phiên bản được ký ECDSA và xác minh trong ứng dụng; kèm SHA-256 của từng gói.' },
+  { t: 'Chứng thực nguồn gốc build', d: 'Mỗi gói được GitHub Actions build từ mã nguồn công khai và chứng thực, kiểm tra được bằng gh attestation verify.' },
+  { t: 'Chỉ HTTPS, máy chủ cho phép', d: 'Mọi kết nối chỉ qua HTTPS tới danh sách máy chủ cố định, có giới hạn thời gian và kích thước.' },
+  { t: 'Gia cố tệp chương trình', d: 'Bật Control Flow Guard, ASLR, DEP, CET; chống nạp DLL giả mạo khi khởi động và khi nạp plugin.' },
+];
+---
+<Trang moTa="TrafficMonitor-VN: phần mềm theo dõi tốc độ mạng, CPU, RAM trên Windows, giao diện tiếng Việt, gia cố bảo mật, miễn phí và mã nguồn mở." duongDan="/">
+  <section class="mo-dau">
+    <div class="khung mo-dau__luoi">
+      <div>
+        <span class="nhan">Phiên bản {ban.phienBan} · {ban.ngay}</span>
+        <h1>Theo dõi tốc độ mạng và tài nguyên máy, bằng tiếng Việt</h1>
+        <p class="mo-dau__phu">TrafficMonitor-VN hiện tốc độ mạng, mức dùng CPU, RAM ngay trên thanh tác vụ Windows. Nhẹ, miễn phí, mã nguồn mở và được gia cố bảo mật.</p>
+        <div class="mo-dau__nut">
+          {x64 && <a class="nut nut--chinh" href={x64.url}>Tải bản 64-bit (x64)</a>}
+          <a class="nut nut--phu" href="/tai-ve/">Bản khác và kiểm tra tệp</a>
+        </div>
+        <p class="mo-dau__ghi-chu">Windows 10 và 11 · bản Lite, không cần quyền Quản trị viên · giải nén là chạy</p>
+      </div>
+      <div class="minh-hoa">
+        <figure>
+          <img class="anh-nho" src="/anh/vi/main.png" alt="Cửa sổ nổi hiện tốc độ tải lên và tải xuống" width="464" height="80">
+          <figcaption>Cửa sổ nổi</figcaption>
+        </figure>
+        <figure>
+          <img src="/anh/vi/taskbar.png" alt="Tốc độ mạng hiện trên thanh tác vụ Windows" width="182" height="88">
+          <figcaption>Trên thanh tác vụ</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="muc muc--nen" aria-labelledby="tinh-nang">
+    <div class="khung">
+      <h2 id="tinh-nang">Tính năng</h2>
+      <p class="muc__dan">Giữ nguyên mọi tính năng của TrafficMonitor, thêm giao diện tiếng Việt và các lớp bảo vệ cho người dùng.</p>
+      <ul class="the-luoi">
+        {tinhNang.map((x) => <li class="the"><h3>{x.t}</h3><p>{x.d}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="muc" aria-labelledby="anh-chup">
+    <div class="khung">
+      <h2 id="anh-chup">Ảnh chụp</h2>
+      <p class="muc__dan">Giao diện tiếng Việt trên Windows 11.</p>
+      <div class="anh-luoi">
+        <figure>
+          <img src="/anh/vi/options.png" alt="Hộp thoại Cài đặt, tab Cửa sổ Chính" width="522" height="426" loading="lazy">
+          <figcaption>Cài đặt</figcaption>
+        </figure>
+        <figure>
+          <img src="/anh/vi/network_info.png" alt="Hộp thoại Chi tiết mạng" width="436" height="300" loading="lazy">
+          <figcaption>Chi tiết mạng</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="muc muc--nen" aria-labelledby="bao-mat">
+    <div class="khung">
+      <h2 id="bao-mat">An toàn từ khâu build tới khâu cập nhật</h2>
+      <p class="muc__dan">Chi tiết và cách tự kiểm tra ở trang <a href="/bao-mat/">Bảo mật</a>.</p>
+      <ul class="the-luoi">
+        {baoMat.map((x) => <li class="the"><h3>{x.t}</h3><p>{x.d}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="muc" aria-labelledby="nguon-goc">
+    <div class="khung">
+      <h2 id="nguon-goc">Nguồn gốc</h2>
+      <p class="muc__dan">TrafficMonitor-VN dựa trên <a href="https://github.com/zhongyang219/TrafficMonitor" target="_blank" rel="noopener noreferrer">TrafficMonitor</a> của tác giả zhongyang219, giữ nguyên giấy phép Anti 996 và thông báo bản quyền gốc. Mã nguồn bản Việt hóa công khai tại <a href={REPO_URL} target="_blank" rel="noopener noreferrer">GitHub</a>. Hạng sản phẩm C theo quy ước tsudev: chạy ngoại tuyến, không tài khoản.</p>
+      <div class="mo-dau__nut">
+        <a class="nut nut--phu" href="/huong-dan/">Đọc hướng dẫn</a>
+        <a class="nut nut--phu" href="/ban-quyen/">Bản quyền</a>
+      </div>
+    </div>
+  </section>
+</Trang>

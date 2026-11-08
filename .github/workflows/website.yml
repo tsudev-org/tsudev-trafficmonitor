@@ -1,0 +1,34 @@
+# Build website (trafficmonitor.tsudev.com) và kiểm tra nhận diện/CSP cho mỗi PR có thay đổi liên quan.
+# Deploy lên Cloudflare Pages do chủ repo chạy: cd website && npm ci && npm run deploy (xem website/README.md).
+name: Website
+
+on:
+  push:
+    branches: [main]
+    paths: ["website/**", "*.md", "UpdateLog/**", "Screenshots/**", "LICENSE*", ".github/workflows/website.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["website/**", "*.md", "UpdateLog/**", "Screenshots/**", "LICENSE*", ".github/workflows/website.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build website
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38  # v6.5.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build

@@ -55,10 +55,14 @@ ALLOWED_PREFIXES = [
     "https://img.shields.io/badge/",
     "https://github.com/github/gitignore",
     "https://github.com/microsoft/Windows-classic-samples",
+    "https://cli.github.com/",
+    "https://astro.build",
+    "https://api.github.com/repos/tsudev-tsudev/tsudev-trafficmonitor/",
 ]
 
 # http:// duy nhất được chấp nhận: namespace XML (không phải liên kết tải)
-ALLOWED_HTTP = ["http://schemas.microsoft.com/developer/msbuild/2003"]
+ALLOWED_HTTP = ["http://schemas.microsoft.com/developer/msbuild/2003", "http://www.sitemaps.org/schemas/sitemap/0.9",
+                "http://localhost:"]
 
 # Tệp/thư mục không kiểm tra: mã và tài liệu bên thứ ba giữ nguyên văn, lịch sử của dự án gốc
 EXCLUDE = [
@@ -67,11 +71,13 @@ EXCLUDE = [
     re.compile(r"^OpenHardwareMonitorApi/LibreHardwareMonitorLib\.xml$"),
     re.compile(r"^UpdateLog/update_log_en-us\.md$"),
     re.compile(r"^tools/check_urls\.py$"),
+    re.compile(r"^website/package-lock\.json$"),
+    re.compile(r"^website/public/fonts/"),
 ]
 
 TEXT_EXT = {".cpp", ".h", ".hpp", ".c", ".rc", ".rc2", ".ini", ".md", ".info", ".yml", ".yaml",
             ".xml", ".py", ".ps1", ".props", ".vcxproj", ".filters", ".user", ".txt", ".json",
-            ".gitignore", ".editorconfig", ".gitattributes"}
+            ".gitignore", ".editorconfig", ".gitattributes", ".astro", ".ts", ".mjs", ".css", ".webmanifest"}
 CPP_EXT = {".cpp", ".h", ".hpp", ".c"}
 FORK_CONFIG = "TrafficMonitor/ForkConfig.h"
 
