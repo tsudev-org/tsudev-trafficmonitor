@@ -4,6 +4,11 @@
 
 Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tại [update_log_en-us.md](./update_log_en-us.md).
 
+## Chưa phát hành
+
+### Sửa lỗi
+* Hộp thoại Giới thiệu: chữ "Lời cảm ơn" đè lên liên kết "tsudev.com" (V1.88-vn); dời cột liên kết thứ ba sang phải.
+
 ## V1.88-vn (2026-11-09) — Bản cập nhật có chữ ký số
 
 ### Nhận diện tsudev
