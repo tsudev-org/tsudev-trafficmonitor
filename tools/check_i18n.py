@@ -99,7 +99,7 @@ def check_no_chinese_in_code():
             ".rc", ".rc2", ".md", ".ini", ".xml", ".info", ".txt", ".py", ".sln", ".gitignore", ".gitattributes")
     count = 0
     for dirpath, dirnames, filenames in os.walk(ROOT):
-        dirnames[:] = [d for d in dirnames if d not in (".git", "Bin", "Obj", ".vs", ".handoff")]
+        dirnames[:] = [d for d in dirnames if d not in (".git", "Bin", "Obj", ".vs", ".handoff", "node_modules", "dist", ".astro", ".claude")]
         for fn in filenames:
             if not fn.endswith(exts):
                 continue
