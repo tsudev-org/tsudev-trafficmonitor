@@ -2,7 +2,8 @@
 # tạo SHA256SUMS.txt, chứng thực nguồn gốc build (provenance) và tạo GitHub Release.
 #
 # Quy trình phát hành:
-#   1. Cập nhật VERSION trong TrafficMonitor/stdafx.h và version_utf8.info (liên kết tải, nội dung cập nhật).
+#   1. Cập nhật VERSION trong TrafficMonitor/stdafx.h và version_utf8.info (liên kết tải cho bản cũ V1.86/V1.87,
+#      nội dung cập nhật — cũng được đưa vào version_signed.xml có chữ ký mà bản V1.88+ đọc).
 #   2. git tag V<phiên bản>-vn && git push origin V<phiên bản>-vn
 name: Release
 
@@ -96,6 +97,11 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+          persist-credentials: false
+
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
         with:
           path: dist
@@ -105,12 +111,31 @@ jobs:
         working-directory: dist
         run: sha256sum *.zip | tee SHA256SUMS.txt
 
+      - name: Tạo và ký thông tin phiên bản (version_signed.xml)
+        # Ứng dụng (từ V1.88-vn) chỉ tin thông tin phiên bản khi chữ ký ECDSA P-256 hợp lệ với khóa công khai
+        # nhúng trong ForkConfig.h. Khóa bí mật chỉ có trong secret của environment "release".
+        env:
+          UPDATE_SIGNING_KEY: ${{ secrets.UPDATE_SIGNING_KEY }}
+          TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        run: |
+          set -euo pipefail
+          test -n "$UPDATE_SIGNING_KEY" || { echo "Thiếu secret UPDATE_SIGNING_KEY"; exit 1; }
+          python3 -I tools/version_manifest.py build --tag "$TAG" --dist dist --repo "$GITHUB_REPOSITORY" > dist/version_signed.xml
+          umask 077
+          key="$RUNNER_TEMP/update_key.pem"
+          printf '%s\n' "$UPDATE_SIGNING_KEY" > "$key"
+          openssl dgst -sha256 -sign "$key" -out "$RUNNER_TEMP/sig.der" dist/version_signed.xml
+          rm -f "$key"
+          openssl dgst -sha256 -verify tools/keys/update_signing_pub.pem -signature "$RUNNER_TEMP/sig.der" dist/version_signed.xml
+          python3 -I tools/version_manifest.py der2raw "$RUNNER_TEMP/sig.der" > dist/version_signed.xml.sig
+          cat dist/version_signed.xml
+
       - name: Tạo Release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.event.inputs.tag || github.ref_name }}
         run: |
-          gh release create "$TAG" dist/*.zip dist/SHA256SUMS.txt \
+          gh release create "$TAG" dist/*.zip dist/SHA256SUMS.txt dist/version_signed.xml dist/version_signed.xml.sig \
             --repo "$GITHUB_REPOSITORY" \
             --title "TrafficMonitor-VN $TAG" \
             --notes "Xem nhật ký thay đổi: https://github.com/$GITHUB_REPOSITORY/blob/main/UpdateLog/update_log_vi.md

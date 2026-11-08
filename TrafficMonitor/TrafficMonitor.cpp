@@ -551,12 +551,16 @@ void CTrafficMonitorApp::CheckUpdate(bool message)
     }
     version = update_helper.GetVersion();
     //Lưu ý: trình biên dịch định nghĩa cả _M_X64 khi build ARM64EC, nên phải kiểm tra _M_ARM64EC trước
+    wstring sha256;         //SHA-256 của gói tải về (từ thông tin phiên bản có chữ ký)
 #if defined _M_ARM64EC
     link = update_helper.GetLinkArm64ec();
+    sha256 = update_helper.GetSha256Arm64ec();
 #elif defined _M_X64
     link = update_helper.GetLink64();
+    sha256 = update_helper.GetSha256x64();
 #else
     link = update_helper.GetLink();
+    sha256 = update_helper.GetSha256();
 #endif
     contents_en = update_helper.GetContentsEn();
     contents_vi = update_helper.GetContentsVi();
@@ -567,6 +571,8 @@ void CTrafficMonitorApp::CheckUpdate(bool message)
             CString info = CCommon::LoadText(IDS_CHECK_UPDATE_ERROR);
             info += _T("\r\nrow_data=");
             info += std::to_wstring(update_helper.IsRowData()).c_str();
+            if (update_helper.IsSignatureInvalid())
+                info += _T("\r\nsignature=invalid");
 
             AfxMessageBox(info, MB_OK | MB_ICONWARNING);
         }
@@ -586,6 +592,12 @@ void CTrafficMonitorApp::CheckUpdate(bool message)
             info.Format(CCommon::LoadText(IDS_UPDATE_AVLIABLE), version.c_str());
         else
             info.Format(CCommon::LoadText(IDS_UPDATE_AVLIABLE2), version.c_str(), contents_lan.c_str());
+        //Hiện SHA-256 của gói để người dùng đối chiếu sau khi tải (xem SECURITY.md)
+        if (!sha256.empty())
+        {
+            info += _T("\r\n\r\nSHA-256: ");
+            info += sha256.c_str();
+        }
 
         //Kiểm tra lại liên kết ngay trước khi mở (phòng thủ nhiều lớp): chỉ mở trang Releases của repo này
         if (AfxMessageBox(info, MB_YESNO | MB_ICONQUESTION) == IDYES && CUpdateHelper::IsTrustedDownloadUrl(link))

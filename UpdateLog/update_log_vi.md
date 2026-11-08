@@ -10,6 +10,9 @@ Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tạ
 * Mọi URL ứng dụng dùng (kể cả ghi công thư viện bên thứ ba và dịch vụ tra IP công cộng) khai báo một chỗ duy nhất trong `ForkConfig.h`; bỏ hàm thử nghiệm không dùng gọi tới một trang bên ngoài.
 * Thêm `tools/check_urls.py` chạy trong CI: chặn `http://`, URL ngoài danh sách cho phép và URL viết thẳng trong mã C++ ngoài `ForkConfig.h`; kiểm tra liên kết còn sống hằng tuần.
 * GitHub Actions ghim theo SHA commit; tạo Release cần duyệt qua environment `release`.
+* **Thông tin phiên bản có chữ ký:** kiểm tra cập nhật đọc `version_signed.xml` của bản phát hành mới nhất và chỉ tin khi chữ ký ECDSA P-256 hợp lệ (xác minh bằng Windows CNG, khóa công khai nhúng trong ứng dụng); chỉ báo cập nhật khi phiên bản lớn hơn bản đang chạy. Hộp thoại cập nhật hiện SHA-256 của gói để đối chiếu sau khi tải.
+* Truy cập mạng: sau khi theo chuyển hướng, URL cuối phải là HTTPS và thuộc danh sách máy chủ cho phép.
+* SECURITY.md: mô tả chuỗi tin cậy (chữ ký → SHA-256 → chứng thực build) và cách tự kiểm tra.
 
 ## V1.87-vn (2026-11-08) — Bản cầu nối sang kho mã mới
 

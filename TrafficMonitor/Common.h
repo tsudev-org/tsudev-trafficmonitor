@@ -149,6 +149,8 @@ public:
 
     //Kiểm tra URL có phải HTTPS hợp lệ hay không (bảo mật: GetURL chỉ chấp nhận HTTPS)
     static bool IsHttpsUrl(const wstring& url);
+    //Kiểm tra URL là HTTPS và host nằm trong danh sách máy chủ được phép (FORK_TRUSTED_HOSTS)
+    static bool IsTrustedHostUrl(const wstring& url);
 
     //Kiểm tra chuỗi có đúng dạng địa chỉ IPv4/IPv6 hay không
     static bool IsValidIpAddressString(const wstring& ip);
