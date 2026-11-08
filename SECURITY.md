@@ -33,6 +33,19 @@ Bản phát hành còn kèm **chứng thực nguồn gốc build** (build proven
 gh attestation verify TrafficMonitor-VN_V1.86_x64_Lite.zip --repo tsudev-tsudev/tsudev-trafficmonitor
 ```
 
+## Chuỗi tin cậy của bản cập nhật
+
+1. **Chữ ký thông tin phiên bản** — ứng dụng chỉ tin `version_signed.xml` có chữ ký hợp lệ (xem mục 1 bên dưới).
+2. **SHA-256** — hộp thoại cập nhật hiện SHA-256 của gói đúng kiến trúc; mã băm này cũng có trong `SHA256SUMS.txt` của bản phát hành. Sau khi tải, đối chiếu bằng `Get-FileHash <tệp.zip> -Algorithm SHA256` (PowerShell).
+3. **Chứng thực nguồn gốc build** — mỗi gói được GitHub Actions chứng thực (`gh attestation verify <tệp.zip> -R tsudev-tsudev/tsudev-trafficmonitor`), chứng minh gói được build từ mã nguồn của repo này tại đúng tag phát hành.
+
+Tự kiểm tra chữ ký thông tin phiên bản (cần OpenSSL và Python):
+
+```bash
+python3 -c "import base64,sys;r=base64.b64decode(open('version_signed.xml.sig').read());i=lambda b:(b'\0'+b.lstrip(b'\0') if b.lstrip(b'\0')[0]&0x80 else b.lstrip(b'\0'));x,y=i(r[:32]),i(r[32:]);s=b'\2'+bytes([len(x)])+x+b'\2'+bytes([len(y)])+y;sys.stdout.buffer.write(b'\x30'+bytes([len(s)])+s)" > sig.der
+openssl dgst -sha256 -verify update_signing_pub.pem -signature sig.der version_signed.xml
+```
+
 ## Mô hình mối đe dọa và biện pháp đã áp dụng
 
 TrafficMonitor là ứng dụng desktop chạy với quyền người dùng (bản Lite) hoặc quyền Quản trị viên (bản đầy đủ có đo nhiệt độ). Các bề mặt tấn công chính và biện pháp tương ứng:
@@ -40,13 +53,17 @@ TrafficMonitor là ứng dụng desktop chạy với quyền người dùng (b�
 ### 1. Cơ chế kiểm tra cập nhật
 *Rủi ro:* tệp thông tin phiên bản bị giả mạo (tấn công chuỗi cung ứng, MITM) dẫn người dùng tới tệp độc hại.
 
-* Chỉ tải `version_utf8.info` từ repo này qua **HTTPS** (chứng chỉ TLS luôn được kiểm tra).
+* **Thông tin phiên bản có chữ ký (từ V1.88-vn).** Mỗi bản phát hành kèm `version_signed.xml` (phiên bản, liên kết tải, **SHA-256 của từng gói**) và chữ ký `version_signed.xml.sig` (ECDSA P-256/SHA-256). Khóa bí mật chỉ nằm trong secret của environment `release` trên GitHub (job phát hành cần chủ repo duyệt); khóa công khai nhúng trong `ForkConfig.h` và có bản PEM tại [`tools/keys/update_signing_pub.pem`](./tools/keys/update_signing_pub.pem). Ứng dụng xác minh chữ ký bằng Windows CNG; chữ ký sai thì bỏ toàn bộ thông tin cập nhật. Vì vậy kể cả khi GitHub, DNS hay kết nối mạng bị giả mạo, kẻ tấn công không thể đưa phiên bản/liên kết/mã băm giả vào ứng dụng.
+* **Chống hạ cấp:** chỉ báo cập nhật khi phiên bản trong thông tin có chữ ký **lớn hơn** phiên bản đang chạy (so sánh theo số).
+* Bản V1.86-vn/V1.87-vn (trước khi có chữ ký) đọc `version_utf8.info` không chữ ký qua **HTTPS**; tệp này vẫn được duy trì cho các bản đó.
 * Liên kết tải phải bắt đầu **chính xác** bằng `https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/`, không chứa `..`, `@`, `?`, `#`, `%`, `\`, khoảng trắng hay ký tự điều khiển, và chỉ trỏ tới `.zip`/`.exe`. Liên kết được kiểm tra **hai lần** (khi phân tích và ngay trước khi mở).
 * Chương trình **không tự tải và không tự chạy** bản cập nhật; chỉ mở trang tải trong trình duyệt sau khi người dùng đồng ý.
 * Chuỗi phiên bản được kiểm tra định dạng và so sánh theo số.
 
 ### 2. Truy cập mạng
 * `CCommon::GetURL` chỉ chấp nhận URL `https://`, đặt timeout 15 giây, giới hạn phản hồi 1 MB, không dùng cache và cookie.
+* Sau khi theo chuyển hướng (redirect), URL cuối cùng phải là HTTPS và thuộc danh sách máy chủ cho phép (`FORK_TRUSTED_HOSTS` trong `ForkConfig.h`: GitHub, máy chủ tệp của GitHub, `trafficmonitor.tsudev.com`, ipify); nếu không, dữ liệu bị bỏ.
+* Mọi URL ứng dụng dùng chỉ khai báo trong `ForkConfig.h`; `tools/check_urls.py` chạy trong CI chặn `http://`, URL ngoài danh sách cho phép và URL viết thẳng trong mã C++.
 * Tra cứu IP công cộng chỉ chạy khi người dùng bấm trong hộp thoại **Chi tiết kết nối mạng**, dùng [ipify](https://www.ipify.org/) (mã nguồn mở, chỉ trả về địa chỉ IP); kết quả được kiểm tra định dạng trước khi hiển thị.
 * Chương trình **không gửi dữ liệu thống kê/telemetry** nào.
 

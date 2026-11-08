@@ -23,6 +23,19 @@
 // nhằm ngăn tệp thông tin phiên bản bị giả mạo chuyển hướng người dùng tới tệp độc hại.
 #define FORK_RELEASE_DOWNLOAD_PREFIX L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/"
 
+// Thông tin phiên bản CÓ CHỮ KÝ (từ V1.88-vn): release.yml tạo version_signed.xml (phiên bản, liên kết tải,
+// SHA-256 từng gói) và ký bằng ECDSA P-256/SHA-256; khóa bí mật chỉ nằm trong secret UPDATE_SIGNING_KEY
+// của environment "release". Ứng dụng chỉ tin thông tin phiên bản khi chữ ký hợp lệ với khóa công khai dưới đây.
+// "releases/latest/download" luôn trỏ bản phát hành mới nhất (không tính bản thử nghiệm).
+#define FORK_SIGNED_VERSION_URL     L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest/download/version_signed.xml"
+#define FORK_SIGNED_VERSION_SIG_URL L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest/download/version_signed.xml.sig"
+// Khóa công khai ECDSA P-256 (X||Y, 64 byte, dạng hex); bản PEM: tools/keys/update_signing_pub.pem
+#define FORK_UPDATE_PUBLIC_KEY_HEX  "d8725c096fbcac2420427ef8b8d40dee09bd75ea0edd33cf6cbdee96d4f69752045a880fdebdcc42076b01b2d8acb82ab65457807fadc241a6802774e561c685"
+
+// Máy chủ được phép trả dữ liệu cho GetURL sau khi theo chuyển hướng (redirect).
+// URL cuối cùng phải là HTTPS và có host nằm trong danh sách này, phân tách bằng dấu "|".
+#define FORK_TRUSTED_HOSTS          L"github.com|objects.githubusercontent.com|release-assets.githubusercontent.com|raw.githubusercontent.com|trafficmonitor.tsudev.com|api.ipify.org|api6.ipify.org"
+
 // Các trang tài liệu
 #define FORK_HELP_URL               L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/Help.md"
 #define FORK_UPDATE_LOG_URL         L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/UpdateLog/update_log_vi.md"

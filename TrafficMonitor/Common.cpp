@@ -853,6 +853,27 @@ bool CCommon::IsHttpsUrl(const wstring& url)
     return true;
 }
 
+bool CCommon::IsTrustedHostUrl(const wstring& url)
+{
+    //URL phải là HTTPS và host (không phân biệt hoa thường) khớp đúng một mục trong FORK_TRUSTED_HOSTS.
+    //Từ chối URL có thông tin đăng nhập ("user@host") hoặc cổng khác mặc định.
+    if (!IsHttpsUrl(url))
+        return false;
+    size_t start = 8;   //sau "https://"
+    size_t end = url.find_first_of(L"/?#", start);
+    wstring authority = url.substr(start, end == wstring::npos ? wstring::npos : end - start);
+    if (authority.empty() || authority.find_first_of(L"@:\\") != wstring::npos)
+        return false;
+    std::vector<wstring> hosts;
+    StringSplit(FORK_TRUSTED_HOSTS, L'|', hosts);
+    for (const auto& host : hosts)
+    {
+        if (!host.empty() && _wcsicmp(host.c_str(), authority.c_str()) == 0)
+            return true;
+    }
+    return false;
+}
+
 bool CCommon::GetURL(const wstring& url, std::string& result, const wstring& user_agent)
 {
     //Bảo mật: chỉ cho phép tải qua HTTPS. CInternetSession::OpenURL còn hỗ trợ file:// và ftp://,
@@ -892,6 +913,20 @@ bool CCommon::GetURL(const wstring& url, std::string& result, const wstring& use
                 pRawFile->Close();
                 delete pRawFile;
             }
+            pSession->Close();
+            SAFE_DELETE(pSession);
+            return false;
+        }
+        //Bảo mật: WinINet tự theo chuyển hướng (redirect). Kiểm tra URL cuối cùng vẫn là HTTPS và thuộc máy chủ
+        //được phép (FORK_TRUSTED_HOSTS), tránh dữ liệu bị lấy từ máy chủ lạ khi một chuyển hướng bị lợi dụng.
+        wchar_t final_url[2048]{};
+        DWORD final_url_len = sizeof(final_url);
+        if (!pfile->QueryOption(INTERNET_OPTION_URL, final_url, &final_url_len) || !IsTrustedHostUrl(final_url))
+        {
+            if (theApp.m_debug_log)
+                CCommon::WriteLog((L"GetURL: redirected to untrusted URL: " + wstring(final_url) + L" (from " + url + L")").c_str(), theApp.m_log_path.c_str());
+            pfile->Close();
+            SAFE_DELETE(pfile);
             pSession->Close();
             SAFE_DELETE(pSession);
             return false;
