@@ -1,0 +1,6 @@
+---
+import TaiLieu from '../components/TaiLieu.astro';
+import { renderMd } from '../lib/noi-dung';
+const { html } = renderMd('UpdateLog/update_log_vi.md', { boDongNgonNgu: true });
+---
+<TaiLieu tieuDe="Nhật ký cập nhật" moTa="Nhật ký cập nhật TrafficMonitor-VN: thay đổi, sửa lỗi và cải tiến bảo mật của từng phiên bản, từ bản Việt hóa đầu tiên V1.86-vn." duongDan="/nhat-ky/" html={html} nguon="UpdateLog/update_log_vi.md" />
