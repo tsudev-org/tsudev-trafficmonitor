@@ -145,7 +145,7 @@ Khi đổi khóa ký: thay `FORK_UPDATE_PUBLIC_KEY_HEX` (ForkConfig.h), `tools/k
 
 ### Lịch sử mã nguồn
 
-Repo này bắt đầu bằng một commit nhập mã nguồn (từ bản V1.87-vn); lịch sử commit trước đó được lưu ở repo cũ [tsudev-tsudev/TrafficMonitor-VN](https://github.com/tsudev-tsudev/TrafficMonitor-VN) (chỉ đọc).
+Repo này bắt đầu bằng một commit nhập mã nguồn từ bản V1.87-vn; đây là nơi duy nhất chứa mã nguồn, bản phát hành và kênh cập nhật của TrafficMonitor-VN. Các thay đổi trước đó (V1.86-vn, V1.87-vn) tóm tắt trong [CHANGELOG.md](./CHANGELOG.md); nguồn gốc mã và giấy phép xem [NOTICE.md](./NOTICE.md). Repo cũ `tsudev-tsudev/TrafficMonitor-VN` đã được gỡ (11/2026).
 
 ## Đóng góp
 

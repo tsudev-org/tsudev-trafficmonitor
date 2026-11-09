@@ -142,7 +142,7 @@ Output goes to `Bin\x64\Release (lite)\` (or `Bin\x64\Release\`).
 
 Fork-specific settings (repository, update URLs, default language) are in [`TrafficMonitor/ForkConfig.h`](./TrafficMonitor/ForkConfig.h). Security compiler flags are in [`Directory.Build.props`](./Directory.Build.props).
 
-This repository starts with a source import commit (from V1.87-vn); earlier history is kept in the archived repository [tsudev-tsudev/TrafficMonitor-VN](https://github.com/tsudev-tsudev/TrafficMonitor-VN) (read-only).
+This repository starts with a source import commit from V1.87-vn and is the only home of TrafficMonitor-VN's source, releases and update channel. Earlier changes (V1.86-vn, V1.87-vn) are summarized in [CHANGELOG.md](./CHANGELOG.md); code origin and licensing are in [NOTICE.md](./NOTICE.md). The former repository `tsudev-tsudev/TrafficMonitor-VN` has been removed (11/2026).
 
 ## Contributing
 

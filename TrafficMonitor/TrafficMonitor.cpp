@@ -73,7 +73,7 @@ void CTrafficMonitorApp::LoadConfig()
     //m_general_data.allow_skin_cover_font = ini.GetBool(_T("general"), _T("allow_skin_cover_font"), true);
     //m_general_data.allow_skin_cover_text = ini.GetBool(_T("general"), _T("allow_skin_cover_text"), true);
     m_general_data.show_all_interface = ini.GetBool(L"general", L"show_all_interface", false);
-    m_general_data.update_source = 0;   //Bản Việt hóa: nguồn cập nhật luôn là GitHub (repo TrafficMonitor-VN), bỏ qua giá trị cũ trong cấu hình
+    m_general_data.update_source = 0;   //Bản Việt hóa: nguồn cập nhật luôn là GitHub (repo tsudev-org/tsudev-trafficmonitor), bỏ qua giá trị cũ trong cấu hình
     m_general_data.cpu_usage_acquire_method = static_cast<GeneralSettingData::CpuUsageAcquireMethod>(ini.GetInt(L"general", L"cpu_usage_acquire_method", GeneralSettingData::CA_PDH));
     m_general_data.monitor_time_span = ini.GetInt(L"general", L"monitor_time_span", 1000);
     if (m_general_data.monitor_time_span < MONITOR_TIME_SPAN_MIN || m_general_data.monitor_time_span > MONITOR_TIME_SPAN_MAX)
