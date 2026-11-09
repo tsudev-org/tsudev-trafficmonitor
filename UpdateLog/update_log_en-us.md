@@ -4,7 +4,7 @@
 
 Changes in each TrafficMonitor-VN release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 
-## 26.11.0906 (09/11/2026)
+## 26.11.1001 (10/11/2026)
 
 ### Fixes
 * After downloading an update and verifying its SHA-256, 26.11.0905 did not open the Downloads folder; it now opens the folder with the file selected.

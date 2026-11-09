@@ -1,17 +1,17 @@
 ﻿<root>
-	<version>26.11.0906</version>
+	<version>26.11.1001</version>
 	<GitHub>
-		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0906-vn/tsudev-trafficmonitor_26.11.0906_x86_Lite.zip</link>
-		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0906-vn/tsudev-trafficmonitor_26.11.0906_x64_Lite.zip</link_x64>
-		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0906-vn/tsudev-trafficmonitor_26.11.0906_arm64ec_Lite.zip</link_arm64ec>
-		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0906-vn/tsudev-trafficmonitor_26.11.0906_x86_Lite.zip</link_without_temperature>
-		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0906-vn/tsudev-trafficmonitor_26.11.0906_x64_Lite.zip</link_without_temperature_x64>
-		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0906-vn/tsudev-trafficmonitor_26.11.0906_arm64ec_Lite.zip</link_without_temperature_arm64ec>
+		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1001-vn/tsudev-trafficmonitor_26.11.1001_x86_Lite.zip</link>
+		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1001-vn/tsudev-trafficmonitor_26.11.1001_x64_Lite.zip</link_x64>
+		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1001-vn/tsudev-trafficmonitor_26.11.1001_arm64ec_Lite.zip</link_arm64ec>
+		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1001-vn/tsudev-trafficmonitor_26.11.1001_x86_Lite.zip</link_without_temperature>
+		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1001-vn/tsudev-trafficmonitor_26.11.1001_x64_Lite.zip</link_without_temperature_x64>
+		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1001-vn/tsudev-trafficmonitor_26.11.1001_arm64ec_Lite.zip</link_without_temperature_arm64ec>
 	</GitHub>
 	<update_contents>
-		<contents_vi>Bản 26.11.0906: sau khi tự tải và kiểm SHA-256 gói cập nhật, ứng dụng mở đúng thư mục Tải về và chọn sẵn tệp; đọc tệp skin an toàn hơn (giới hạn kích thước, số phần tử, giá trị).
+		<contents_vi>Bản 26.11.1001: sau khi tự tải và kiểm SHA-256 gói cập nhật, ứng dụng mở đúng thư mục Tải về và chọn sẵn tệp; đọc tệp skin an toàn hơn (giới hạn kích thước, số phần tử, giá trị).
 Bản phát hành build tái lập được: cùng mã nguồn cho ra cùng tệp chương trình.</contents_vi>
-		<contents_en>Release 26.11.0906: after downloading an update and verifying its SHA-256, the app now opens your Downloads folder with the file selected; safer skin file parsing (limits on size, elements and values).
+		<contents_en>Release 26.11.1001: after downloading an update and verifying its SHA-256, the app now opens your Downloads folder with the file selected; safer skin file parsing (limits on size, elements and values).
 Releases are reproducible: the same source code produces the same program file.</contents_en>
 	</update_contents>
 </root>

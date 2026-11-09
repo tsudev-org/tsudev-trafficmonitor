@@ -4,7 +4,7 @@
 
 Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 
-## 26.11.0906 (09/11/2026)
+## 26.11.1001 (10/11/2026)
 
 ### Sửa lỗi
 * Sau khi tự tải gói cập nhật và kiểm SHA-256 khớp, bản 26.11.0905 không mở được thư mục Tải về; nay mở đúng thư mục và chọn sẵn tệp.
