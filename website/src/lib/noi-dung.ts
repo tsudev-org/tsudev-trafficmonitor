@@ -80,7 +80,9 @@ export function renderMd(tepMd: string, opts: { boTieuDeDau?: boolean; boDongNgo
   });
   const html = (marked.parse(md, { async: false }) as string)
     .replace(/<table>/g, '<div class="bang"><table>')
-    .replace(/<\/table>/g, '</table></div>');
+    .replace(/<\/table>/g, '</table></div>')
+    // Khối mã có thể cuộn ngang: cho nhận focus để cuộn bằng bàn phím (WCAG 2.1.1, axe scrollable-region-focusable)
+    .replace(/<pre>/g, '<pre tabindex="0">');
   return { html, tieuDe };
 }
 
