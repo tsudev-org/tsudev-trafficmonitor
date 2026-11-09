@@ -11,6 +11,9 @@
     /HIGHENTROPYVA    : ASLR 64-bit entropy cao (chỉ x64)
     /NXCOMPAT         : DEP - cấm thực thi mã trên vùng dữ liệu
     /CETCOMPAT        : tương thích Intel CET Shadow Stack (x86/x64)
+    /Brepro (cl+link) : build tái lập - không ghi thời điểm build vào tệp .obj/.exe (PE timestamp và GUID PDB
+                        lấy từ băm nội dung), để cùng mã nguồn + cùng bộ công cụ cho ra cùng tệp exe
+    /PDBALTPATH:%_PDB%: chỉ ghi tên tệp PDB (không ghi đường dẫn tuyệt đối của máy build) vào exe
 
   Lưu ý: project C++/CLI (CLRSupport=true, ví dụ OpenHardwareMonitorApi) không hỗ trợ /guard:cf và /CETCOMPAT
   nên được loại trừ khỏi hai cờ này.
@@ -21,11 +24,13 @@
       <SDLCheck>true</SDLCheck>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <ControlFlowGuard Condition="'$(CLRSupport)' != 'true'">Guard</ControlFlowGuard>
+      <AdditionalOptions Condition="'$(CLRSupport)' != 'true'">/Brepro %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <CETCompat Condition="'$(CLRSupport)' != 'true' and ('$(Platform)' == 'Win32' or '$(Platform)' == 'x64')">true</CETCompat>
+      <AdditionalOptions Condition="'$(CLRSupport)' != 'true'">/Brepro /PDBALTPATH:%_PDB% %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="$(Configuration.StartsWith('Release')) and '$(Platform)' == 'x64'">
