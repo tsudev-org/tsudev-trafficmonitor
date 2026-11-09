@@ -1,4 +1,4 @@
-# Kiểm tra liên kết còn sống (HTTP) hằng tuần. Không chặn PR; khi có liên kết hỏng, lần chạy báo lỗi để chủ repo xử lý.
+# Kiểm tra liên kết còn sống (HTTP) và hạn security.txt hằng tuần. Không chặn PR; khi có lỗi, lần chạy báo lỗi để chủ repo xử lý.
 name: Kiểm tra liên kết
 
 on:
@@ -22,3 +22,6 @@ jobs:
           python-version: "3.12"
       - name: Kiểm tra liên kết
         run: python3 -I tools/check_urls.py --live
+      - name: Hạn security.txt (lỗi khi còn dưới 60 ngày; kiểm cả bản trên website)
+        if: always()
+        run: python3 -I tools/check_security_txt.py --live --min-days 60
