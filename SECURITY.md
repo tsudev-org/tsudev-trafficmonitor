@@ -76,6 +76,15 @@ TrafficMonitor là ứng dụng desktop chạy với quyền người dùng (b�
 * Plugin được nạp bằng đường dẫn tuyệt đối với `LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS`.
 * **Giới hạn đã biết:** plugin là mã gốc chạy cùng tiến trình và cùng quyền với TrafficMonitor; chương trình **không** xác minh chữ ký số của plugin. Chỉ cài plugin từ nguồn tin cậy. Nên đặt TrafficMonitor ở thư mục mà người dùng thường không ghi được (ví dụ `C:\Program Files\TrafficMonitor-VN`) khi chạy bản đầy đủ với quyền Quản trị viên, để tránh phần mềm khác cài plugin trái phép.
 
+### 3b. Đọc tệp skin (`skin.xml`)
+*Rủi ro:* skin tải từ nguồn khác chứa XML độc hại (làm ứng dụng dừng, tốn bộ nhớ, giá trị kích thước bất thường).
+
+* Phần phân tích thuần nằm ở [`TrafficMonitor/XmlParsing.h`](./TrafficMonitor/XmlParsing.h) (không phụ thuộc MFC), dùng tinyxml2 11.0.0 (không hỗ trợ DTD/thực thể ngoài, nên không có XXE).
+* Giới hạn: tệp tối đa **1 MB** (kiểm kích thước trước khi đọc), tối đa 4096 phần tử, sâu tối đa 16 cấp; tối đa 256 màu/văn bản hiển thị/mục bố cục/ánh xạ plugin, chuỗi tối đa 256 byte (cắt đúng ranh giới UTF-8), tên phông quá 128 byte thì dùng phông mặc định. Vượt giới hạn hoặc sai cú pháp: skin bị bỏ, ứng dụng dùng giao diện mặc định.
+* Số đọc từ thuộc tính không tràn (thay `atoi`) và bị kẹp: kích thước 0-4096, tọa độ -4096-4096, chiều cao chữ 0-512, cỡ phông 0-72, màu 0-0xFFFFFF, kiểu căn lề lạ coi là căn trái.
+* Thông tin phiên bản (`version_signed.xml`) chỉ được phân tích **sau** khi xác minh chữ ký; hàm tìm nút đơn giản cũng nằm trong `XmlParsing.h` (đã sửa trường hợp thẻ đóng đứng trước thẻ mở).
+* Kiểm thử: `tests/XmlParsingTests.cpp` (kể cả mọi `skin.xml` thật trong `TrafficMonitor/skins`, chạy thường và dưới ASan) và harness fuzz `tests/fuzz/SkinXmlFuzz.cpp` (libFuzzer + ASan 120 giây mỗi lần CI, hạt giống là các `skin.xml` thật) kiểm mọi giá trị trả về nằm trong khoảng hợp lệ.
+
 ### 4. Gia cố tệp thực thi (cấu hình Release)
 Thiết lập tại [`Directory.Build.props`](./Directory.Build.props):
 

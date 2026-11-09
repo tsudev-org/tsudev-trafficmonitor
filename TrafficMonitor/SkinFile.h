@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "CommonData.h"
 #include "TinyXml2Helper.h"
+#include "XmlParsing.h"
 #include "DrawCommon.h"
 #include <gdiplus.h>
 
@@ -124,7 +125,7 @@ private:
     bool LoadFromXml(const wstring& file_path);     //Đọc dữ liệu skin từ tệp xml
     void LoadFromIni(const wstring& file_path);     //Đọc dữ liệu skin từ tệp ini (để tương thích với skin phiên bản cũ)
 
-    CSkinFile::Layout LayoutFromXmlNode(tinyxml2::XMLElement* ele);
+    CSkinFile::Layout LayoutFromParsed(const XmlParsing::SkinLayout& parsed);   //Bố cục từ dữ liệu đã phân tích (XmlParsing.h), đã nhân DPI
 
     struct DrawStr
     {

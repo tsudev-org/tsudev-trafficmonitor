@@ -864,6 +864,7 @@
     <ClInclude Include="UpdateDownload.h" />
     <ClInclude Include="UpdateHelper.h" />
     <ClInclude Include="UpdateSecurity.h" />
+    <ClInclude Include="XmlParsing.h" />
     <ClInclude Include="WIC.h" />
     <ClInclude Include="Win11TaskbarDlg.h" />
     <ClInclude Include="Win11TaskbarSettingDlg.h" />

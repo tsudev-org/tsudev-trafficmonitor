@@ -376,6 +376,9 @@
     <ClInclude Include="UpdateHelper.h">
       <Filter>Mã nguồn và header\Lớp dùng chung\UpdateHelper</Filter>
     </ClInclude>
+    <ClInclude Include="XmlParsing.h">
+      <Filter>Mã nguồn và header\Lớp dùng chung\SkinFile</Filter>
+    </ClInclude>
     <ClInclude Include="UpdateDownload.h">
       <Filter>Mã nguồn và header\Lớp dùng chung\UpdateHelper</Filter>
     </ClInclude>
