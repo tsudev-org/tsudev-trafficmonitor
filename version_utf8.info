@@ -1,15 +1,15 @@
 ﻿<root>
-	<version>1.90</version>
+	<version>1.91</version>
 	<GitHub>
-		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_x86_Lite.zip</link>
-		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_x64_Lite.zip</link_x64>
-		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_arm64ec_Lite.zip</link_arm64ec>
-		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_x86_Lite.zip</link_without_temperature>
-		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_x64_Lite.zip</link_without_temperature_x64>
-		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_arm64ec_Lite.zip</link_without_temperature_arm64ec>
+		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.91-vn/TrafficMonitor-VN_V1.91_x86_Lite.zip</link>
+		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.91-vn/TrafficMonitor-VN_V1.91_x64_Lite.zip</link_x64>
+		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.91-vn/TrafficMonitor-VN_V1.91_arm64ec_Lite.zip</link_arm64ec>
+		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.91-vn/TrafficMonitor-VN_V1.91_x86_Lite.zip</link_without_temperature>
+		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.91-vn/TrafficMonitor-VN_V1.91_x64_Lite.zip</link_without_temperature_x64>
+		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.91-vn/TrafficMonitor-VN_V1.91_arm64ec_Lite.zip</link_without_temperature_arm64ec>
 	</GitHub>
 	<update_contents>
-		<contents_vi>Bản V1.90-vn. Skin mặc định mới 0_tsudev_Cu (chú cú tsudev, nền sáng) và skin tsudev_VongMang (nền tối).\nGỡ 4 skin có hình nhân vật hoạt hình của bên thứ ba (0_MacDinh, MacDinh2, GiaoDien01, GiaoDien02); máy đang dùng các skin này tự chuyển sang skin mặc định mới.</contents_vi>
-		<contents_en>Release V1.90-vn. New default skin 0_tsudev_Cu (tsudev owl, light) and skin tsudev_VongMang (dark).\nRemoved 4 inherited skins featuring third-party cartoon characters (0_MacDinh, MacDinh2, GiaoDien01, GiaoDien02); installations using them switch to the new default skin.</contents_en>
+		<contents_vi>Bản V1.91-vn. Các liên kết Hỏi đáp, Nhật ký cập nhật, Kho giao diện, Tự làm giao diện, Plugin và Phát triển plugin trong ứng dụng nay mở trang hướng dẫn trên website https://trafficmonitor.tsudev.com.\nGồm toàn bộ thay đổi của V1.90-vn: skin mặc định tsudev, gỡ skin có hình nhân vật hoạt hình của bên thứ ba.</contents_vi>
+		<contents_en>Release V1.91-vn. In-app links (FAQ, update log, skin gallery, skin tutorial, plugins, plugin development) now open the guides on https://trafficmonitor.tsudev.com (Vietnamese); other languages keep the English documents on GitHub.\nIncludes all V1.90-vn changes: tsudev default skin, removal of skins featuring third-party cartoon characters.</contents_en>
 	</update_contents>
 </root>

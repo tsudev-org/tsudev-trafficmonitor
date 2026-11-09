@@ -1352,7 +1352,7 @@ void CTrafficMonitorApp::SetThemeColor(COLORREF color)
 
 void CTrafficMonitorApp::OnHelp()
 {
-    //Bản Việt hóa: trang trợ giúp trỏ tới README của repo TrafficMonitor-VN
+    //Bản Việt hóa: trang trợ giúp trỏ tới mục Hướng dẫn trên website trafficmonitor.tsudev.com
     ShellExecute(NULL, _T("open"), FORK_WIKI_URL, NULL, NULL, SW_SHOW);
 }
 
@@ -1362,7 +1362,7 @@ void CTrafficMonitorApp::OnFrequentyAskedQuestions()
     //Bản Việt hóa: Hỏi đáp tiếng Việt; ngôn ngữ khác dùng bản tiếng Anh
     CString url = FORK_HELP_URL;
     if (m_str_table.GetLanguageInfo().bcp_47 != L"vi-VN")
-        url.Replace(L"Help.md", L"Help_en-us.md");
+        url = FORK_HELP_EN_URL;
     ShellExecute(NULL, _T("open"), url, NULL, NULL, SW_SHOW);
 }
 
@@ -1372,7 +1372,7 @@ void CTrafficMonitorApp::OnUpdateLog()
     //Bản Việt hóa: nhật ký cập nhật tiếng Việt; ngôn ngữ khác dùng bản tiếng Anh của dự án gốc
     CString url = FORK_UPDATE_LOG_URL;
     if (m_str_table.GetLanguageInfo().bcp_47 != L"vi-VN")
-        url.Replace(L"update_log_vi.md", L"update_log_en-us.md");
+        url = FORK_UPDATE_LOG_EN_URL;
     ShellExecute(NULL, _T("open"), url, NULL, NULL, SW_SHOW);
 }
 
