@@ -204,4 +204,168 @@ namespace UpdateSecurity
         if (hash_alg) BCryptCloseAlgorithmProvider(hash_alg, 0);
         return verified;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Tải và kiểm SHA-256 gói cập nhật ngay trong ứng dụng (từ 26.11.0905)
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Kích thước tối đa của gói cập nhật tải về (gói thật khoảng 2-3 MB)
+    const unsigned long long MAX_UPDATE_PACKAGE_BYTES = 50ull * 1024 * 1024;
+
+    //Chuỗi SHA-256 dạng hex: đúng 64 ký tự 0-9, a-f, A-F
+    inline bool IsSha256Hex(const std::wstring& value)
+    {
+        if (value.size() != 64)
+            return false;
+        for (wchar_t ch : value)
+        {
+            if (!((ch >= L'0' && ch <= L'9') || (ch >= L'a' && ch <= L'f') || (ch >= L'A' && ch <= L'F')))
+                return false;
+        }
+        return true;
+    }
+
+    //So sánh hai SHA-256 dạng hex, không phân biệt hoa thường. Chuỗi không hợp lệ (kể cả rỗng) không bao giờ khớp.
+    inline bool Sha256Equals(const std::wstring& a, const std::wstring& b)
+    {
+        if (!IsSha256Hex(a) || !IsSha256Hex(b))
+            return false;
+        return _wcsicmp(a.c_str(), b.c_str()) == 0;
+    }
+
+    //Chuyển byte sang chuỗi hex chữ thường
+    inline std::wstring ToHexLower(const unsigned char* data, size_t size)
+    {
+        static const wchar_t digits[] = L"0123456789abcdef";
+        std::wstring result;
+        result.reserve(size * 2);
+        for (size_t i = 0; i < size; i++)
+        {
+            result.push_back(digits[data[i] >> 4]);
+            result.push_back(digits[data[i] & 0x0f]);
+        }
+        return result;
+    }
+
+    //Tên tệp an toàn để lưu gói cập nhật, lấy từ liên kết tải đã qua IsTrustedDownloadUrl:
+    //phần sau dấu '/' cuối cùng, dài 5~128 ký tự, chỉ gồm A-Z a-z 0-9 . _ -, không bắt đầu bằng '.',
+    //đuôi .zip (không nhận .exe), không phải tên thiết bị DOS (CON, NUL, COM1...). Rỗng nếu không đạt.
+    inline std::wstring SafeFileNameFromUrl(const std::wstring& url)
+    {
+        if (!IsTrustedDownloadUrl(url))
+            return std::wstring();
+        size_t slash = url.find_last_of(L'/');
+        if (slash == std::wstring::npos)
+            return std::wstring();
+        std::wstring name = url.substr(slash + 1);
+        if (name.size() < 5 || name.size() > 128 || name[0] == L'.')
+            return std::wstring();
+        for (wchar_t ch : name)
+        {
+            bool ok = (ch >= L'A' && ch <= L'Z') || (ch >= L'a' && ch <= L'z') || (ch >= L'0' && ch <= L'9')
+                || ch == L'.' || ch == L'_' || ch == L'-';
+            if (!ok)
+                return std::wstring();
+        }
+        if (_wcsicmp(name.c_str() + name.size() - 4, L".zip") != 0)
+            return std::wstring();
+        //Tên thiết bị DOS: so phần trước dấu chấm đầu tiên
+        std::wstring stem = name.substr(0, name.find(L'.'));
+        static const wchar_t* const reserved[] = { L"CON", L"PRN", L"AUX", L"NUL",
+            L"COM1", L"COM2", L"COM3", L"COM4", L"COM5", L"COM6", L"COM7", L"COM8", L"COM9",
+            L"LPT1", L"LPT2", L"LPT3", L"LPT4", L"LPT5", L"LPT6", L"LPT7", L"LPT8", L"LPT9" };
+        for (const wchar_t* r : reserved)
+        {
+            if (_wcsicmp(stem.c_str(), r) == 0)
+                return std::wstring();
+        }
+        return name;
+    }
+
+    //Chọn tên tệp chưa tồn tại để không ghi đè tệp đang có: "a.zip", rồi "a (2).zip" ... "a (99).zip".
+    //exists(tên) do nơi gọi cung cấp (kiểm trên đĩa). Trả về rỗng nếu mọi tên đều đã có.
+    template <class ExistsFn>
+    inline std::wstring UniqueFileName(const std::wstring& name, ExistsFn exists)
+    {
+        if (name.empty())
+            return std::wstring();
+        if (!exists(name))
+            return name;
+        size_t dot = name.find_last_of(L'.');
+        std::wstring stem = (dot == std::wstring::npos || dot == 0) ? name : name.substr(0, dot);
+        std::wstring ext = (dot == std::wstring::npos || dot == 0) ? std::wstring() : name.substr(dot);
+        for (int i = 2; i <= 99; i++)
+        {
+            std::wstring candidate = stem + L" (" + std::to_wstring(i) + L")" + ext;
+            if (!exists(candidate))
+                return candidate;
+        }
+        return std::wstring();
+    }
+
+    //Tính SHA-256 theo từng khối (BCrypt), dùng khi tải gói: băm trong lúc ghi ra đĩa
+    class Sha256Stream
+    {
+    public:
+        Sha256Stream()
+        {
+            m_ok = BCRYPT_SUCCESS(BCryptOpenAlgorithmProvider(&m_alg, BCRYPT_SHA256_ALGORITHM, nullptr, 0))
+                && BCRYPT_SUCCESS(BCryptCreateHash(m_alg, &m_hash, nullptr, 0, nullptr, 0, 0));
+        }
+        ~Sha256Stream()
+        {
+            if (m_hash) BCryptDestroyHash(m_hash);
+            if (m_alg) BCryptCloseAlgorithmProvider(m_alg, 0);
+        }
+        Sha256Stream(const Sha256Stream&) = delete;
+        Sha256Stream& operator=(const Sha256Stream&) = delete;
+
+        bool IsValid() const { return m_ok && !m_finished; }
+
+        bool Update(const void* data, size_t size)
+        {
+            if (!IsValid())
+                return false;
+            const unsigned char* p = static_cast<const unsigned char*>(data);
+            while (size > 0)
+            {
+                ULONG chunk = size > 0x10000000 ? 0x10000000UL : static_cast<ULONG>(size);
+                if (!BCRYPT_SUCCESS(BCryptHashData(m_hash, const_cast<PUCHAR>(p), chunk, 0)))
+                {
+                    m_ok = false;
+                    return false;
+                }
+                p += chunk;
+                size -= chunk;
+            }
+            return true;
+        }
+
+        //Kết thúc và trả về SHA-256 dạng hex chữ thường; rỗng nếu lỗi. Chỉ gọi được một lần.
+        std::wstring FinishHex()
+        {
+            if (!IsValid())
+                return std::wstring();
+            m_finished = true;
+            unsigned char digest[32]{};
+            if (!BCRYPT_SUCCESS(BCryptFinishHash(m_hash, digest, sizeof(digest), 0)))
+                return std::wstring();
+            return ToHexLower(digest, sizeof(digest));
+        }
+
+    private:
+        BCRYPT_ALG_HANDLE m_alg{};
+        BCRYPT_HASH_HANDLE m_hash{};
+        bool m_ok{ false };
+        bool m_finished{ false };
+    };
+
+    //SHA-256 của cả khối dữ liệu (hex chữ thường)
+    inline std::wstring Sha256Hex(const void* data, size_t size)
+    {
+        Sha256Stream stream;
+        if (!stream.Update(data, size))
+            return std::wstring();
+        return stream.FinishHex();
+    }
 }

@@ -26,7 +26,7 @@ A [tsudev](https://tsudev.com) product. Product page: [trafficmonitor.tsudev.com
 | Area | Original | TrafficMonitor-VN |
 |---|---|---|
 | Update source | GitHub or Gitee | Only the tsudev-trafficmonitor repository on GitHub |
-| Update information | Unsigned | **Signed** (ECDSA P-256, verified with Windows CNG); the update dialog shows the package SHA-256 |
+| Update information | Unsigned | **Signed** (ECDSA P-256, verified with Windows CNG); the app downloads the package itself and keeps it only if its **SHA-256 matches** the signed value |
 | Download link validation | Any `github.com/`, `gitee.com/` path | Only this repository's Releases page; rejects `..`, `@`, `?`, `#`, `%`; `.zip`/`.exe` only |
 | Version comparison | String comparison (wrong for `1.100` vs `1.86`) | Numeric |
 | Network protocol | Anything `OpenURL` supports (including `file://`, `ftp://`) | **HTTPS only**, timeout, 1 MB limit, no cache/cookies, allowed hosts only |
@@ -41,7 +41,7 @@ Details: [SECURITY.md](./SECURITY.md) (Vietnamese).
 
 * Releases: [Download page](https://trafficmonitor.tsudev.com/tai-ve/) or [GitHub Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest). Each release includes `SHA256SUMS.txt` and a GitHub build provenance attestation - check the hash before running.
 * Packages are ready-to-run `.zip` files (`tsudev-trafficmonitor_<version>_<arch>_Lite.zip`); there is no `-setup.exe` installer as in tsudev's VERSIONING naming template, and the architecture is `x64`, `x86` or `arm64ec` (named after the actual ARM64EC build instead of `arm64`).
-* The in-app update check only trusts **signed** version information and shows the package's SHA-256 so you can compare it after downloading.
+* The in-app update check only trusts **signed** version information. From 26.11.0905, when you click **Yes**, the app downloads the package, checks its SHA-256 against the signed value, saves it to your Downloads folder (never overwriting an existing file) and opens the folder with the file selected; on a SHA-256 mismatch the file is deleted and an error is shown. The app never extracts or runs the package.
 * CI test builds: [Actions](https://github.com/tsudev-org/tsudev-trafficmonitor/actions/workflows/build.yml) (GitHub sign-in required).
 
 TrafficMonitor-VN is published **only** through the GitHub repository above and trafficmonitor.tsudev.com. Any other site claiming to be "official" is unrelated.

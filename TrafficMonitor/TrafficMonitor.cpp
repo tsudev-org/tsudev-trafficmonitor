@@ -23,6 +23,90 @@
 #define new DEBUG_NEW
 #endif
 
+namespace
+{
+    //Báo tiến độ tải gói cập nhật lên hộp thoại tiến độ của Windows (IProgressDialog); trả về false khi người dùng bấm Hủy
+    bool UpdateDownloadProgress(unsigned long long done, unsigned long long total, void* context)
+    {
+        IProgressDialog* dialog = static_cast<IProgressDialog*>(context);
+        if (dialog == nullptr)
+            return true;
+        if (dialog->HasUserCancelled())
+            return false;
+        if (total != 0)
+            dialog->SetProgress64(done, total);
+        return true;
+    }
+
+    //Mở thư mục chứa tệp và chọn sẵn tệp; không được thì mở thư mục
+    void OpenFolderAndSelectFile(const wstring& path)
+    {
+        bool opened = false;
+        PIDLIST_ABSOLUTE pidl = ILCreateFromPathW(path.c_str());
+        if (pidl != nullptr)
+        {
+            opened = SUCCEEDED(SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0));
+            ILFree(pidl);
+        }
+        if (!opened)
+        {
+            wstring folder = path.substr(0, path.find_last_of(L'\\'));
+            ShellExecuteW(NULL, L"open", folder.c_str(), NULL, NULL, SW_SHOWNORMAL);
+        }
+    }
+
+    //Tự tải gói cập nhật, kiểm SHA-256 với giá trị trong thông tin phiên bản có chữ ký rồi lưu vào thư mục Downloads.
+    //Chạy ở luồng kiểm tra cập nhật (luồng nền), không chặn giao diện; hộp thoại tiến độ có nút Hủy.
+    //Trả về true nếu cần dùng đường dự phòng: mở liên kết tải trong trình duyệt (người dùng đã đồng ý).
+    bool DownloadUpdatePackage(const wstring& version, const wstring& link, const wstring& sha256)
+    {
+        HRESULT co_result = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
+        IProgressDialog* dialog = nullptr;
+        if (SUCCEEDED(CoCreateInstance(CLSID_ProgressDialog, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&dialog))) && dialog != nullptr)
+        {
+            CString line;
+            line.Format(CCommon::LoadText(IDS_UPDATE_DOWNLOADING), version.c_str());
+            dialog->SetTitle(CCommon::LoadText(IDS_UPDATE_DOWNLOAD_TITLE).GetString());
+            dialog->SetLine(1, line.GetString(), FALSE, nullptr);
+            dialog->SetLine(2, UpdateSecurity::SafeFileNameFromUrl(link).c_str(), TRUE, nullptr);
+            dialog->StartProgressDialog(nullptr, nullptr, PROGDLG_NORMAL | PROGDLG_AUTOTIME | PROGDLG_NOMINIMIZE, nullptr);
+        }
+
+        wstring saved_path, actual_sha256;
+        UpdateDownload::Result result = CUpdateHelper::DownloadPackage(link, sha256, saved_path, actual_sha256, UpdateDownloadProgress, dialog);
+        if (dialog != nullptr)
+        {
+            dialog->StopProgressDialog();
+            dialog->Release();
+        }
+
+        bool open_browser = false;
+        CString info;
+        switch (result)
+        {
+        case UpdateDownload::Result::Ok:
+            info.Format(CCommon::LoadText(IDS_UPDATE_DOWNLOAD_OK), version.c_str(), saved_path.c_str(), actual_sha256.c_str());
+            AfxMessageBox(info, MB_OK | MB_ICONINFORMATION);
+            OpenFolderAndSelectFile(saved_path);
+            break;
+        case UpdateDownload::Result::Cancelled:
+            break;
+        case UpdateDownload::Result::HashMismatch:
+            //Tệp đã bị xóa trong DownloadPackage; tuyệt đối không mở liên kết hay thư mục
+            info.Format(CCommon::LoadText(IDS_UPDATE_SHA256_MISMATCH), sha256.c_str(), actual_sha256.c_str());
+            AfxMessageBox(info, MB_OK | MB_ICONERROR);
+            break;
+        default:
+            info.Format(CCommon::LoadText(IDS_UPDATE_DOWNLOAD_FAILED), sha256.c_str());
+            open_browser = (AfxMessageBox(info, MB_YESNO | MB_ICONWARNING) == IDYES);
+            break;
+        }
+        if (SUCCEEDED(co_result))
+            CoUninitialize();
+        return open_browser;
+    }
+}
+
 
 // CTrafficMonitorApp
 
@@ -599,10 +683,16 @@ void CTrafficMonitorApp::CheckUpdate(bool message)
             info += sha256.c_str();
         }
 
-        //Kiểm tra lại liên kết ngay trước khi mở (phòng thủ nhiều lớp): chỉ mở trang Releases của repo này
+        //Kiểm tra lại liên kết ngay trước khi dùng (phòng thủ nhiều lớp): chỉ trang Releases của repo này
         if (AfxMessageBox(info, MB_YESNO | MB_ICONQUESTION) == IDYES && CUpdateHelper::IsTrustedDownloadUrl(link))
         {
-            ShellExecute(NULL, _T("open"), link.c_str(), NULL, NULL, SW_SHOW);      //Chuyển tới liên kết tải về
+            //Từ 26.11.0905: tự tải gói và kiểm SHA-256 trước khi lưu. Thông tin phiên bản không có SHA-256 hợp lệ
+            //hoặc liên kết không phải gói .zip: dùng đường cũ (mở liên kết trong trình duyệt).
+            bool open_browser = true;
+            if (UpdateSecurity::IsSha256Hex(sha256) && !UpdateSecurity::SafeFileNameFromUrl(link).empty())
+                open_browser = DownloadUpdatePackage(version, link, sha256);
+            if (open_browser)
+                ShellExecute(NULL, _T("open"), link.c_str(), NULL, NULL, SW_SHOW);      //Chuyển tới liên kết tải về
         }
     }
     else

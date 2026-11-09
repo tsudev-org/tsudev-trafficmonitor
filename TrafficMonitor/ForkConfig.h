@@ -39,6 +39,9 @@
 // Máy chủ được phép trả dữ liệu cho GetURL sau khi theo chuyển hướng (redirect).
 // URL cuối cùng phải là HTTPS và có host nằm trong danh sách này, phân tách bằng dấu "|".
 #define FORK_TRUSTED_HOSTS          L"github.com|objects.githubusercontent.com|release-assets.githubusercontent.com|raw.githubusercontent.com|trafficmonitor.tsudev.com|api.ipify.org|api6.ipify.org"
+// Máy chủ được phép ở MỌI bước chuyển hướng khi ứng dụng tự tải gói cập nhật (CUpdateHelper::DownloadPackage).
+// Hẹp hơn FORK_TRUSTED_HOSTS: chỉ trang Releases của GitHub và máy chủ lưu tệp đính kèm của GitHub.
+#define FORK_UPDATE_DOWNLOAD_HOSTS  L"github.com|objects.githubusercontent.com|release-assets.githubusercontent.com"
 
 // Các trang tài liệu (website trafficmonitor.tsudev.com, sinh từ các tệp .md trong repo;
 // bản .md trên GitHub vẫn giữ làm dự phòng). Ngôn ngữ khác tiếng Việt dùng tài liệu tiếng Anh (*_EN_URL) trên GitHub,

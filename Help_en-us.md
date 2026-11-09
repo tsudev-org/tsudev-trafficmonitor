@@ -139,7 +139,7 @@ How to install plugins and troubleshoot them: [Plugins](./Plugin_en-us.md); writ
 
 ### How do I check that a download is genuine?
 
-Download only from [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com/tai-ve/) or the repository's [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest). Compare the zip's SHA-256 with `SHA256SUMS.txt` (PowerShell: `Get-FileHash <file>.zip`); the in-app update dialog also shows the SHA-256 from the signed version information. Full steps, including build attestation: [SECURITY.md](./SECURITY.md).
+Download only from [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com/tai-ve/) or the repository's [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest). Compare the zip's SHA-256 with `SHA256SUMS.txt` (PowerShell: `Get-FileHash <file>.zip`); when updating from within the app (26.11.0905 and later), the app downloads the package itself and only saves it to your Downloads folder if its SHA-256 matches the signed version information; if it reports a SHA-256 mismatch, do not fetch the package another way - report it on GitHub Issues. Full steps, including build attestation: [SECURITY.md](./SECURITY.md).
 
 ### The program crashes
 

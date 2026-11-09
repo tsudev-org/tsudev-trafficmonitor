@@ -55,6 +55,31 @@ bool CUpdateHelper::VerifySignature(const std::string& data, const std::string& 
     return UpdateSecurity::VerifySignature(data, signature_base64);
 }
 
+UpdateDownload::Result CUpdateHelper::DownloadPackage(const std::wstring& url, const std::wstring& expected_sha256,
+    std::wstring& saved_path, std::wstring& actual_sha256, UpdateDownload::ProgressFn progress, void* context)
+{
+    //Kiểm lại liên kết ngay trước khi tải (phòng thủ nhiều lớp)
+    if (!IsTrustedDownloadUrl(url))
+        return UpdateDownload::Result::Unsupported;
+    UpdateDownload::Options options;
+    options.user_agent = std::wstring(L"TrafficMonitor-VN/") + VERSION;
+    options.progress = progress;
+    options.context = context;
+    std::wstring log;
+    options.log = &log;
+    UpdateDownload::Result result = UpdateDownload::DownloadPackage(url, expected_sha256, UpdateDownload::GetDownloadsFolder(),
+        options, saved_path, actual_sha256);
+    if (theApp.m_debug_log)
+    {
+        std::wstring info = L"DownloadPackage: result ";
+        info += UpdateDownload::ResultName(result);
+        if (!log.empty())
+            info += L"; " + log;
+        CCommon::WriteLog(info.c_str(), theApp.m_log_path.c_str());
+    }
+    return result;
+}
+
 bool CUpdateHelper::IsTrustedDownloadUrl(const std::wstring& url)
 {
     //Kể cả khi thông tin phiên bản bị giả mạo, chương trình cũng không mở liên kết ngoài trang Releases của repo này
