@@ -38,21 +38,21 @@ namespace
         return true;
     }
 
-    //Mở thư mục chứa tệp và chọn sẵn tệp; không được thì mở thư mục
+    //Mở thư mục chứa tệp và chọn sẵn tệp bằng "explorer.exe /select,<tệp>" (đường dẫn tuyệt đối trong thư mục Windows).
+    //Không dùng SHOpenFolderAndSelectItems: gọi từ luồng nền rồi CoUninitialize ngay thì cửa sổ thường không mở (thử 26.11.0905).
     void OpenFolderAndSelectFile(const wstring& path)
     {
-        bool opened = false;
-        PIDLIST_ABSOLUTE pidl = ILCreateFromPathW(path.c_str());
-        if (pidl != nullptr)
+        wchar_t windows_dir[MAX_PATH]{};
+        UINT len = GetWindowsDirectoryW(windows_dir, MAX_PATH);
+        if (len > 0 && len < MAX_PATH)
         {
-            opened = SUCCEEDED(SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0));
-            ILFree(pidl);
+            wstring explorer = wstring(windows_dir) + L"\\explorer.exe";
+            wstring params = L"/select,\"" + path + L"\"";
+            if (reinterpret_cast<INT_PTR>(ShellExecuteW(NULL, L"open", explorer.c_str(), params.c_str(), NULL, SW_SHOWNORMAL)) > 32)
+                return;
         }
-        if (!opened)
-        {
-            wstring folder = path.substr(0, path.find_last_of(L'\\'));
-            ShellExecuteW(NULL, L"open", folder.c_str(), NULL, NULL, SW_SHOWNORMAL);
-        }
+        wstring folder = path.substr(0, path.find_last_of(L'\\'));
+        ShellExecuteW(NULL, L"open", folder.c_str(), NULL, NULL, SW_SHOWNORMAL);
     }
 
     //Tự tải gói cập nhật, kiểm SHA-256 với giá trị trong thông tin phiên bản có chữ ký rồi lưu vào thư mục Downloads.

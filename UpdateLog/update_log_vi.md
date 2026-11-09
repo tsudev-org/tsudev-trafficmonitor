@@ -4,6 +4,17 @@
 
 Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 
+## 26.11.0905 (09/11/2026)
+
+### Bảo mật
+* Khi bạn đồng ý cập nhật, ứng dụng **tự tải gói** đúng kiến trúc (có hộp thoại tiến độ và nút Hủy), tính SHA-256 trong lúc tải và so với SHA-256 trong thông tin phiên bản có chữ ký số. Chỉ khi khớp mới lưu vào thư mục Tải về và mở thư mục chọn sẵn tệp; không khớp thì xóa tệp và báo lỗi. Bạn không còn phải tự đối chiếu mã băm.
+* Chỉ tải từ trang Releases của repo; mọi bước chuyển hướng phải tới máy chủ của GitHub qua HTTPS; giới hạn 50 MB; không ghi đè tệp có sẵn; tệp lưu được đánh dấu "tải từ Internet" như khi tải bằng trình duyệt. Ứng dụng không tự giải nén hay tự chạy gói.
+* Tải thất bại (lỗi mạng): ứng dụng hỏi có mở liên kết trong trình duyệt như trước không.
+* Kiểm thử tích hợp trong CI tải gói phát hành thật để thử các trường hợp khớp, lệch SHA-256, quá kích thước, hủy và chuyển hướng tới máy chủ lạ.
+
+### Khác
+* Repo cũ `TrafficMonitor-VN` được gỡ; mọi mã nguồn, bản phát hành và kênh cập nhật nằm ở repo `tsudev-org/tsudev-trafficmonitor`.
+
 ## 26.11.0904 (09/11/2026)
 
 > Số 26.11.0903 không phát hành (bản build lỗi ở bước sinh SBOM trước khi tạo Release); 26.11.0904 có cùng nội dung.
