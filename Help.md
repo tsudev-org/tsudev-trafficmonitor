@@ -140,7 +140,7 @@ Cách cài plugin và khắc phục sự cố: trang [Plugin](./Plugin.md); tự
 
 ### Làm sao biết tệp tải về là bản thật?
 
-Chỉ tải từ [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest) của repo. Đối chiếu SHA-256 của tệp zip với `SHA256SUMS.txt` (PowerShell: `Get-FileHash <tệp>.zip`); hộp thoại cập nhật trong ứng dụng cũng hiện SHA-256 lấy từ thông tin phiên bản có chữ ký. Các bước đầy đủ, gồm chứng thực build: [SECURITY.md](./SECURITY.md).
+Chỉ tải từ [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest) của repo. Đối chiếu SHA-256 của tệp zip với `SHA256SUMS.txt` (PowerShell: `Get-FileHash <tệp>.zip`); khi cập nhật trong ứng dụng (từ 26.11.0905), ứng dụng tự tải gói và chỉ lưu vào thư mục Tải về khi SHA-256 khớp thông tin phiên bản có chữ ký; nếu báo SHA-256 không khớp, đừng tải lại bằng cách khác mà hãy báo qua GitHub Issues. Các bước đầy đủ, gồm chứng thực build: [SECURITY.md](./SECURITY.md).
 
 ### Chương trình bị đóng đột ngột (crash)
 

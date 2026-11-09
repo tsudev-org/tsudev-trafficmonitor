@@ -28,6 +28,7 @@ Một sản phẩm của [tsudev](https://tsudev.com). Trang sản phẩm: [traf
 |---|---|---|
 | Nguồn cập nhật | GitHub hoặc Gitee | Chỉ repo tsudev-trafficmonitor trên GitHub |
 | Kiểm tra liên kết tải bản cập nhật | Chấp nhận mọi đường dẫn `github.com/`, `gitee.com/` | Chỉ chấp nhận trang Releases của repo này, chặn `..`, `@`, `?`, `#`, `%`, chỉ `.zip`/`.exe` |
+| Tải bản cập nhật | Mở trình duyệt, không kiểm tệp tải về | Thông tin phiên bản có **chữ ký số** (ECDSA P-256); ứng dụng tự tải gói và chỉ lưu khi **SHA-256 khớp** giá trị đã ký |
 | So sánh phiên bản | So sánh chuỗi (sai khi `1.100` vs `1.86`) | So sánh theo số |
 | Giao thức tải dữ liệu | Mọi giao thức `OpenURL` hỗ trợ (kể cả `file://`, `ftp://`) | **Chỉ HTTPS**, có timeout, giới hạn 1 MB, không cache/cookie |
 | Tra cứu IP công cộng | Dịch vụ bên thứ ba ở nước ngoài, có gửi vị trí | [ipify](https://www.ipify.org/) (mã nguồn mở, chỉ trả IP), chỉ khi người dùng bấm |
@@ -41,7 +42,7 @@ Chi tiết xem [SECURITY.md](./SECURITY.md).
 
 * Bản phát hành: [trang Tải về](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest). Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` và chứng thực nguồn gốc build - hãy đối chiếu mã băm trước khi chạy (xem [SECURITY.md](./SECURITY.md#kiểm-tra-tính-toàn-vẹn-tệp-tải-về)).
 * Gói phát hành là tệp `.zip` giải nén là chạy (`tsudev-trafficmonitor_<phiên bản>_<kiến trúc>_Lite.zip`), không có bộ cài `-setup.exe` như mẫu tên trong chuẩn VERSIONING của tsudev; kiến trúc là `x64`, `x86` hoặc `arm64ec` (ghi đúng kiểu build ARM64EC thay cho `arm64`).
-* Kiểm tra cập nhật trong ứng dụng chỉ tin thông tin phiên bản có **chữ ký số** (ECDSA P-256) và hiển thị SHA-256 của gói để đối chiếu.
+* Kiểm tra cập nhật trong ứng dụng chỉ tin thông tin phiên bản có **chữ ký số** (ECDSA P-256). Từ 26.11.0905, khi bạn bấm **Có**, ứng dụng tự tải gói, kiểm SHA-256 với giá trị đã ký, lưu vào thư mục Tải về (không ghi đè tệp có sẵn) và mở thư mục chọn sẵn tệp; SHA-256 lệch thì xóa tệp và báo lỗi. Ứng dụng không tự giải nén hay tự chạy gói.
 * Bản build thử nghiệm: tab [Actions](https://github.com/tsudev-org/tsudev-trafficmonitor/actions/workflows/build.yml) (cần đăng nhập GitHub).
 
 TrafficMonitor-VN **chỉ** được phát hành qua repo GitHub trên. Mọi trang web khác tự xưng là “trang chính thức” đều không liên quan.

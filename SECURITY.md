@@ -34,7 +34,7 @@ gh attestation verify tsudev-trafficmonitor_26.11.0901_x64_Lite.zip --repo tsude
 ## Chuỗi tin cậy của bản cập nhật
 
 1. **Chữ ký thông tin phiên bản** - ứng dụng chỉ tin `version_signed.xml` có chữ ký hợp lệ (xem mục 1 bên dưới).
-2. **SHA-256** - hộp thoại cập nhật hiện SHA-256 của gói đúng kiến trúc; mã băm này cũng có trong `SHA256SUMS.txt` của bản phát hành. Sau khi tải, đối chiếu bằng `Get-FileHash <tệp.zip> -Algorithm SHA256` (PowerShell).
+2. **SHA-256** - từ 26.11.0905, khi bạn đồng ý cập nhật, ứng dụng **tự tải gói** đúng kiến trúc, tính SHA-256 trong lúc tải và so với SHA-256 trong thông tin phiên bản có chữ ký; chỉ khi khớp mới lưu gói vào thư mục Tải về (Downloads) và mở thư mục chọn sẵn tệp. Lệch thì xóa tệp và báo lỗi. Mã băm này cũng có trong `SHA256SUMS.txt` của bản phát hành; nếu tải bằng trình duyệt (bản cũ hơn, hoặc khi tự tải thất bại), đối chiếu bằng `Get-FileHash <tệp.zip> -Algorithm SHA256` (PowerShell).
 3. **Chứng thực nguồn gốc build** - mỗi gói được GitHub Actions chứng thực (`gh attestation verify <tệp.zip> -R tsudev-org/tsudev-trafficmonitor`), chứng minh gói được build từ mã nguồn của repo này tại đúng tag phát hành.
 
 Tự kiểm tra chữ ký thông tin phiên bản (cần OpenSSL và Python):
@@ -53,9 +53,15 @@ TrafficMonitor là ứng dụng desktop chạy với quyền người dùng (b�
 
 * **Thông tin phiên bản có chữ ký (từ V1.88-vn).** Mỗi bản phát hành kèm `version_signed.xml` (phiên bản, liên kết tải, **SHA-256 của từng gói**) và chữ ký `version_signed.xml.sig` (ECDSA P-256/SHA-256). Khóa bí mật chỉ nằm trong secret của environment `release` trên GitHub (job phát hành cần chủ repo duyệt); khóa công khai nhúng trong `ForkConfig.h` và có bản PEM tại [`tools/keys/update_signing_pub.pem`](./tools/keys/update_signing_pub.pem). Ứng dụng xác minh chữ ký bằng Windows CNG; chữ ký sai thì bỏ toàn bộ thông tin cập nhật. Vì vậy kể cả khi GitHub, DNS hay kết nối mạng bị giả mạo, kẻ tấn công không thể đưa phiên bản/liên kết/mã băm giả vào ứng dụng.
 * **Chống hạ cấp:** chỉ báo cập nhật khi phiên bản trong thông tin có chữ ký **lớn hơn** phiên bản đang chạy (so sánh theo số).
-* Bản V1.86-vn/V1.87-vn (trước khi có chữ ký) đọc `version_utf8.info` không chữ ký qua **HTTPS**; tệp này vẫn được duy trì cho các bản đó.
+* Bản V1.87-vn (trước khi có chữ ký) đọc `version_utf8.info` không chữ ký qua **HTTPS**; tệp này vẫn được duy trì cho bản đó. Bản V1.86-vn đọc thông tin cập nhật từ repo cũ `TrafficMonitor-VN` đã gỡ (11/2026) nên không còn nhận thông báo; hãy tải bản mới tại trang Tải về.
 * Liên kết tải phải bắt đầu **chính xác** bằng `https://github.com/tsudev-org/tsudev-trafficmonitor/releases/download/` hoặc địa chỉ cũ trước khi chuyển repo `https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/` (GitHub chuyển hướng; bản phát hành ghi liên kết theo địa chỉ cũ để bản đã cài vẫn cập nhật được), không chứa `..`, `@`, `?`, `#`, `%`, `\`, khoảng trắng hay ký tự điều khiển, và chỉ trỏ tới `.zip`/`.exe`. Liên kết được kiểm tra **hai lần** (khi phân tích và ngay trước khi mở).
-* Chương trình **không tự tải và không tự chạy** bản cập nhật; chỉ mở trang tải trong trình duyệt sau khi người dùng đồng ý.
+* **Tự tải và kiểm SHA-256 (từ 26.11.0905).** Chỉ sau khi người dùng đồng ý, ứng dụng tải gói ở luồng nền (hộp thoại tiến độ có nút Hủy):
+  * chỉ tải liên kết đã qua bộ lọc trên và trỏ tới gói `.zip`; tên tệp lưu lấy từ liên kết, chỉ gồm `A-Z a-z 0-9 . _ -`, không phải tên thiết bị DOS;
+  * tự theo chuyển hướng (tối đa 5 bước) nhưng **mọi bước** phải là HTTPS tới `github.com`, `objects.githubusercontent.com` hoặc `release-assets.githubusercontent.com` (`FORK_UPDATE_DOWNLOAD_HOSTS`); luôn kiểm chứng chỉ TLS, không cookie, không bộ nhớ đệm;
+  * giới hạn 50 MB và 10 phút; ghi ra tệp tạm `<tên>.part` rồi mới đổi tên khi SHA-256 khớp; **không ghi đè** tệp đang có (lưu thành `<tên> (2).zip`...); lệch, lỗi hay hủy thì xóa tệp tạm;
+  * tệp lưu được gắn *Mark of the Web* (`Zone.Identifier`) như khi tải bằng trình duyệt, để Windows SmartScreen vẫn kiểm chương trình giải nén từ gói;
+  * chương trình **không tự giải nén và không tự chạy** gói. Thông tin phiên bản không có SHA-256 hợp lệ, hoặc tải thất bại (lỗi mạng, không ghi được tệp): người dùng được hỏi có mở liên kết trong trình duyệt không (đường cũ). SHA-256 lệch thì **không** mở gì.
+  * Kiểm thử: `tests/UpdateSecurityTests.cpp` (logic thuần) và `tests/UpdateDownloadTests.cpp` (tải gói phát hành thật trên GitHub: SHA khớp, SHA lệch, không ghi đè, quá kích thước, hủy, chuyển hướng tới máy chủ không được phép) chạy trong CI; harness fuzz `tests/fuzz/UpdateSecurityFuzz.cpp` kiểm bất biến của bộ lọc tên tệp và so khớp SHA-256.
 * Chuỗi phiên bản được kiểm tra định dạng và so sánh theo số.
 
 ### 2. Truy cập mạng

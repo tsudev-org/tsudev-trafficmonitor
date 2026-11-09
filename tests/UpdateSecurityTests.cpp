@@ -10,6 +10,7 @@
 #include <iostream>
 #include <iterator>
 #include <sstream>
+#include <cwctype>
 
 using namespace UpdateSecurity;
 
@@ -95,6 +96,16 @@ static void TestUrls()
     CHECK(!IsTrustedHostUrl(L"https:///x"));
     CHECK(IsTrustedHostUrl(L"https://a.example/x", L"b.example| a.example |"));   // tách và cắt khoảng trắng
 
+    // Danh sách host khi tự tải gói cập nhật (hẹp hơn FORK_TRUSTED_HOSTS)
+    const std::wstring dl = FORK_UPDATE_DOWNLOAD_HOSTS;
+    CHECK(IsTrustedHostUrl(L"https://github.com/tsudev-org/tsudev-trafficmonitor/releases/download/V1/x.zip", dl));
+    CHECK(IsTrustedHostUrl(L"https://release-assets.githubusercontent.com/github-production-release-asset/1?sp=r&sig=a%2Bb", dl));
+    CHECK(IsTrustedHostUrl(L"https://objects.githubusercontent.com/x", dl));
+    CHECK(!IsTrustedHostUrl(L"https://raw.githubusercontent.com/tsudev-org/tsudev-trafficmonitor/main/x.zip", dl));
+    CHECK(!IsTrustedHostUrl(L"https://trafficmonitor.tsudev.com/x.zip", dl));
+    CHECK(!IsTrustedHostUrl(L"https://api.ipify.org/", dl));
+    CHECK(!IsTrustedHostUrl(L"http://release-assets.githubusercontent.com/x", dl));
+
     // IsTrustedDownloadUrl (tiền tố trang Releases của repo)
     const std::wstring rel = L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/";
     CHECK(IsTrustedDownloadUrl(rel + L"V26.11.0902-vn/tsudev-trafficmonitor_26.11.0902_x64_Lite.zip"));
@@ -160,12 +171,103 @@ static void TestSignature(const std::string& fixtures)
     CHECK(!VerifySignature(xml, sig, other_key.c_str()));
 }
 
+static void TestDownloadHelpers()
+{
+    // IsSha256Hex / Sha256Equals
+    const std::wstring h = L"78f292daf7d2c99f99a1c06ab5a03caa61a11192b38b3a4d440e5f7675324198";
+    std::wstring upper = h;
+    for (auto& ch : upper)
+        ch = static_cast<wchar_t>(towupper(ch));
+    CHECK(IsSha256Hex(h));
+    CHECK(IsSha256Hex(upper));
+    CHECK(!IsSha256Hex(L""));
+    CHECK(!IsSha256Hex(h.substr(1)));                      // 63 ký tự
+    CHECK(!IsSha256Hex(h + L"0"));                         // 65 ký tự
+    CHECK(!IsSha256Hex(L"g" + h.substr(1)));
+    CHECK(!IsSha256Hex(L" " + h.substr(1)));
+    CHECK(Sha256Equals(h, h));
+    CHECK(Sha256Equals(h, upper));                         // không phân biệt hoa thường
+    std::wstring other = h;
+    other[63] = (other[63] == L'8') ? L'9' : L'8';
+    CHECK(!Sha256Equals(h, other));
+    CHECK(!Sha256Equals(L"", L""));                        // rỗng không bao giờ khớp
+    CHECK(!Sha256Equals(h.substr(1), h.substr(1)));        // sai độ dài không bao giờ khớp
+    CHECK(!Sha256Equals(L"z" + h.substr(1), L"z" + h.substr(1)));
+
+    // ToHexLower, Sha256Hex, Sha256Stream (vector chuẩn FIPS 180-2)
+    const unsigned char bytes[] = { 0x00, 0x0f, 0xa5, 0xff };
+    CHECK(ToHexLower(bytes, sizeof(bytes)) == L"000fa5ff");
+    CHECK(ToHexLower(bytes, 0).empty());
+    CHECK(Sha256Hex("", 0) == L"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+    CHECK(Sha256Hex("abc", 3) == L"ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad");
+    const char* msg = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq";
+    const std::wstring msg_hash = L"248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1";
+    CHECK(Sha256Hex(msg, strlen(msg)) == msg_hash);
+    {
+        Sha256Stream stream;                               // băm theo khối cho cùng kết quả
+        CHECK(stream.IsValid());
+        CHECK(stream.Update(msg, 10));
+        CHECK(stream.Update(msg + 10, 0));
+        CHECK(stream.Update(msg + 10, strlen(msg) - 10));
+        CHECK(stream.FinishHex() == msg_hash);
+        CHECK(!stream.IsValid());                          // chỉ kết thúc được một lần
+        CHECK(stream.FinishHex().empty());
+        CHECK(!stream.Update("x", 1));
+    }
+    {
+        std::string big(1024 * 1024, 'a');                 // 1 MiB 'a', đối chiếu với băm từng khối 4 KiB
+        Sha256Stream stream;
+        for (size_t i = 0; i < big.size(); i += 4096)
+            stream.Update(big.data() + i, 4096);
+        CHECK(stream.FinishHex() == Sha256Hex(big.data(), big.size()));
+    }
+    CHECK(MAX_UPDATE_PACKAGE_BYTES == 50ull * 1024 * 1024);
+
+    // SafeFileNameFromUrl
+    const std::wstring rel = L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/";
+    const std::wstring org = L"https://github.com/tsudev-org/tsudev-trafficmonitor/releases/download/";
+    CHECK(SafeFileNameFromUrl(rel + L"V26.11.0902-vn/tsudev-trafficmonitor_26.11.0902_x64_Lite.zip") == L"tsudev-trafficmonitor_26.11.0902_x64_Lite.zip");
+    CHECK(SafeFileNameFromUrl(org + L"V1-vn/a_b-c.1.ZIP") == L"a_b-c.1.ZIP");
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/setup.exe").empty());           // chỉ lưu .zip
+    CHECK(SafeFileNameFromUrl(L"https://github.com/evil/repo/releases/download/V1/x.zip").empty());
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/.zip").empty());
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/.hidden.zip").empty());
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/a$b.zip").empty());
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/a:b.zip").empty());              // luồng dữ liệu NTFS (ADS)
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/a\x0103.zip").empty());          // ký tự ngoài ASCII
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/CON.zip").empty());              // tên thiết bị DOS
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/nul.tar.zip").empty());
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/com1.zip").empty());
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/console.zip") == L"console.zip");
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/" + std::wstring(124, L'a') + L".zip").size() == 128);
+    CHECK(SafeFileNameFromUrl(rel + L"V1-vn/" + std::wstring(125, L'a') + L".zip").empty());
+
+    // UniqueFileName: không ghi đè tệp đang có
+    std::vector<std::wstring> existing;
+    auto exists = [&](const std::wstring& name) {
+        for (const auto& e : existing)
+            if (_wcsicmp(e.c_str(), name.c_str()) == 0)
+                return true;
+        return false;
+    };
+    CHECK(UniqueFileName(L"a.zip", exists) == L"a.zip");
+    existing.push_back(L"a.zip");
+    CHECK(UniqueFileName(L"a.zip", exists) == L"a (2).zip");
+    existing.push_back(L"A (2).ZIP");                      // Windows không phân biệt hoa thường
+    CHECK(UniqueFileName(L"a.zip", exists) == L"a (3).zip");
+    CHECK(UniqueFileName(L"", exists).empty());
+    existing.push_back(L"noext");
+    CHECK(UniqueFileName(L"noext", exists) == L"noext (2)");
+    CHECK(UniqueFileName(L"x.zip", [](const std::wstring&) { return true; }).empty());   // hết tên
+}
+
 int main(int argc, char* argv[])
 {
     std::string fixtures = (argc > 1) ? argv[1] : "tests\\fixtures";
     TestVersion();
     TestUrls();
     TestSignature(fixtures);
+    TestDownloadHelpers();
     std::cout << "UpdateSecurityTests: " << g_passed << " dat, " << g_failed << " that bai\n";
     return g_failed == 0 ? 0 : 1;
 }

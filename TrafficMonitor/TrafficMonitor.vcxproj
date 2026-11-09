@@ -861,6 +861,7 @@
     <ClInclude Include="tinyxml2\tinyxml2.h" />
     <ClInclude Include="TrafficMonitor.h" />
     <ClInclude Include="TrafficMonitorDlg.h" />
+    <ClInclude Include="UpdateDownload.h" />
     <ClInclude Include="UpdateHelper.h" />
     <ClInclude Include="UpdateSecurity.h" />
     <ClInclude Include="WIC.h" />

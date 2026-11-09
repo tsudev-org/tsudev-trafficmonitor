@@ -58,6 +58,20 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size)
             std::wstring ext = url.substr(url.size() - 4);
             Require(_wcsicmp(ext.c_str(), L".zip") == 0 || _wcsicmp(ext.c_str(), L".exe") == 0);
         }
+        // Tên tệp lưu gói cập nhật: nếu nhận thì URL phải được tin, tên chỉ gồm ký tự an toàn, đuôi .zip,
+        // đúng là phần cuối của URL và không thể thoát khỏi thư mục Downloads
+        std::wstring name = SafeFileNameFromUrl(url);
+        if (!name.empty())
+        {
+            Require(IsTrustedDownloadUrl(url));
+            Require(name.size() >= 5 && name.size() <= 128 && name[0] != L'.');
+            Require(url.size() > name.size() && url[url.size() - name.size() - 1] == L'/');
+            Require(url.compare(url.size() - name.size(), name.size(), name) == 0);
+            for (wchar_t ch : name)
+                Require((ch >= L'A' && ch <= L'Z') || (ch >= L'a' && ch <= L'z') || (ch >= L'0' && ch <= L'9')
+                    || ch == L'.' || ch == L'_' || ch == L'-');
+            Require(_wcsicmp(name.c_str() + name.size() - 4, L".zip") == 0);
+        }
         if (IsTrustedHostUrl(url))
         {
             Require(IsHttpsUrl(url));
@@ -81,6 +95,30 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size)
     std::wstring a = w.substr(0, half), b = w.substr(half);
     Require(CompareVersion(a, a) == 0);
     Require(CompareVersion(a, b) == -CompareVersion(b, a));
+
+    // SHA-256: so khớp chỉ khi cả hai là chuỗi hex 64 ký tự; đối xứng; phản xạ với chuỗi hợp lệ
+    if (Sha256Equals(a, b))
+        Require(IsSha256Hex(a) && IsSha256Hex(b) && Sha256Equals(b, a));
+    if (IsSha256Hex(w))
+        Require(Sha256Equals(w, w) && w.size() == 64);
+    else
+        Require(!Sha256Equals(w, w));
+
+    // Băm theo khối cho cùng kết quả với băm một lần
+    {
+        size_t split = size > 0 ? data[0] % (size + 1) : 0;
+        Sha256Stream stream;
+        Require(stream.Update(data, split) && stream.Update(data + split, size - split));
+        std::wstring chunked = stream.FinishHex();
+        Require(chunked.size() == 64 && chunked == Sha256Hex(data, size));
+    }
+
+    // Không ghi đè: tên trả về không bao giờ là tên đã tồn tại
+    if (!w.empty())
+    {
+        std::wstring unique = UniqueFileName(w, [&](const std::wstring& n) { return n == w; });
+        Require(!unique.empty() && unique != w);
+    }
 
     // Chữ ký: dữ liệu ngẫu nhiên không bao giờ được xác minh là hợp lệ với khóa thật
     std::string raw(reinterpret_cast<const char*>(data), size);
