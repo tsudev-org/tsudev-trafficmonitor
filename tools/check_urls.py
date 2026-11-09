@@ -174,7 +174,7 @@ def check_live(urls: set[str]) -> list[str]:
     bad = []
     for url in sorted(urls):
         host = (urllib.parse.urlsplit(url).hostname or "").lower()
-        if host == "img.shields.io" or host.startswith("api.") or url.endswith("/releases/download/") \
+        if host == "img.shields.io" or re.match(r"api\d*\.", host) or url.endswith("/releases/download/") \
                 or any(url.startswith(p) for p in NOT_PAGES):
             continue  # huy hiệu, API trả nội dung động, tiền tố tải, định danh (không phải trang)
         target = url.split("#", 1)[0]
