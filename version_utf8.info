@@ -1,15 +1,17 @@
 ﻿<root>
-	<version>26.11.0902</version>
+	<version>26.11.0903</version>
 	<GitHub>
-		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0902-vn/tsudev-trafficmonitor_26.11.0902_x86_Lite.zip</link>
-		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0902-vn/tsudev-trafficmonitor_26.11.0902_x64_Lite.zip</link_x64>
-		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0902-vn/tsudev-trafficmonitor_26.11.0902_arm64ec_Lite.zip</link_arm64ec>
-		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0902-vn/tsudev-trafficmonitor_26.11.0902_x86_Lite.zip</link_without_temperature>
-		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0902-vn/tsudev-trafficmonitor_26.11.0902_x64_Lite.zip</link_without_temperature_x64>
-		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0902-vn/tsudev-trafficmonitor_26.11.0902_arm64ec_Lite.zip</link_without_temperature_arm64ec>
+		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0903-vn/tsudev-trafficmonitor_26.11.0903_x86_Lite.zip</link>
+		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0903-vn/tsudev-trafficmonitor_26.11.0903_x64_Lite.zip</link_x64>
+		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0903-vn/tsudev-trafficmonitor_26.11.0903_arm64ec_Lite.zip</link_arm64ec>
+		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0903-vn/tsudev-trafficmonitor_26.11.0903_x86_Lite.zip</link_without_temperature>
+		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0903-vn/tsudev-trafficmonitor_26.11.0903_x64_Lite.zip</link_without_temperature_x64>
+		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.0903-vn/tsudev-trafficmonitor_26.11.0903_arm64ec_Lite.zip</link_without_temperature_arm64ec>
 	</GitHub>
 	<update_contents>
-		<contents_vi>Bản 26.11.0902: icon chương trình mới (chú cú tsudev); thêm skin đồ thị mạng nền sáng và nền tối (hiện thêm GPU, ổ cứng).\nHộp thoại Giới thiệu gọn lại; ứng dụng không còn kiểm tra phiên bản plugin qua mạng tới bên thứ ba.</contents_vi>
-		<contents_en>Release 26.11.0902: new program icon (the tsudev owl); new network graph skins with light and dark backgrounds (also show GPU and disk).\nSimplified About dialog; the app no longer checks plugin versions against a third-party server.</contents_en>
+		<contents_vi>Bản 26.11.0903: kho mã chuyển sang tổ chức tsudev-org (bản đã cài vẫn cập nhật bình thường); nâng thư viện đọc XML tinyxml2 lên 11.0.0 để vá lỗi bảo mật khi đọc skin độc hại.
+Kiểm tra cập nhật chấp nhận cả địa chỉ cũ và mới của kho; bản phát hành kèm SBOM có chứng thực.</contents_vi>
+		<contents_en>Release 26.11.0903: the repository moved to the tsudev-org organization (installed copies keep updating normally); upgraded the tinyxml2 XML library to 11.0.0 to fix security issues with malicious skin files.
+The update check accepts both the old and new repository addresses; releases ship with an attested SBOM.</contents_en>
 	</update_contents>
 </root>
