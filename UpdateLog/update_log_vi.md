@@ -4,6 +4,20 @@
 
 Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 
+## 26.11.0903 (09/11/2026)
+
+### Bảo mật
+* Nâng thư viện đọc XML tinyxml2 lên 11.0.0 (trước là bản 9.0 chưa phát hành chính thức), vá CVE-2024-50614 và CVE-2024-50615: tệp `skin.xml` độc hại có thể làm ứng dụng dừng đột ngột.
+* Kiểm tra cập nhật chấp nhận liên kết tải từ cả địa chỉ cũ (`tsudev-tsudev`) và địa chỉ mới (`tsudev-org`) của kho mã; vẫn chỉ tin thông tin phiên bản có chữ ký hợp lệ.
+* Mỗi gói phát hành kèm SBOM chuẩn SPDX 2.3 (`*.spdx.json`) có chứng thực của GitHub (`gh attestation verify <tệp.zip> -R tsudev-org/tsudev-trafficmonitor --predicate-type https://spdx.dev/Document/v2.3`).
+* Logic kiểm tra cập nhật có kiểm thử tự động, chạy thêm AddressSanitizer và fuzzing trong CI; CodeQL quét cả website, script và workflow.
+
+### Kho mã
+* Kho mã chuyển sang tổ chức [tsudev-org](https://github.com/tsudev-org/tsudev-trafficmonitor); liên kết trong ứng dụng, tài liệu và website trỏ địa chỉ mới. Địa chỉ cũ tự chuyển hướng, bản đã cài vẫn nhận cập nhật.
+
+### Website
+* Sửa độ tương phản của liên kết đang chọn trong menu và cho phép cuộn khối mã bằng bàn phím (kiểm bằng axe-core, chuẩn WCAG 2.2 AA).
+
 ## 26.11.0902 (09/11/2026)
 
 ### Nhận diện tsudev

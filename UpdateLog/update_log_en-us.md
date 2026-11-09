@@ -4,6 +4,20 @@
 
 Changes in each TrafficMonitor-VN release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 
+## 26.11.0903 (09/11/2026)
+
+### Security
+* Upgraded the tinyxml2 XML library to 11.0.0 (previously an unreleased 9.0 snapshot), fixing CVE-2024-50614 and CVE-2024-50615: a malicious `skin.xml` could crash the app.
+* The update check accepts download links from both the old (`tsudev-tsudev`) and the new (`tsudev-org`) repository address; it still only trusts version information with a valid signature.
+* Every release package ships with an SPDX 2.3 SBOM (`*.spdx.json`) attested by GitHub (`gh attestation verify <file.zip> -R tsudev-org/tsudev-trafficmonitor --predicate-type https://spdx.dev/Document/v2.3`).
+* The update-check logic has automated tests, also run under AddressSanitizer and fuzzing in CI; CodeQL also scans the website, scripts and workflows.
+
+### Repository
+* The repository moved to the [tsudev-org](https://github.com/tsudev-org/tsudev-trafficmonitor) organization; links in the app, documentation and website point to the new address. The old address redirects, and installed copies keep receiving updates.
+
+### Website
+* Fixed the contrast of the current menu link and made code blocks scrollable with the keyboard (checked with axe-core, WCAG 2.2 AA).
+
 ## 26.11.0902 (09/11/2026)
 
 ### tsudev identity
