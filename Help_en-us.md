@@ -1,169 +1,154 @@
 **[Tiếng Việt](./Help.md) | English**
 
-# TrafficMonitor Frequently Asked Questions
-This is the page about the Frequently Asked Questions of TrafficMonitor. If you want to view the detailed introduction of the functions and usage of TrafficMonitor, please [click here](https://github.com/zhongyang219/TrafficMonitor/wiki) to go the the TraffinMonitor Wiki page.
+# TrafficMonitor-VN — Frequently Asked Questions (FAQ)
 
-### In Windows 11, the taskbar window overlapped with the windows Widgets
+Common questions about using TrafficMonitor-VN. Features and basic usage are described in the [README](./README_en-us.md).
 
-In Windows 11, this issue can be fixed with the following steps:
+> Menu and button names on this page are the labels of the English UI (`language/English.ini`). If you use Vietnamese, see the [Vietnamese version](./Help.md).
 
-Open "Option Settings"-"Taskbar Window Settings", click the "Settings related to Windows 11" button, and check "Avoid overlapping with right Widgets" option. As shown in the picture bellow.
+---
 
-If the Widgets is not showing on the taskbar, this option is grayed.
+### On Windows 11, the taskbar window overlaps the Widgets
 
-### In Windows 11, "The taskbar window appears to the left of the taskbar" is grayed
+Open **Options...** → **Taskbar Window Settings** tab → click **Settings related to Windows11**, then check **Avoid overlapping with right Widgets**.
 
-In Windows 11, this option is only available when the taskbar is align centered.
+If Widgets is not shown on the taskbar, this option is greyed out.
 
-Because when the taskbar is displayed on the left, there is no space on the left side for TrafficMonitor to display.
+### On Windows 11, "Taskbar window appears to the left of the taskbar" is greyed out
 
-### In Windows 11, the taskbar window of TrafficMonitor overlaps with the taskbar icons when taskbar is full
+On Windows 11 this option is only available when the taskbar is **centered**. When the taskbar is left-aligned, there is no free space on the left for TrafficMonitor.
 
-This problem cannot be fixed at present. It is recommended to try not to fill the taskbar, or change "Merge taskbar buttons and tabs" to "Always" in the system settings.
+### On Windows 11, the taskbar window overlaps the taskbar icons when the taskbar is full
 
-Please do not send feedback to me on this issue.
+This cannot be fixed at the moment. Avoid pinning too many apps to the taskbar, or set **Combine taskbar buttons and hide labels** to **Always** in Windows Settings.
 
-### How to show the CPU and memory usage?
+### How do I show CPU and memory (RAM) usage?
 
-Right click the main window and check "Show More Info". If you also need to display the CPU and memory usage in the taskbar window, right click the taskbar window and select "Display Settings<img src="./Screenshots/images/item.png" style="zoom: 80%;" />", check "CPU and Memory Usage" in the  pop-up dialog box.
+Right-click the floating window and check **Show More Info**. To show them on the taskbar window too, right-click the taskbar window → **Display Settings...**, then check CPU and memory in the dialog.
 
-### How do I change the text such as "CPU" and "MEM" in the taskbar
+### How do I change the "CPU", "MEM"... labels on the taskbar?
 
-The label text in the taskbar window can be customized. Right click on the taskbar window, select "Options", click "Taskbar Windows Settings", click "Display Text settings" button, the text on the right side of the item can be modified by double click. After modified, click "OK" button twice.
+The taskbar window labels can be customized: right-click the taskbar window → **Options...** → **Taskbar Window Settings** tab → **Display Text settings...**. Double-click the text in the right column to edit it, then click **OK** twice.
 
-Because the text is customizable, it does not automatically change when you switch the language. After you swatch the language, you can click "Restore default" button in the "Display Text settings" dialog box.
+Because the labels are customized by you, they **do not change automatically** when you switch languages. After switching, click **Restore Default** in the **Display Text Settings** dialog.
 
-### The net speed is always displayed as 0KB
+### The network speed always shows 0KB
 
-This may caused by the switch of the network you are using on your computer.
+This usually happens right after the computer switches networks (for example Wi‑Fi to wired, or a VPN turned on/off).
 
-Click "Refresh connection list" under "Select network connections" in the context menu may solve this problem.
+1. Right-click → **Select Network Connections** → **Refresh connection list**.
+2. If it persists, pick the adapter you want to monitor in **Select Network Connections** instead of **Auto Select**.
+3. If it still persists, go to **Options...** → **General Settings** → **Advanced** → **Select the connection to monitor...**, check only the network you want to monitor and click **OK** twice.
 
-If this problem still exists, please try to select the network connection you want to monitored in the "Select network connections" submenu instead of select "Auto select".
+### How do I set a separate color for each item on the taskbar window?
 
-If this problem still exists, please try to click the "Select the connection to monitor" button in "Options Settings" > "General Settings" > "Advanced", check the network you want to monitored, uncheck other items, and click "OK" button twice.
+Go to **Options...** → **Taskbar Window Settings** tab, check **Specify colors for each item**, then click the color box to the right of **Text color** to open **Taskbar window color settings**. Without this option you can only set one color for all text.
 
-### How do I set the color of each item in the taskbar window individually?
+### "Auto run when Windows starts" does not work
 
-Select "Options" In the right-click menu, switch to "Taskbar Window Settings" tab, check "Specify colors for each item", and then click the color block on the right side of "Text Color " to pop up the dialog box for taskbar window color settings. 
+There are two auto-run methods, chosen in **General Settings** → **Auto-run mode**:
 
-If you do not check "Specify colors for each item", you can only set the uniform color for the text.
+* **Registry**: creates a `TrafficMonitor` value under `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run`. No administrator rights needed, but it does not work if the program is set to always **run as administrator**.
+* **Task Scheduler (requires admin)**: creates a task in Task Scheduler (open it via `Control Panel\System and Security\Administrative Tools`). The edition with temperature monitoring needs this method because the hardware library requires elevated rights.
 
-### "Auto run when Windows start" dose not work
-Starting from version 1.80, the version with temperature monitoring and the version without temperature monitoring have adopted different methods to realize "auto run when Windows start".
+The most common cause is that you **moved the program folder** after turning on auto run. To fix it: open **General Settings**, uncheck **Auto run when Windows starts**, click **OK**, then open it again and check it again; or click **Reset autorun**.
 
-* Versions without temperature monitoring and versions before 1.80:
+Some antivirus/security software can block auto run — allow TrafficMonitor in that software.
 
-  The auto run function of the versions without temperature monitoring and versions before 1.80 is achieved by creating the "TrafficMonitor" key in the registry path of "Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run".
-  If you encounter the problem of auto run dose not work, please check that the registry exists, and then check the program path is correct. If you move the location of the program, the auto run will be invalid because of the program location being invalid. In this case, you only need to uncheck "Auto run when Windows start" in the option settings, and then check it on.
+When you switch between the two methods, the program removes the auto-run entry of the old method.
 
-  Note that some third-party security software may prevent TrafficMonitor from booting up automatically. Please try to allow TrafficMonitor to boot up automatically in the security software.
+### The program says "Unable to save settings"
 
-  If you set the program to run as an administrator, the auto run function will also not work. Please try to remove running as an administrator.
+The program cannot write to its own folder. To fix it:
 
-* Version with temperature monitoring:
+1. Move the program to a writable folder (for example `D:\Tools\TrafficMonitor`); do **not** put it under `C:\Program Files` unless it runs as administrator; or
+2. Go to **General Settings** → **Configuration and data files** → choose **Save to Appdata directory**. Settings are then saved in `C:\Users\<user name>\AppData\Roaming\TrafficMonitor`.
 
-  The version that includes temperature monitoring implements auto run function by creating a task plan. The task scheduler can be opened through `Control Panel\System and Security\Administrative Tools`.  As shown below:
+If the error persists, create (or edit) `global_cfg.ini` next to `TrafficMonitor.exe` with:
 
-  If you encounter that situation that the program cannot be started automatically after booting, please go to "Task Scheduler" to check whether the scheduled task of TrafficMonitor is created normally and the path of the exe file is correct.
-
-A common reason why the "Auto run when Windows start" dose not work is that you may have moved the location of the TrafficMonitor main program. If you have set up TrafficMonitor to run automatically at startup, but you move TrafficMonitor to another location, then the auto run at startup will definitely fail. You need to open "Option Settings"-"General Settings" of TrafficMonitor, if "Auto run when Windows start" is checked, remove the check, then open "Option Settings"-"General Settings" again, and check again "Auto run when Windows start" will be fine.
-
-It should be noted that if you use the version without temperature monitoring to create a auto-start item in the registry, and then use the version that with temperature monitoring to turn on the "Auto run when Windows start" function, it will automatically delete the auto-start item in the registry, and then create a auto-start item in the task plan. vice versa.
-
-### The program pops up the "Unable to Save Settings" message box.
-If you encountered this problem, that means the program does not have permission to write data to its directory, causing the settings data cannot be saved. Try to move the program to another folder that has write permissions will save this problem. 
-You can also change the save path of the configuration and data file to the C:\Users\\<username\>\AppData\Roaming\TrafficMonitor directory by the following steps. 
-
-* Exit TrafficMonitor and restart TrafficMonitor as an administrator.
-* Select "Options" in the right-click menu, switch to the "General Settings" tab, and select "Save to AppData Directory" in "Configuration and data files".
-
-If it still pops up the "Unable to Save Settings" message box, open the directory where the application is located, open the `global_cfg.ini` file. If it doesn't exist, create a new one, adding the following:
-
-```
+```ini
 [config]
 portable_mode = false
 ```
 
-If the file cannot be created, you can create the file in a different location, such as the desktop, and then move to the directory where the program is located.
+If you cannot create the file in place, create it on the Desktop and copy it into the program folder. As a last resort, delete `C:\Users\<user name>\AppData\Roaming\TrafficMonitor\config.ini` (it will be recreated).
 
-If the `global_cfg.ini` file already exists, change the value of `portable_mode` to `false` and save, then restart TrafficMonitor.
+When the program folder is not writable, settings are saved to AppData automatically and **Save to the program directory** is disabled.
 
-If `global_cfg.ini` does not have write permission, you can try copying the file to the desktop, and then copying it back to the original path to overwrite the original file after modified.
+### Settings are lost after restarting the computer
 
-After these steps, this problem should not theoretically occur. If this problem still occurs, try to delete the file C:\Users\\<username\>\AppData\Roaming\TrafficMonitor\config.ini. This file will be regenerated after it is deleted. 
+If you never saw "Unable to save settings", settings are being saved normally. The usual cause is **several copies of TrafficMonitor** on the computer, each saving settings next to its own exe. For example, you changed settings in `D:\software\TrafficMonitor\TrafficMonitor.exe`, but at startup `D:\software1\TrafficMonitor\TrafficMonitor.exe` runs.
 
-In version 1.79 and later, if the directory where the program located is not writable, the configuration and data files will be automatically saved to the "C:\Users\\<username\>\AppData\Roaming\TrafficMonitor" directory. At this time, "Options" -“General Settings”-“Save to the program directory” in “Configuration and data files” will not be available.
+To fix it:
 
-### The configuration is lost after next start up
+1. Switch the configuration location to **Save to Appdata directory**.
+2. Delete the copies you don't use, open the one you want → **General Settings** → click **Reset autorun**.
 
-If you do not see the "Unable to Save Settings" message box, that means the configuration file can be saved normally. The cause of this problem may be that you have multiple TrafficMonitor application files on your computer and the configuration files are saved in the application directory.
+### The network speed value is cut off
 
-For example, you have open "D:\software\TrafficMonitor\TrafficMonitor.exe", and modified the configuration, but next time you start your computer, "D:\software1\TrafficMonitor\TrafficMonitor.exe" is started, while the configuration files you modified before is saved in "D:\software\TrafficMonitor\\".
+Fonts have different character widths, so values can be clipped. Go to **Options...** → **Taskbar Window Settings** and choose a larger **Net speed data width**.
 
-The method to solve this problem is:
+### How do I turn off "Mouse Penetrate"?
 
-1. Change the save location of the configuration files to AppData directory in "Option Settings" > "General Settings" > "Configuration and data file".
-2. Delete the TrafficMonitor application files you don't need on your computer, start TrafficMonitor, open "Option Settings" > "General Settings", click "Reset autorun" button. 
+Right-click the TrafficMonitor icon in the **notification area** (right side of the taskbar) and uncheck **Mouse Penetrate**.
 
-### The net speed value is not fully displayed.
-Because the width of each character in different fonts is not the same, in some cases, it does appear the problem of the net speed value is not fully displayed. If this problem occurs, open "Options"-"Taskbar Window Settings", and select a larger value in the "Number of digits" drop down list.
-### How to cancel after setting the mouse penetrate?
-Right click the TrafficMonitor icon in the notification area, uncheck the "Mouse Penetrate".
-After the mouse penetrate is set, the suspension window will not be able to respond to any mouse messages, or pop-up right-click menu. But the menu can be popped up by right click the icon in notification area. The right-click menu of the main window and which of the notification area icon is exactly the same.
-In addition, even if you have previously set the hidden notify icon, when the "mouse penetrate" is set, the notify icon will also automatically appear to prevent the right-click menu cannot be displayed. 
-Note: The notification area icon will be automatically displayed in the following situations: 
+While it is on, the floating window ignores all mouse input; the notification area icon's right-click menu is the same as the floating window's. So that you never lose the menu, the notification area icon is **shown automatically** when:
 
-* After the "Mouse Penetrate" is set;
-* Hide the main window without displaying the taskbar window;
-* Close the taskbar window when the main window is hidden;
-* Close the taskbar window when the "Mouse Penetrate" is set.
-### Problems with the taskbar window color in Windows 10 white taskbar theme
-When using the white taskbar theme, you can click the "Preset" button in the "Taskbar Window Settings" and select "Light Mode" to set the taskbar color in light mode. As the picture shows:
+* **Mouse Penetrate** is turned on;
+* the floating window is hidden while the taskbar window is not shown;
+* the taskbar window is closed while the floating window is hidden;
+* the taskbar window is closed while **Mouse Penetrate** is on.
 
-At the same time, you may also check "Auto adapt to Windows 10 dark/light theme", the program will automatically switch the color preset when Windows 10 dark/light theme is changed. You can click the "Auto Adapt settings" button to configure which color preset to use for dark and light themes.
+### Text color doesn't suit a light Windows taskbar
 
-### The taskbar windows cannot be displayed when the HDR is turned on in Windows 10
+In **Taskbar Window Settings**, click **Preset** and choose the light mode preset.
 
-Some users have reported that turning on the HDR function in Windows 10 will cause the taskbar window to fail to display. If you encounter this problem, you can try turning off the "Background Transparent" option in ["Option Settings" - "Taskbar Window Settings"](https://github.com/zhongyang219/TrafficMonitor/wiki/%E9%80%89%E9%A1%B9%E8%AE%BE%E7%BD%AE).
+You can also check **Auto adapt to Windows 10 dark/light themes** so the program switches presets when Windows switches between light and dark; click **Auto Adapt settings...** to choose the preset for each mode.
 
-Since version 1.85, this can be fixed by changing to Direct2D rendering in "Options Settings" - "Taskbar Window Settings" - "Rendering Settings".
+### The taskbar window is not shown when HDR is on
 
-### The CPU usage displayed is inconsistent with Task Manager
+Try unchecking **Background transparent** in the **Taskbar Window Settings** tab, or switch to **Direct2D** rendering in **Rendering settings**.
 
-Since Windows 10, if you want to make the CPU usage shown by TrafficMonitor consistent with Task Manager, please go to "Option Settings"-"General Settings"-"Advanced"-"CPU usage acquisition method", and select "Use the performance counter".
+### CPU usage differs from Task Manager
 
-### About the temperature monitoring of TrafficMonitor
+On Windows 10 and later, to match Task Manager, go to **General Settings** → **Advanced** → **CPU usage acquisition method:** and choose **Use the performance counter**.
 
-Due to some problems occurred in some computers caused by the temperature monitoring function, the temperature monitoring function is turned off by default. If you want to use the temperature monitoring function of TrafficMonitor, please go to ["Option Settings"-"General Settings"-"Hardware Monitoring"](https://github.com/zhongyang219/TrafficMonitor/wiki/%E9%80%89%E9%A1%B9%E8%AE%BE%E7%BD%AE) to enable it. After it is turned on, temperature-related items will appear under the "Display Settings" submenu in the taskbar right-click menu.
+### About temperature monitoring
 
-The temperature monitoring function of TrafficMonitor relies on a third-party open source library [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor). If you encounter the problem that the hardware temperature cannot be displayed, or the displayed temperature is incorrect, then  please download LibreHardwareMonitor first, and check whether LibreHardwareMonitor can display the corresponding temperature normally.
+The released Lite edition **does not measure temperatures**. Temperature monitoring exists only in the full edition, which you build yourself (see the [README](./README_en-us.md#building-from-source)).
 
-If LibreHardwareMonitor cannot display the temperature of the corresponding hardware, then I cannot solve this problem. You can report your problem to the author of LibreHardwareMonitor.
+In the full edition it is **off by default** because it can cause problems on some machines. To turn it on, go to **General Settings** → **Hardware Monitoring**. Temperature items then appear in the taskbar window's **Display Settings...**.
 
-If the latest version of LibreHardwareMonitor can display the hardware temperature normally, replace the LibreHardwareMonitorLib.dll files in the TrafficMonitor folder with the downloaded the LibreHardwareMonitorLib.dll files may solve this problem.
+It relies on the open-source library [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor). If temperatures are missing or wrong, try running LibreHardwareMonitor itself:
 
-**Note: The hardware monitoring function (including temperature monitoring and GPU usage monitoring) may have some problems, which may cause more CPU and memory usage. According to feedback from some users, turning on the temperature function will cause problems such as program crashes and system crashes. Please decide to turn on the hardware monitoring function after you are aware of the above risks. Otherwise, please do not use the hardware monitoring function.**
+* If LibreHardwareMonitor cannot show them either → the problem is in the library/hardware; report it to the LibreHardwareMonitor project.
+* If the latest LibreHardwareMonitor shows them correctly → you can replace `LibreHardwareMonitorLib.dll` in the TrafficMonitor folder with the newer file. **Only download it from LibreHardwareMonitor's official page** and check its signature/hash before replacing.
 
-## The program prompts that "MSVC\*.dll" or "mfc\*.dll" cannot be found when the program starts
+> **Warning:** hardware monitoring (temperature, GPU usage) can increase CPU/RAM usage; some users have seen crashes or system hangs with it turned on. Only turn it on if you accept these risks.
 
-Click the link below to download and install the Microsoft Visual C++ runtime environment.
+### "MSVC\*.dll" or "mfc\*.dll" is missing at startup
 
-[Latest supported Visual C++ Redistributable downloads | Microsoft Docs](https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
+Install the latest Microsoft Visual C++ Redistributable from Microsoft:
+[Latest supported Visual C++ Redistributable downloads | Microsoft Learn](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist)
 
-### I want to have more hardware information on the taskbar, such an fan speed, power, etc
+### Plugins
 
-The Hardware Monitor plug in is now available. It can display all the monitoring items in LibreHardwareMonitor.
+How to install plugins and troubleshoot them: [Plugins](./Plugin_en-us.md); writing your own: [Plugin development](./PluginDev_en-us.md).
 
-For instructions and download links, please click the link below to go to the plug-in download page:
+> **Security note:** a plugin is a DLL that runs **with the same rights as TrafficMonitor**. Only install plugins from sources you trust; plugins of unknown origin may contain malware.
 
-[TrafficMonitorPlugins/download/plugin_download.md at main · zhongyang219/TrafficMonitorPlugins](https://github.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download.md)
+### How do I check that a download is genuine?
 
-### About the crash issue
+Download only from [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com/tai-ve/) or the repository's [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Compare the zip's SHA-256 with `SHA256SUMS.txt` (PowerShell: `Get-FileHash <file>.zip`); the in-app update dialog also shows the SHA-256 from the signed version information. Full steps, including build attestation: [SECURITY.md](./SECURITY.md).
 
-If you encounter the problem of program crash, please turn off all the items in "Options" - "General Settings" - "Hardware Monitoring" after restarting the program, because based on the DMP file provided by the user, most crash problems are related to the hardware monitoring function. I cannot solve the crash problem related to the hardware monitoring function, please do not send me email feedback. If you have excluded the hardware monitoring problem, but the crash problem still exists, please go to "Options" - "General Settings" - "Advanced" - "Plug-in Management" to disable all plugins, and then restart the program. (If the program fails to start, please delete all the `dll` files in the `plugins` in the directory where TrafficMonitor is located). If you have excluded the plugin problem, but the crash problem still exists, please send me the email according to the prompts in the crash window.
+### The program crashes
 
-If you have encountered any other problems, you can also click "Contact Author" in the "About" dialog box, which opens the [TrafficMonitor-VN Issues page](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues) where you can report it.
-Please describe the problems you have encountered in detail, the error prompts, what operations you have tried, it is better to attach the screenshots and configuration files ("Options"-"General Settings"-"Open configuration file path"). 
-Note: Please confirm the email address that you used before sending the email. If your email address is form like "Outlook_\<random string\>@outlook.com", then such email address is unable to reply.
-This may be due to the fact that you are using a third-party e-mail address as the Microsoft account to log on to Windows. If this is the case, be sure to enclose the correct email address in the message.
+1. Restart the program and **turn off everything** in **General Settings** → **Hardware Monitoring** — most crashes are related to this feature.
+2. If it still crashes, go to **Advanced** → **Plug-in manage...**, disable all plugins and restart. (If the program won't open, delete the `.dll` files in the `plugins` folder next to `TrafficMonitor.exe`.)
+3. If you have ruled out both, [open an issue](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues/new/choose) with the text from the crash window.
+
+### Feedback and bug reports
+
+Please use [TrafficMonitor-VN's GitHub Issues](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues). Describe the problem, error messages and what you have tried, with screenshots and your configuration file (**General Settings** → **Open configuration file directory**) if possible. Do **not** attach sensitive information.
+
+Report security vulnerabilities privately as described in [SECURITY.md](./SECURITY.md), not publicly.

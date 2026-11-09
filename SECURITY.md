@@ -15,8 +15,6 @@ Hãy dùng tính năng **[Private vulnerability reporting](https://github.com/ts
 
 Cam kết phản hồi: xác nhận đã nhận trong **5 ngày làm việc**; đánh giá và kế hoạch khắc phục trong **30 ngày**. Người báo cáo sẽ được ghi công (nếu đồng ý) khi công bố bản vá.
 
-Lỗ hổng thuộc phần mã kế thừa từ dự án gốc cũng sẽ được thông báo cho [tác giả gốc](https://github.com/zhongyang219/TrafficMonitor).
-
 ## Kiểm tra tính toàn vẹn tệp tải về
 
 Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` do quy trình CI tự tạo. Trước khi chạy, hãy kiểm tra mã băm trong PowerShell:

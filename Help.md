@@ -2,7 +2,7 @@
 
 # TrafficMonitor-VN — Câu hỏi thường gặp (FAQ)
 
-Trang này tổng hợp các câu hỏi thường gặp khi dùng TrafficMonitor-VN (bản Việt hóa của [TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor)). Phần giới thiệu tính năng và cách dùng có tại [README](./README.md).
+Trang này tổng hợp các câu hỏi thường gặp khi dùng TrafficMonitor-VN. Phần giới thiệu tính năng và cách dùng có tại [README](./README.md).
 
 > Tên menu/nút trong tài liệu này dùng đúng nhãn hiển thị trong giao diện tiếng Việt. Nếu bạn dùng ngôn ngữ khác, hãy đối chiếu với [bản tiếng Anh](./Help_en-us.md).
 
@@ -116,7 +116,9 @@ Từ Windows 10 trở đi, để số liệu khớp với Task Manager, vào **C
 
 ### Về tính năng đo nhiệt độ
 
-Tính năng đo nhiệt độ **tắt theo mặc định** vì có thể gây lỗi trên một số máy. Để bật, vào **Cài đặt Chung** → **Theo dõi Phần cứng**. Sau khi bật, các mục nhiệt độ sẽ xuất hiện trong **Sắp xếp hiển thị...** của cửa sổ Taskbar.
+Bản Lite được phát hành **không đo nhiệt độ**. Tính năng đo nhiệt độ chỉ có ở bản đầy đủ do bạn tự build (xem [README](./README.md#build-từ-mã-nguồn)).
+
+Ở bản đầy đủ, tính năng này **tắt theo mặc định** vì có thể gây lỗi trên một số máy. Để bật, vào **Cài đặt Chung** → **Theo dõi Phần cứng**. Sau khi bật, các mục nhiệt độ sẽ xuất hiện trong **Sắp xếp hiển thị...** của cửa sổ Taskbar.
 
 Tính năng này dựa trên thư viện mã nguồn mở [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor). Nếu không hiển thị được nhiệt độ hoặc nhiệt độ sai, hãy tải LibreHardwareMonitor về chạy thử:
 
@@ -130,13 +132,15 @@ Tính năng này dựa trên thư viện mã nguồn mở [LibreHardwareMonitor]
 Cài đặt Microsoft Visual C++ Redistributable bản mới nhất từ trang chính thức của Microsoft:
 [Latest supported Visual C++ Redistributable downloads | Microsoft Learn](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist)
 
-### Muốn hiển thị thêm thông tin phần cứng (tốc độ quạt, công suất...)
+### Plugin
 
-Plugin **Hardware Monitor** có thể hiển thị mọi mục giám sát của LibreHardwareMonitor.
-
-Xem cách cài, nguồn plugin và khắc phục sự cố tại trang [Plugin](./Plugin.md); tự viết plugin: [Phát triển plugin](./PhatTrienPlugin.md).
+Cách cài plugin và khắc phục sự cố: trang [Plugin](./Plugin.md); tự viết plugin: [Phát triển plugin](./PhatTrienPlugin.md).
 
 > **Lưu ý bảo mật:** plugin là tệp DLL chạy **cùng quyền với TrafficMonitor**. Chỉ cài plugin từ nguồn bạn tin cậy; plugin không rõ nguồn gốc có thể chứa mã độc.
+
+### Làm sao biết tệp tải về là bản thật?
+
+Chỉ tải từ [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest) của repo. Đối chiếu SHA-256 của tệp zip với `SHA256SUMS.txt` (PowerShell: `Get-FileHash <tệp>.zip`); hộp thoại cập nhật trong ứng dụng cũng hiện SHA-256 lấy từ thông tin phiên bản có chữ ký. Các bước đầy đủ, gồm chứng thực build: [SECURITY.md](./SECURITY.md).
 
 ### Chương trình bị đóng đột ngột (crash)
 

@@ -1,221 +1,129 @@
-**[Tiếng Việt (bản Việt hóa)](./update_log_vi.md) | English (original project)**
+**[Tiếng Việt](./update_log_vi.md) | English**
 
-# TrafficMonitor Update log
-## V1.86(2026/03/29)
+# Update log — TrafficMonitor-VN
 
-**New Features**
+Changes in each TrafficMonitor-VN release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 
-- Added the feature to display the taskbar window on secondary monitors. #2037 #1974 #1952 #1944 #1875 #1870 #1863 #1734
-- Refactored multilingual code; multilingual strings are now configured in external INI files for easier localization. Added support for new languages such as German, Italian, Russian, Polish, Brazilian Portuguese, Turkish, Hebrew.
-- Replaced the skin list control in the skin selection interface with a ListBox.
-- Controls in the Options Settings dialog now support dynamic resizing.
-- The vertical scrollbar in the Options Settings dialog no longer resets when resizing.
-- The width of items in the taskbar window now supports dynamic adjustment.
-- Added the feature for the taskbar resource usage graph background color to follow the Windows theme color.
-- Added the ability to save fonts, text colors, and display text separately for each skin.
-- Added a right-click menu in the Display Text Settings dialog to restore defaults for individual items.
-- Added the display of call stack in crash information dialog. Add the function of writing the crash information to the log file.
-- Added the display of GPU and hard disk utilization for the Lite version.
+## 26.11.0901 (2026-11-09)
 
-**Bug Fixes**
+### New version numbering
+* From this release on, versions follow tsudev's **`{YY}.{M}.{DD}{NN}`** scheme (year.month.day + sequence number within the day): `26.11.0901` is the first release of 9 Nov 2026. The previous release was V1.91-vn; versions are compared numerically, so older releases still detect the update.
+* Release tags look like `V26.11.0901-vn`; the download is renamed to `tsudev-trafficmonitor_26.11.0901_<arch>_Lite.zip`.
 
-- Fixed the issue where the update source in "General Settings" was not saved. #2020 #1561 #1119
-- Fixed incorrect font size in the preview image of the skin selection dialog when DPI settings differ across multiple monitors.
-- Fixed incorrect DPI when the floating window moves between monitors with different DPI settings.
-- Fixed the issue where built-in items in the taskbar could not be fully removed when plugin items were displayed, leaving an upload speed item. #1965
-- Optimized the style of color display in the "Color Display" control in the Options Settings dialog. Fixed the issue where noticeable blank space appeared on the right side of the control when more than 8 colors were displayed.
-- Fixed the issue where changing the value in the "Font Size" text box in the main window and taskbar window settings did not take effect after clicking "Apply."
-- Fixed the inconsistency between the network speed unit in the taskbar window tooltip and the settings.
-- Fixed the issue where CPU frequency did not follow the "Separate value and unit with a space" option.
-- Added handling to reinitialize connections after resuming from sleep mode, resolving the issue where network speed could not be retrieved after waking from sleep.
-- Fixed the issue that the correct font could not be obtained when font name in the skin file contains Unicode characters. Fixed some logical problems when parsing the skin file.
-- Improved in other details.
+### English documentation
+* Added English documentation: Plugins (`Plugin_en-us.md`), Skin gallery (`SkinGallery_en-us.md`), Skin tutorial (`SkinTutorial_en-us.md`), Plugin development (`PluginDev_en-us.md`).
+* When the UI language is not Vietnamese, the Help, Download more skins, Skin tutorial, Download more plug-ins and Plugin development links open the English documents (Help opens `README_en-us.md`); Vietnamese still opens the website.
 
-## V1.85.1 (2025/02/10)
+## V1.91-vn (2026-11-09)
 
-* Fixed the problem that when using third-party software to change to the classical taskbar in Windows 11, the option "Taskbar window appears to the left of the taskbar" in the Taskbar Window Settings is not available.
+### Links
+* The product website **https://trafficmonitor.tsudev.com** is live on its official domain (Cloudflare Pages, HSTS, strict CSP, DNSSEC, CAA).
+* In-app links open the guides on the website instead of `.md` files on GitHub: FAQ (`/huong-dan/hoi-dap/`), Update log (`/nhat-ky/`), Help (`/huong-dan/`), Skin gallery, Skin tutorial, Plugins, Plugin development. The `.md` files on GitHub remain as a fallback.
+* For languages other than Vietnamese, FAQ and Update log open the English documents on GitHub (`FORK_HELP_EN_URL`, `FORK_UPDATE_LOG_EN_URL`).
 
-* Fixed the problem that the position of the taskbar windows is not correct when there is no any icon on the taskbar. #1913
-* Fixed the problem that the "Network speed data width" does not take effect when clicking "Apply" in the Taskbar Window Settings. #1916
-* Windows 11 related settings in Taskbar Windows Settings moved to the new dialog. Add an option to avoid overlapping with right Widgets.
-* Fixed the problem that when "CPU" in Hardware Monitoring is not enabled, the "CPU usage acquisition method" will be changed back to the "Based on CPU time" when set it to "Use the performance counter".
-* Fixed the problem of messy charactors in the acknowledgement dialog.
-* Fixed the problem that the displayed net speed may be larger than the actual net speed when the "Monitoring intervals" is set too small. #1263 #1674
-* Fixed the problem that the "Memory available" in the taskbar window cannot be fully displayed when the memory exceeds 100G. #1722
+## V1.90-vn (2026-11-09)
 
-## V1.85 (2025/01/21)
+### Skins
+* New default skin **`0_tsudev_Cu`** (the tsudev owl, light background) and skin **`tsudev_VongMang`** (tsudev mark, dark background), generated by `tools/skin_assets/make_skins.py` from tsudev's source artwork.
+* Removed 4 inherited third-party skins featuring cartoon characters: `0_MacDinh`, `MacDinh2`, `GiaoDien01`, `GiaoDien02`. Installations using them switch to `0_tsudev_Cu` automatically (the first skin by name).
 
-**Feature Updates:**
+## V1.89-vn (2026-11-09)
 
-* Add Direct2D rendering method to the taskbar window, whitch solve the problem that sometimes the edges of fonts are jagged. #1156
-* Add the support for Intel graphics cards for graphics card monitoring function.
-* Add a plugin menu to the context menu when right-clicking on a plugin item.
-* Add the plugin icon in the plugin management dialog, add plugin command for the context menu.
-* The maximum value of the monitoring interval is adjusted to 30s.
-* Add the options for "Window offset top" and "Vertical Margin" in the Taskbar Window Settings.
-* Add the support for transparent background images in png format to the main window.
-* Add the function of automatically switching skins according to the dark / light Windows color mode. #1013
-* Add the function of displaying the resource usage graph of the plug-in items in the taskbar, and updated the corresponding plug-in interface. #1077
-* Add the display of today's total traffic in the main window and taskbar window. #1174
-* Add "Enable colorful emoji" option in the taskbar window settings (Direct2D rendering only).
-* Upper limit of temperature notification in general settings adjusted to 120 degrees. #1814
-* Add the support for Arm64EC. #1703
-* Add the ability to display CPU frequency in Lite version.
-* Add default text color to "Preset 2" and "Preset 3" in Taskbar Settings - Preset.
+### Bug fixes
+* About dialog: the "Acknowledgements" link overlapped the "tsudev.com" link (V1.88-vn) because it was placed in a third column when the layout auto-sized to the text width; the links are now laid out in two columns.
 
-**Issue fixed:**
-* LibreHardwareMonitorLib.dll is updated to version 0.9.4. Solve the problem that hardware monitor information of some devices can't be displayed correctly.
-* Fixed the problem that the position of the  taskbar window is incorrect for touchscreen devices after Windows 11 build 22621.
-* Fixed the problem that the position of the taskbar window is incorrect when the Widgets did not exist under Windows 11. #1582
-* Fixed the problem that the taskbar window would overlap with the system Widgets when it was displayed on the right side under Windows 11.
-* Fixed the problem of scrolling too fast when using touchpad gestures in the Options Settings dialog.
-* Fixed the problem that the display of CPU frequency in the mouse tip of the main window is incorrect.
-* Fixed the problem that the display text for the plugin items in the skin files is invalid. #1813
-* Fixed the problem that if the notification area icon is hidden, it reappears after the notification popup. #1814 #1812 #1811
+## V1.88-vn (2026-11-09) — Signed updates
 
-## V1.84.1 (2022/11/18)
+### tsudev identity
+* Executable file information: publisher `tsudev`, `Copyright (c) 2026 tsudev`, with `https://tsudev.com`.
+* The About dialog links to [tsudev.com](https://tsudev.com).
+* Product page [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com): downloads with SHA-256, guides, update log, security.
 
-* Fixed the issue that the taskbar window cannot be displayed on the left side in Window 11.
-* Fixed the issue that the information in the taskbar window could not be fully displayed when the taskbar on the left or right side of the desktop.
-* Fixed the issue in Windows 11 22H2, when all the windows are closed and no icons are fixed on the taskbar, the position of the taskbar window is not correct.
-* Added the support of long press to show context menu in touchscreen devices.
-* Fixed the issue that the position of the taskbar window is not correct due to the wide search button in the latest version of Windows 11.
-* Fixed the issue that the size of "About" dialog box is not correct.
+### Security
+* Every URL the app uses (including third-party library credits and the public IP lookup service) is declared in a single place, `ForkConfig.h`; removed an unused test function that called an external page.
+* Added `tools/check_urls.py` to CI: blocks `http://`, URLs outside the allow list and URLs hard-coded in C++ outside `ForkConfig.h`; links are checked weekly.
+* GitHub Actions are pinned by commit SHA; creating a Release requires approval through the `release` environment.
+* **Signed version information:** the update check reads `version_signed.xml` from the latest release and trusts it only when its ECDSA P-256 signature is valid (verified with Windows CNG against a public key embedded in the app); an update is offered only when its version is greater than the running one. The update dialog shows the package's SHA-256 for checking after download.
+* Network access: after redirects, the final URL must be HTTPS and on the allowed host list.
+* SECURITY.md describes the chain of trust (signature → SHA-256 → build attestation) and how to verify it yourself.
 
-## V1.84 (2022/10/05)
+### Full edition (temperature monitoring)
+* Sensor values are read as `float` instead of `double` with an implicit conversion; GPU and disk usage are cast explicitly. CI also builds the full x64 edition (not released) with the same warning checks as Lite.
 
-* Fixed the problem that the position of the taskbar window is not correct in Windows 11 22H2.
-* Fixed the problem that the taskbar window overlapped with the system widgets when the taskbar window displayed on the left side in Windows 11.
-* Added display of CPU frequency.
-* Fixed the problem that the "/s" of the net speed is missing in the main window.
-* Fixed the problem that may cause insufficient string buffer when writing INI files.
-* Updated the plugin interface that allows plugin response keyboard events.
-* Fixed the problem that the taskbar window would not display properly after switching between different DPI monitors.
-* Fixed the problem where "Options" dialog box would pop up when selecting "Details" from the context menu in the "Plugin Management" dialog.
-* Update the HardwareMonitor lib to resolve the problem that the temperature of Intel 12th Gen processor cannot be obtained.
+## V1.87-vn (2026-11-08) — Bridge release to the new repository
 
-## V1.83 (2022/02/03)
+### Repository move
+* The main repository moved to [tsudev-tsudev/tsudev-trafficmonitor](https://github.com/tsudev-tsudev/tsudev-trafficmonitor). From this release, update checks, downloads, help pages and bug reports use the new repository. The old `TrafficMonitor-VN` repository is archived (read-only) and keeps the full commit history.
+* V1.86-vn users update to V1.87-vn as usual; later releases come from the new repository.
 
-* Fixed the problem that when there is already a task plan of auto-run, the auto-run at start up will be failed to set.
-* Added the "Program is already running" dialog box at the program is started when there is already a TrafficMonitor process running.
-* Added the plug-in information in the mouse tool tips.
-* Fixed an issue where plugins could still be loaded if they were disabled.
-* Added the support of free sorting of plugin items in the taskbar.
-* Added the function to select the network connections to be displayed in the "Network Connection List" in the option settings.
-* Added the function of displaying the total network speed.
-* Added the function of displaying the network speed graph in the taskbar.
-* Fixed the problem that only one hard disk can be displayed when there are multiple hard disks with the same name in the hardware monitor.
-* Optimize the display effect of the resource usage graph in plot mode of the taskbar window.
-* Change the "Display Settings" in the taskbar window context menu from menu to dialog box.
-* Added "Refresh connection list" command to "Select Network Connections" menu.
-* Fixed some crashes.
+### Bug fixes
+* Plugin version check: the latest-version table was written by the update-check thread and read by the Plugin Manager dialog without a lock (possible crash when opening the dialog during a check); it is now parsed into a temporary table and swapped under a lock, and readers get a copy.
+* Plugin submenus and the "Edit skin" menu truncated the `HMENU` handle to a 32-bit `UINT` on 64-bit builds; now `UINT_PTR`.
+* File reading (`GetFileContent`): when `tellg()` failed and returned -1, the value became a huge size and was allocated; errors are now checked and only the bytes actually read are kept.
+* Fixed all numeric conversion warnings (C4244, C4267, C4018), pointer truncation (C4302, C4311) and Vietnamese text in `char` strings (C4566) in the Lite build; CI treats these warnings as errors.
+* The build time in the About dialog lost the year ("Sun 11/08/") on en-US build machines; it is now `yyyy-MM-dd HH:mm:ss UTC`.
+* Skin gallery: missing space after "Designer:".
+* Messages in the language packs had a stray `=` before quoted phrases (e.g. `file= "..."`), inherited from the original; removed in every language pack.
 
-## V1.82 (2021/12/12)
+### Links moved to TrafficMonitor-VN
+* "Download more skins" (Skin gallery), "Download more plug-ins" and "Plugin development" (Plugin Manager) open TrafficMonitor-VN's own pages: [KhoGiaoDien.md](../KhoGiaoDien.md), [Plugin.md](../Plugin.md), [PhatTrienPlugin.md](../PhatTrienPlugin.md).
+* The crash message in the other 14 language packs (French, German, Japanese...) asks users to report at TrafficMonitor-VN's Issues page instead of by email.
+* All URLs of the localized edition are collected in `ForkConfig.h`.
 
-* Added a new plug-in system, you can display more customized content in the taskbar window and the main window through the plug-in.
-* Added the "Task Manager" command to the taskbar window context menu.
-* Added the "Apply" button to the option settings dialog.
-* Added weekly view in historical traffic statistics.
-* Added the setting of task bar item spacing.
-* Fixed the problem that the taskbar window context menu cannot pop up in the dark mode of Windows 11.
-* Fixed the problem that the taskbar window could not be displayed when the taskbar was restored to the Windows 10 style using software such as StartAllBack under Windows 11.
+### UI (after checking real screenshots)
+* Shortened labels that were clipped by group boxes, and renamed the language "Tiếng Việt (Chuẩn)" → "Tiếng Việt" (it was cut off in the language drop-down).
+* Old language settings saved with the display name "Tiếng Việt (Chuẩn)" are matched by BCP-47 code to the current pack, so the language selector no longer falls back to "Follow system".
 
-## V1.81 (2021/07/27)
+### Fixes from automated UI testing (V1.87-vn)
+* Automatic network adapter selection: on machines with virtual adapters (Hyper-V/WSL, VirtualBox...) the app could pick a virtual adapter because it had the most bytes, showing almost zero speed while downloading over Wi-Fi/LAN. Adapters with a default gateway are now preferred; if none has one, selection works as before.
+* The floating window's default labels changed from "Up:"/"Down:" to "↑:"/"↓:" (the English text overlapped the default skin's artwork). Custom labels are not affected.
+* The About dialog showed "Tiếng Việt Bản dịch tiếng Việt: …"; now "Bản dịch Tiếng Việt: …".
+* Plugin Manager: the "Version" column header was clipped; column widths were redistributed.
 
-* Fixed some crashes since version 1.80.
-* Added the support of custom sorting of the items in the taskbar window.
-* When the number of items displayed in the taskbar window is odd, the last item is arranged vertically to save space on the taskbar.
-* Added the function of monitoring the hard disk usage.
-* Add some settings in the right-click menu to the option settings dialog.
-* Added the support for multiple monitors of the main window. You can move the main window to other monitors without checking "Allow out of screen boundaries".
+## V1.86-vn (2026-11-07) — First localized release
 
-## V1.80.3 (2021/05/29)
+Based on TrafficMonitor 1.86.
 
-* Fixed the problem that the CPU temperature cannot be displayed
-* Added the function to select the temperature of specified CPU core to monitor.
-* Fixed a problem that caused the program crashed.
+### Vietnamese localization
+* Vietnamese UI by default on first run; the Vietnamese language pack covers every string (438/438) and is embedded in the executable.
+* Vietnamese versions of the color picker and the sample plugin (PluginDemo).
+* Translated all source code comments (≈2,800 blocks in 186 files), Visual Studio filter names, README, FAQ, skin tutorial and issue templates into Vietnamese.
+* Converted 27 GBK/UTF-16 source files to UTF-8 (BOM); renamed Chinese skin folders to ASCII names.
 
-## V1.80.2 (2021/05/22)
+### UI
+* Fixed 13 places where Vietnamese text was clipped in the Options dialogs (measured with Segoe UI 9pt against control sizes): shorter translations and a wider "Restore default" button in the Windows 11 settings; fixed 2 similar places in English.
 
-* Fixed several issues that cause the program crashed.
-* Use LibreHardwareMonitor to obtain temperature information.
-* Added the function to select the temperature of which hard drive to monitor.
-* Added the function to select the hardware to monitor.
-* Fix the problem that the LibreHardwareMonitorLib.sys file is not released when the program exits.
+### Chinese removal and copyright notices
+* Removed the Simplified/Traditional Chinese language packs, the Chinese color picker, the Chinese acknowledgements (replaced with Vietnamese) and the Chinese release notes.
+* The executable's version information uses the Vietnamese locale and the product name "TrafficMonitor-VN".
+* About dialog: removed promotions of other software and added the localized edition's copyright line; crash reports go to TrafficMonitor-VN's Issues page instead of email.
+* Removed 2 skins using Microsoft Windows wallpaper/logos (GiaoDien04, GiaoDien07); the Chinese word for "memory" in GiaoDien11's background was replaced with "RAM".
+* Removed Chinese UI screenshots from the documentation.
+* Added NOTICE.md separating copyrights; the original license notice is kept as required by the Anti 996 License.
+* `tools/check_i18n.py` scans for Chinese text in documents, UTF-16 `.rc` files, `.ini`, `.xml`... (except LICENSE_CN and the Japanese pack).
 
-## V1.80.1 (2021/05/17)
+### Security
+* Update checks only use the TrafficMonitor-VN repository; download links are strictly bound to the repository's Releases page.
+* Versions are compared numerically (string comparison bug fixed).
+* `GetURL` accepts HTTPS only, with a timeout and a size limit.
+* Public IP lookup moved to ipify; IP format is validated.
+* DLL hijacking protection at startup and when loading plugins.
+* Control Flow Guard, CET, ASLR, DEP and `/sdl` enabled for Release builds.
+* CI: build on every push/PR, CodeQL, Dependabot, SHA-256 checksums and build provenance attestation for releases.
 
-* Fixed the problem that the temperature of AMD GPU could not be obtained.
-* Fixed the problem that the program crashes when automatically switching to the light mode color preset.
-* Fixed the problem that the temperature of the 11th generation Intel processor cannot be obtained.
-* Fixed the problem that the auto-start setting does not work.
-
-## V1.80 (2021/05/15)
-
-* Added the function of monitoring the temperature of CPU, GPU, hard disk and main board.
-* Added the function of monitoring the GPU usage.
-* Fixed the problem that the historical traffic statistics is not correct caused by the data overflowed.
-* Fixed the problem that the main window position was incorrect after the screen resolution was changed.
-* Fixed the problem that the size of the interface elements of the main window and taskbar window would not change after the system DPI was changed.
-* Added the ability to freely specify display items in the taskbar window.
-* Added xml format of the main window skin, supporting temperature display.
-* Fixed the problem that the sub-windows in the option settings cannot be scrolled by the touch screen when using a touch screen device.
-* Put the processing of checking for updates into a background thread to solve the problem that the program does not respond for a long time when checking for update.
-* Fix the problem that the program is abnormal after pressing Alt+F4 in the taskbar window.
-* Added support for net speeds above 4GB per second.
-* Added the option to set the update source as Gitee to solve the problem that the program cannot be updated sometimes due to the inaccessibility of GitHub in mainland China.
-* Added setting of memory display mode.
-* Fix the problem that the currently monitored network connection is closed or disabled, the previously monitored network connection cannot be automatically selected after restarted.
-* Auto run at boot is realized by Task Scheduler to solve the problem that the auto run at boot dose not work sometimes.
-* Fix some crashes.
-* Improvements in other details.
-
-## V1.79.1 (2020/08/05)
-
-* Fix the problem of registry handle leak.
-* Fixed the problem that CPU and memory usage are not counted when the main window and taskbar window are not displayed.
-
-## V1.79 (2020/07/30)
-
-* Add the function of automatically adapts to the Windows 10 dark/light theme of the taskbar window color.
-* Add the function of automatically adapts to the Windows 10 dark/light theme of the notification area icon.
-* Add the option of CPU usage acquisition method. Fix the problem that the CPU usage may always 0 of some users.
-* Remove the option of "Transparent color" in "Options"-"Taskbar Window Settings", and add the option of "Background Color Transparent".
-* Allows only CPU and memory usage displayed in the taskbar window without the net speed.
-* Fixes an problem that the settings may not be saved after the shutdown.
-* Add the setting of "the first day of the week" in the "Historical Traffic Statistics"-"Calendar View".
-* Add the function of displaying history traffic by day, month, quarter and year in the "Historical Traffic Statistics"-"List View".
-* May fixed the problem of the loss of historical traffic data in small probability.
-* Fixed the problem that the right-click menu cannot pop up if the taskbar window background is set to transparent in Windows 10 light theme.
-* Fixed the problem that traffic statistics does not support data exceeding 2TB.
-* Added icons for menu items.
-* Save the data to the AppData directory when the program's directory cannot be written.
-* Add the function of setting the monitoring interval.
-
-## V1.78 (2020/03/21)
-
-* Add the function to open the specified application by double-clicking the main window or taskbar window.
-* Add the function to display the CPU and memory utilization status bar in the taskbar window.
-* Fix the inconsistence of CPU usage with the task manager in Windows 10.
-* Added option to show mouse tool tips.
-* Added the function to set the taskbar color according to Windows 10 light mode when the program is first started.
-* Added the function of preset schemes in the taskbar settings.
-* Improvements in other details.
-
-## V1.77 (2019/05/01)
-* Add the transparent color setting of the task window. Fix the problem that the text color of the taskbar window cannot be set to black when the taskbar is white (Set the transparent color in "Options" - "Taskbar Window Settings").
-* Add the function to display crash information when the program crashes.
-* Fix the problem that the screen will flicker when the Windows Explorer restarts if the taskbar window is displayed.
-* Display monitoring information when the mouse points to the notification area icon.
-* Fixed the problem that the network speed could not be displayed when using a Bluetooth network.
-* Added x64 version.
-* Improvements in other details.
-### Release Notes:
-This update solves the problem that the text is not clear in the taskbar when the taskbar is white in the latest version of Windows 10. You need to manually set the transparent color in "Options" - "Taskbar Window Settings" - "Transparent Color". It is an opaque effect when the transparent color is not black and is different from the background color, and is transparent if it is the same as the background color. In the Windows 10 white taskbar, it is recommended to set as the following picture:
-![White taskbar screenshot](https://user-images.githubusercontent.com/30562462/57004858-36b55300-6c05-11e9-89d8-9911dc99f09c.PNG)
-## V1.76 (2018/11/11)
-* Fix the problem that the resolution changes may cause the program crash.
-* Add the options for the saving location of the configuration files.
-* Fix the problem that the vertical position of the taskbar window was incorrect when the resolution changed.
-* Add the display of today’s upload and download traffic. Add the upload and download traffic statics in the history traffic static dialog.
-* Improvements in other details.
+### Bug fixes
+* The ARM64EC build picked the x64 download link when checking for updates.
+* `GetJsonValueSimple` could throw `out_of_range` on invalid data.
+* The English issue template pointed to an unrelated repository.
+* Public IP could not be retrieved ("Failed to get data"): the ipify URL lacked a "/" before "?", so WinINet dropped the `format=json` parameter; the parser now accepts both JSON and plain text.
+* `GetURL` reads the response as raw bytes instead of wrapping it in a `CString` (avoids trailing garbage on odd byte counts); debug log when the HTTP status is not 200 or the response is too large.
+* IPv6: when the machine has no global IPv6 address, "No IPv6 connection" is shown instead of "Failed to get data".
+* Connection Details dialog: the public IP thread no longer touches the dialog's controls or object directly (they may already be destroyed); repeated double-clicks don't spawn multiple threads; double-click again to refresh; IPv4 is shown without waiting for IPv6.
+* Connection Details dialog uses a copy of the data instead of pointers into the adapter table that the monitor thread may reallocate (crash risk); received/sent bytes update every second.
+* 64-bit traffic counters (`GetIfEntry2`): the old 32-bit counters wrapped every 4 GiB, losing traffic statistics and showing wrong totals; adapter speeds above 4 Gbps (10 GbE) display correctly.
+* Thread safety: reinitializing network connections runs only on the UI thread, and the adapter table is locked between the monitor and UI threads.
+* Detection of a change in the number of network connections (VPN on/off, cable plugged...) never worked because the counter was always -1.
+* The adapter table is allocated safely when the number of adapters changes between two calls (previously an uninitialized table could be read); empty tables are skipped.
+* Network speed is computed with a monotonic clock instead of system time: clock changes/NTP sync could cause a division by zero (crash) or wrong speeds.
+* Traffic history is saved via a temporary file and then replaced, so a power loss or full disk while writing no longer wipes the history; history is not overwritten when the file is temporarily unreadable.
+* The Connection Details dialog opens the page of the active connection with the most traffic when "Select all" is in use or the selected connection is inactive (previously it could open a disabled adapter showing all zeros and IP 0.0.0.0); inactive connections are marked "Inactive" and greyed out.

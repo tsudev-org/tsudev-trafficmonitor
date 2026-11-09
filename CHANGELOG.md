@@ -1,0 +1,13 @@
+# CHANGELOG — TrafficMonitor-VN
+
+Mỗi bản phát hành một dòng, mới nhất trên cùng. Chi tiết: [UpdateLog/update_log_vi.md](./UpdateLog/update_log_vi.md) ([English](./UpdateLog/update_log_en-us.md)).
+
+```
+26.11.0901 - 09/11/2026 - Đổi cách đánh số phiên bản sang năm.tháng.ngày; thêm tài liệu tiếng Anh, giao diện tiếng Anh mở tài liệu tiếng Anh
+V1.91-vn - 09/11/2026 - Liên kết trong ứng dụng mở trang hướng dẫn trên website trafficmonitor.tsudev.com
+V1.90-vn - 09/11/2026 - Skin mặc định mới chú cú tsudev và skin tsudev nền tối; gỡ 4 skin có hình nhân vật hoạt hình
+V1.89-vn - 09/11/2026 - Sửa chữ đè lên liên kết trong hộp thoại Giới thiệu
+V1.88-vn - 09/11/2026 - Kiểm tra cập nhật chỉ tin thông tin phiên bản có chữ ký số; hiện SHA-256 của gói tải về
+V1.87-vn - 08/11/2026 - Chuyển sang kho mã mới; tự chọn đúng card mạng khi máy có card ảo; sửa nhiều lỗi có thể gây crash
+V1.86-vn - 07/11/2026 - Bản Việt hóa đầu tiên: giao diện tiếng Việt mặc định, chỉ tải cập nhật qua HTTPS, sửa lỗi đếm lưu lượng quá 4 GiB
+```

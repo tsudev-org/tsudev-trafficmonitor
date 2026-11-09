@@ -21,8 +21,12 @@ Quản lý plugin tại **Cài đặt** → **Cài đặt Chung** → **Nâng ca
 ## Nguồn plugin
 
 * **Plugin mẫu** `PluginDemo` (ngày, giờ, mục tự vẽ) được dựng cùng mã nguồn của TrafficMonitor-VN trong thư mục [`PluginDemo`](./PluginDemo); dùng để thử nghiệm và làm mẫu khi viết plugin.
-* **Plugin của dự án gốc**: tác giả TrafficMonitor (zhongyang219) phát hành bộ plugin riêng tại kho [TrafficMonitorPlugins](https://github.com/zhongyang219/TrafficMonitorPlugins). Các plugin này **không do TrafficMonitor-VN phát triển hay kiểm duyệt**, nhưng dùng chung giao diện plugin nên chạy được trên TrafficMonitor-VN. Hộp thoại **Quản lý Plugin** đánh dấu khi có phiên bản mới hơn của các plugin này.
+* **Plugin của bên thứ ba**: TrafficMonitor-VN giữ nguyên giao diện plugin (`ITMPlugin`, API phiên bản 8), nên plugin viết cho TrafficMonitor thường chạy được. Các plugin này **không do tsudev phát triển hay kiểm duyệt**; chỉ cài khi bạn tin nguồn phát hành, và tự theo dõi bản mới từ tác giả plugin (ứng dụng không kiểm tra phiên bản plugin qua mạng).
 * **Plugin của bạn**: xem [Phát triển plugin](./PhatTrienPlugin.md). Muốn giới thiệu plugin trên trang này, hãy mở [Issue](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues) kèm liên kết mã nguồn.
+
+## Đo nhiệt độ
+
+Bản Lite được phát hành **không đo nhiệt độ** và tsudev không phát hành plugin đo nhiệt độ. Muốn đo nhiệt độ, hãy tự build bản đầy đủ (xem [README](./README.md#build-từ-mã-nguồn)).
 
 ## Khắc phục sự cố
 

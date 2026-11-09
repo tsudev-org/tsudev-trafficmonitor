@@ -4,7 +4,7 @@
 
 Skin quyết định hình nền, phông chữ, màu chữ và vị trí các mục trên **cửa sổ nổi** (cửa sổ chính) của TrafficMonitor. Cửa sổ Taskbar không dùng skin.
 
-> Tài liệu này được viết dựa trên mã nguồn đọc skin (`TrafficMonitor/SkinFile.cpp`). Hướng dẫn gốc (tiếng Trung) của tác giả zhongyang219 nằm trong Wiki của [dự án gốc](https://github.com/zhongyang219/TrafficMonitor).
+> Tài liệu này được viết dựa trên mã nguồn đọc skin (`TrafficMonitor/SkinFile.cpp`).
 
 ## 1. Cấu trúc thư mục
 

@@ -2,23 +2,19 @@
 
 ## TrafficMonitor-VN
 
-Phần Việt hóa, gia cố bảo mật, sửa lỗi, tài liệu tiếng Việt và mọi thay đổi khác do TrafficMonitor-VN thực hiện (xem lịch sử commit từ commit Việt hóa đầu tiên trở đi và [UpdateLog/update_log_vi.md](./UpdateLog/update_log_vi.md)):
-
 ```
-Copyright (c) 2026 tsudev (tài khoản GitHub tsudev-tsudev)
+Copyright (c) 2026 tsudev
 ```
 
-Các thay đổi này được phát hành theo cùng giấy phép với dự án gốc: **"Anti 996" License 1.0** ([LICENSE](./LICENSE)).
+Phát hành theo giấy phép **"Anti 996" License 1.0** ([LICENSE](./LICENSE)).
 
-## Dự án gốc — TrafficMonitor
+## Dự án gốc
 
-TrafficMonitor-VN là bản phái sinh của [TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor) (đồng bộ tới commit `930f175`, phiên bản 1.86). Mã nguồn, biểu tượng, skin và tài nguyên kế thừa từ dự án gốc thuộc bản quyền của tác giả gốc và những người đóng góp:
+TrafficMonitor-VN là bản phái sinh của dự án TrafficMonitor, phát hành theo giấy phép "Anti 996" License 1.0 ([LICENSE](./LICENSE), [LICENSE_CN](./LICENSE_CN)):
 
 ```
 Copyright (c) <2019> <copyright zhongyang219>
 ```
-
-Theo **điều 1** của giấy phép Anti 996, giấy phép và thông báo bản quyền trên **phải được hiển thị nguyên văn** trong mọi bản phân phối lại hoặc bản phái sinh. Vì vậy TrafficMonitor-VN giữ nguyên các tệp [LICENSE](./LICENSE), [LICENSE_CN](./LICENSE_CN) và ghi công tác giả gốc trong hộp thoại Giới thiệu, README và thông tin phiên bản của tệp chương trình.
 
 ## Thư viện bên thứ ba
 
