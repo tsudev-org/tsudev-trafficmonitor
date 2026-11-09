@@ -18,5 +18,5 @@ Copy-Item (Join-Path $BinDir 'TrafficMonitor.exe') $stage
 Get-ChildItem (Join-Path $BinDir '*.dll') -ErrorAction SilentlyContinue | Copy-Item -Destination $stage
 Copy-Item 'TrafficMonitor\skins' $stage -Recurse
 Copy-Item LICENSE, LICENSE_CN, LICENSE_VI.md, NOTICE.md, README.md, SECURITY.md $stage
-python -I tools/make_zip.py --root $root --entry TrafficMonitor --out $OutZip --epoch $Epoch
+python -I -X utf8 tools/make_zip.py --root $root --entry TrafficMonitor --out $OutZip --epoch $Epoch
 if ($LASTEXITCODE -ne 0) { throw "make_zip.py thất bại" }
