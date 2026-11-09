@@ -2,13 +2,13 @@
 
 ## Phiên bản được hỗ trợ
 
-Chỉ **bản phát hành mới nhất** trên trang [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest) nhận bản vá bảo mật.
+Chỉ **bản phát hành mới nhất** trên trang [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest) nhận bản vá bảo mật.
 
 ## Báo cáo lỗ hổng
 
 **Không** báo lỗ hổng bảo mật qua Issues công khai.
 
-Hãy dùng tính năng **[Private vulnerability reporting](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/security/advisories/new)** của GitHub (tab *Security* → *Report a vulnerability*). Vui lòng cung cấp:
+Hãy dùng tính năng **[Private vulnerability reporting](https://github.com/tsudev-org/tsudev-trafficmonitor/security/advisories/new)** của GitHub (tab *Security* → *Report a vulnerability*). Vui lòng cung cấp:
 
 * Phiên bản, kiến trúc (x86/x64/ARM64EC), phiên bản Windows.
 * Mô tả lỗ hổng, mức ảnh hưởng và các bước tái hiện (PoC tối thiểu nếu có).
@@ -28,14 +28,14 @@ So sánh kết quả với dòng tương ứng trong `SHA256SUMS.txt`. Nếu kh�
 Bản phát hành còn kèm **chứng thực nguồn gốc build** (build provenance attestation) của GitHub. Có thể xác minh bằng GitHub CLI:
 
 ```bash
-gh attestation verify tsudev-trafficmonitor_26.11.0901_x64_Lite.zip --repo tsudev-tsudev/tsudev-trafficmonitor
+gh attestation verify tsudev-trafficmonitor_26.11.0901_x64_Lite.zip --repo tsudev-org/tsudev-trafficmonitor
 ```
 
 ## Chuỗi tin cậy của bản cập nhật
 
 1. **Chữ ký thông tin phiên bản** - ứng dụng chỉ tin `version_signed.xml` có chữ ký hợp lệ (xem mục 1 bên dưới).
 2. **SHA-256** - hộp thoại cập nhật hiện SHA-256 của gói đúng kiến trúc; mã băm này cũng có trong `SHA256SUMS.txt` của bản phát hành. Sau khi tải, đối chiếu bằng `Get-FileHash <tệp.zip> -Algorithm SHA256` (PowerShell).
-3. **Chứng thực nguồn gốc build** - mỗi gói được GitHub Actions chứng thực (`gh attestation verify <tệp.zip> -R tsudev-tsudev/tsudev-trafficmonitor`), chứng minh gói được build từ mã nguồn của repo này tại đúng tag phát hành.
+3. **Chứng thực nguồn gốc build** - mỗi gói được GitHub Actions chứng thực (`gh attestation verify <tệp.zip> -R tsudev-org/tsudev-trafficmonitor`), chứng minh gói được build từ mã nguồn của repo này tại đúng tag phát hành.
 
 Tự kiểm tra chữ ký thông tin phiên bản (cần OpenSSL và Python):
 
@@ -54,7 +54,7 @@ TrafficMonitor là ứng dụng desktop chạy với quyền người dùng (b�
 * **Thông tin phiên bản có chữ ký (từ V1.88-vn).** Mỗi bản phát hành kèm `version_signed.xml` (phiên bản, liên kết tải, **SHA-256 của từng gói**) và chữ ký `version_signed.xml.sig` (ECDSA P-256/SHA-256). Khóa bí mật chỉ nằm trong secret của environment `release` trên GitHub (job phát hành cần chủ repo duyệt); khóa công khai nhúng trong `ForkConfig.h` và có bản PEM tại [`tools/keys/update_signing_pub.pem`](./tools/keys/update_signing_pub.pem). Ứng dụng xác minh chữ ký bằng Windows CNG; chữ ký sai thì bỏ toàn bộ thông tin cập nhật. Vì vậy kể cả khi GitHub, DNS hay kết nối mạng bị giả mạo, kẻ tấn công không thể đưa phiên bản/liên kết/mã băm giả vào ứng dụng.
 * **Chống hạ cấp:** chỉ báo cập nhật khi phiên bản trong thông tin có chữ ký **lớn hơn** phiên bản đang chạy (so sánh theo số).
 * Bản V1.86-vn/V1.87-vn (trước khi có chữ ký) đọc `version_utf8.info` không chữ ký qua **HTTPS**; tệp này vẫn được duy trì cho các bản đó.
-* Liên kết tải phải bắt đầu **chính xác** bằng `https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/`, không chứa `..`, `@`, `?`, `#`, `%`, `\`, khoảng trắng hay ký tự điều khiển, và chỉ trỏ tới `.zip`/`.exe`. Liên kết được kiểm tra **hai lần** (khi phân tích và ngay trước khi mở).
+* Liên kết tải phải bắt đầu **chính xác** bằng `https://github.com/tsudev-org/tsudev-trafficmonitor/releases/download/` hoặc địa chỉ cũ trước khi chuyển repo `https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/` (GitHub chuyển hướng; bản phát hành ghi liên kết theo địa chỉ cũ để bản đã cài vẫn cập nhật được), không chứa `..`, `@`, `?`, `#`, `%`, `\`, khoảng trắng hay ký tự điều khiển, và chỉ trỏ tới `.zip`/`.exe`. Liên kết được kiểm tra **hai lần** (khi phân tích và ngay trước khi mở).
 * Chương trình **không tự tải và không tự chạy** bản cập nhật; chỉ mở trang tải trong trình duyệt sau khi người dùng đồng ý.
 * Chuỗi phiên bản được kiểm tra định dạng và so sánh theo số.
 

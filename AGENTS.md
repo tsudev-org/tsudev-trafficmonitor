@@ -35,7 +35,7 @@ Bản quy ước repo này đang dùng: xem [`.standards-version`](.standards-ve
 - **Hình trạng**: A (ứng dụng đơn), giữ bố cục thư mục của mã kế thừa - xem B.4.
 - **Stack**: C++17/20, MFC, Win32, MSBuild (VS 2022 v143); website Astro + Cloudflare Pages. Chi tiết: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 - **Mức phân loại dữ liệu cao nhất**: D1 (cấu hình và lịch sử lưu lượng cục bộ trên máy người dùng; không gửi đi đâu).
-- **Người liên hệ khi có sự cố**: tsudev (chủ repo `tsudev-tsudev`).
+- **Người liên hệ khi có sự cố**: tsudev (repo thuộc Organization `tsudev-org`, quản trị: `tsudev-tsudev`).
 
 ### B.2. Chạy trong 5 phút
 

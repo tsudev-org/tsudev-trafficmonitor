@@ -9,13 +9,13 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Repo GitHub của bản Việt hóa (từ V1.87-vn chuyển sang repo tsudev-trafficmonitor; repo cũ TrafficMonitor-VN lưu trữ)
-#define FORK_GITHUB_OWNER           L"tsudev-tsudev"
+#define FORK_GITHUB_OWNER           L"tsudev-org"
 #define FORK_GITHUB_REPO            L"tsudev-trafficmonitor"
 #define FORK_GITHUB_BRANCH          L"main"
-#define FORK_REPO_URL               L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor"
+#define FORK_REPO_URL               L"https://github.com/tsudev-org/tsudev-trafficmonitor"
 
 // Tệp thông tin phiên bản dùng để kiểm tra cập nhật (định dạng XML, xem version_utf8.info)
-#define FORK_VERSION_INFO_RAW_URL   L"https://raw.githubusercontent.com/tsudev-tsudev/tsudev-trafficmonitor/main/version_utf8.info"
+#define FORK_VERSION_INFO_RAW_URL   L"https://raw.githubusercontent.com/tsudev-org/tsudev-trafficmonitor/main/version_utf8.info"
 
 // Tiền tố bắt buộc của mọi liên kết tải bản cập nhật.
 // Bản cập nhật chỉ được chấp nhận khi liên kết tải trỏ đúng vào trang Releases của repo này,
@@ -31,8 +31,8 @@
 // SHA-256 từng gói) và ký bằng ECDSA P-256/SHA-256; khóa bí mật chỉ nằm trong secret UPDATE_SIGNING_KEY
 // của environment "release". Ứng dụng chỉ tin thông tin phiên bản khi chữ ký hợp lệ với khóa công khai dưới đây.
 // "releases/latest/download" luôn trỏ bản phát hành mới nhất (không tính bản thử nghiệm).
-#define FORK_SIGNED_VERSION_URL     L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest/download/version_signed.xml"
-#define FORK_SIGNED_VERSION_SIG_URL L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest/download/version_signed.xml.sig"
+#define FORK_SIGNED_VERSION_URL     L"https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest/download/version_signed.xml"
+#define FORK_SIGNED_VERSION_SIG_URL L"https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest/download/version_signed.xml.sig"
 // Khóa công khai ECDSA P-256 (X||Y, 64 byte, dạng hex); bản PEM: tools/keys/update_signing_pub.pem
 #define FORK_UPDATE_PUBLIC_KEY_HEX  "d8725c096fbcac2420427ef8b8d40dee09bd75ea0edd33cf6cbdee96d4f69752045a880fdebdcc42076b01b2d8acb82ab65457807fadc241a6802774e561c685"
 
@@ -44,19 +44,19 @@
 // bản .md trên GitHub vẫn giữ làm dự phòng). Ngôn ngữ khác tiếng Việt dùng tài liệu tiếng Anh (*_EN_URL) trên GitHub,
 // chọn qua CTrafficMonitorApp::DocUrl().
 #define FORK_HELP_URL               L"https://trafficmonitor.tsudev.com/huong-dan/hoi-dap/"
-#define FORK_HELP_EN_URL            L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/Help_en-us.md"
+#define FORK_HELP_EN_URL            L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/Help_en-us.md"
 #define FORK_UPDATE_LOG_URL         L"https://trafficmonitor.tsudev.com/nhat-ky/"
-#define FORK_UPDATE_LOG_EN_URL      L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/UpdateLog/update_log_en-us.md"
+#define FORK_UPDATE_LOG_EN_URL      L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/UpdateLog/update_log_en-us.md"
 #define FORK_WIKI_URL               L"https://trafficmonitor.tsudev.com/huong-dan/"
-#define FORK_WIKI_EN_URL            L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/README_en-us.md"
+#define FORK_WIKI_EN_URL            L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/README_en-us.md"
 #define FORK_SKIN_TUTORIAL_URL      L"https://trafficmonitor.tsudev.com/huong-dan/tu-lam-giao-dien/"
-#define FORK_SKIN_TUTORIAL_EN_URL   L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/SkinTutorial_en-us.md"
+#define FORK_SKIN_TUTORIAL_EN_URL   L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/SkinTutorial_en-us.md"
 #define FORK_SKIN_DOWNLOAD_URL      L"https://trafficmonitor.tsudev.com/huong-dan/kho-giao-dien/"
-#define FORK_SKIN_DOWNLOAD_EN_URL   L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/SkinGallery_en-us.md"
+#define FORK_SKIN_DOWNLOAD_EN_URL   L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/SkinGallery_en-us.md"
 #define FORK_PLUGIN_DOWNLOAD_URL    L"https://trafficmonitor.tsudev.com/huong-dan/plugin/"
-#define FORK_PLUGIN_DOWNLOAD_EN_URL L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/Plugin_en-us.md"
+#define FORK_PLUGIN_DOWNLOAD_EN_URL L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/Plugin_en-us.md"
 #define FORK_PLUGIN_DEV_GUIDE_URL   L"https://trafficmonitor.tsudev.com/huong-dan/phat-trien-plugin/"
-#define FORK_PLUGIN_DEV_GUIDE_EN_URL L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/PluginDev_en-us.md"
+#define FORK_PLUGIN_DEV_GUIDE_EN_URL L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/PluginDev_en-us.md"
 
 // Hệ sinh thái tsudev (ECOSYSTEM_IDENTITY mục 2.3: hộp thoại Giới thiệu có liên kết tới tsudev.com)
 #define TSUDEV_HOME_URL             L"https://tsudev.com"

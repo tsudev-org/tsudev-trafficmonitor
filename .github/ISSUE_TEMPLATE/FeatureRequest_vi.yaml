@@ -6,9 +6,9 @@ body:
     attributes:
       label: Điều kiện trước khi gửi
       options:
-        - label: Tôi đã tìm trong danh sách [issues](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues) và chưa có đề xuất tương tự.
+        - label: Tôi đã tìm trong danh sách [issues](https://github.com/tsudev-org/tsudev-trafficmonitor/issues) và chưa có đề xuất tương tự.
           required: true
-        - label: Tôi đã đọc [README](https://github.com/tsudev-tsudev/tsudev-trafficmonitor#readme) và tính năng này chưa có sẵn.
+        - label: Tôi đã đọc [README](https://github.com/tsudev-org/tsudev-trafficmonitor#readme) và tính năng này chưa có sẵn.
           required: true
   - type: input
     attributes:

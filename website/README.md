@@ -7,7 +7,7 @@ host trên Cloudflare Pages (dự án `tsudev-trafficmonitor`).
   - sửa tài liệu ở đó, không sửa trong `website/`.
 * Thông tin bản phát hành (phiên bản, liên kết, SHA-256) lấy từ GitHub Releases lúc build.
 * Tài sản thương hiệu (`public/favicon*`, `og-image.png`, `brand/`) sinh bằng `scripts/brand_assets.py` từ dây chuyền thương hiệu
-  của repo `tsudev-tsudev/tsudev`; không sửa tay.
+  của repo `tsudev-org/tsudev`; không sửa tay.
 * Font Be Vietnam Pro tự host (SIL OFL 1.1), token màu sao nguyên văn từ `tsudev-standards/tokens/tokens.css`.
 * Header bảo mật (HSTS, CSP chặt, `X-Frame-Options: DENY`...) ở `public/_headers`; `security.txt` ở `public/.well-known/`.
   `scripts/check-dist.mjs` chạy sau mỗi lần build để kiểm tra title, `og:site_name`, canonical, độ dài mô tả và chặn CSS/JS nội tuyến.

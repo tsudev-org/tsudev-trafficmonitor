@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join, normalize } from 'node:path';
 import { Marked } from 'marked';
 
-export const REPO = 'tsudev-tsudev/tsudev-trafficmonitor';
+export const REPO = 'tsudev-org/tsudev-trafficmonitor';
 export const REPO_URL = `https://github.com/${REPO}`;
 export const SITE = 'https://trafficmonitor.tsudev.com';
 

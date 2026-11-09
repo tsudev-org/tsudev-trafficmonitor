@@ -5,9 +5,9 @@ body:
     attributes: 
       label: Prerequisites
       options:
-        - label: I have searched for related issues in the [issues](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues) list.
+        - label: I have searched for related issues in the [issues](https://github.com/tsudev-org/tsudev-trafficmonitor/issues) list.
           required: true
-        - label: I have read the [FAQ](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/Help_en-us.md) in detail and searched for related issues in FAQ list.
+        - label: I have read the [FAQ](https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/Help_en-us.md) in detail and searched for related issues in FAQ list.
           required: true
   - type: input
     attributes:
