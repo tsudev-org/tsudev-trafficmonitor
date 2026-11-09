@@ -115,6 +115,7 @@ def main() -> int:
              "extractedText": "NOASSERTION"},
         ],
     }
+    sys.stdout.reconfigure(encoding="utf-8", newline="\n")   # Windows mặc định cp1252
     json.dump(doc, sys.stdout, ensure_ascii=False, indent=2)
     print()
     return 0

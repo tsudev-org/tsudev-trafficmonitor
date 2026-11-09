@@ -46,6 +46,13 @@ jobs:
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
           cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I TrafficMonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTests.exe || exit /b 1
           UpdateSecurityTests.exe tests\fixtures
+      - name: Thử sinh SBOM trên Windows (như release.yml)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo thu > sbom-thu.zip
+          python -I -X utf8 tools/make_sbom.py --zip sbom-thu.zip --version 1.0 --commit "$(git rev-parse HEAD)" > sbom-thu.spdx.json
+          python -I -c "import json,sys; d=json.load(open(sys.argv[1],encoding='utf-8')); assert d['spdxVersion']=='SPDX-2.3' and len(d['packages'])==3" sbom-thu.spdx.json
       - name: Chạy lại kiểm thử dưới AddressSanitizer
         shell: cmd
         run: |

@@ -85,10 +85,15 @@ jobs:
           subject-path: ${{ steps.pkg.outputs.zip }}
 
       - name: Sinh SBOM (SPDX 2.3)
-        shell: pwsh
+        # bash + "-X utf8": stdout của Python trên runner Windows mặc định cp1252; chuyển hướng của bash giữ nguyên từng byte
+        shell: bash
+        env:
+          ZIP: ${{ steps.pkg.outputs.zip }}
+          VERSION: ${{ steps.ver.outputs.version }}
         run: |
-          python -I tools/make_sbom.py --zip "${{ steps.pkg.outputs.zip }}" --version "${{ steps.ver.outputs.version }}" --commit "${{ github.sha }}" |
-            Out-File -Encoding utf8NoBOM "${{ steps.pkg.outputs.zip }}.spdx.json"
+          set -euo pipefail
+          python -I -X utf8 tools/make_sbom.py --zip "$ZIP" --version "$VERSION" --commit "$(git rev-parse HEAD)" > "$ZIP.spdx.json"
+          python -I -c "import json,sys; d=json.load(open(sys.argv[1],encoding='utf-8')); assert d['spdxVersion']=='SPDX-2.3'" "$ZIP.spdx.json"
 
       - name: Chứng thực SBOM
         if: ${{ !github.event.repository.private }}
