@@ -4,6 +4,17 @@
 
 Changes in each TrafficMonitor-VN release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 
+## 26.11.0905 (09/11/2026)
+
+### Security
+* When you accept an update, the app **downloads the package itself** for your architecture (with a progress dialog and a Cancel button), computes its SHA-256 while downloading and compares it with the SHA-256 in the digitally signed version information. Only on a match is it saved to your Downloads folder and the folder opened with the file selected; on a mismatch the file is deleted and an error is shown. You no longer need to compare the hash yourself.
+* Downloads only from this repository's Releases page; every redirect must go to a GitHub server over HTTPS; 50 MB limit; existing files are never overwritten; the saved file is marked as downloaded from the Internet, as a browser would. The app never extracts or runs the package.
+* If the download fails (network error), the app asks whether to open the link in your browser as before.
+* A CI integration test downloads a real release package to exercise match, SHA-256 mismatch, oversize, cancel and redirect-to-unknown-host cases.
+
+### Other
+* The former `TrafficMonitor-VN` repository has been removed; all source code, releases and the update channel live in `tsudev-org/tsudev-trafficmonitor`.
+
 ## 26.11.0904 (09/11/2026)
 
 > Version 26.11.0903 was not released (the build failed while generating the SBOM, before the Release was created); 26.11.0904 has the same content.
