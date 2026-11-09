@@ -65,7 +65,7 @@ cd website && npm ci && npm run build
 | Lệch ở đâu | Vì sao | Kế hoạch |
 | --- | --- | --- |
 | PROJECT_STRUCTURE: không có `src/`, `assets/`; mã ở `TrafficMonitor/`, `include/`, script ở `tools/` | Bản phái sinh của mã C++/MFC có sẵn; dời thư mục làm hỏng `.vcxproj`/`.sln` và khó đối chiếu với mã gốc | Giữ nguyên; script mới đặt trong `tools/` |
-| TESTING_QUALITY: test tự động C++ mới phủ logic thuần của kênh cập nhật (`tests/UpdateSecurityTests.cpp`: so sánh/kiểm phiên bản, lọc URL, chữ ký ECDSA với manifest thật), chưa phủ giao diện MFC | Mã giao diện MFC kế thừa khó tách để test; CI còn build `/WX` có chọn lọc + CodeQL + kiểm Việt hóa/URL/chữ bị cắt | Logic thuần mới tách vào header không phụ thuộc MFC và thêm test vào `tests/` (job "Kiểm thử C++" trong build.yml) |
+| TESTING_QUALITY: test tự động C++ phủ logic thuần của kênh cập nhật (`tests/UpdateSecurityTests.cpp`), tự tải gói + kiểm SHA-256 (`tests/UpdateDownloadTests.cpp`, tải gói phát hành thật) và phân tích XML (`tests/XmlParsingTests.cpp`, mọi skin.xml thật) - kèm ASan và 2 harness fuzz (`tests/fuzz/`); chưa phủ giao diện MFC | Mã giao diện MFC kế thừa khó tách để test; CI còn build `/WX` có chọn lọc + CodeQL + kiểm Việt hóa/URL/chữ bị cắt + build tái lập (build 2 lần, so SHA-256) | Logic thuần mới tách vào header không phụ thuộc MFC (như `UpdateSecurity.h`, `UpdateDownload.h`, `XmlParsing.h`) và thêm test vào `tests/` (job "Kiểm thử C++" trong build.yml) |
 | VERSIONING: gói phát hành là `.zip` chạy ngay (không `-setup.exe`), kiến trúc `arm64ec` | Ứng dụng di động (portable), không có bộ cài; build là ARM64EC | Ghi ở README mục Tải về |
 | LANGUAGE_SELECTION: C++/MFC | Kế thừa | Không đổi |
 
