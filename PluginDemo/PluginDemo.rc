@@ -114,11 +114,11 @@ BEGIN
     BEGIN
         BLOCK "042a04b0"
         BEGIN
-            VALUE "CompanyName", "By ZhongYang"
+            VALUE "CompanyName", "tsudev"
             VALUE "FileDescription", "Plugin Demo for TrafficMonitor"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "PluginDe.dll"
-            VALUE "LegalCopyright", "Copyright (C) 2021 By ZhongYang"
+            VALUE "LegalCopyright", "Copyright (c) 2026 tsudev"
             VALUE "OriginalFilename", "PluginDe.dll"
             VALUE "ProductName", "Plugin Demo for TrafficMonitor"
             VALUE "ProductVersion", "1.0.0.1"

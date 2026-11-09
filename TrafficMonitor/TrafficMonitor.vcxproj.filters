@@ -241,9 +241,6 @@
     <Filter Include="Mã nguồn và header\Lớp dùng chung\SkinManager">
       <UniqueIdentifier>{28301057-fd34-4d04-a86a-0520143fdc14}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mã nguồn và header\Lớp dùng chung\PluginUpdateHelper">
-      <UniqueIdentifier>{4d4d9bb2-17eb-4f13-978b-c204a1b227db}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Mã nguồn và header\Lớp dùng chung\DisplayItem">
       <UniqueIdentifier>{4785624f-2ca9-4f92-8cfc-c7a7c3bfba74}</UniqueIdentifier>
     </Filter>
@@ -253,13 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="res\Acknowledgement_vi.txt">
-      <Filter>Tài nguyên</Filter>
-    </Text>
     <Text Include="compile_time.txt" />
-    <Text Include="res\Acknowledgement_en.txt">
-      <Filter>Tài nguyên</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -541,9 +532,6 @@
     <ClInclude Include="SettingsHelper.h">
       <Filter>Mã nguồn và header\Lớp dùng chung\IniHelper</Filter>
     </ClInclude>
-    <ClInclude Include="PluginUpdateHelper.h">
-      <Filter>Mã nguồn và header\Lớp dùng chung\PluginUpdateHelper</Filter>
-    </ClInclude>
     <ClInclude Include="DisplayItem.h">
       <Filter>Mã nguồn và header\Lớp dùng chung\DisplayItem</Filter>
     </ClInclude>
@@ -821,9 +809,6 @@
     </ClCompile>
     <ClCompile Include="SettingsHelper.cpp">
       <Filter>Mã nguồn và header\Lớp dùng chung\IniHelper</Filter>
-    </ClCompile>
-    <ClCompile Include="PluginUpdateHelper.cpp">
-      <Filter>Mã nguồn và header\Lớp dùng chung\PluginUpdateHelper</Filter>
     </ClCompile>
     <ClCompile Include="DisplayItem.cpp">
       <Filter>Mã nguồn và header\Lớp dùng chung\DisplayItem</Filter>

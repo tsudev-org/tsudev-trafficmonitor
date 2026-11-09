@@ -5,7 +5,6 @@
 // Mọi URL, tên repo và giá trị mặc định riêng của bản Việt hóa được khai báo tại đây,
 // để khi cần đổi repo/tổ chức chỉ phải sửa một chỗ duy nhất.
 //
-// Dự án gốc: https://github.com/zhongyang219/TrafficMonitor (tác giả zhongyang219)
 // Giấy phép: "Anti 996" License — xem tệp LICENSE ở thư mục gốc.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -58,13 +57,6 @@
 #define TSUDEV_HOME_URL             L"https://tsudev.com"
 #define FORK_PRODUCT_URL            L"https://trafficmonitor.tsudev.com"
 
-// Repo gốc (giữ để ghi công tác giả theo yêu cầu giấy phép)
-#define UPSTREAM_REPO_URL           L"https://github.com/zhongyang219/TrafficMonitor"
-
-// Thông tin phiên bản mới nhất của các plugin do tác giả gốc phát hành (TrafficMonitorPlugins).
-// Các plugin này do dự án gốc phát triển nên phiên bản được tra trực tiếp từ nguồn phát hành của chúng (HTTPS).
-#define UPSTREAM_PLUGINS_VERSION_URL L"https://raw.githubusercontent.com/zhongyang219/TrafficMonitorPlugins/main/plugins_version.xml"
-
 // Ghi công thư viện bên thứ ba (hộp thoại Giới thiệu)
 #define THIRD_PARTY_LIBREHARDWAREMONITOR_URL L"https://github.com/LibreHardwareMonitor/LibreHardwareMonitor"
 #define THIRD_PARTY_TINYXML2_URL    L"https://github.com/leethomason/tinyxml2"
@@ -75,4 +67,4 @@
 
 // Ngôn ngữ mặc định khi chưa có cấu hình (lần chạy đầu tiên).
 // Định dạng: "<BCP-47>|<DISPLAY_NAME>|<TRANSLATOR>" — phải khớp với phần [general] của language\Vietnamese.ini
-#define DEFAULT_LANGUAGE_CONFIG     L"vi-VN|Tiếng Việt|Lieutrung"
+#define DEFAULT_LANGUAGE_CONFIG     L"vi-VN|Tiếng Việt|tsudev"

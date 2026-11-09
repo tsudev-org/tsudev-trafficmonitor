@@ -168,24 +168,7 @@ BOOL CPluginManagerDlg::OnInitDialog()
         m_list_ctrl.InsertItem(index, file_name.c_str(), m_list_ctrl.GetItemCount());
         m_list_ctrl.SetItemText(index, COL_NAME, plugin.Property(ITMPlugin::TMI_NAME).c_str());
         if (plugin.state == CPluginManager::PluginState::PS_SUCCEED)
-        {
-            //Nếu plugin có bản cập nhật thì thêm thông tin cập nhật sau số phiên bản
-            PluginVersion cur_version(plugin.Property(ITMPlugin::TMI_VERSION));
-            PluginVersion latest_version(theApp.m_plugin_update.GetPluginLatestVersions(file_name));
-            if (cur_version < latest_version)
-            {
-                std::wstring update_info = theApp.m_str_table.LoadTextFormat(IDS_PLUGIN_NEW_VERSION_INFO, { latest_version.GetVersionWString() });
-                std::wstring version_text = plugin.Property(ITMPlugin::TMI_VERSION);
-                version_text += L" (";
-                version_text += update_info;
-                version_text += L')';
-                m_list_ctrl.SetItemText(index, COL_VERSION, version_text.c_str());
-            }
-            else
-            {
-                m_list_ctrl.SetItemText(index, COL_VERSION, plugin.Property(ITMPlugin::TMI_VERSION).c_str());
-            }
-        }
+            m_list_ctrl.SetItemText(index, COL_VERSION, plugin.Property(ITMPlugin::TMI_VERSION).c_str());
         m_list_ctrl.SetItemText(index, COL_STATUS, status);
     }
 

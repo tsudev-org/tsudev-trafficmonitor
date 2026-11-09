@@ -1,7 +1,6 @@
 ﻿/*********************************************************
-* Giao diện plugin của TrafficMonitor
-* Copyright (C) by Zhong Yang 2021
-* zhongyang219@hotmail.com
+* Giao diện plugin của TrafficMonitor-VN (API phiên bản 8, tương thích plugin TrafficMonitor)
+* Giấy phép: "Anti 996" License 1.0 — xem tệp LICENSE ở thư mục gốc.
 **********************************************************/
 #pragma once
 

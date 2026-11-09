@@ -623,11 +623,6 @@ UINT CTrafficMonitorApp::CheckUpdateThreadFunc(LPVOID lpParam)
 #ifndef _DEBUG      //Ở bản DEBUG không kiểm tra cập nhật khi khởi động
     theApp.CheckUpdate(lpParam);        //Kiểm tra cập nhật
 #endif
-    //Kiểm tra cập nhật plugin
-    if (!theApp.m_plugins.GetPlugins().empty())
-    {
-        theApp.m_plugin_update.CheckForUpdate();
-    }
     return 0;
 }
 

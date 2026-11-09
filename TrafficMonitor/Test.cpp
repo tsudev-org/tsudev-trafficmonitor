@@ -4,7 +4,6 @@
 #include "SkinFile.h"
 #include "TrafficMonitor.h"
 #include "IniHelper.h"
-#include "PluginUpdateHelper.h"
 #include "MessageDlg.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,18 +61,6 @@ static void TestIni()
     ini.RemoveSection(L"skin_360FloatingWindowDark");
     ini.Save();
     int a = 0;
-}
-
-static void TestPluginVersion()
-{
-    ASSERT(PluginVersion(L"1.0.0") == PluginVersion(L"1.00"));
-    ASSERT(PluginVersion(L"1.2") < PluginVersion(L"1.20"));
-    ASSERT(PluginVersion(L"0.8.0") < PluginVersion(L"1.00"));
-    ASSERT(PluginVersion(L"1.0.3") < PluginVersion(L"1.03"));
-
-    //CPluginUpdateHelper helper;
-    //helper.CheckForUpdate();
-    //int a = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
