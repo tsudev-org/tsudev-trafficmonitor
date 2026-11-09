@@ -270,7 +270,7 @@ BOOL CGeneralSettingsDlg::OnInitDialog()
     }
     CheckDlgButton(IDC_SHOW_NOTIFY_ICON_CHECK, m_data.show_notify_icon);
 
-    //Bản Việt hóa: chỉ hỗ trợ nguồn cập nhật GitHub (repo TrafficMonitor-VN), vô hiệu hóa lựa chọn Gitee
+    //Bản Việt hóa: chỉ hỗ trợ nguồn cập nhật GitHub (repo tsudev-org/tsudev-trafficmonitor), vô hiệu hóa lựa chọn Gitee
     m_data.update_source = 0;
     CheckDlgButton(IDC_GITHUB_RADIO, TRUE);
     CheckDlgButton(IDC_GITEE_RADIO, FALSE);

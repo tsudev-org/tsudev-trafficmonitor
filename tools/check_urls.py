@@ -36,8 +36,6 @@ ALLOWED_PREFIXES = [
     "https://raw.githubusercontent.com/tsudev-org/tsudev-trafficmonitor/",
     "https://trafficmonitor.tsudev.com",
     "https://tsudev.com",
-    # Repo cũ (lưu trữ): chỉ để dẫn tới lịch sử commit
-    "https://github.com/tsudev-tsudev/TrafficMonitor-VN",
     # Ghi công thư viện bên thứ ba
     "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor",
     "https://github.com/leethomason/tinyxml2",
