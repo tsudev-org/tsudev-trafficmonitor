@@ -47,8 +47,8 @@ bool CAboutDlg::InitializeControls()
         { CtrlTextInfo::L3, IDC_STATIC_GITHUB },
         { CtrlTextInfo::L2, IDC_STATIC_GITEE },
         { CtrlTextInfo::L4, IDC_STATIC_LICENSE },
-        { CtrlTextInfo::L3, IDC_STATIC_DONATE },
-        { CtrlTextInfo::L2, IDC_STATIC_ACKNOWLEDGEMENT }
+        { CtrlTextInfo::L3, IDC_STATIC_ACKNOWLEDGEMENT },     //Cùng cột thứ hai với "GitHub" (x=55 trong tài nguyên)
+        { CtrlTextInfo::L2, IDC_STATIC_TSUDEV }               //Cùng cột thứ ba với "Dự án gốc"
         });
     return true;
 }
