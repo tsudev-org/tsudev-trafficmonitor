@@ -102,7 +102,7 @@ using std::ofstream;
 #define APP_NAME _T("TrafficMonitor")
 #define TASKBAR_WINDOW_NAME _T("TrafficMonitorTaskbarWindow")
 #define APP_CLASS_NAME _T("TrafficMonitor_r7XZaS4p") //Tên lớp cửa sổ chính của chương trình
-#define VERSION L"1.88"
+#define VERSION L"1.89"
 #define COPYRITE_YEAR L"2017-2026"
 
 #define MAX_NOTIFY_ICON 6       //Số lượng biểu tượng vùng thông báo có thể chọn
