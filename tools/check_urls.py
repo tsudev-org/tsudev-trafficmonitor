@@ -59,6 +59,7 @@ ALLOWED_HTTP = ["http://schemas.microsoft.com/developer/msbuild/2003", "http://w
 # Tệp/thư mục không kiểm tra: mã và tài liệu bên thứ ba giữ nguyên văn
 EXCLUDE = [
     re.compile(r"^LICENSE"),
+    re.compile(r"^\.standards/"),          # bản sao chỉ-đọc của bộ quy ước tsudev (không sửa)
     re.compile(r"^TrafficMonitor/tinyxml2/"),
     re.compile(r"^OpenHardwareMonitorApi/LibreHardwareMonitorLib\.xml$"),
     re.compile(r"^tools/check_urls\.py$"),
