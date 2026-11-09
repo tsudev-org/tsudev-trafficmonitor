@@ -14,6 +14,7 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 09/11/2026 - Chuyển repo sang Organization `tsudev-org` (phiếu `logs/handover/20261109-01`); updater giữ tương thích bản đã cài (PR #28)
 - 09/11/2026 - Kiểm tra khả năng truy cập website bằng axe-core trong CI (WCAG 2.2 AA, sáng + tối); sửa tương phản menu và khối mã cuộn (PR #26)
 - 09/11/2026 - Kiểm thử tự động C++ cho kênh cập nhật: `TrafficMonitor/UpdateSecurity.h` + `tests/UpdateSecurityTests.cpp` (73 phép kiểm, job "Kiểm thử C++") (PR #25)
 - 09/11/2026 - CI "Chuẩn tsudev": chạy gitleaks bằng bản phát hành kiểm SHA-256 (gitleaks-action bị chính sách Actions chặn) (PR #24)
@@ -26,6 +27,7 @@
 > Quyết định kiến trúc lớn thì viết ADR riêng theo `docs/templates/ADR.md` và chỉ
 > ghi một dòng tham chiếu ở đây.
 
+- 09/11/2026 - Repo ở `tsudev-org`. version_signed.xml luôn ghi liên kết theo owner cũ `tsudev-tsudev` (bản đã cài chỉ tin tiền tố đó). KHÔNG BAO GIỜ tạo lại repo tên `tsudev-trafficmonitor` dưới `tsudev-tsudev` (GitHub bỏ chuyển hướng => bản đã cài mất kênh cập nhật)
 - 09/11/2026 - Gỡ tên tác giả dự án gốc khỏi repo ở mức tối đa giấy phép Anti 996 cho phép: chỉ giữ trong LICENSE, LICENSE_CN, LICENSE_VI.md, NOTICE.md
 - 09/11/2026 - Không kiểm tra phiên bản plugin qua mạng (bỏ nguồn bên thứ ba); giữ API plugin v8
 - 09/11/2026 - Người dịch gói vi/en ghi tsudev; gói ngôn ngữ khác để trống người dịch
