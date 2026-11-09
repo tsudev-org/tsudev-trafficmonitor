@@ -63,6 +63,7 @@ EXCLUDE = [
     re.compile(r"^TrafficMonitor/tinyxml2/"),
     re.compile(r"^OpenHardwareMonitorApi/LibreHardwareMonitorLib\.xml$"),
     re.compile(r"^tools/check_urls\.py$"),
+    re.compile(r"^tests/"),                # kiểm thử cố ý chứa URL giả mạo/không tin cậy để thử bộ lọc
     re.compile(r"^website/package-lock\.json$"),
     re.compile(r"^website/public/fonts/"),
 ]

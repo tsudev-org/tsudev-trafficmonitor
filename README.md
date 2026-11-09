@@ -141,6 +141,8 @@ Cấu hình riêng của bản Việt hóa (repo, URL cập nhật, ngôn ngữ 
 
 Khóa bí mật ký thông tin cập nhật chỉ nằm trong secret `UPDATE_SIGNING_KEY` của environment `release` (chủ repo tsudev giữ; người bảo trì khác xin quyền duyệt environment qua chủ repo). Khóa công khai: `tools/keys/update_signing_pub.pem`.
 
+Khi đổi khóa ký: thay `FORK_UPDATE_PUBLIC_KEY_HEX` (ForkConfig.h), `tools/keys/update_signing_pub.pem` và dữ liệu mẫu `tests/fixtures/version_signed.xml(.sig)` bằng manifest ký bằng khóa mới, nếu không job "Kiểm thử C++" sẽ báo lỗi.
+
 ### Lịch sử mã nguồn
 
 Repo này bắt đầu bằng một commit nhập mã nguồn (từ bản V1.87-vn); lịch sử commit trước đó được lưu ở repo cũ [tsudev-tsudev/TrafficMonitor-VN](https://github.com/tsudev-tsudev/TrafficMonitor-VN) (chỉ đọc).

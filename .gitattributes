@@ -11,3 +11,6 @@
 *.bmp   binary
 *.png   binary
 .github/** text eol=lf
+
+# Dữ liệu mẫu có chữ ký: giữ nguyên từng byte
+tests/fixtures/** -text
