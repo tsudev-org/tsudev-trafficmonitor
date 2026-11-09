@@ -22,7 +22,7 @@ Manage plugins from **Options** → **General Settings** → **Advanced** → **
 
 * **Sample plugin** `PluginDemo` (date, time, custom-drawn items) is built together with TrafficMonitor-VN from the [`PluginDemo`](./PluginDemo) folder; use it for testing and as a template for your own plugin.
 * **Third-party plugins**: TrafficMonitor-VN keeps the plugin interface unchanged (`ITMPlugin`, API version 8), so plugins written for TrafficMonitor usually work. They are **not developed or reviewed by tsudev**; only install them if you trust where they come from, and follow new versions from the plugin author yourself (the app does not check plugin versions over the network).
-* **Your own plugin**: see [Plugin development](./PluginDev_en-us.md). To have your plugin listed here, open an [issue](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues) with a link to its source code.
+* **Your own plugin**: see [Plugin development](./PluginDev_en-us.md). To have your plugin listed here, open an [issue](https://github.com/tsudev-org/tsudev-trafficmonitor/issues) with a link to its source code.
 
 ## Temperature monitoring
 
