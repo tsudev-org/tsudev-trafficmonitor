@@ -1,4 +1,4 @@
-# Chính sách bảo mật — TrafficMonitor-VN
+# Chính sách bảo mật - TrafficMonitor-VN
 
 ## Phiên bản được hỗ trợ
 
@@ -33,9 +33,9 @@ gh attestation verify tsudev-trafficmonitor_26.11.0901_x64_Lite.zip --repo tsude
 
 ## Chuỗi tin cậy của bản cập nhật
 
-1. **Chữ ký thông tin phiên bản** — ứng dụng chỉ tin `version_signed.xml` có chữ ký hợp lệ (xem mục 1 bên dưới).
-2. **SHA-256** — hộp thoại cập nhật hiện SHA-256 của gói đúng kiến trúc; mã băm này cũng có trong `SHA256SUMS.txt` của bản phát hành. Sau khi tải, đối chiếu bằng `Get-FileHash <tệp.zip> -Algorithm SHA256` (PowerShell).
-3. **Chứng thực nguồn gốc build** — mỗi gói được GitHub Actions chứng thực (`gh attestation verify <tệp.zip> -R tsudev-tsudev/tsudev-trafficmonitor`), chứng minh gói được build từ mã nguồn của repo này tại đúng tag phát hành.
+1. **Chữ ký thông tin phiên bản** - ứng dụng chỉ tin `version_signed.xml` có chữ ký hợp lệ (xem mục 1 bên dưới).
+2. **SHA-256** - hộp thoại cập nhật hiện SHA-256 của gói đúng kiến trúc; mã băm này cũng có trong `SHA256SUMS.txt` của bản phát hành. Sau khi tải, đối chiếu bằng `Get-FileHash <tệp.zip> -Algorithm SHA256` (PowerShell).
+3. **Chứng thực nguồn gốc build** - mỗi gói được GitHub Actions chứng thực (`gh attestation verify <tệp.zip> -R tsudev-tsudev/tsudev-trafficmonitor`), chứng minh gói được build từ mã nguồn của repo này tại đúng tag phát hành.
 
 Tự kiểm tra chữ ký thông tin phiên bản (cần OpenSSL và Python):
 
@@ -66,7 +66,7 @@ TrafficMonitor là ứng dụng desktop chạy với quyền người dùng (b�
 * Chương trình **không gửi dữ liệu thống kê/telemetry** nào.
 
 ### 3. Nạp DLL và plugin
-* Khi khởi động: `SetDllDirectory("")` và `SetDefaultDllDirectories(LOAD_LIBRARY_SEARCH_DEFAULT_DIRS)` — loại thư mục hiện hành và biến `PATH` khỏi thứ tự tìm DLL (chống DLL hijacking/preloading).
+* Khi khởi động: `SetDllDirectory("")` và `SetDefaultDllDirectories(LOAD_LIBRARY_SEARCH_DEFAULT_DIRS)` - loại thư mục hiện hành và biến `PATH` khỏi thứ tự tìm DLL (chống DLL hijacking/preloading).
 * Plugin được nạp bằng đường dẫn tuyệt đối với `LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS`.
 * **Giới hạn đã biết:** plugin là mã gốc chạy cùng tiến trình và cùng quyền với TrafficMonitor; chương trình **không** xác minh chữ ký số của plugin. Chỉ cài plugin từ nguồn tin cậy. Nên đặt TrafficMonitor ở thư mục mà người dùng thường không ghi được (ví dụ `C:\Program Files\TrafficMonitor-VN`) khi chạy bản đầy đủ với quyền Quản trị viên, để tránh phần mềm khác cài plugin trái phép.
 

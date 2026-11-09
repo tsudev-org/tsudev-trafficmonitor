@@ -1,6 +1,6 @@
 **[Tiếng Việt](./Plugin.md) | English** · [Home](./README_en-us.md) · [FAQ](./Help_en-us.md) · [Plugin development](./PluginDev_en-us.md)
 
-# Plugins — TrafficMonitor-VN
+# Plugins - TrafficMonitor-VN
 
 This page opens from the **Download more plug-ins** link in the **Plug-in Manage** dialog (when the interface language is not Vietnamese).
 
@@ -10,7 +10,7 @@ A plugin is a `.dll` file that adds new display items (date and time, weather, b
 
 ## Installing a plugin
 
-1. Download the plugin `.dll` built for **the same architecture** as your TrafficMonitor-VN build (x86, x64 or ARM64EC — see **About**).
+1. Download the plugin `.dll` built for **the same architecture** as your TrafficMonitor-VN build (x86, x64 or ARM64EC - see **About**).
 2. Exit TrafficMonitor.
 3. Copy the `.dll` into the `plugins` folder next to `TrafficMonitor.exe` (create the folder if it does not exist).
 4. Start TrafficMonitor again. Plugins are loaded at startup.

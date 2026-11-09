@@ -9,11 +9,11 @@
 
 # TrafficMonitor-VN
 
-Theo dõi tốc độ mạng, CPU, RAM trên Windows — bản Việt hóa và gia cố bảo mật của TrafficMonitor.
+Theo dõi tốc độ mạng, CPU, RAM trên Windows - bản Việt hóa và gia cố bảo mật của TrafficMonitor.
 
 Một sản phẩm của [tsudev](https://tsudev.com). Trang sản phẩm: [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com). Hạng sản phẩm **C** (chạy ngoại tuyến, không tài khoản; mạng chỉ dùng để kiểm tra bản cập nhật và tra IP công cộng khi người dùng bấm).
 
-**TrafficMonitor-VN** là bản Việt hóa và gia cố bảo mật của TrafficMonitor — phần mềm giám sát tốc độ mạng, mức sử dụng CPU/RAM/GPU/ổ cứng trên Windows với cửa sổ nổi và hiển thị trực tiếp trên thanh tác vụ (Taskbar).
+**TrafficMonitor-VN** là bản Việt hóa và gia cố bảo mật của TrafficMonitor - phần mềm giám sát tốc độ mạng, mức sử dụng CPU/RAM/GPU/ổ cứng trên Windows với cửa sổ nổi và hiển thị trực tiếp trên thanh tác vụ (Taskbar).
 
 ## Điểm khác biệt so với bản gốc
 
@@ -39,7 +39,7 @@ Chi tiết xem [SECURITY.md](./SECURITY.md).
 
 ## Tải về
 
-* Bản phát hành: [trang Tải về](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` và chứng thực nguồn gốc build — hãy đối chiếu mã băm trước khi chạy (xem [SECURITY.md](./SECURITY.md#kiểm-tra-tính-toàn-vẹn-tệp-tải-về)).
+* Bản phát hành: [trang Tải về](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` và chứng thực nguồn gốc build - hãy đối chiếu mã băm trước khi chạy (xem [SECURITY.md](./SECURITY.md#kiểm-tra-tính-toàn-vẹn-tệp-tải-về)).
 * Gói phát hành là tệp `.zip` giải nén là chạy (`tsudev-trafficmonitor_<phiên bản>_<kiến trúc>_Lite.zip`), không có bộ cài `-setup.exe` như mẫu tên trong chuẩn VERSIONING của tsudev; kiến trúc là `x64`, `x86` hoặc `arm64ec` (ghi đúng kiểu build ARM64EC thay cho `arm64`).
 * Kiểm tra cập nhật trong ứng dụng chỉ tin thông tin phiên bản có **chữ ký số** (ECDSA P-256) và hiển thị SHA-256 của gói để đối chiếu.
 * Bản build thử nghiệm: tab [Actions](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml) (cần đăng nhập GitHub).
@@ -139,6 +139,8 @@ Cấu hình riêng của bản Việt hóa (repo, URL cập nhật, ngôn ngữ 
 2. Thêm một dòng vào [CHANGELOG.md](./CHANGELOG.md) và phần chi tiết vào `UpdateLog/update_log_vi.md` + `UpdateLog/update_log_en-us.md`.
 3. PR → CI đạt → gộp; gắn tag có chữ ký `V<phiên bản>-vn`; duyệt environment `release`; kiểm SHA-256, chứng thực build và chữ ký `version_signed.xml`; deploy website.
 
+Khóa bí mật ký thông tin cập nhật chỉ nằm trong secret `UPDATE_SIGNING_KEY` của environment `release` (chủ repo tsudev giữ; người bảo trì khác xin quyền duyệt environment qua chủ repo). Khóa công khai: `tools/keys/update_signing_pub.pem`.
+
 ### Lịch sử mã nguồn
 
 Repo này bắt đầu bằng một commit nhập mã nguồn (từ bản V1.87-vn); lịch sử commit trước đó được lưu ở repo cũ [tsudev-tsudev/TrafficMonitor-VN](https://github.com/tsudev-tsudev/TrafficMonitor-VN) (chỉ đọc).
@@ -151,6 +153,6 @@ Repo này bắt đầu bằng một commit nhập mã nguồn (từ bản V1.87-
 
 ## Giấy phép
 
-Phát hành theo giấy phép **"Anti 996" License 1.0** — xem [LICENSE](./LICENSE) (bản tiếng Anh) và [LICENSE_CN](./LICENSE_CN) (bản tiếng Trung). Bản dịch tiếng Việt chỉ để tham khảo: [LICENSE_VI.md](./LICENSE_VI.md).
+Phát hành theo giấy phép **"Anti 996" License 1.0** - xem [LICENSE](./LICENSE) (bản tiếng Anh) và [LICENSE_CN](./LICENSE_CN) (bản tiếng Trung). Bản dịch tiếng Việt chỉ để tham khảo: [LICENSE_VI.md](./LICENSE_VI.md).
 
 Copyright (c) 2026 tsudev. Thông báo bản quyền của dự án gốc (bắt buộc giữ theo điều 1 của giấy phép) nằm trong [LICENSE](./LICENSE) và [NOTICE.md](./NOTICE.md).

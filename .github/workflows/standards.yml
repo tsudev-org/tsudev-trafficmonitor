@@ -1,0 +1,54 @@
+# Cổng kiểm quy ước tsudev (SECURITY_BASELINE mục 4.3, GITIGNORE_POLICY mục 7, BRAND_ASSETS mục 12.2).
+name: Chuẩn tsudev
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  standards:
+    name: Cổng kiểm quy ước
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - name: Bản sao quy ước chưa bị sửa
+        run: bash scripts/sync-standards.sh --check
+      - name: check-standards.sh
+        run: bash scripts/check-standards.sh
+      - name: Tài sản nhận diện bắt buộc
+        run: |
+          set -e
+          for f in website/public/favicon.ico website/public/favicon-96x96.png website/public/apple-touch-icon.png \
+                   website/public/og-image.png TrafficMonitor/res/TrafficMonitor.ico; do
+            test -f "$f" || { echo "Thiếu tài sản bắt buộc: $f (BRAND_ASSETS.md mục 12)"; exit 1; }
+          done
+
+  gitleaks:
+    name: Quét secret (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e  # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  npm-audit:
+    name: Lỗ hổng phụ thuộc website
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38  # v6.5.0
+        with:
+          node-version: "22"
+      - run: npm audit --audit-level=high --omit=dev

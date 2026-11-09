@@ -9,7 +9,7 @@
 
 # TrafficMonitor-VN
 
-Network speed, CPU and RAM monitor for Windows — the Vietnamese-localized, security-hardened edition of TrafficMonitor.
+Network speed, CPU and RAM monitor for Windows - the Vietnamese-localized, security-hardened edition of TrafficMonitor.
 
 A [tsudev](https://tsudev.com) product. Product page: [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com). Product class **C** (works offline, no account; the network is used only to check for updates and to look up your public IP when you ask for it).
 
@@ -39,7 +39,7 @@ Details: [SECURITY.md](./SECURITY.md) (Vietnamese).
 
 ## Download
 
-* Releases: [Download page](https://trafficmonitor.tsudev.com/tai-ve/) or [GitHub Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Each release includes `SHA256SUMS.txt` and a GitHub build provenance attestation — check the hash before running.
+* Releases: [Download page](https://trafficmonitor.tsudev.com/tai-ve/) or [GitHub Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Each release includes `SHA256SUMS.txt` and a GitHub build provenance attestation - check the hash before running.
 * Packages are ready-to-run `.zip` files (`tsudev-trafficmonitor_<version>_<arch>_Lite.zip`); there is no `-setup.exe` installer as in tsudev's VERSIONING naming template, and the architecture is `x64`, `x86` or `arm64ec` (named after the actual ARM64EC build instead of `arm64`).
 * The in-app update check only trusts **signed** version information and shows the package's SHA-256 so you can compare it after downloading.
 * CI test builds: [Actions](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml) (GitHub sign-in required).
@@ -152,6 +152,6 @@ This repository starts with a source import commit (from V1.87-vn); earlier hist
 
 ## License
 
-Released under the **"Anti 996" License 1.0** — see [LICENSE](./LICENSE) (English) and [LICENSE_CN](./LICENSE_CN) (Chinese). A Vietnamese translation for reference: [LICENSE_VI.md](./LICENSE_VI.md).
+Released under the **"Anti 996" License 1.0** - see [LICENSE](./LICENSE) (English) and [LICENSE_CN](./LICENSE_CN) (Chinese). A Vietnamese translation for reference: [LICENSE_VI.md](./LICENSE_VI.md).
 
 Copyright (c) 2026 tsudev. The original project's copyright notice (required by clause 1 of the license) is in [LICENSE](./LICENSE) and [NOTICE.md](./NOTICE.md).

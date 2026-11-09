@@ -1,6 +1,6 @@
 **Tiếng Việt | [English](./SkinGallery_en-us.md)** · [Trang chủ](./README.md) · [Hỏi đáp](./Help.md) · [Tự làm skin](./HuongDanTaoSkin.md)
 
-# Kho giao diện (skin) — TrafficMonitor-VN
+# Kho giao diện (skin) - TrafficMonitor-VN
 
 Trang này được mở từ liên kết **Tải thêm mẫu mạng** trong hộp thoại **Kho Giao diện (Skin)**.
 
@@ -10,7 +10,7 @@ Mọi bản phát hành của TrafficMonitor-VN kèm sẵn các skin dưới đ�
 
 | Tên thư mục | Ảnh nền | Ghi chú |
 |---|---|---|
-| `0_tsudev_Cu` | ![](./Screenshots/skins/0_tsudev_Cu.png) | **Skin mặc định** — chú cú tsudev, nền sáng |
+| `0_tsudev_Cu` | ![](./Screenshots/skins/0_tsudev_Cu.png) | **Skin mặc định** - chú cú tsudev, nền sáng |
 | `tsudev_VongMang` | ![](./Screenshots/skins/tsudev_VongMang.png) | Biểu tượng tsudev, nền tối |
 | `tsudev_DoThi_Sang` | ![](./Screenshots/skins/tsudev_DoThi_Sang.png) | Đồ thị mạng, nền sáng; hiện thêm GPU và ổ cứng (`skin.xml`) |
 | `tsudev_DoThi_Toi` | ![](./Screenshots/skins/tsudev_DoThi_Toi.png) | Đồ thị mạng, nền tối; hiện thêm GPU và ổ cứng (`skin.xml`) |

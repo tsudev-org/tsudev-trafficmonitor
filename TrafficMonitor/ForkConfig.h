@@ -1,11 +1,11 @@
 ﻿#pragma once
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ForkConfig.h — Cấu hình tập trung cho bản Việt hóa TrafficMonitor-VN
+// ForkConfig.h - Cấu hình tập trung cho bản Việt hóa TrafficMonitor-VN
 //
 // Mọi URL, tên repo và giá trị mặc định riêng của bản Việt hóa được khai báo tại đây,
 // để khi cần đổi repo/tổ chức chỉ phải sửa một chỗ duy nhất.
 //
-// Giấy phép: "Anti 996" License — xem tệp LICENSE ở thư mục gốc.
+// Giấy phép: "Anti 996" License - xem tệp LICENSE ở thư mục gốc.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Repo GitHub của bản Việt hóa (từ V1.87-vn chuyển sang repo tsudev-trafficmonitor; repo cũ TrafficMonitor-VN lưu trữ)
@@ -66,5 +66,5 @@
 #define PUBLIC_IP_V6_URL            L"https://api6.ipify.org/?format=json"
 
 // Ngôn ngữ mặc định khi chưa có cấu hình (lần chạy đầu tiên).
-// Định dạng: "<BCP-47>|<DISPLAY_NAME>|<TRANSLATOR>" — phải khớp với phần [general] của language\Vietnamese.ini
+// Định dạng: "<BCP-47>|<DISPLAY_NAME>|<TRANSLATOR>" - phải khớp với phần [general] của language\Vietnamese.ini
 #define DEFAULT_LANGUAGE_CONFIG     L"vi-VN|Tiếng Việt|tsudev"

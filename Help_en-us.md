@@ -1,6 +1,6 @@
 **[Tiếng Việt](./Help.md) | English**
 
-# TrafficMonitor-VN — Frequently Asked Questions (FAQ)
+# TrafficMonitor-VN - Frequently Asked Questions (FAQ)
 
 Common questions about using TrafficMonitor-VN. Features and basic usage are described in the [README](./README_en-us.md).
 
@@ -53,7 +53,7 @@ There are two auto-run methods, chosen in **General Settings** → **Auto-run mo
 
 The most common cause is that you **moved the program folder** after turning on auto run. To fix it: open **General Settings**, uncheck **Auto run when Windows starts**, click **OK**, then open it again and check it again; or click **Reset autorun**.
 
-Some antivirus/security software can block auto run — allow TrafficMonitor in that software.
+Some antivirus/security software can block auto run - allow TrafficMonitor in that software.
 
 When you switch between the two methods, the program removes the auto-run entry of the old method.
 
@@ -143,7 +143,7 @@ Download only from [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com
 
 ### The program crashes
 
-1. Restart the program and **turn off everything** in **General Settings** → **Hardware Monitoring** — most crashes are related to this feature.
+1. Restart the program and **turn off everything** in **General Settings** → **Hardware Monitoring** - most crashes are related to this feature.
 2. If it still crashes, go to **Advanced** → **Plug-in manage...**, disable all plugins and restart. (If the program won't open, delete the `.dll` files in the `plugins` folder next to `TrafficMonitor.exe`.)
 3. If you have ruled out both, [open an issue](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues/new/choose) with the text from the crash window.
 

@@ -4,7 +4,7 @@
 Chế độ mặc định (chạy trong CI, chặn PR):
   * Lỗi nếu gặp `http://` (trừ namespace XML của MSBuild và mã bên thứ ba được loại trừ).
   * Lỗi nếu URL không thuộc danh sách cho phép (ALLOWED_PREFIXES).
-  * Lỗi nếu chuỗi URL trong mã C++ (string literal) nằm ngoài TrafficMonitor/ForkConfig.h —
+  * Lỗi nếu chuỗi URL trong mã C++ (string literal) nằm ngoài TrafficMonitor/ForkConfig.h -
     mọi URL ứng dụng dùng phải khai báo một chỗ duy nhất. Chú thích C++ (tài liệu tham khảo) không bị kiểm tra.
 
 Chế độ --live (chạy theo lịch hằng tuần, không chặn PR):
@@ -73,7 +73,7 @@ CPP_EXT = {".cpp", ".h", ".hpp", ".c"}
 FORK_CONFIG = "TrafficMonitor/ForkConfig.h"
 
 URL_RE = re.compile(r"\bhttps?://[^\s\"'<>()\[\]`|\\]+")
-# Chuỗi C/C++ (kể cả tiền tố L/u8/_T(...)) — đủ dùng để tìm URL trong literal
+# Chuỗi C/C++ (kể cả tiền tố L/u8/_T(...)) - đủ dùng để tìm URL trong literal
 CPP_STRING_RE = re.compile(r'(?:L|u8|u|U)?"((?:[^"\\\n]|\\.)*)"')
 TEMPLATE_RE = re.compile(r"[$<>{}]|%[0-9A-Za-z]")
 
@@ -172,7 +172,7 @@ def check_live(urls: set[str]) -> list[str]:
                     bad.append(f"{resp.status} {url}")
         except urllib.error.HTTPError as e:
             bad.append(f"{e.code} {url}")
-        except Exception as e:  # noqa: BLE001 — báo mọi lỗi mạng
+        except Exception as e:  # noqa: BLE001 - báo mọi lỗi mạng
             bad.append(f"ERR {url} ({e.__class__.__name__})")
     return bad
 

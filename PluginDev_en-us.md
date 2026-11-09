@@ -6,7 +6,7 @@ This page opens from the **Plug-in development guide** link in the **Plug-in Man
 
 A plugin is a Windows DLL (C/C++) that exports the function `TMPluginGetInstance`, which returns an object implementing the `ITMPlugin` interface. The whole interface lives in a single header, [`include/PluginInterface.h`](./include/PluginInterface.h) (comments in Vietnamese). Current interface version: **8**.
 
-Complete example: [`PluginDemo`](./PluginDemo) — 2 text items (date, time), 2 custom-drawn items, an options dialog and commands in the right-click menu.
+Complete example: [`PluginDemo`](./PluginDemo) - 2 text items (date, time), 2 custom-drawn items, an options dialog and commands in the right-click menu.
 
 ## 1. Create the project
 
@@ -16,7 +16,7 @@ Complete example: [`PluginDemo`](./PluginDemo) — 2 text items (date, time), 2 
 
 ## 2. Three required parts
 
-### Display item — `IPluginItem`
+### Display item - `IPluginItem`
 
 Each item is one cell in the main window/taskbar window. Required functions:
 
@@ -25,12 +25,12 @@ Each item is one cell in the main window/taskbar window. Required functions:
 | `GetItemName()` | Item name, shown in the item selection list |
 | `GetItemId()` | A **unique and stable** ID (the program stores settings by this ID) |
 | `GetItemLableText()` | Label, for example `"Date:"` |
-| `GetItemValueText()` | Current value — **only return the stored string**, do not fetch data here because it is called very often |
+| `GetItemValueText()` | Current value - **only return the stored string**, do not fetch data here because it is called very often |
 | `GetItemValueSampleText()` | The longest possible sample string, used to compute the cell width |
 
 To draw the item yourself, override `IsCustomDraw()` to return `true` and draw in `DrawItem()` (GDI) or `DrawItemEx()` (through `IPluginDrawer`, which also supports Direct2D).
 
-### Plugin — `ITMPlugin`
+### Plugin - `ITMPlugin`
 
 | Function | What to do |
 |---|---|
@@ -38,9 +38,9 @@ To draw the item yourself, override `IsCustomDraw()` to return `true` and draw i
 | `DataRequired()` | Called on every refresh cycle; fetch your data here and store it |
 | `GetInfo(PluginInfoIndex)` | Name, description, author, copyright, version (`TMI_VERSION`, such as `1.2.3`), home page |
 
-Do not override `GetAPIVersion()` — the header defines it. Other optional functions: `ShowOptionsDialog`, `OnMonitorInfo` (receives the program's network/CPU/RAM/temperature readings), `GetTooltipInfo`, menu commands (`GetCommandCount`/`GetCommandName`/`OnPluginCommand`), `OnInitialize` (receives an `ITrafficMonitor` pointer for DPI, theme colour, configuration folder, language strings and notifications).
+Do not override `GetAPIVersion()` - the header defines it. Other optional functions: `ShowOptionsDialog`, `OnMonitorInfo` (receives the program's network/CPU/RAM/temperature readings), `GetTooltipInfo`, menu commands (`GetCommandCount`/`GetCommandName`/`OnPluginCommand`), `OnInitialize` (receives an `ITrafficMonitor` pointer for DPI, theme colour, configuration folder, language strings and notifications).
 
-### Exported function — `TMPluginGetInstance`
+### Exported function - `TMPluginGetInstance`
 
 ```cpp
 extern "C" __declspec(dllexport) ITMPlugin* TMPluginGetInstance();
@@ -127,4 +127,4 @@ extern "C" __declspec(dllexport) ITMPlugin* TMPluginGetInstance() { return &g_pl
 * **Language:** use `ITrafficMonitor::GetLanguageId()` or `GetStringRes()` to follow the language the user selected.
 * **DPI:** scale sizes by `GetDPI()/96` when drawing yourself.
 * **Safety:** a plugin runs with the same privileges as TrafficMonitor. Do not download and run code from the network, and do not write outside the configuration folder (`GetPluginConfigDir()`) unless needed.
-* The plugin interface change history (versions 1–8) is at the end of [`include/PluginInterface.h`](./include/PluginInterface.h).
+* The plugin interface change history (versions 1-8) is at the end of [`include/PluginInterface.h`](./include/PluginInterface.h).
