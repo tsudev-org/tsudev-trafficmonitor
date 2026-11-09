@@ -79,7 +79,6 @@ void CTest::Test()
     //TestCrash();
     //TestDate();
     //TestIni();
-    TestPluginVersion();
 }
 
 void CTest::TestCommand()
