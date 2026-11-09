@@ -1,15 +1,15 @@
 ﻿<root>
-	<version>1.88</version>
+	<version>1.89</version>
 	<GitHub>
-		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.88-vn/TrafficMonitor-VN_V1.88_x86_Lite.zip</link>
-		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.88-vn/TrafficMonitor-VN_V1.88_x64_Lite.zip</link_x64>
-		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.88-vn/TrafficMonitor-VN_V1.88_arm64ec_Lite.zip</link_arm64ec>
-		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.88-vn/TrafficMonitor-VN_V1.88_x86_Lite.zip</link_without_temperature>
-		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.88-vn/TrafficMonitor-VN_V1.88_x64_Lite.zip</link_without_temperature_x64>
-		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.88-vn/TrafficMonitor-VN_V1.88_arm64ec_Lite.zip</link_without_temperature_arm64ec>
+		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_x86_Lite.zip</link>
+		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_x64_Lite.zip</link_x64>
+		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_arm64ec_Lite.zip</link_arm64ec>
+		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_x86_Lite.zip</link_without_temperature>
+		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_x64_Lite.zip</link_without_temperature_x64>
+		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_arm64ec_Lite.zip</link_without_temperature_arm64ec>
 	</GitHub>
 	<update_contents>
-		<contents_vi>Bản V1.88-vn. Kiểm tra cập nhật dùng thông tin phiên bản có chữ ký số (ECDSA P-256) và hiện mã SHA-256 của gói để đối chiếu.\nMọi kết nối chỉ tới máy chủ trong danh sách cho phép, kể cả sau khi chuyển hướng.\nTrang sản phẩm mới: trafficmonitor.tsudev.com. Hộp thoại Giới thiệu có liên kết tsudev.com.\nBản đầy đủ (đo nhiệt độ) sửa các cảnh báo ép kiểu khi đọc cảm biến.</contents_vi>
-		<contents_en>Release V1.88-vn. Update checks now use digitally signed version info (ECDSA P-256) and show the package SHA-256 for verification.\nAll connections are restricted to an allow-list of hosts, including after redirects.\nNew product page: trafficmonitor.tsudev.com. The About dialog links to tsudev.com.\nThe full edition (temperature monitoring) fixes type-conversion warnings when reading sensors.</contents_en>
+		<contents_vi>Bản V1.89-vn. Sửa bố cục hộp thoại Giới thiệu: chữ "Lời cảm ơn" không còn đè lên liên kết tsudev.com.\nGồm toàn bộ thay đổi của V1.88-vn: thông tin phiên bản có chữ ký số (ECDSA P-256), hiện mã SHA-256 của gói, chỉ kết nối tới máy chủ trong danh sách cho phép.</contents_vi>
+		<contents_en>Release V1.89-vn. Fixes the About dialog layout: the "Acknowledgements" label no longer overlaps the tsudev.com link.\nIncludes all V1.88-vn changes: digitally signed version info (ECDSA P-256), package SHA-256 shown, connections restricted to an allow-list of hosts.</contents_en>
 	</update_contents>
 </root>
