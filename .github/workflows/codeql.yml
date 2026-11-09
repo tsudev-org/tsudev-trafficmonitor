@@ -1,4 +1,5 @@
-# Quét lỗ hổng bảo mật mã C/C++ bằng CodeQL (mỗi lần push/PR và hằng tuần)
+# Quét lỗ hổng bảo mật bằng CodeQL (security-extended): C/C++ (ứng dụng), JavaScript/TypeScript (website),
+# Python (tools/), GitHub Actions (workflow) - mỗi lần push/PR và hằng tuần
 name: CodeQL
 
 on:
@@ -40,3 +41,29 @@ jobs:
       - uses: github/codeql-action/analyze@33d7b85da1a04171e211befe2c739303b9a4c066  # v4.39.3
         with:
           category: "/language:c-cpp"
+
+  analyze-other:
+    name: Phân tích ${{ matrix.language }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript-typescript, python, actions]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: github/codeql-action/init@33d7b85da1a04171e211befe2c739303b9a4c066  # v4.39.3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: none
+          queries: security-extended
+
+      - uses: github/codeql-action/analyze@33d7b85da1a04171e211befe2c739303b9a4c066  # v4.39.3
+        with:
+          category: "/language:${{ matrix.language }}"
