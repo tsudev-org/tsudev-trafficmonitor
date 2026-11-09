@@ -71,7 +71,6 @@ jobs:
           Copy-Item "${{ matrix.outdir }}\TrafficMonitor.exe" $stage
           Get-ChildItem "${{ matrix.outdir }}\*.dll" -ErrorAction SilentlyContinue | Copy-Item -Destination $stage
           Copy-Item "TrafficMonitor\skins" $stage -Recurse
-          Remove-Item (Join-Path $stage "skins\xml_test") -Recurse -Force -ErrorAction SilentlyContinue
           # Giấy phép Anti 996 yêu cầu kèm nguyên văn giấy phép trong mọi bản phân phối
           Copy-Item LICENSE, LICENSE_CN, LICENSE_VI.md, NOTICE.md, README.md, SECURITY.md $stage
           $zip = "$name.zip"

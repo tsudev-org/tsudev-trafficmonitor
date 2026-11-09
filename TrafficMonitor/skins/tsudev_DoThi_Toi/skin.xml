@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<skin>
+		<text_color>16117222</text_color>
+		<specify_each_item_color>0</specify_each_item_color>
+		<skin_author>tsudev</skin_author>
+		<font name="Segoe UI" size="9" style="0"/>
+		<display_text>
+			<up>↑: </up>
+			<down>↓: </down>
+			<cpu>CPU: </cpu>
+			<memory>RAM: </memory>
+			<gpu>GPU: </gpu>
+			<hdd>HDD: </hdd>
+		</display_text>
+	</skin>
+	<layout text_height="20" no_label="0">
+		<layout_l width="232" height="80">
+			<up x="10" y="4" width="100" align="0" show="1"/>
+			<down x="116" y="4" width="100" align="0" show="1"/>
+			<cpu x="10" y="29" width="100" align="0" show="1"/>
+			<memory x="116" y="29" width="100" align="0" show="1"/>
+			<gpu x="10" y="54" width="100" align="0" show="1"/>
+			<hdd x="116" y="54" width="100" align="0" show="1"/>
+		</layout_l>
+		<layout_s width="232" height="40">
+			<up x="10" y="10" width="100" align="0" show="1"/>
+			<down x="116" y="10" width="100" align="0" show="1"/>
+		</layout_s>
+	</layout>
+	<preview width="250" height="128">
+		<l x="0" y="0"/>
+		<s x="0" y="86"/>
+	</preview>
+</root>
