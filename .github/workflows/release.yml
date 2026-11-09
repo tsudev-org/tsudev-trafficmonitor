@@ -61,20 +61,14 @@ jobs:
       - name: Build
         run: msbuild TrafficMonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143
 
-      - name: Đóng gói
+      - name: Đóng gói (zip tất định, tools/make_package.ps1 - cùng script với bước thử trong build.yml)
         id: pkg
         shell: pwsh
         run: |
           $name = "tsudev-trafficmonitor_${{ steps.ver.outputs.version }}_${{ matrix.arch }}_Lite"
-          $stage = Join-Path $env:RUNNER_TEMP "$name\TrafficMonitor"
-          New-Item -ItemType Directory -Force -Path $stage | Out-Null
-          Copy-Item "${{ matrix.outdir }}\TrafficMonitor.exe" $stage
-          Get-ChildItem "${{ matrix.outdir }}\*.dll" -ErrorAction SilentlyContinue | Copy-Item -Destination $stage
-          Copy-Item "TrafficMonitor\skins" $stage -Recurse
-          # Giấy phép Anti 996 yêu cầu kèm nguyên văn giấy phép trong mọi bản phân phối
-          Copy-Item LICENSE, LICENSE_CN, LICENSE_VI.md, NOTICE.md, README.md, SECURITY.md $stage
           $zip = "$name.zip"
-          Compress-Archive -Path $stage -DestinationPath $zip -Force
+          $epoch = [long](git log -1 --format=%ct)
+          ./tools/make_package.ps1 -Name $name -BinDir "${{ matrix.outdir }}" -WorkDir $env:RUNNER_TEMP -OutZip $zip -Epoch $epoch
           "zip=$zip" >> $env:GITHUB_OUTPUT
 
       - name: Chứng thực nguồn gốc build

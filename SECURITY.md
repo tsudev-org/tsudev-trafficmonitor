@@ -44,6 +44,32 @@ python3 -c "import base64,sys;r=base64.b64decode(open('version_signed.xml.sig').
 openssl dgst -sha256 -verify update_signing_pub.pem -signature sig.der version_signed.xml
 ```
 
+## Build tái lập (reproducible build)
+
+Từ 26.11.0906, cùng mã nguồn (cùng commit) build bằng cùng bộ công cụ cho ra `TrafficMonitor.exe` và gói zip **giống nhau từng byte**:
+
+* `/Brepro` cho trình biên dịch và trình liên kết: PE timestamp và GUID PDB lấy từ băm nội dung thay vì thời điểm build; `/PDBALTPATH:%_PDB%` không ghi đường dẫn thư mục build vào exe ([`Directory.Build.props`](./Directory.Build.props)).
+* "Ngày biên dịch" trong hộp thoại Giới thiệu là **thời điểm commit** (`SOURCE_DATE_EPOCH` hoặc `git log -1 --format=%ct`), không phải giờ build ([`TrafficMonitor/print_compile_time.bat`](./TrafficMonitor/print_compile_time.bat)).
+* Gói zip tạo bằng [`tools/make_zip.py`](./tools/make_zip.py): thứ tự mục, thời gian (thời điểm commit), thuộc tính cố định ([`tools/make_package.ps1`](./tools/make_package.ps1), dùng chung cho phát hành và CI).
+* Mỗi lần CI (`build.yml`), mỗi kiến trúc được build hai lần (lần hai là *Rebuild*) và đóng gói ở hai thư mục khác nhau; PE timestamp, SHA-256 của exe và zip phải trùng, nếu không CI báo lỗi.
+
+Tự kiểm một bản phát hành (Windows, Visual Studio 2022 có MFC v143):
+
+```powershell
+git clone https://github.com/tsudev-org/tsudev-trafficmonitor; cd tsudev-trafficmonitor
+git checkout V26.11.0906-vn
+msbuild TrafficMonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=x64 -p:PlatformToolset=v143
+Get-FileHash "Bin\x64\Release (lite)\TrafficMonitor.exe"   # so với TrafficMonitor.exe trong gói zip của bản phát hành
+```
+
+**Giới hạn:** exe chỉ trùng byte khi dùng **cùng phiên bản** MSVC, MFC và Windows SDK như máy build của GitHub Actions (ảnh `windows-2022` tại thời điểm phát hành; phiên bản ghi trong nhật ký job "Build" của lần phát hành). Khác phiên bản bộ công cụ thì mã máy khác, không phải dấu hiệu bị sửa đổi. Gói zip còn phụ thuộc phiên bản zlib của Python; để đối chiếu, giải nén rồi so từng tệp. Chứng thực nguồn gốc build (`gh attestation verify`) vẫn là cách kiểm chính.
+
+## Chữ ký số Authenticode
+
+`TrafficMonitor.exe` **chưa** được ký Authenticode, nên Windows SmartScreen có thể cảnh báo "Windows protected your PC" khi chạy lần đầu. Thay vào đó, tính toàn vẹn được bảo đảm bằng: SHA-256 (`SHA256SUMS.txt`), chứng thực nguồn gốc build và SBOM của GitHub, thông tin phiên bản có chữ ký ECDSA và việc tự kiểm SHA-256 khi cập nhật trong ứng dụng.
+
+Lý do (11/2026): chứng thư ký mã được Windows tin cậy đều tốn phí (Azure Artifact Signing khoảng 10 USD/tháng; chứng thư OV/EV từ CA). Chương trình ký miễn phí cho mã nguồn mở của SignPath Foundation yêu cầu giấy phép được OSI phê duyệt, trong khi TrafficMonitor-VN phải giữ giấy phép Anti 996 của dự án gốc (không thuộc danh sách OSI). Khi có chứng thư, bước ký sẽ chạy trong `release.yml` trước khi đóng gói và mục này sẽ hướng dẫn kiểm bằng `signtool verify /pa /v`.
+
 ## Mô hình mối đe dọa và biện pháp đã áp dụng
 
 TrafficMonitor là ứng dụng desktop chạy với quyền người dùng (bản Lite) hoặc quyền Quản trị viên (bản đầy đủ có đo nhiệt độ). Các bề mặt tấn công chính và biện pháp tương ứng:

@@ -150,6 +150,38 @@ jobs:
           if ($missing) { Write-Error "Thiếu cờ bảo mật: $($missing -join ', ')"; exit 1 }
           Write-Host "Đủ cờ bảo mật: $($required -join ', ')"
 
+      - name: Build tái lập - đóng gói (như release.yml), build lại, so SHA-256 exe và zip
+        shell: pwsh
+        env:
+          CL: /we4244 /we4267 /we4018 /we4302 /we4311 /we4566   # giống bước Build ở trên
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $out = "${{ matrix.outdir }}"
+          $exe = Join-Path $out "TrafficMonitor.exe"
+          $epoch = [long](git log -1 --format=%ct)
+          $name = "tsudev-trafficmonitor_0.0_${{ matrix.platform }}_Lite"
+          $dumpbin = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -find "VC\Tools\MSVC\**\bin\Hostx64\x64\dumpbin.exe" | Select-Object -First 1
+          $stamp1 = (& $dumpbin /headers $exe | Select-String "time date stamp").Line.Trim()
+          $exe1 = (Get-FileHash $exe -Algorithm SHA256).Hash
+          ./tools/make_package.ps1 -Name $name -BinDir $out -WorkDir (Join-Path $env:RUNNER_TEMP "goi1") -OutZip "goi1.zip" -Epoch $epoch
+          $zip1 = (Get-FileHash goi1.zip -Algorithm SHA256).Hash
+
+          # Build lại từ đầu (Rebuild) và đóng gói ở thư mục tạm khác
+          msbuild TrafficMonitor_Lite.sln -m -t:Rebuild -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143 -v:minimal -nologo
+          if ($LASTEXITCODE -ne 0) { throw "Build lại thất bại" }
+          $stamp2 = (& $dumpbin /headers $exe | Select-String "time date stamp").Line.Trim()
+          $exe2 = (Get-FileHash $exe -Algorithm SHA256).Hash
+          ./tools/make_package.ps1 -Name $name -BinDir $out -WorkDir (Join-Path $env:RUNNER_TEMP "goi2") -OutZip "goi2.zip" -Epoch $epoch
+          $zip2 = (Get-FileHash goi2.zip -Algorithm SHA256).Hash
+
+          "PE timestamp 1: $stamp1"; "PE timestamp 2: $stamp2"
+          "exe: $exe1 / $exe2"; "zip: $zip1 / $zip2"
+          if ($stamp1 -ne $stamp2) { Write-Error "PE timestamp khác nhau giữa hai lần build (/Brepro không có tác dụng?)" }
+          if ($exe1 -ne $exe2) { Write-Error "TrafficMonitor.exe KHÔNG tái lập được (SHA-256 khác giữa hai lần build)" }
+          if ($zip1 -ne $zip2) { Write-Error "Gói zip KHÔNG tái lập được" }
+          if ($stamp1 -ne $stamp2 -or $exe1 -ne $exe2 -or $zip1 -ne $zip2) { exit 1 }
+          "Build tái lập: exe và zip giống nhau từng byte"
+
       - name: Tải lên artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
