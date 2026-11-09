@@ -37,9 +37,9 @@ const tenX64 = ban.goi.find((g) => g.kienTruc === 'x64')?.ten ?? `tsudev-traffic
 
       <h2 id="kiem-tra">Kiểm tra tệp trước khi chạy</h2>
       <p>1. So mã SHA-256 của tệp tải về với mã ở trên (hoặc tệp <code>SHA256SUMS.txt</code> trong trang phát hành). Trong PowerShell:</p>
-      <pre><code>Get-FileHash .\{tenX64} -Algorithm SHA256</code></pre>
+      <pre tabindex="0"><code>Get-FileHash .\{tenX64} -Algorithm SHA256</code></pre>
       <p>2. Kiểm tra chứng thực nguồn gốc build (cần <a href="https://cli.github.com/" target="_blank" rel="noopener noreferrer">GitHub CLI</a>):</p>
-      <pre><code>gh attestation verify {tenX64} -R {REPO}</code></pre>
+      <pre tabindex="0"><code>gh attestation verify {tenX64} -R {REPO}</code></pre>
       <div class="chu-y">
         <p><strong>Chỉ tải từ trang này hoặc trang GitHub của dự án.</strong> Mọi trang khác tự xưng là "trang chính thức" đều không liên quan.</p>
         <p>Ứng dụng tự kiểm tra bản cập nhật: thông tin phiên bản được ký số và hộp thoại cập nhật hiện mã SHA-256 để bạn đối chiếu. Xem <a href="/bao-mat/">Bảo mật</a>.</p>
