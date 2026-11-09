@@ -14,6 +14,7 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 09/11/2026 - Phát hành 26.11.0904 (0903 lỗi bước SBOM, không có Release): URL sang tsudev-org (#31), tinyxml2 11.0.0 vá CVE-2024-50614/50615 (#33), ASan + fuzzing + CodeQL đa ngôn ngữ + SBOM SPDX có chứng thực (#32, #35); đã kiểm sha256/provenance/SBOM/chữ ký, thử cập nhật 0901 -> 0904 và 12 skin trên Windows; gitleaks cài cục bộ, hook chặn thật
 - 09/11/2026 - Chuyển repo sang Organization `tsudev-org` (phiếu `logs/handover/20261109-01`); updater giữ tương thích bản đã cài (PR #28)
 - 09/11/2026 - Kiểm tra khả năng truy cập website bằng axe-core trong CI (WCAG 2.2 AA, sáng + tối); sửa tương phản menu và khối mã cuộn (PR #26)
 - 09/11/2026 - Kiểm thử tự động C++ cho kênh cập nhật: `TrafficMonitor/UpdateSecurity.h` + `tests/UpdateSecurityTests.cpp` (73 phép kiểm, job "Kiểm thử C++") (PR #25)
@@ -27,6 +28,7 @@
 > Quyết định kiến trúc lớn thì viết ADR riêng theo `docs/templates/ADR.md` và chỉ
 > ghi một dòng tham chiếu ở đây.
 
+- 09/11/2026 - Bản phát hành chỉ build từ tag đẩy lên (environment `release` chỉ nhận tag V*); workflow_dispatch không qua được environment. Bước nào của release.yml đổi thì phải có bước thử tương đương trong build.yml (bài học 26.11.0903)
 - 09/11/2026 - Repo ở `tsudev-org`. version_signed.xml luôn ghi liên kết theo owner cũ `tsudev-tsudev` (bản đã cài chỉ tin tiền tố đó). KHÔNG BAO GIỜ tạo lại repo tên `tsudev-trafficmonitor` dưới `tsudev-tsudev` (GitHub bỏ chuyển hướng => bản đã cài mất kênh cập nhật)
 - 09/11/2026 - Gỡ tên tác giả dự án gốc khỏi repo ở mức tối đa giấy phép Anti 996 cho phép: chỉ giữ trong LICENSE, LICENSE_CN, LICENSE_VI.md, NOTICE.md
 - 09/11/2026 - Không kiểm tra phiên bản plugin qua mạng (bỏ nguồn bên thứ ba); giữ API plugin v8
