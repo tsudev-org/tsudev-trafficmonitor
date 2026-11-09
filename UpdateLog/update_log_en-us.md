@@ -4,6 +4,22 @@
 
 Changes in each TrafficMonitor-VN release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 
+## 26.11.0902 (09/11/2026)
+
+### tsudev identity
+* The program icon (exe, windows, taskbar, the fourth notification-area icon style) is the tsudev owl; the network-graph notification icon styles are unchanged.
+* About dialog: new header image; copyright line "Copyright (c) 2026 tsudev"; removed the "Original project" and "Acknowledgement" links. The Anti 996 License and the required copyright notice are shown by the "License" link.
+* The Vietnamese and English language packs credit tsudev as translator; other language packs no longer show a translator line.
+
+### Skins
+* New skins `tsudev_DoThi_Sang` (light) and `tsudev_DoThi_Toi` (dark): network speed graph background, also showing GPU and disk when "Show More Info" is on.
+
+### Security
+* Removed the plugin version check against a third-party repository: the app now only uses the network for the signed update check and for the public IP lookup when you open Connection Details. The plugin interface is unchanged (API version 8).
+
+### Documentation
+* Rewrote the English documentation (README, FAQ, update log); added CHANGELOG.md.
+
 ## 26.11.0901 (09/11/2026)
 
 ### New version numbering
