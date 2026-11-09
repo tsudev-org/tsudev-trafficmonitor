@@ -76,6 +76,29 @@ jobs:
           mkdir fuzz-corpus
           xcopy /q /y tests\fuzz\corpus\* fuzz-corpus\ >nul
           UpdateSecurityFuzz.exe -max_total_time=120 -timeout=10 -rss_limit_mb=2048 -print_final_stats=1 fuzz-corpus
+      - name: Kiểm thử phân tích XML (skin.xml, thông tin phiên bản) - thường và ASan
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
+          call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          mkdir xml-thuong xml-asan
+          cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 /Foxml-thuong\ TrafficMonitor\tinyxml2\tinyxml2.cpp || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I TrafficMonitor tests\XmlParsingTests.cpp xml-thuong\tinyxml2.obj /Fe:XmlParsingTests.exe || exit /b 1
+          XmlParsingTests.exe TrafficMonitor\skins || exit /b 1
+          cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 /Zi /fsanitize=address /Foxml-asan\ TrafficMonitor\tinyxml2\tinyxml2.cpp || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I TrafficMonitor tests\XmlParsingTests.cpp xml-asan\tinyxml2.obj /Fe:XmlParsingTestsAsan.exe || exit /b 1
+          XmlParsingTestsAsan.exe TrafficMonitor\skins
+      - name: Fuzzing phân tích skin.xml (libFuzzer + ASan, 120 giây; hạt giống là skin.xml thật)
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
+          call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          mkdir xml-fuzz skin-corpus
+          cl /nologo /c /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /Foxml-fuzz\ TrafficMonitor\tinyxml2\tinyxml2.cpp || exit /b 1
+          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I TrafficMonitor tests\fuzz\SkinXmlFuzz.cpp xml-fuzz\tinyxml2.obj /Fe:SkinXmlFuzz.exe || exit /b 1
+          for /d %%d in (TrafficMonitor\skins\*) do if exist "%%d\skin.xml" copy /y "%%d\skin.xml" "skin-corpus\%%~nxd.xml" >nul
+          copy /y tests\fixtures\version_signed.xml skin-corpus\version_signed.xml >nul
+          SkinXmlFuzz.exe -max_total_time=120 -timeout=10 -rss_limit_mb=2048 -max_len=65536 -print_final_stats=1 skin-corpus
       - name: Lưu đầu vào gây lỗi của fuzzer
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2

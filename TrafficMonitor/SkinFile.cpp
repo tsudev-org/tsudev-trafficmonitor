@@ -21,46 +21,47 @@ CSkinFile::~CSkinFile()
     SAFE_DELETE(m_background_png_l);
 }
 
-static CSkinFile::LayoutItem LayoutItemFromXmlNode(tinyxml2::XMLElement* ele)
+static CSkinFile::LayoutItem LayoutItemFromParsed(const XmlParsing::SkinLayoutItem& item)
 {
     CSkinFile::LayoutItem layout_item;
-    layout_item.x = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(ele, "x")));
-    layout_item.y = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(ele, "y")));
-    layout_item.width = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(ele, "width")));
-    layout_item.align = static_cast<CSkinFile::Alignment>(atoi(CTinyXml2Helper::ElementAttribute(ele, "align")));
-    layout_item.show = CTinyXml2Helper::StringToBool(CTinyXml2Helper::ElementAttribute(ele, "show"));
+    layout_item.x = theApp.DPI(item.x);
+    layout_item.y = theApp.DPI(item.y);
+    layout_item.width = theApp.DPI(item.width);
+    layout_item.align = static_cast<CSkinFile::Alignment>(item.align);
+    layout_item.show = item.show;
     return layout_item;
 }
 
-CSkinFile::Layout CSkinFile::LayoutFromXmlNode(tinyxml2::XMLElement* ele)
+CSkinFile::Layout CSkinFile::LayoutFromParsed(const XmlParsing::SkinLayout& parsed)
 {
     CSkinFile::Layout layout;
-    layout.width = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(ele, "width")));
-    layout.height = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(ele, "height")));
-    CTinyXml2Helper::IterateChildNode(ele, [&](tinyxml2::XMLElement* ele_layout_item)
+    layout.width = theApp.DPI(parsed.width);
+    layout.height = theApp.DPI(parsed.height);
+    for (const auto& parsed_item : parsed.items)
+    {
+        const string& str_layout_item = parsed_item.first;
+        for (auto display_item : AllDisplayItems)
         {
-            string str_layout_item = CTinyXml2Helper::ElementName(ele_layout_item);
-            for (auto display_item : AllDisplayItems)
+            if (str_layout_item == CSkinFile::GetDisplayItemXmlNodeName(display_item))
             {
-                if (str_layout_item == CSkinFile::GetDisplayItemXmlNodeName(display_item))
+                layout.layout_items[display_item] = LayoutItemFromParsed(parsed_item.second);
+                break;
+            }
+        }
+        auto plugin_iter = m_plugin_map.find(str_layout_item);
+        wstring plugin_id = (plugin_iter == m_plugin_map.end()) ? wstring() : CCommon::StrToUnicode(plugin_iter->second.c_str(), true);
+        if (!plugin_id.empty())
+        {
+            for (const auto& plugin_item : theApp.m_plugins.GetPluginItems())
+            {
+                if (plugin_id == plugin_item->GetItemId())
                 {
-                    layout.layout_items[display_item] = LayoutItemFromXmlNode(ele_layout_item);
+                    layout.layout_items[plugin_item] = LayoutItemFromParsed(parsed_item.second);
                     break;
                 }
             }
-            wstring plugin_id = CCommon::StrToUnicode(m_plugin_map[str_layout_item].c_str(), true);
-            if (!plugin_id.empty())
-            {
-                for (const auto& plugin_item : theApp.m_plugins.GetPluginItems())
-                {
-                    if (plugin_id == plugin_item->GetItemId())
-                    {
-                        layout.layout_items[plugin_item] = LayoutItemFromXmlNode(ele_layout_item);
-                        break;
-                    }
-                }
-            }
-        });
+        }
+    }
     return layout;
 }
 
@@ -160,116 +161,59 @@ bool CSkinFile::LoadFromXml(const wstring& file_path)
     m_skin_info = SkinInfo();
     m_layout_info = LayoutInfo();
     m_preview_info = PreviewInfo();
-    std::map<std::string, std::wstring> display_text_map;  //Quan hệ ánh xạ giữa văn bản của mục hiển thị và nút xml. key là nút xml, value là văn bản hiển thị
+    m_plugin_map.clear();
 
-    tinyxml2::XMLDocument doc;
-    if (CTinyXml2Helper::LoadXmlFile(doc, file_path.c_str()))
-    {
-        CTinyXml2Helper::IterateChildNode(doc.FirstChildElement(), [&](tinyxml2::XMLElement* child) {
-            string ele_name = CTinyXml2Helper::ElementName(child);
-            //Đọc thông tin skin
-            if (ele_name == "skin")
-            {
-                CTinyXml2Helper::IterateChildNode(child, [&](tinyxml2::XMLElement* skin_item) {
-                    string skin_item_name = CTinyXml2Helper::ElementName(skin_item);
-                    //Màu văn bản
-                    if (skin_item_name == "text_color")
-                    {
-                        string str_text_color = CTinyXml2Helper::ElementText(skin_item);
-                        std::vector<string> split_result;
-                        CCommon::StringSplit(str_text_color, L',', split_result);
-                        for (const auto& str : split_result)
-                        {
-                            m_skin_info.text_color.push_back(atoi(str.c_str()));
-                        }
-                        if (m_skin_info.text_color.size() < theApp.m_plugins.AllDisplayItemsWithPlugins().size())
-                        {
-                            COLORREF default_color{};
-                            if (!m_skin_info.text_color.empty())
-                                default_color = m_skin_info.text_color.front();
-                            m_skin_info.text_color.resize(theApp.m_plugins.AllDisplayItemsWithPlugins().size(), default_color);
-                        }
-                    }
-                    //Chỉ định màu cho từng mục
-                    else if (skin_item_name == "specify_each_item_color")
-                    {
-                        m_skin_info.specify_each_item_color = CTinyXml2Helper::StringToBool(CTinyXml2Helper::ElementText(skin_item));
-                    }
-                    //Tác giả skin
-                    else if (skin_item_name == "skin_author")
-                    {
-                        m_skin_info.skin_author = CCommon::StrToUnicode(CTinyXml2Helper::ElementText(skin_item), true);
-                    }
-                    //Phông chữ
-                    else if (skin_item_name == "font")
-                    {
-                        m_skin_info.font_info.name = CCommon::StrToUnicode(CTinyXml2Helper::ElementAttribute(skin_item, "name"), true).c_str();
-                        m_skin_info.font_info.size = atoi(CTinyXml2Helper::ElementAttribute(skin_item, "size"));
-                        int font_style = atoi(CTinyXml2Helper::ElementAttribute(skin_item, "style"));
-                        m_skin_info.font_info.bold = CCommon::GetNumberBit(font_style, 0);
-                        m_skin_info.font_info.italic = CCommon::GetNumberBit(font_style, 1);
-                        m_skin_info.font_info.underline = CCommon::GetNumberBit(font_style, 2);
-                        m_skin_info.font_info.strike_out = CCommon::GetNumberBit(font_style, 3);
-                    }
-                    else if (skin_item_name == "display_text")
-                    {
-                        //Ở đây lưu trước toàn bộ văn bản hiển thị vào display_text_map
-                        CTinyXml2Helper::IterateChildNode(skin_item, [&](tinyxml2::XMLElement* display_text_item) {
-                            string item_name = CTinyXml2Helper::ElementName(display_text_item);
-                            wstring item_text = CCommon::StrToUnicode(CTinyXml2Helper::ElementText(display_text_item), true);
-                            display_text_map[item_name] = item_text;
-                        });
-                    }
-                });
-            }
-            //Thông tin bố cục
-            else if (ele_name == "layout")
-            {
-                m_layout_info.text_height = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(child, "text_height")));
-                m_layout_info.no_label = CTinyXml2Helper::StringToBool(CTinyXml2Helper::ElementAttribute(child, "no_label"));
-                CTinyXml2Helper::IterateChildNode(child, [this](tinyxml2::XMLElement* ele_layout) {
-                    string str_layout = CTinyXml2Helper::ElementName(ele_layout);
-                    if (str_layout == "layout_l")
-                        m_layout_info.layout_l = LayoutFromXmlNode(ele_layout);
-                    else if (str_layout == "layout_s")
-                        m_layout_info.layout_s = LayoutFromXmlNode(ele_layout);
-                });
-            }
-            //Ảnh xem trước
-            else if (ele_name == "preview")
-            {
-                m_preview_info.width = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(child, "width")));
-                m_preview_info.height = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(child, "height")));
-                CTinyXml2Helper::IterateChildNode(child, [this](tinyxml2::XMLElement* ele_priview_item) {
-                    string str_item_name = CTinyXml2Helper::ElementName(ele_priview_item);
-                    if (str_item_name == "l")
-                    {
-                        m_preview_info.l_pos.x = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(ele_priview_item, "x")));
-                        m_preview_info.l_pos.y = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(ele_priview_item, "y")));
-                    }
-                    else if (str_item_name == "s")
-                    {
-                        m_preview_info.s_pos.x = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(ele_priview_item, "x")));
-                        m_preview_info.s_pos.y = theApp.DPI(atoi(CTinyXml2Helper::ElementAttribute(ele_priview_item, "y")));
-                    }
-                });
-            }
-            //Ánh xạ tên plugin
-            else if (ele_name == "plugin_map")
-            {
-                CTinyXml2Helper::IterateChildNode(child, [this](tinyxml2::XMLElement* plugin_item) {
-                    string ele_name = CTinyXml2Helper::ElementName(plugin_item);
-                    string ele_text = CTinyXml2Helper::ElementText(plugin_item);
-                    m_plugin_map[ele_name] = ele_text;
-                });
-            }
-        });
-    }
-    else
-    {
-        //Phân tích xml thất bại
+    //Phân tích thuần ở XmlParsing.h (có kiểm thử và fuzz). Tệp quá lớn (> 1 MB) không đọc vào bộ nhớ.
+    WIN32_FILE_ATTRIBUTE_DATA file_attr{};
+    if (!GetFileAttributesExW(file_path.c_str(), GetFileExInfoStandard, &file_attr)
+        || file_attr.nFileSizeHigh != 0 || file_attr.nFileSizeLow > XmlParsing::MAX_SKIN_XML_BYTES)
         return false;
+    string xml_contents;
+    XmlParsing::SkinXmlData data;
+    if (!CCommon::GetFileContent(file_path.c_str(), xml_contents) || !XmlParsing::ParseSkinXml(xml_contents.data(), xml_contents.size(), data))
+        return false;   //Phân tích xml thất bại
+
+    //Thông tin skin
+    for (auto color : data.text_colors)
+        m_skin_info.text_color.push_back(static_cast<COLORREF>(color));
+    if (data.has_text_color && m_skin_info.text_color.size() < theApp.m_plugins.AllDisplayItemsWithPlugins().size())
+    {
+        COLORREF default_color = m_skin_info.text_color.empty() ? COLORREF{} : m_skin_info.text_color.front();
+        m_skin_info.text_color.resize(theApp.m_plugins.AllDisplayItemsWithPlugins().size(), default_color);
     }
+    m_skin_info.specify_each_item_color = data.specify_each_item_color;
+    m_skin_info.skin_author = CCommon::StrToUnicode(data.skin_author.c_str(), true);
+    if (data.has_font)
+    {
+        m_skin_info.font_info.name = CCommon::StrToUnicode(data.font_name.c_str(), true).c_str();
+        m_skin_info.font_info.size = data.font_size;
+        m_skin_info.font_info.bold = CCommon::GetNumberBit(data.font_style, 0);
+        m_skin_info.font_info.italic = CCommon::GetNumberBit(data.font_style, 1);
+        m_skin_info.font_info.underline = CCommon::GetNumberBit(data.font_style, 2);
+        m_skin_info.font_info.strike_out = CCommon::GetNumberBit(data.font_style, 3);
+    }
+
+    //Ánh xạ tên plugin (đọc trước bố cục để bố cục tìm được mục plugin dù plugin_map đứng sau trong tệp)
+    m_plugin_map = data.plugin_map;
+
+    //Thông tin bố cục
+    m_layout_info.text_height = theApp.DPI(data.text_height);
+    m_layout_info.no_label = data.no_label;
+    m_layout_info.layout_l = LayoutFromParsed(data.layout_l);
+    m_layout_info.layout_s = LayoutFromParsed(data.layout_s);
+
+    //Ảnh xem trước
+    m_preview_info.width = theApp.DPI(data.preview_width);
+    m_preview_info.height = theApp.DPI(data.preview_height);
+    m_preview_info.l_pos.x = theApp.DPI(data.preview_l_x);
+    m_preview_info.l_pos.y = theApp.DPI(data.preview_l_y);
+    m_preview_info.s_pos.x = theApp.DPI(data.preview_s_x);
+    m_preview_info.s_pos.y = theApp.DPI(data.preview_s_y);
+
+    //Văn bản hiển thị: key là nút xml, value là văn bản hiển thị
+    std::map<std::string, std::wstring> display_text_map;
+    for (const auto& item : data.display_text)
+        display_text_map[item.first] = CCommon::StrToUnicode(item.second.c_str(), true);
 
     //Tải văn bản hiển thị
     for (const auto& display_text_item : display_text_map)
