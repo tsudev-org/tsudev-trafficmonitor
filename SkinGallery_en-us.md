@@ -1,6 +1,6 @@
 **[Tiếng Việt](./KhoGiaoDien.md) | English** · [Home](./README_en-us.md) · [FAQ](./Help_en-us.md) · [Skin making-up tutorial](./SkinTutorial_en-us.md)
 
-# Skin gallery — TrafficMonitor-VN
+# Skin gallery - TrafficMonitor-VN
 
 This page opens from the **Download more skins** link in the **Change Skin** dialog (when the interface language is not Vietnamese).
 
@@ -10,7 +10,7 @@ Every TrafficMonitor-VN release ships the skins below in the `skins` folder next
 
 | Folder name | Background | Notes |
 |---|---|---|
-| `0_tsudev_Cu` | ![](./Screenshots/skins/0_tsudev_Cu.png) | **Default skin** — tsudev owl, light background |
+| `0_tsudev_Cu` | ![](./Screenshots/skins/0_tsudev_Cu.png) | **Default skin** - tsudev owl, light background |
 | `tsudev_VongMang` | ![](./Screenshots/skins/tsudev_VongMang.png) | tsudev logo, dark background |
 | `tsudev_DoThi_Sang` | ![](./Screenshots/skins/tsudev_DoThi_Sang.png) | Network graph, light background; also shows GPU and disk (`skin.xml`) |
 | `tsudev_DoThi_Toi` | ![](./Screenshots/skins/tsudev_DoThi_Toi.png) | Network graph, dark background; also shows GPU and disk (`skin.xml`) |

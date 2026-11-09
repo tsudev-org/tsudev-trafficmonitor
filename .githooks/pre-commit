@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Chặn secret trước khi commit (SECURITY_BASELINE.md mục 4.1). Bật: git config core.hooksPath .githooks
+set -euo pipefail
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --redact || {
+    echo "Phát hiện secret trong nội dung sắp commit. Xử lý xong mới commit lại."
+    exit 1
+  }
+else
+  echo "CẢNH BÁO: chưa cài gitleaks - cổng kiểm secret đang tắt." >&2
+fi

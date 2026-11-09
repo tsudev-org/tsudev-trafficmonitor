@@ -5,7 +5,7 @@
 #   Phiên bản theo khuôn {YY}.{M}.{DD}{NN} (VERSIONING.md của tsudev), ví dụ tag V26.11.0901-vn,
 #   gói tsudev-trafficmonitor_26.11.0901_x64_Lite.zip.
 #   1. Cập nhật VERSION trong TrafficMonitor/stdafx.h và version_utf8.info (liên kết tải cho bản cũ V1.86/V1.87,
-#      nội dung cập nhật — cũng được đưa vào version_signed.xml có chữ ký mà bản V1.88+ đọc).
+#      nội dung cập nhật - cũng được đưa vào version_signed.xml có chữ ký mà bản V1.88+ đọc).
 #   2. git tag V<phiên bản>-vn && git push origin V<phiên bản>-vn
 name: Release
 
@@ -141,4 +141,4 @@ jobs:
             --title "TrafficMonitor-VN $TAG" \
             --notes "Xem nhật ký thay đổi: https://github.com/$GITHUB_REPOSITORY/blob/main/UpdateLog/update_log_vi.md
 
-          Kiểm tra mã băm SHA-256 trong SHA256SUMS.txt và chứng thực nguồn gốc build (gh attestation verify) trước khi sử dụng — xem SECURITY.md."
+          Kiểm tra mã băm SHA-256 trong SHA256SUMS.txt và chứng thực nguồn gốc build (gh attestation verify) trước khi sử dụng - xem SECURITY.md."

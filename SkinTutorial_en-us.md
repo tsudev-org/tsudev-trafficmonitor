@@ -67,7 +67,7 @@ The file must be saved as **UTF-8**. A complete example:
 </root>
 ```
 
-### 2.1. The `<skin>` node — general information
+### 2.1. The `<skin>` node - general information
 
 | Node | Meaning |
 |---|---|
@@ -77,7 +77,7 @@ The file must be saved as **UTF-8**. A complete example:
 | `<font name=".." size=".." style=".."/>` | Default skin font. `style` is a sum of bits: `1` bold, `2` italic, `4` underline, `8` strikethrough. |
 | `<display_text>` | Default label of each item (child node names in section 2.3). Users can still change them in the display text settings. |
 
-### 2.2. The `<layout>` node — layout
+### 2.2. The `<layout>` node - layout
 
 * Attribute `text_height`: line height (pixels at 96 DPI). `no_label="1"`: hide all labels and show values only.
 * `<layout_l>`: layout when **Show More Info** is ON; `<layout_s>`: when it is OFF. The `width`/`height` attributes are the window size and should match the corresponding background image.
@@ -100,7 +100,7 @@ The file must be saved as **UTF-8**. A complete example:
 | `gpu` / `hdd` | GPU usage / disk usage |
 | `cpu_temperature` / `gpu_temperature` / `hdd_temperature` / `main_board_temperature` | CPU / GPU / disk / motherboard temperature (only in builds with temperature monitoring) |
 
-### 2.4. Showing plugin items — the `<plugin_map>` node
+### 2.4. Showing plugin items - the `<plugin_map>` node
 
 To place a plugin item on a skin, declare a node name of your choice mapped to the **plugin item ID**, then use that name in `<layout_l>`/`<layout_s>`:
 
@@ -114,7 +114,7 @@ To place a plugin item on a skin, declare a node name of your choice mapped to t
 
 Find the plugin item ID in **Plug-in manage...** → **Details...** of that plugin.
 
-### 2.5. The `<preview>` node — preview image
+### 2.5. The `<preview>` node - preview image
 
 Defines how the preview in the **Change Skin** dialog is composed: `width`/`height` are the size of the preview area; `<l>` and `<s>` are where the large and small windows are placed in it.
 

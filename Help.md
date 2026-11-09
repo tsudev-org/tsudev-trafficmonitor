@@ -1,6 +1,6 @@
 **Tiếng Việt | [English](./Help_en-us.md)**
 
-# TrafficMonitor-VN — Câu hỏi thường gặp (FAQ)
+# TrafficMonitor-VN - Câu hỏi thường gặp (FAQ)
 
 Trang này tổng hợp các câu hỏi thường gặp khi dùng TrafficMonitor-VN. Phần giới thiệu tính năng và cách dùng có tại [README](./README.md).
 
@@ -54,7 +54,7 @@ Có hai cơ chế tự khởi động, chọn trong **Cài đặt Chung** → **
 
 Nguyên nhân phổ biến nhất là bạn **đã di chuyển thư mục chương trình** sau khi bật tự khởi động. Cách khắc phục: mở **Cài đặt Chung**, bỏ đánh dấu **Khởi động cùng Windows**, nhấn **Đồng ý**, rồi mở lại và đánh dấu lại; hoặc nhấn **Sửa lỗi Khởi động**.
 
-Một số phần mềm diệt virus/bảo mật có thể chặn tự khởi động — hãy cho phép TrafficMonitor trong phần mềm đó.
+Một số phần mềm diệt virus/bảo mật có thể chặn tự khởi động - hãy cho phép TrafficMonitor trong phần mềm đó.
 
 Khi chuyển giữa hai cơ chế, chương trình sẽ tự xóa mục tự khởi động của cơ chế cũ.
 
@@ -144,7 +144,7 @@ Chỉ tải từ [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com/t
 
 ### Chương trình bị đóng đột ngột (crash)
 
-1. Khởi động lại chương trình và **tắt toàn bộ** mục trong **Cài đặt Chung** → **Theo dõi Phần cứng** — phần lớn sự cố liên quan đến tính năng này.
+1. Khởi động lại chương trình và **tắt toàn bộ** mục trong **Cài đặt Chung** → **Theo dõi Phần cứng** - phần lớn sự cố liên quan đến tính năng này.
 2. Nếu vẫn lỗi, vào **Nâng cao** → **Quản lý Plugin...** và vô hiệu hóa mọi plugin rồi khởi động lại. (Nếu chương trình không mở được, xóa các tệp `.dll` trong thư mục `plugins` cạnh `TrafficMonitor.exe`.)
 3. Nếu đã loại trừ hai nguyên nhân trên, hãy [tạo issue báo lỗi](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues/new/choose) kèm nội dung trong cửa sổ báo lỗi.
 

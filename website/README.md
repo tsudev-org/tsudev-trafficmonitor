@@ -4,7 +4,7 @@ Trang sản phẩm của TrafficMonitor-VN: [Astro](https://astro.build) dựng 
 host trên Cloudflare Pages (dự án `tsudev-trafficmonitor`).
 
 * Nội dung tài liệu lấy trực tiếp từ các tệp `.md` ở gốc repo (`Help.md`, `KhoGiaoDien.md`, `SECURITY.md`...), ảnh từ `Screenshots/`
-  — sửa tài liệu ở đó, không sửa trong `website/`.
+  - sửa tài liệu ở đó, không sửa trong `website/`.
 * Thông tin bản phát hành (phiên bản, liên kết, SHA-256) lấy từ GitHub Releases lúc build.
 * Tài sản thương hiệu (`public/favicon*`, `og-image.png`, `brand/`) sinh bằng `scripts/brand_assets.py` từ dây chuyền thương hiệu
   của repo `tsudev-tsudev/tsudev`; không sửa tay.

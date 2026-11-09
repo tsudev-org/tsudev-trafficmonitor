@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Tạo thông tin phiên bản có chữ ký (version_signed.xml) cho bản phát hành.
 
-  build   — tạo version_signed.xml từ tag, các gói zip trong thư mục dist và nội dung cập nhật trong version_utf8.info
-  der2raw — đổi chữ ký ECDSA dạng DER (openssl dgst -sign) sang dạng thô r||s 64 byte, mã hóa base64
+  build   - tạo version_signed.xml từ tag, các gói zip trong thư mục dist và nội dung cập nhật trong version_utf8.info
+  der2raw - đổi chữ ký ECDSA dạng DER (openssl dgst -sign) sang dạng thô r||s 64 byte, mã hóa base64
             (định dạng mà Windows CNG BCryptVerifySignature dùng)
 
 Quy trình trong release.yml:
@@ -69,7 +69,7 @@ def build(args: argparse.Namespace) -> int:
 
 def der2raw(args: argparse.Namespace) -> int:
     der = Path(args.sig).read_bytes()
-    # SEQUENCE { INTEGER r, INTEGER s } — độ dài ngắn (< 128) với P-256
+    # SEQUENCE { INTEGER r, INTEGER s } - độ dài ngắn (< 128) với P-256
     if len(der) < 8 or der[0] != 0x30 or der[1] != len(der) - 2:
         print("Chữ ký DER không hợp lệ", file=sys.stderr)
         return 1

@@ -1,6 +1,6 @@
 **Tiếng Việt | [English](./Plugin_en-us.md)** · [Trang chủ](./README.md) · [Hỏi đáp](./Help.md) · [Phát triển plugin](./PhatTrienPlugin.md)
 
-# Plugin — TrafficMonitor-VN
+# Plugin - TrafficMonitor-VN
 
 Trang này được mở từ liên kết **Tải thêm Plugin** trong hộp thoại **Quản lý Plugin**.
 
@@ -10,7 +10,7 @@ Plugin là tệp `.dll` bổ sung mục hiển thị mới (ngày giờ, thời 
 
 ## Cài plugin
 
-1. Tải tệp plugin `.dll` **đúng kiến trúc** với bản TrafficMonitor-VN bạn dùng (x86, x64 hoặc ARM64EC — xem trong **Giới thiệu**).
+1. Tải tệp plugin `.dll` **đúng kiến trúc** với bản TrafficMonitor-VN bạn dùng (x86, x64 hoặc ARM64EC - xem trong **Giới thiệu**).
 2. Thoát TrafficMonitor.
 3. Chép tệp `.dll` vào thư mục `plugins` cạnh `TrafficMonitor.exe` (tạo thư mục nếu chưa có).
 4. Mở lại TrafficMonitor. Plugin được nạp khi khởi động.

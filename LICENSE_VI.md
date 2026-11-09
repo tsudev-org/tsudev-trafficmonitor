@@ -1,4 +1,4 @@
-# Giấy phép "Anti 996" phiên bản 1.0 (Bản thảo) — Bản dịch tiếng Việt tham khảo
+# Giấy phép "Anti 996" phiên bản 1.0 (Bản thảo) - Bản dịch tiếng Việt tham khảo
 
 > **Lưu ý quan trọng:** đây là bản dịch **không chính thức**, chỉ nhằm giúp người đọc tiếng Việt hiểu nội dung. Văn bản có giá trị pháp lý là bản gốc trong tệp [LICENSE](./LICENSE) (tiếng Anh) và [LICENSE_CN](./LICENSE_CN) (tiếng Trung). Theo điều 1 của giấy phép, hai tệp này được giữ **nguyên văn, không sửa đổi**.
 

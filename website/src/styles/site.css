@@ -1,4 +1,4 @@
-/* Giao diện trafficmonitor.tsudev.com — dùng token tsudev (tokens.css, sao nguyên văn từ tsudev-standards).
+/* Giao diện trafficmonitor.tsudev.com - dùng token tsudev (tokens.css, sao nguyên văn từ tsudev-standards).
    Không có JavaScript nên chế độ tối đi theo hệ điều hành: ánh xạ giá trị token "dark" vào [data-theme="light"]. */
 @media (prefers-color-scheme: dark) {
   [data-theme="light"] {

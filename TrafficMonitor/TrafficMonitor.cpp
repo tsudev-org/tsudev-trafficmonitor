@@ -922,7 +922,7 @@ CTrafficMonitorApp theApp;
 
 BOOL CTrafficMonitorApp::InitInstance()
 {
-    //Bảo mật: chống DLL hijacking — giới hạn thứ tự tìm DLL ngay khi khởi động
+    //Bảo mật: chống DLL hijacking - giới hạn thứ tự tìm DLL ngay khi khởi động
     CCommon::HardenDllSearchOrder();
 
     //Thay tên lớp mặc định của chương trình dạng hộp thoại

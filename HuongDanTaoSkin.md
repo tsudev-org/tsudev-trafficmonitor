@@ -67,7 +67,7 @@ Tệp phải lưu bằng **UTF-8**. Ví dụ đầy đủ:
 </root>
 ```
 
-### 2.1. Nút `<skin>` — thông tin chung
+### 2.1. Nút `<skin>` - thông tin chung
 
 | Nút | Ý nghĩa |
 |---|---|
@@ -77,7 +77,7 @@ Tệp phải lưu bằng **UTF-8**. Ví dụ đầy đủ:
 | `<font name=".." size=".." style=".."/>` | Phông chữ mặc định của skin. `style` là tổng các bit: `1` đậm, `2` nghiêng, `4` gạch chân, `8` gạch ngang. Với tiếng Việt nên dùng **Segoe UI**, **Arial** hoặc **Tahoma**. |
 | `<display_text>` | Nhãn mặc định cho từng mục (tên nút con xem bảng ở mục 2.3). Người dùng vẫn có thể sửa trong **Đổi chữ hiển thị...**. |
 
-### 2.2. Nút `<layout>` — bố cục
+### 2.2. Nút `<layout>` - bố cục
 
 * Thuộc tính `text_height`: chiều cao dòng chữ (pixel ở 96 DPI). `no_label="1"`: ẩn toàn bộ nhãn, chỉ hiện giá trị.
 * `<layout_l>`: bố cục khi **Hiện thêm thông số** BẬT; `<layout_s>`: khi TẮT. Thuộc tính `width`/`height` là kích thước cửa sổ, nên khớp kích thước ảnh nền tương ứng.
@@ -100,7 +100,7 @@ Tệp phải lưu bằng **UTF-8**. Ví dụ đầy đủ:
 | `gpu` / `hdd` | Mức dùng GPU / ổ cứng |
 | `cpu_temperature` / `gpu_temperature` / `hdd_temperature` / `main_board_temperature` | Nhiệt độ CPU / GPU / ổ cứng / bo mạch chủ (chỉ bản có giám sát nhiệt độ) |
 
-### 2.4. Hiển thị mục của plugin — nút `<plugin_map>`
+### 2.4. Hiển thị mục của plugin - nút `<plugin_map>`
 
 Để đặt mục của plugin lên skin, khai báo một tên nút tùy ý ánh xạ tới **ID của mục plugin**, rồi dùng tên đó trong `<layout_l>`/`<layout_s>`:
 
@@ -114,7 +114,7 @@ Tệp phải lưu bằng **UTF-8**. Ví dụ đầy đủ:
 
 ID của mục plugin xem trong **Quản lý Plugin...** → **Chi tiết** của plugin đó.
 
-### 2.5. Nút `<preview>` — ảnh xem trước
+### 2.5. Nút `<preview>` - ảnh xem trước
 
 Quy định cách ghép ảnh xem trước trong hộp thoại **Đổi giao diện...**: `width`/`height` là kích thước vùng xem trước; `<l>` và `<s>` là vị trí đặt cửa sổ lớn và cửa sổ nhỏ trong vùng đó.
 

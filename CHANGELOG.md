@@ -1,4 +1,4 @@
-# CHANGELOG — TrafficMonitor-VN
+# CHANGELOG - TrafficMonitor-VN
 
 Mỗi bản phát hành một dòng, mới nhất trên cùng. Chi tiết: [UpdateLog/update_log_vi.md](./UpdateLog/update_log_vi.md) ([English](./UpdateLog/update_log_en-us.md)).
 

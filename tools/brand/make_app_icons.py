@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Sinh icon chương trình và ảnh đầu hộp thoại Giới thiệu từ dấu hiệu thu gọn (cú) của tsudev.
 
-Nguồn: website/public/brand/logo-mark.png (512x626) — bản sinh từ dây chuyền packages/brand/build-assets.js
+Nguồn: website/public/brand/logo-mark.png (512x626) - bản sinh từ dây chuyền packages/brand/build-assets.js
 của repo tsudev (BRAND_ASSETS.md mục 1, 7). Script kiểm SHA-256 trước khi dùng; không sửa tay sản phẩm sinh ra.
 
 Sinh ra:

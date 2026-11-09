@@ -1,10 +1,10 @@
 **Tiếng Việt | [English](./update_log_en-us.md)**
 
-# Nhật ký cập nhật — TrafficMonitor-VN
+# Nhật ký cập nhật - TrafficMonitor-VN
 
 Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 
-## 26.11.0901 (2026-11-09)
+## 26.11.0901 (09/11/2026)
 
 ### Cách đánh số phiên bản mới
 * Từ bản này, phiên bản theo khuôn **`{YY}.{M}.{DD}{NN}`** của tsudev (năm.tháng.ngày + số thứ tự trong ngày): `26.11.0901` là bản đầu tiên ngày 09/11/2026. Bản ngay trước là V1.91-vn; so sánh theo số nên các bản cũ vẫn nhận ra bản cập nhật.
@@ -14,25 +14,25 @@ Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hi
 * Thêm tài liệu tiếng Anh: Plugin (`Plugin_en-us.md`), Kho giao diện (`SkinGallery_en-us.md`), Hướng dẫn tạo skin (`SkinTutorial_en-us.md`), Phát triển plugin (`PluginDev_en-us.md`).
 * Khi giao diện dùng ngôn ngữ khác tiếng Việt, các liên kết Trợ giúp, Tải thêm mẫu mạng, Hướng dẫn tạo skin, Tải thêm Plugin, Hướng dẫn làm Plugin mở tài liệu tiếng Anh (Trợ giúp mở `README_en-us.md`); tiếng Việt vẫn mở website.
 
-## V1.91-vn (2026-11-09)
+## V1.91-vn (09/11/2026)
 
 ### Liên kết
 * Website sản phẩm **https://trafficmonitor.tsudev.com** đã chạy trên tên miền chính thức (Cloudflare Pages, HSTS, CSP chặt, DNSSEC, CAA).
 * Các liên kết trong ứng dụng mở trang hướng dẫn trên website thay cho tệp `.md` trên GitHub: Hỏi đáp (`/huong-dan/hoi-dap/`), Nhật ký cập nhật (`/nhat-ky/`), Trợ giúp (`/huong-dan/`), Kho giao diện, Tự làm giao diện, Plugin, Phát triển plugin. Bản `.md` trên GitHub vẫn giữ làm dự phòng.
 * Ngôn ngữ khác tiếng Việt: Hỏi đáp và Nhật ký cập nhật vẫn mở tài liệu tiếng Anh trên GitHub (`FORK_HELP_EN_URL`, `FORK_UPDATE_LOG_EN_URL`).
 
-## V1.90-vn (2026-11-09)
+## V1.90-vn (09/11/2026)
 
 ### Giao diện (skin)
 * Skin mặc định mới **`0_tsudev_Cu`** (chú cú tsudev, nền sáng) và skin **`tsudev_VongMang`** (biểu tượng tsudev, nền tối), sinh bằng `tools/skin_assets/make_skins.py` từ ảnh nguồn của tsudev.
 * Gỡ 4 skin có hình nhân vật hoạt hình của bên thứ ba kế thừa từ bản gốc: `0_MacDinh`, `MacDinh2`, `GiaoDien01`, `GiaoDien02`. Máy đang dùng các skin này tự chuyển sang `0_tsudev_Cu` (skin đầu tiên theo thứ tự tên).
 
-## V1.89-vn (2026-11-09)
+## V1.89-vn (09/11/2026)
 
 ### Sửa lỗi
 * Hộp thoại Giới thiệu: chữ "Lời cảm ơn" đè lên liên kết "tsudev.com" (V1.88-vn) vì được xếp vào cột thứ ba khi tự giãn theo độ dài chữ; nay các liên kết xếp đúng hai cột.
 
-## V1.88-vn (2026-11-09) — Bản cập nhật có chữ ký số
+## V1.88-vn (09/11/2026) - Bản cập nhật có chữ ký số
 
 ### Nhận diện tsudev
 * Thông tin tệp chương trình: nhà phát hành `tsudev`, `Copyright (c) 2026 tsudev`, kèm `https://tsudev.com`.
@@ -50,7 +50,7 @@ Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hi
 ### Bản đầy đủ (đo nhiệt độ)
 * Đọc giá trị cảm biến dạng `float` thay vì `double` rồi ép ngầm; ép kiểu tường minh mức dùng GPU/ổ cứng. CI build thêm bản đầy đủ x64 (không phát hành) với cùng mức kiểm tra cảnh báo như bản Lite.
 
-## V1.87-vn (2026-11-08) — Bản cầu nối sang kho mã mới
+## V1.87-vn (08/11/2026) - Bản cầu nối sang kho mã mới
 
 ### Chuyển kho mã
 * Kho mã chính chuyển sang [tsudev-tsudev/tsudev-trafficmonitor](https://github.com/tsudev-tsudev/tsudev-trafficmonitor). Từ bản này, kiểm tra cập nhật, tải bản mới, trang hướng dẫn và báo lỗi đều dùng kho mới. Kho cũ `TrafficMonitor-VN` được lưu trữ (chỉ đọc) và vẫn giữ toàn bộ lịch sử commit.
@@ -80,7 +80,7 @@ Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hi
 * Hộp thoại Giới thiệu hiện lặp "Tiếng Việt Bản dịch tiếng Việt: …"; nay là "Bản dịch Tiếng Việt: …".
 * Quản lý Plugin: tiêu đề cột "Phiên bản" bị cắt thành "Phiên b..."; chia lại độ rộng cột.
 
-## V1.86-vn (2026-11-07) — Bản Việt hóa đầu tiên
+## V1.86-vn (07/11/2026) - Bản Việt hóa đầu tiên
 
 Dựa trên TrafficMonitor 1.86.
 

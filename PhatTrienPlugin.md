@@ -6,7 +6,7 @@ Trang này được mở từ liên kết **Hướng dẫn làm Plugin** trong h
 
 Plugin là một DLL Windows (C/C++) xuất hàm `TMPluginGetInstance`, trả về đối tượng triển khai giao diện `ITMPlugin`. Toàn bộ giao diện nằm trong một tệp tiêu đề [`include/PluginInterface.h`](./include/PluginInterface.h) (đã chú thích tiếng Việt). Phiên bản giao diện hiện tại: **8**.
 
-Ví dụ đầy đủ: [`PluginDemo`](./PluginDemo) — 2 mục văn bản (ngày, giờ), 2 mục tự vẽ, hộp thoại tùy chỉnh, lệnh trên menu chuột phải.
+Ví dụ đầy đủ: [`PluginDemo`](./PluginDemo) - 2 mục văn bản (ngày, giờ), 2 mục tự vẽ, hộp thoại tùy chỉnh, lệnh trên menu chuột phải.
 
 ## 1. Tạo dự án
 
@@ -16,7 +16,7 @@ Ví dụ đầy đủ: [`PluginDemo`](./PluginDemo) — 2 mục văn bản (ngà
 
 ## 2. Ba thành phần bắt buộc
 
-### Mục hiển thị — `IPluginItem`
+### Mục hiển thị - `IPluginItem`
 
 Mỗi mục là một ô trên cửa sổ nổi/thanh tác vụ. Các hàm bắt buộc:
 
@@ -25,12 +25,12 @@ Mỗi mục là một ô trên cửa sổ nổi/thanh tác vụ. Các hàm bắt
 | `GetItemName()` | Tên mục, hiện trong danh sách chọn mục |
 | `GetItemId()` | ID **duy nhất và cố định** (chương trình lưu cấu hình theo ID này) |
 | `GetItemLableText()` | Nhãn, ví dụ `"Ngày:"` |
-| `GetItemValueText()` | Giá trị hiện tại — **chỉ trả về chuỗi đã lưu**, không lấy dữ liệu ở đây vì hàm được gọi rất thường xuyên |
+| `GetItemValueText()` | Giá trị hiện tại - **chỉ trả về chuỗi đã lưu**, không lấy dữ liệu ở đây vì hàm được gọi rất thường xuyên |
 | `GetItemValueSampleText()` | Chuỗi mẫu dài nhất có thể, dùng để tính chiều rộng ô |
 
 Muốn tự vẽ: ghi đè `IsCustomDraw()` trả về `true` và vẽ trong `DrawItem()` (GDI) hoặc `DrawItemEx()` (qua `IPluginDrawer`, hỗ trợ cả Direct2D).
 
-### Plugin — `ITMPlugin`
+### Plugin - `ITMPlugin`
 
 | Hàm | Việc cần làm |
 |---|---|
@@ -38,9 +38,9 @@ Muốn tự vẽ: ghi đè `IsCustomDraw()` trả về `true` và vẽ trong `Dr
 | `DataRequired()` | Được gọi theo chu kỳ làm mới; lấy dữ liệu tại đây rồi lưu lại |
 | `GetInfo(PluginInfoIndex)` | Tên, mô tả, tác giả, bản quyền, phiên bản (`TMI_VERSION`, dạng `1.2.3`), trang chủ |
 
-Không ghi đè `GetAPIVersion()` — giá trị này do tệp tiêu đề quyết định. Các hàm tùy chọn khác: `ShowOptionsDialog`, `OnMonitorInfo` (nhận số liệu mạng/CPU/RAM/nhiệt độ của chương trình chính), `GetTooltipInfo`, các lệnh menu (`GetCommandCount`/`GetCommandName`/`OnPluginCommand`), `OnInitialize` (nhận con trỏ `ITrafficMonitor` để lấy DPI, màu chủ đạo, thư mục cấu hình, chuỗi ngôn ngữ, hiện thông báo).
+Không ghi đè `GetAPIVersion()` - giá trị này do tệp tiêu đề quyết định. Các hàm tùy chọn khác: `ShowOptionsDialog`, `OnMonitorInfo` (nhận số liệu mạng/CPU/RAM/nhiệt độ của chương trình chính), `GetTooltipInfo`, các lệnh menu (`GetCommandCount`/`GetCommandName`/`OnPluginCommand`), `OnInitialize` (nhận con trỏ `ITrafficMonitor` để lấy DPI, màu chủ đạo, thư mục cấu hình, chuỗi ngôn ngữ, hiện thông báo).
 
-### Hàm xuất — `TMPluginGetInstance`
+### Hàm xuất - `TMPluginGetInstance`
 
 ```cpp
 extern "C" __declspec(dllexport) ITMPlugin* TMPluginGetInstance();
@@ -127,4 +127,4 @@ extern "C" __declspec(dllexport) ITMPlugin* TMPluginGetInstance() { return &g_pl
 * **Ngôn ngữ:** dùng `ITrafficMonitor::GetLanguageId()` hoặc `GetStringRes()` để hiển thị theo ngôn ngữ người dùng chọn.
 * **DPI:** nhân kích thước với `GetDPI()/96` khi tự vẽ.
 * **An toàn:** plugin chạy cùng quyền với TrafficMonitor. Không tải và chạy mã từ mạng, không ghi ra ngoài thư mục cấu hình (`GetPluginConfigDir()`) khi không cần.
-* Lịch sử thay đổi giao diện plugin (phiên bản 1–8) ở cuối tệp [`include/PluginInterface.h`](./include/PluginInterface.h).
+* Lịch sử thay đổi giao diện plugin (phiên bản 1-8) ở cuối tệp [`include/PluginInterface.h`](./include/PluginInterface.h).

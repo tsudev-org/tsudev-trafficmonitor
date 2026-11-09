@@ -1,4 +1,4 @@
-# Thông báo bản quyền — TrafficMonitor-VN
+# Thông báo bản quyền - TrafficMonitor-VN
 
 ## TrafficMonitor-VN
 

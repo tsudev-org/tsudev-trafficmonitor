@@ -1,0 +1,3 @@
+# .standards-allow - miễn trừ có ghi chép cho cổng kiểm file nhạy cảm (GITIGNORE_POLICY.md mục 6).
+# <đường dẫn> | <lý do> | <hết hiệu lực>
+tools/keys/update_signing_pub.pem | KHÓA CÔNG KHAI ECDSA P-256 để xác minh version_signed.xml (không phải khóa bí mật; khóa bí mật chỉ ở secret UPDATE_SIGNING_KEY của environment release) | khi đổi khóa ký cập nhật
