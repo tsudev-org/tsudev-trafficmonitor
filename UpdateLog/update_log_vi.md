@@ -4,6 +4,22 @@
 
 Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 
+## 26.11.0902 (09/11/2026)
+
+### Nhận diện tsudev
+* Icon chương trình (tệp exe, cửa sổ, thanh tác vụ, kiểu biểu tượng khay thứ tư) là chú cú tsudev; các kiểu biểu tượng khay dạng đồ thị mạng giữ nguyên.
+* Hộp thoại Giới thiệu: ảnh đầu mới; dòng bản quyền "Bản quyền (c) 2026 tsudev"; bỏ liên kết "Dự án gốc" và "Lời cảm ơn". Giấy phép Anti 996 và thông báo bản quyền bắt buộc xem tại liên kết "Giấy phép sử dụng".
+* Người dịch gói tiếng Việt và tiếng Anh ghi tsudev; gói ngôn ngữ khác không hiện dòng người dịch.
+
+### Giao diện (skin)
+* Thêm skin `tsudev_DoThi_Sang` (nền sáng) và `tsudev_DoThi_Toi` (nền tối): nền đồ thị tốc độ mạng, hiện thêm GPU và ổ cứng khi bật "Hiện thêm thông số".
+
+### Bảo mật
+* Bỏ kiểm tra phiên bản plugin qua mạng tới kho của bên thứ ba: ứng dụng chỉ còn gọi mạng để kiểm tra cập nhật có chữ ký và tra IP công cộng khi người dùng mở Chi tiết mạng. Giao diện plugin giữ nguyên (API phiên bản 8).
+
+### Tài liệu
+* Tài liệu tiếng Anh viết lại (README, Hỏi đáp, nhật ký cập nhật); thêm CHANGELOG.md.
+
 ## 26.11.0901 (09/11/2026)
 
 ### Cách đánh số phiên bản mới
