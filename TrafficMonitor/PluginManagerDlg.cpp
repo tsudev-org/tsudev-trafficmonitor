@@ -189,9 +189,9 @@ BOOL CPluginManagerDlg::OnInitDialog()
         m_list_ctrl.SetItemText(index, COL_STATUS, status);
     }
 
-    //Bản Việt hóa: plugin do tác giả gốc phát hành trên GitHub; hướng dẫn phát triển plugin dùng bản tiếng Anh
-    m_plugin_download_lnk.SetURL(FORK_PLUGIN_DOWNLOAD_URL);
-    m_plugin_dev_guide_lnk.SetURL(FORK_PLUGIN_DEV_GUIDE_URL);
+    //Bản Việt hóa: trang Plugin và Phát triển plugin trên website (tiếng Việt); ngôn ngữ khác dùng bản tiếng Anh
+    m_plugin_download_lnk.SetURL(theApp.DocUrl(FORK_PLUGIN_DOWNLOAD_URL, FORK_PLUGIN_DOWNLOAD_EN_URL));
+    m_plugin_dev_guide_lnk.SetURL(theApp.DocUrl(FORK_PLUGIN_DEV_GUIDE_URL, FORK_PLUGIN_DEV_GUIDE_EN_URL));
     m_open_plugin_dir_lnk.SetLinkIsURL(false);
 
     EnableControl();

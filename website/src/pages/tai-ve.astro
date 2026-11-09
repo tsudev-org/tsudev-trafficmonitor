@@ -4,6 +4,7 @@ import { banMoiNhat, REPO, TEN_KIEN_TRUC } from '../lib/noi-dung';
 
 const ban = await banMoiNhat();
 const mb = (b: number) => `${(b / 1024 / 1024).toFixed(1)} MB`;
+const tenX64 = ban.goi.find((g) => g.kienTruc === 'x64')?.ten ?? `tsudev-trafficmonitor_${ban.phienBan}_x64_Lite.zip`;
 ---
 <Trang tieuDe="Tải về" moTa="Tải TrafficMonitor-VN cho Windows x64, x86, ARM64EC; kèm mã SHA-256 và cách kiểm tra chứng thực nguồn gốc build trước khi chạy." duongDan="/tai-ve/">
   <div class="khung tai-lieu">
@@ -36,9 +37,9 @@ const mb = (b: number) => `${(b / 1024 / 1024).toFixed(1)} MB`;
 
       <h2 id="kiem-tra">Kiểm tra tệp trước khi chạy</h2>
       <p>1. So mã SHA-256 của tệp tải về với mã ở trên (hoặc tệp <code>SHA256SUMS.txt</code> trong trang phát hành). Trong PowerShell:</p>
-      <pre><code>Get-FileHash .\TrafficMonitor-VN_V{ban.phienBan}_x64_Lite.zip -Algorithm SHA256</code></pre>
+      <pre><code>Get-FileHash .\{tenX64} -Algorithm SHA256</code></pre>
       <p>2. Kiểm tra chứng thực nguồn gốc build (cần <a href="https://cli.github.com/" target="_blank" rel="noopener noreferrer">GitHub CLI</a>):</p>
-      <pre><code>gh attestation verify TrafficMonitor-VN_V{ban.phienBan}_x64_Lite.zip -R {REPO}</code></pre>
+      <pre><code>gh attestation verify {tenX64} -R {REPO}</code></pre>
       <div class="chu-y">
         <p><strong>Chỉ tải từ trang này hoặc trang GitHub của dự án.</strong> Mọi trang khác tự xưng là "trang chính thức" đều không liên quan.</p>
         <p>Ứng dụng tự kiểm tra bản cập nhật: thông tin phiên bản được ký số và hộp thoại cập nhật hiện mã SHA-256 để bạn đối chiếu. Xem <a href="/bao-mat/">Bảo mật</a>.</p>

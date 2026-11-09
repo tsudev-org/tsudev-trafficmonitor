@@ -1,4 +1,4 @@
-**Tiếng Việt** · [Trang chủ](./README.md) · [Plugin](./Plugin.md)
+**Tiếng Việt | [English](./PluginDev_en-us.md)** · [Trang chủ](./README.md) · [Plugin](./Plugin.md)
 
 # Phát triển plugin cho TrafficMonitor-VN
 

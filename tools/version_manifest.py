@@ -42,7 +42,7 @@ def build(args: argparse.Namespace) -> int:
     prefix = f"https://github.com/{args.repo}/releases/download/{args.tag}/"
     links, hashes = {}, {}
     for arch, suffix in ARCHES.items():
-        name = f"TrafficMonitor-VN_V{version}_{arch}_Lite.zip"
+        name = f"tsudev-trafficmonitor_{version}_{arch}_Lite.zip"  # VERSIONING.md: {ten-app}_{phiên bản}_{arch}
         path = dist / name
         if not path.is_file():
             print(f"Thiếu gói: {path}", file=sys.stderr)

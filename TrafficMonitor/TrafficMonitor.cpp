@@ -1350,30 +1350,30 @@ void CTrafficMonitorApp::SetThemeColor(COLORREF color)
     m_theme_color = color;
 }
 
+const wchar_t* CTrafficMonitorApp::DocUrl(const wchar_t* vi_url, const wchar_t* en_url) const
+{
+    return m_str_table.GetLanguageInfo().bcp_47 == L"vi-VN" ? vi_url : en_url;
+}
+
+
 void CTrafficMonitorApp::OnHelp()
 {
-    //Bản Việt hóa: trang trợ giúp trỏ tới mục Hướng dẫn trên website trafficmonitor.tsudev.com
-    ShellExecute(NULL, _T("open"), FORK_WIKI_URL, NULL, NULL, SW_SHOW);
+    //Bản Việt hóa: mục Hướng dẫn trên website trafficmonitor.tsudev.com; ngôn ngữ khác dùng README tiếng Anh
+    ShellExecute(NULL, _T("open"), DocUrl(FORK_WIKI_URL, FORK_WIKI_EN_URL), NULL, NULL, SW_SHOW);
 }
 
 
 void CTrafficMonitorApp::OnFrequentyAskedQuestions()
 {
     //Bản Việt hóa: Hỏi đáp tiếng Việt; ngôn ngữ khác dùng bản tiếng Anh
-    CString url = FORK_HELP_URL;
-    if (m_str_table.GetLanguageInfo().bcp_47 != L"vi-VN")
-        url = FORK_HELP_EN_URL;
-    ShellExecute(NULL, _T("open"), url, NULL, NULL, SW_SHOW);
+    ShellExecute(NULL, _T("open"), DocUrl(FORK_HELP_URL, FORK_HELP_EN_URL), NULL, NULL, SW_SHOW);
 }
 
 
 void CTrafficMonitorApp::OnUpdateLog()
 {
     //Bản Việt hóa: nhật ký cập nhật tiếng Việt; ngôn ngữ khác dùng bản tiếng Anh của dự án gốc
-    CString url = FORK_UPDATE_LOG_URL;
-    if (m_str_table.GetLanguageInfo().bcp_47 != L"vi-VN")
-        url = FORK_UPDATE_LOG_EN_URL;
-    ShellExecute(NULL, _T("open"), url, NULL, NULL, SW_SHOW);
+    ShellExecute(NULL, _T("open"), DocUrl(FORK_UPDATE_LOG_URL, FORK_UPDATE_LOG_EN_URL), NULL, NULL, SW_SHOW);
 }
 
 

@@ -1,3 +1,5 @@
+**Tiếng Việt | [English](./SkinTutorial_en-us.md)** · [Trang chủ](./README.md) · [Kho giao diện](./KhoGiaoDien.md)
+
 # Hướng dẫn tạo skin (giao diện) cho TrafficMonitor-VN
 
 Skin quyết định hình nền, phông chữ, màu chữ và vị trí các mục trên **cửa sổ nổi** (cửa sổ chính) của TrafficMonitor. Cửa sổ Taskbar không dùng skin.
