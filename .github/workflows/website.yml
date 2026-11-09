@@ -32,3 +32,7 @@ jobs:
           cache-dependency-path: website/package-lock.json
       - run: npm ci --no-audit --no-fund
       - run: npm run build
+      - name: Cài Chromium cho kiểm tra khả năng truy cập
+        run: npx playwright install --with-deps chromium
+      - name: Kiểm tra khả năng truy cập (axe-core, WCAG 2.2 AA, sáng + tối)
+        run: npm run check:a11y

@@ -54,7 +54,7 @@ ALLOWED_PREFIXES = [
 
 # http:// duy nhất được chấp nhận: namespace XML (không phải liên kết tải)
 ALLOWED_HTTP = ["http://schemas.microsoft.com/developer/msbuild/2003", "http://www.sitemaps.org/schemas/sitemap/0.9",
-                "http://localhost:"]
+                "http://localhost:", "http://127.0.0.1"]   # máy chủ tạm chỉ trên máy (website/scripts/check-a11y.mjs)
 
 # Tệp/thư mục không kiểm tra: mã và tài liệu bên thứ ba giữ nguyên văn
 EXCLUDE = [

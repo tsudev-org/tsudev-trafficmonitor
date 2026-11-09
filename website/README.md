@@ -17,6 +17,7 @@ cd website
 npm ci
 npm run dev       # xem thử ở http://localhost:4321
 npm run build     # dựng vào dist/ và kiểm tra
+npm run check:a11y   # axe-core WCAG 2.2 AA mọi trang, sáng + tối (lần đầu: npx playwright install chromium)
 npm run deploy    # build rồi đưa lên Cloudflare Pages (cần `npx wrangler login` với tài khoản tsudev)
 ```
 
