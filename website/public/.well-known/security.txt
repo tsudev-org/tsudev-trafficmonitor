@@ -1,5 +1,5 @@
 # Báo cáo lỗ hổng bảo mật của TrafficMonitor-VN (RFC 9116)
-Contact: https://github.com/tsudev-tsudev/tsudev-trafficmonitor/security/advisories/new
+Contact: https://github.com/tsudev-org/tsudev-trafficmonitor/security/advisories/new
 Expires: 2027-11-01T00:00:00.000Z
 Preferred-Languages: vi, en
 Canonical: https://trafficmonitor.tsudev.com/.well-known/security.txt

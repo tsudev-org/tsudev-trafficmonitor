@@ -1,8 +1,8 @@
 **Tiếng Việt | [English](./README_en-us.md)**
 
-[![Build](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/tsudev-trafficmonitor/build.yml?branch=main&label=Build&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml)
-[![CodeQL](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/tsudev-trafficmonitor/codeql.yml?branch=main&label=CodeQL&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/codeql.yml)
-[![Release](https://img.shields.io/github/v/release/tsudev-tsudev/tsudev-trafficmonitor?style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest)
+[![Build](https://img.shields.io/github/actions/workflow/status/tsudev-org/tsudev-trafficmonitor/build.yml?branch=main&label=Build&logo=github&style=flat-square)](https://github.com/tsudev-org/tsudev-trafficmonitor/actions/workflows/build.yml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/tsudev-org/tsudev-trafficmonitor/codeql.yml?branch=main&label=CodeQL&logo=github&style=flat-square)](https://github.com/tsudev-org/tsudev-trafficmonitor/actions/workflows/codeql.yml)
+[![Release](https://img.shields.io/github/v/release/tsudev-org/tsudev-trafficmonitor?style=flat-square)](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest)
 [![License](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
 
 <img src="./website/public/brand/logo-mark.png" alt="tsudev" height="56">
@@ -39,10 +39,10 @@ Chi tiết xem [SECURITY.md](./SECURITY.md).
 
 ## Tải về
 
-* Bản phát hành: [trang Tải về](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` và chứng thực nguồn gốc build - hãy đối chiếu mã băm trước khi chạy (xem [SECURITY.md](./SECURITY.md#kiểm-tra-tính-toàn-vẹn-tệp-tải-về)).
+* Bản phát hành: [trang Tải về](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest). Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` và chứng thực nguồn gốc build - hãy đối chiếu mã băm trước khi chạy (xem [SECURITY.md](./SECURITY.md#kiểm-tra-tính-toàn-vẹn-tệp-tải-về)).
 * Gói phát hành là tệp `.zip` giải nén là chạy (`tsudev-trafficmonitor_<phiên bản>_<kiến trúc>_Lite.zip`), không có bộ cài `-setup.exe` như mẫu tên trong chuẩn VERSIONING của tsudev; kiến trúc là `x64`, `x86` hoặc `arm64ec` (ghi đúng kiểu build ARM64EC thay cho `arm64`).
 * Kiểm tra cập nhật trong ứng dụng chỉ tin thông tin phiên bản có **chữ ký số** (ECDSA P-256) và hiển thị SHA-256 của gói để đối chiếu.
-* Bản build thử nghiệm: tab [Actions](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml) (cần đăng nhập GitHub).
+* Bản build thử nghiệm: tab [Actions](https://github.com/tsudev-org/tsudev-trafficmonitor/actions/workflows/build.yml) (cần đăng nhập GitHub).
 
 TrafficMonitor-VN **chỉ** được phát hành qua repo GitHub trên. Mọi trang web khác tự xưng là “trang chính thức” đều không liên quan.
 
@@ -149,7 +149,7 @@ Repo này bắt đầu bằng một commit nhập mã nguồn (từ bản V1.87-
 
 ## Đóng góp
 
-* Báo lỗi / đề xuất: [Issues](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues/new/choose).
+* Báo lỗi / đề xuất: [Issues](https://github.com/tsudev-org/tsudev-trafficmonitor/issues/new/choose).
 * Lỗ hổng bảo mật: **không** đăng công khai, xem [SECURITY.md](./SECURITY.md).
 * Nhật ký thay đổi: [CHANGELOG.md](./CHANGELOG.md) (mỗi bản một dòng), chi tiết ở [UpdateLog/update_log_vi.md](./UpdateLog/update_log_vi.md).
 

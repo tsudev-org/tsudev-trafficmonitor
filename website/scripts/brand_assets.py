@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Sinh tài sản thương hiệu cho trafficmonitor.tsudev.com (chạy tay khi thương hiệu đổi, kết quả được commit).
 
-Nguồn: đầu ra của dây chuyền thương hiệu tsudev (repo tsudev-tsudev/tsudev, packages/brand/build-assets.js),
+Nguồn: đầu ra của dây chuyền thương hiệu tsudev (repo tsudev-org/tsudev, packages/brand/build-assets.js),
 tức apps/frontend-main/public/. Không sửa ảnh nguồn; chỉ sao chép hoặc thu nhỏ (LANCZOS), không phóng to.
 
   python3 website/scripts/brand_assets.py --tsudev ~/projects/tsudev --fonts <thư mục BeVietnamPro-*.ttf>

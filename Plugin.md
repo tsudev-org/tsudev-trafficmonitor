@@ -22,7 +22,7 @@ Quản lý plugin tại **Cài đặt** → **Cài đặt Chung** → **Nâng ca
 
 * **Plugin mẫu** `PluginDemo` (ngày, giờ, mục tự vẽ) được dựng cùng mã nguồn của TrafficMonitor-VN trong thư mục [`PluginDemo`](./PluginDemo); dùng để thử nghiệm và làm mẫu khi viết plugin.
 * **Plugin của bên thứ ba**: TrafficMonitor-VN giữ nguyên giao diện plugin (`ITMPlugin`, API phiên bản 8), nên plugin viết cho TrafficMonitor thường chạy được. Các plugin này **không do tsudev phát triển hay kiểm duyệt**; chỉ cài khi bạn tin nguồn phát hành, và tự theo dõi bản mới từ tác giả plugin (ứng dụng không kiểm tra phiên bản plugin qua mạng).
-* **Plugin của bạn**: xem [Phát triển plugin](./PhatTrienPlugin.md). Muốn giới thiệu plugin trên trang này, hãy mở [Issue](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues) kèm liên kết mã nguồn.
+* **Plugin của bạn**: xem [Phát triển plugin](./PhatTrienPlugin.md). Muốn giới thiệu plugin trên trang này, hãy mở [Issue](https://github.com/tsudev-org/tsudev-trafficmonitor/issues) kèm liên kết mã nguồn.
 
 ## Đo nhiệt độ
 

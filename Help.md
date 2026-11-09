@@ -140,16 +140,16 @@ Cách cài plugin và khắc phục sự cố: trang [Plugin](./Plugin.md); tự
 
 ### Làm sao biết tệp tải về là bản thật?
 
-Chỉ tải từ [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest) của repo. Đối chiếu SHA-256 của tệp zip với `SHA256SUMS.txt` (PowerShell: `Get-FileHash <tệp>.zip`); hộp thoại cập nhật trong ứng dụng cũng hiện SHA-256 lấy từ thông tin phiên bản có chữ ký. Các bước đầy đủ, gồm chứng thực build: [SECURITY.md](./SECURITY.md).
+Chỉ tải từ [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest) của repo. Đối chiếu SHA-256 của tệp zip với `SHA256SUMS.txt` (PowerShell: `Get-FileHash <tệp>.zip`); hộp thoại cập nhật trong ứng dụng cũng hiện SHA-256 lấy từ thông tin phiên bản có chữ ký. Các bước đầy đủ, gồm chứng thực build: [SECURITY.md](./SECURITY.md).
 
 ### Chương trình bị đóng đột ngột (crash)
 
 1. Khởi động lại chương trình và **tắt toàn bộ** mục trong **Cài đặt Chung** → **Theo dõi Phần cứng** - phần lớn sự cố liên quan đến tính năng này.
 2. Nếu vẫn lỗi, vào **Nâng cao** → **Quản lý Plugin...** và vô hiệu hóa mọi plugin rồi khởi động lại. (Nếu chương trình không mở được, xóa các tệp `.dll` trong thư mục `plugins` cạnh `TrafficMonitor.exe`.)
-3. Nếu đã loại trừ hai nguyên nhân trên, hãy [tạo issue báo lỗi](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues/new/choose) kèm nội dung trong cửa sổ báo lỗi.
+3. Nếu đã loại trừ hai nguyên nhân trên, hãy [tạo issue báo lỗi](https://github.com/tsudev-org/tsudev-trafficmonitor/issues/new/choose) kèm nội dung trong cửa sổ báo lỗi.
 
 ### Góp ý, báo lỗi
 
-Vui lòng gửi qua [GitHub Issues của TrafficMonitor-VN](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues). Hãy mô tả chi tiết lỗi, thông báo lỗi, các bước đã thử, kèm ảnh chụp màn hình và tệp cấu hình (**Cài đặt Chung** → **Mở thư mục**) nếu có thể. **Không** đính kèm thông tin nhạy cảm.
+Vui lòng gửi qua [GitHub Issues của TrafficMonitor-VN](https://github.com/tsudev-org/tsudev-trafficmonitor/issues). Hãy mô tả chi tiết lỗi, thông báo lỗi, các bước đã thử, kèm ảnh chụp màn hình và tệp cấu hình (**Cài đặt Chung** → **Mở thư mục**) nếu có thể. **Không** đính kèm thông tin nhạy cảm.
 
 Lỗ hổng bảo mật vui lòng báo riêng theo hướng dẫn trong [SECURITY.md](./SECURITY.md), không đăng công khai.

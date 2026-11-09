@@ -27,9 +27,12 @@ ROOT = Path(__file__).resolve().parent.parent
 # Tiền tố URL được phép (chỉ HTTPS). So khớp theo tiền tố chuỗi, phân biệt hoa thường ở phần đường dẫn.
 ALLOWED_PREFIXES = [
     # Sản phẩm
+    "https://github.com/tsudev-org/tsudev-trafficmonitor",
+    # Địa chỉ cũ trước khi chuyển sang Organization tsudev-org (11/2026), GitHub chuyển hướng.
+    # Chỉ dùng cho: tiền tố tải mà bản đã cài tin (FORK_RELEASE_DOWNLOAD_PREFIX, version_signed.xml,
+    # version_utf8.info), dữ liệu kiểm thử và nhật ký lịch sử. Liên kết mới dùng tsudev-org.
     "https://github.com/tsudev-tsudev/tsudev-trafficmonitor",
-    "https://github.com/tsudev-org/tsudev-trafficmonitor",   # repo sau khi chuyển sang Organization tsudev-org
-    "https://raw.githubusercontent.com/tsudev-tsudev/tsudev-trafficmonitor/",
+    "https://raw.githubusercontent.com/tsudev-org/tsudev-trafficmonitor/",
     "https://trafficmonitor.tsudev.com",
     "https://tsudev.com",
     # Repo cũ (lưu trữ): chỉ để dẫn tới lịch sử commit
@@ -50,7 +53,7 @@ ALLOWED_PREFIXES = [
     "https://github.com/microsoft/Windows-classic-samples",
     "https://cli.github.com/",
     "https://astro.build",
-    "https://api.github.com/repos/tsudev-tsudev/tsudev-trafficmonitor/",
+    "https://api.github.com/repos/tsudev-org/tsudev-trafficmonitor/",
 ]
 
 # http:// duy nhất được chấp nhận: namespace XML (không phải liên kết tải)
