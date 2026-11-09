@@ -14,6 +14,7 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 09/11/2026 - Sửa 5 cảnh báo CodeQL JS/Python (#38, #39); website deploy 26.11.0904; ruleset "Bảo vệ main" bắt buộc thêm Kiểm thử C++, Quét secret (gitleaks), Cổng kiểm quy ước (nguồn GitHub Actions) - 8 check
 - 09/11/2026 - Phát hành 26.11.0904 (0903 lỗi bước SBOM, không có Release): URL sang tsudev-org (#31), tinyxml2 11.0.0 vá CVE-2024-50614/50615 (#33), ASan + fuzzing + CodeQL đa ngôn ngữ + SBOM SPDX có chứng thực (#32, #35); đã kiểm sha256/provenance/SBOM/chữ ký, thử cập nhật 0901 -> 0904 và 12 skin trên Windows; gitleaks cài cục bộ, hook chặn thật
 - 09/11/2026 - Chuyển repo sang Organization `tsudev-org` (phiếu `logs/handover/20261109-01`); updater giữ tương thích bản đã cài (PR #28)
 - 09/11/2026 - Kiểm tra khả năng truy cập website bằng axe-core trong CI (WCAG 2.2 AA, sáng + tối); sửa tương phản menu và khối mã cuộn (PR #26)
