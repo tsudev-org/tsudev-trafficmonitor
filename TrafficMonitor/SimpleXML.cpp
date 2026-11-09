@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "SimpleXML.h"
+#include "XmlParsing.h"
 
 
 CSimpleXML::CSimpleXML(const wstring & xml_path)
@@ -56,21 +57,6 @@ wstring CSimpleXML::GetNode(const wchar_t * node) const
 
 wstring CSimpleXML::_GetNode(const wchar_t * node, const wstring & content)
 {
-	wstring result;
-	wstring node_start{ L'<' };
-	wstring node_end{ L'<' };
-	node_start += node;
-	node_start += L'>';
-	node_end += L'/';
-	node_end += node;
-	node_end += L'>';
-
-	size_t index_start, index_end;
-	index_start = content.find(node_start);
-	index_end = content.find(node_end);
-	if (index_start == wstring::npos || index_end == wstring::npos)
-		return wstring();
-
-	result = content.substr(index_start + node_start.size(), index_end - index_start - node_start.size());
-	return result;
+	//Logic thuần ở XmlParsing.h (có kiểm thử và fuzz)
+	return XmlParsing::GetSimpleNode(node, content);
 }
