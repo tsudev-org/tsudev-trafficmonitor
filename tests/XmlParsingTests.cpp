@@ -119,17 +119,17 @@ static void TestSkinXml()
                 "<layout text_height=\"99999\"><layout_l width=\"-10\" height=\"100000\"><up x=\"-99999\" y=\"99999\" width=\"-1\" align=\"-2\"/></layout_l></layout>"
                 "<preview width=\"99999\" height=\"-1\"><l x=\"99999\" y=\"-99999\"/></preview></root>", d));
     CHECK(d.text_colors.size() == 2 && d.text_colors[0] == 0 && d.text_colors[1] == 0xFFFFFF);
-    CHECK(d.font_size == MAX_FONT_SIZE && d.font_style == 0);
-    CHECK(d.text_height == MAX_TEXT_HEIGHT);
-    CHECK(d.layout_l.width == 0 && d.layout_l.height == MAX_SKIN_SIZE);
-    CHECK(d.layout_l.items["up"].x == -MAX_SKIN_POS && d.layout_l.items["up"].y == MAX_SKIN_POS);
+    CHECK(d.font_size == SKIN_MAX_FONT_SIZE && d.font_style == 0);
+    CHECK(d.text_height == SKIN_MAX_TEXT_HEIGHT);
+    CHECK(d.layout_l.width == 0 && d.layout_l.height == SKIN_MAX_SIZE);
+    CHECK(d.layout_l.items["up"].x == -SKIN_MAX_POS && d.layout_l.items["up"].y == SKIN_MAX_POS);
     CHECK(d.layout_l.items["up"].width == 0 && d.layout_l.items["up"].align == 0);
-    CHECK(d.preview_width == MAX_SKIN_SIZE && d.preview_height == 0 && d.preview_l_x == MAX_SKIN_POS && d.preview_l_y == -MAX_SKIN_POS);
+    CHECK(d.preview_width == SKIN_MAX_SIZE && d.preview_height == 0 && d.preview_l_x == SKIN_MAX_POS && d.preview_l_y == -SKIN_MAX_POS);
 
     // Chuỗi dài bị cắt; tên phông quá dài bị bỏ (dùng phông mặc định)
     std::string long_text(1000, 'x');
     CHECK(Parse("<root><skin><skin_author>" + long_text + "</skin_author><font name=\"" + long_text + "\" size=\"9\"/></skin></root>", d));
-    CHECK(d.skin_author.size() == MAX_TEXT_BYTES);
+    CHECK(d.skin_author.size() == SKIN_MAX_TEXT_BYTES);
     CHECK(d.font_name.empty() && d.font_size == 9);
 
     // Số mục bị giới hạn
@@ -138,13 +138,13 @@ static void TestSkinXml()
         many += "<n" + std::to_string(i) + ">t</n" + std::to_string(i) + ">";
     many += "</display_text></skin></root>";
     CHECK(Parse(many, d));
-    CHECK(d.display_text.size() == MAX_MAP_ENTRIES);
+    CHECK(d.display_text.size() == SKIN_MAX_MAP_ENTRIES);
     std::string colors = "<root><skin><text_color>";
     for (int i = 0; i < 1000; i++)
         colors += "1,";
     colors += "</text_color></skin></root>";
     CHECK(Parse(colors, d));
-    CHECK(d.text_colors.size() == MAX_TEXT_COLORS);
+    CHECK(d.text_colors.size() == SKIN_MAX_TEXT_COLORS);
 
     // Từ chối: rỗng, sai cú pháp, không có phần tử gốc, quá lớn, quá sâu, quá nhiều phần tử
     CHECK(!ParseSkinXml(nullptr, 0, d));

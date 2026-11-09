@@ -25,19 +25,19 @@ namespace XmlParsing
     const size_t MAX_SKIN_XML_BYTES = 1024 * 1024;
     const int MAX_SKIN_XML_ELEMENTS = 4096;
     const int MAX_SKIN_XML_DEPTH = 16;
-    const size_t MAX_TEXT_COLORS = 256;
-    const size_t MAX_MAP_ENTRIES = 256;
-    const size_t MAX_TEXT_BYTES = 256;          //tác giả, văn bản hiển thị, tên nút, ID plugin
-    const size_t MAX_FONT_NAME_BYTES = 128;
+    const size_t SKIN_MAX_TEXT_COLORS = 256;
+    const size_t SKIN_MAX_MAP_ENTRIES = 256;
+    const size_t SKIN_MAX_TEXT_BYTES = 256;          //tác giả, văn bản hiển thị, tên nút, ID plugin
+    const size_t SKIN_MAX_FONT_NAME_BYTES = 128;
 
     //Khoảng giá trị hợp lệ (trước khi nhân DPI)
-    const int MAX_SKIN_SIZE = 4096;             //chiều rộng/cao cửa sổ, ảnh xem trước, chiều rộng mục
-    const int MAX_SKIN_POS = 4096;              //tọa độ x/y trong khoảng [-MAX_SKIN_POS, MAX_SKIN_POS]
-    const int MAX_TEXT_HEIGHT = 512;
-    const int MAX_FONT_SIZE = 72;
-    const int MAX_FONT_STYLE = 15;              //4 bit: đậm, nghiêng, gạch chân, gạch ngang
-    const int MAX_ALIGN = 3;                    //LEFT, RIGHT, CENTER, SIDE
-    const long MAX_COLOR = 0xFFFFFF;
+    const int SKIN_MAX_SIZE = 4096;             //chiều rộng/cao cửa sổ, ảnh xem trước, chiều rộng mục
+    const int SKIN_MAX_POS = 4096;              //tọa độ x/y trong khoảng [-SKIN_MAX_POS, SKIN_MAX_POS]
+    const int SKIN_MAX_TEXT_HEIGHT = 512;
+    const int SKIN_MAX_FONT_SIZE = 72;
+    const int SKIN_MAX_FONT_STYLE = 15;              //4 bit: đậm, nghiêng, gạch chân, gạch ngang
+    const int SKIN_MAX_ALIGN = 3;                    //LEFT, RIGHT, CENTER, SIDE
+    const long SKIN_MAX_COLOR = 0xFFFFFF;
 
     //Đọc số nguyên như atoi (bỏ khoảng trắng đầu, dấu +/-, các chữ số đầu tiên; không có số thì 0)
     //nhưng không tràn số, rồi kẹp vào [min_value, max_value].
@@ -195,21 +195,21 @@ namespace XmlParsing
 
         inline void PutLimited(std::map<std::string, std::string>& map, const char* key, const char* value)
         {
-            if (strlen(key) > MAX_TEXT_BYTES)
+            if (strlen(key) > SKIN_MAX_TEXT_BYTES)
                 return;
-            if (map.size() >= MAX_MAP_ENTRIES && map.find(key) == map.end())
+            if (map.size() >= SKIN_MAX_MAP_ENTRIES && map.find(key) == map.end())
                 return;
-            map[key] = TruncateUtf8(value, MAX_TEXT_BYTES);
+            map[key] = TruncateUtf8(value, SKIN_MAX_TEXT_BYTES);
         }
 
         inline SkinLayoutItem ParseLayoutItem(const tinyxml2::XMLElement* ele)
         {
             SkinLayoutItem item;
-            item.x = ParseIntClamped(Attr(ele, "x"), -MAX_SKIN_POS, MAX_SKIN_POS);
-            item.y = ParseIntClamped(Attr(ele, "y"), -MAX_SKIN_POS, MAX_SKIN_POS);
-            item.width = ParseIntClamped(Attr(ele, "width"), 0, MAX_SKIN_SIZE);
+            item.x = ParseIntClamped(Attr(ele, "x"), -SKIN_MAX_POS, SKIN_MAX_POS);
+            item.y = ParseIntClamped(Attr(ele, "y"), -SKIN_MAX_POS, SKIN_MAX_POS);
+            item.width = ParseIntClamped(Attr(ele, "width"), 0, SKIN_MAX_SIZE);
             int align = ParseIntClamped(Attr(ele, "align"), INT_MIN, INT_MAX);
-            item.align = (align >= 0 && align <= MAX_ALIGN) ? align : 0;     //giá trị lạ: căn trái
+            item.align = (align >= 0 && align <= SKIN_MAX_ALIGN) ? align : 0;     //giá trị lạ: căn trái
             item.show = ParseBool(Attr(ele, "show"));
             return item;
         }
@@ -217,14 +217,14 @@ namespace XmlParsing
         inline SkinLayout ParseLayout(const tinyxml2::XMLElement* ele)
         {
             SkinLayout layout;
-            layout.width = ParseIntClamped(Attr(ele, "width"), 0, MAX_SKIN_SIZE);
-            layout.height = ParseIntClamped(Attr(ele, "height"), 0, MAX_SKIN_SIZE);
+            layout.width = ParseIntClamped(Attr(ele, "width"), 0, SKIN_MAX_SIZE);
+            layout.height = ParseIntClamped(Attr(ele, "height"), 0, SKIN_MAX_SIZE);
             for (const tinyxml2::XMLElement* c = ele->FirstChildElement(); c != nullptr; c = c->NextSiblingElement())
             {
                 const char* name = Name(c);
-                if (strlen(name) > MAX_TEXT_BYTES)
+                if (strlen(name) > SKIN_MAX_TEXT_BYTES)
                     continue;
-                if (layout.items.size() >= MAX_MAP_ENTRIES && layout.items.find(name) == layout.items.end())
+                if (layout.items.size() >= SKIN_MAX_MAP_ENTRIES && layout.items.find(name) == layout.items.end())
                     continue;
                 layout.items[name] = ParseLayoutItem(c);
             }
@@ -264,13 +264,13 @@ namespace XmlParsing
                         out.text_colors.clear();
                         std::string text = Text(item);
                         size_t start = 0;
-                        while (start <= text.size() && out.text_colors.size() < MAX_TEXT_COLORS)
+                        while (start <= text.size() && out.text_colors.size() < SKIN_MAX_TEXT_COLORS)
                         {
                             size_t comma = text.find(',', start);
                             std::string part = text.substr(start, comma == std::string::npos ? std::string::npos : comma - start);
                             size_t b = part.find_first_not_of(" \t\r\n");
                             if (b != std::string::npos)
-                                out.text_colors.push_back(static_cast<unsigned long>(ParseLongClamped(part.c_str() + b, 0, MAX_COLOR)));
+                                out.text_colors.push_back(static_cast<unsigned long>(ParseLongClamped(part.c_str() + b, 0, SKIN_MAX_COLOR)));
                             if (comma == std::string::npos)
                                 break;
                             start = comma + 1;
@@ -282,15 +282,15 @@ namespace XmlParsing
                     }
                     else if (item_name == "skin_author")
                     {
-                        out.skin_author = TruncateUtf8(Text(item), MAX_TEXT_BYTES);
+                        out.skin_author = TruncateUtf8(Text(item), SKIN_MAX_TEXT_BYTES);
                     }
                     else if (item_name == "font")
                     {
                         out.has_font = true;
                         const char* font_name = Attr(item, "name");
-                        out.font_name = (strlen(font_name) <= MAX_FONT_NAME_BYTES) ? font_name : "";   //tên quá dài: dùng phông mặc định
-                        out.font_size = ParseIntClamped(Attr(item, "size"), 0, MAX_FONT_SIZE);
-                        out.font_style = ParseIntClamped(Attr(item, "style"), 0, INT_MAX) & MAX_FONT_STYLE;
+                        out.font_name = (strlen(font_name) <= SKIN_MAX_FONT_NAME_BYTES) ? font_name : "";   //tên quá dài: dùng phông mặc định
+                        out.font_size = ParseIntClamped(Attr(item, "size"), 0, SKIN_MAX_FONT_SIZE);
+                        out.font_style = ParseIntClamped(Attr(item, "style"), 0, INT_MAX) & SKIN_MAX_FONT_STYLE;
                     }
                     else if (item_name == "display_text")
                     {
@@ -301,7 +301,7 @@ namespace XmlParsing
             }
             else if (name == "layout")
             {
-                out.text_height = ParseIntClamped(Attr(child, "text_height"), 0, MAX_TEXT_HEIGHT);
+                out.text_height = ParseIntClamped(Attr(child, "text_height"), 0, SKIN_MAX_TEXT_HEIGHT);
                 out.no_label = ParseBool(Attr(child, "no_label"));
                 for (const tinyxml2::XMLElement* l = child->FirstChildElement(); l != nullptr; l = l->NextSiblingElement())
                 {
@@ -314,20 +314,20 @@ namespace XmlParsing
             }
             else if (name == "preview")
             {
-                out.preview_width = ParseIntClamped(Attr(child, "width"), 0, MAX_SKIN_SIZE);
-                out.preview_height = ParseIntClamped(Attr(child, "height"), 0, MAX_SKIN_SIZE);
+                out.preview_width = ParseIntClamped(Attr(child, "width"), 0, SKIN_MAX_SIZE);
+                out.preview_height = ParseIntClamped(Attr(child, "height"), 0, SKIN_MAX_SIZE);
                 for (const tinyxml2::XMLElement* p = child->FirstChildElement(); p != nullptr; p = p->NextSiblingElement())
                 {
                     std::string item_name = Name(p);
                     if (item_name == "l")
                     {
-                        out.preview_l_x = ParseIntClamped(Attr(p, "x"), -MAX_SKIN_POS, MAX_SKIN_POS);
-                        out.preview_l_y = ParseIntClamped(Attr(p, "y"), -MAX_SKIN_POS, MAX_SKIN_POS);
+                        out.preview_l_x = ParseIntClamped(Attr(p, "x"), -SKIN_MAX_POS, SKIN_MAX_POS);
+                        out.preview_l_y = ParseIntClamped(Attr(p, "y"), -SKIN_MAX_POS, SKIN_MAX_POS);
                     }
                     else if (item_name == "s")
                     {
-                        out.preview_s_x = ParseIntClamped(Attr(p, "x"), -MAX_SKIN_POS, MAX_SKIN_POS);
-                        out.preview_s_y = ParseIntClamped(Attr(p, "y"), -MAX_SKIN_POS, MAX_SKIN_POS);
+                        out.preview_s_x = ParseIntClamped(Attr(p, "x"), -SKIN_MAX_POS, SKIN_MAX_POS);
+                        out.preview_s_y = ParseIntClamped(Attr(p, "y"), -SKIN_MAX_POS, SKIN_MAX_POS);
                     }
                 }
             }

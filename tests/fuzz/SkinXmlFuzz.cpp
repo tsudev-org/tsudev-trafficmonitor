@@ -26,13 +26,13 @@ static bool InRange(int v, int lo, int hi)
 
 static void CheckLayout(const SkinLayout& layout)
 {
-    Require(InRange(layout.width, 0, MAX_SKIN_SIZE) && InRange(layout.height, 0, MAX_SKIN_SIZE));
-    Require(layout.items.size() <= MAX_MAP_ENTRIES);
+    Require(InRange(layout.width, 0, SKIN_MAX_SIZE) && InRange(layout.height, 0, SKIN_MAX_SIZE));
+    Require(layout.items.size() <= SKIN_MAX_MAP_ENTRIES);
     for (const auto& item : layout.items)
     {
-        Require(item.first.size() <= MAX_TEXT_BYTES);
-        Require(InRange(item.second.x, -MAX_SKIN_POS, MAX_SKIN_POS) && InRange(item.second.y, -MAX_SKIN_POS, MAX_SKIN_POS));
-        Require(InRange(item.second.width, 0, MAX_SKIN_SIZE) && InRange(item.second.align, 0, MAX_ALIGN));
+        Require(item.first.size() <= SKIN_MAX_TEXT_BYTES);
+        Require(InRange(item.second.x, -SKIN_MAX_POS, SKIN_MAX_POS) && InRange(item.second.y, -SKIN_MAX_POS, SKIN_MAX_POS));
+        Require(InRange(item.second.width, 0, SKIN_MAX_SIZE) && InRange(item.second.align, 0, SKIN_MAX_ALIGN));
     }
 }
 
@@ -43,24 +43,24 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size)
     if (ParseSkinXml(reinterpret_cast<const char*>(data), size, d))
     {
         Require(size > 0 && size <= MAX_SKIN_XML_BYTES);
-        Require(d.text_colors.size() <= MAX_TEXT_COLORS);
+        Require(d.text_colors.size() <= SKIN_MAX_TEXT_COLORS);
         for (auto c : d.text_colors)
-            Require(c <= static_cast<unsigned long>(MAX_COLOR));
+            Require(c <= static_cast<unsigned long>(SKIN_MAX_COLOR));
         Require(d.has_text_color || d.text_colors.empty());
-        Require(d.skin_author.size() <= MAX_TEXT_BYTES);
-        Require(d.font_name.size() <= MAX_FONT_NAME_BYTES);
-        Require(InRange(d.font_size, 0, MAX_FONT_SIZE) && InRange(d.font_style, 0, MAX_FONT_STYLE));
-        Require(d.display_text.size() <= MAX_MAP_ENTRIES && d.plugin_map.size() <= MAX_MAP_ENTRIES);
+        Require(d.skin_author.size() <= SKIN_MAX_TEXT_BYTES);
+        Require(d.font_name.size() <= SKIN_MAX_FONT_NAME_BYTES);
+        Require(InRange(d.font_size, 0, SKIN_MAX_FONT_SIZE) && InRange(d.font_style, 0, SKIN_MAX_FONT_STYLE));
+        Require(d.display_text.size() <= SKIN_MAX_MAP_ENTRIES && d.plugin_map.size() <= SKIN_MAX_MAP_ENTRIES);
         for (const auto& t : d.display_text)
-            Require(t.first.size() <= MAX_TEXT_BYTES && t.second.size() <= MAX_TEXT_BYTES);
+            Require(t.first.size() <= SKIN_MAX_TEXT_BYTES && t.second.size() <= SKIN_MAX_TEXT_BYTES);
         for (const auto& t : d.plugin_map)
-            Require(t.first.size() <= MAX_TEXT_BYTES && t.second.size() <= MAX_TEXT_BYTES);
-        Require(InRange(d.text_height, 0, MAX_TEXT_HEIGHT));
+            Require(t.first.size() <= SKIN_MAX_TEXT_BYTES && t.second.size() <= SKIN_MAX_TEXT_BYTES);
+        Require(InRange(d.text_height, 0, SKIN_MAX_TEXT_HEIGHT));
         CheckLayout(d.layout_l);
         CheckLayout(d.layout_s);
-        Require(InRange(d.preview_width, 0, MAX_SKIN_SIZE) && InRange(d.preview_height, 0, MAX_SKIN_SIZE));
-        Require(InRange(d.preview_l_x, -MAX_SKIN_POS, MAX_SKIN_POS) && InRange(d.preview_l_y, -MAX_SKIN_POS, MAX_SKIN_POS));
-        Require(InRange(d.preview_s_x, -MAX_SKIN_POS, MAX_SKIN_POS) && InRange(d.preview_s_y, -MAX_SKIN_POS, MAX_SKIN_POS));
+        Require(InRange(d.preview_width, 0, SKIN_MAX_SIZE) && InRange(d.preview_height, 0, SKIN_MAX_SIZE));
+        Require(InRange(d.preview_l_x, -SKIN_MAX_POS, SKIN_MAX_POS) && InRange(d.preview_l_y, -SKIN_MAX_POS, SKIN_MAX_POS));
+        Require(InRange(d.preview_s_x, -SKIN_MAX_POS, SKIN_MAX_POS) && InRange(d.preview_s_y, -SKIN_MAX_POS, SKIN_MAX_POS));
     }
 
     // 2. Số nguyên: luôn trong khoảng, không tràn
