@@ -4,6 +4,13 @@
 
 Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tại [update_log_en-us.md](./update_log_en-us.md).
 
+## V1.91-vn (2026-11-09)
+
+### Liên kết
+* Website sản phẩm **https://trafficmonitor.tsudev.com** đã chạy trên tên miền chính thức (Cloudflare Pages, HSTS, CSP chặt, DNSSEC, CAA).
+* Các liên kết trong ứng dụng mở trang hướng dẫn trên website thay cho tệp `.md` trên GitHub: Hỏi đáp (`/huong-dan/hoi-dap/`), Nhật ký cập nhật (`/nhat-ky/`), Trợ giúp (`/huong-dan/`), Kho giao diện, Tự làm giao diện, Plugin, Phát triển plugin. Bản `.md` trên GitHub vẫn giữ làm dự phòng.
+* Ngôn ngữ khác tiếng Việt: Hỏi đáp và Nhật ký cập nhật vẫn mở tài liệu tiếng Anh trên GitHub (`FORK_HELP_EN_URL`, `FORK_UPDATE_LOG_EN_URL`).
+
 ## V1.90-vn (2026-11-09)
 
 ### Giao diện (skin)

@@ -36,14 +36,17 @@
 // URL cuối cùng phải là HTTPS và có host nằm trong danh sách này, phân tách bằng dấu "|".
 #define FORK_TRUSTED_HOSTS          L"github.com|objects.githubusercontent.com|release-assets.githubusercontent.com|raw.githubusercontent.com|trafficmonitor.tsudev.com|api.ipify.org|api6.ipify.org"
 
-// Các trang tài liệu
-#define FORK_HELP_URL               L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/Help.md"
-#define FORK_UPDATE_LOG_URL         L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/UpdateLog/update_log_vi.md"
-#define FORK_WIKI_URL               L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor#readme"
-#define FORK_SKIN_TUTORIAL_URL      L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/HuongDanTaoSkin.md"
-#define FORK_SKIN_DOWNLOAD_URL      L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/KhoGiaoDien.md"
-#define FORK_PLUGIN_DOWNLOAD_URL    L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/Plugin.md"
-#define FORK_PLUGIN_DEV_GUIDE_URL   L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/PhatTrienPlugin.md"
+// Các trang tài liệu (website trafficmonitor.tsudev.com, sinh từ các tệp .md trong repo;
+// bản .md trên GitHub vẫn giữ làm dự phòng). Ngôn ngữ khác tiếng Việt dùng tài liệu tiếng Anh trên GitHub.
+#define FORK_HELP_URL               L"https://trafficmonitor.tsudev.com/huong-dan/hoi-dap/"
+#define FORK_HELP_EN_URL            L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/Help_en-us.md"
+#define FORK_UPDATE_LOG_URL         L"https://trafficmonitor.tsudev.com/nhat-ky/"
+#define FORK_UPDATE_LOG_EN_URL      L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/UpdateLog/update_log_en-us.md"
+#define FORK_WIKI_URL               L"https://trafficmonitor.tsudev.com/huong-dan/"
+#define FORK_SKIN_TUTORIAL_URL      L"https://trafficmonitor.tsudev.com/huong-dan/tu-lam-giao-dien/"
+#define FORK_SKIN_DOWNLOAD_URL      L"https://trafficmonitor.tsudev.com/huong-dan/kho-giao-dien/"
+#define FORK_PLUGIN_DOWNLOAD_URL    L"https://trafficmonitor.tsudev.com/huong-dan/plugin/"
+#define FORK_PLUGIN_DEV_GUIDE_URL   L"https://trafficmonitor.tsudev.com/huong-dan/phat-trien-plugin/"
 
 // Hệ sinh thái tsudev (ECOSYSTEM_IDENTITY mục 2.3: hộp thoại Giới thiệu có liên kết tới tsudev.com)
 #define TSUDEV_HOME_URL             L"https://tsudev.com"
