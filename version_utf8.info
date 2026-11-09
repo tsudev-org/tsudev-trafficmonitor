@@ -1,15 +1,15 @@
 ﻿<root>
-	<version>1.89</version>
+	<version>1.90</version>
 	<GitHub>
-		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_x86_Lite.zip</link>
-		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_x64_Lite.zip</link_x64>
-		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_arm64ec_Lite.zip</link_arm64ec>
-		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_x86_Lite.zip</link_without_temperature>
-		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_x64_Lite.zip</link_without_temperature_x64>
-		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.89-vn/TrafficMonitor-VN_V1.89_arm64ec_Lite.zip</link_without_temperature_arm64ec>
+		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_x86_Lite.zip</link>
+		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_x64_Lite.zip</link_x64>
+		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_arm64ec_Lite.zip</link_arm64ec>
+		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_x86_Lite.zip</link_without_temperature>
+		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_x64_Lite.zip</link_without_temperature_x64>
+		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1.90-vn/TrafficMonitor-VN_V1.90_arm64ec_Lite.zip</link_without_temperature_arm64ec>
 	</GitHub>
 	<update_contents>
-		<contents_vi>Bản V1.89-vn. Sửa bố cục hộp thoại Giới thiệu: chữ "Lời cảm ơn" không còn đè lên liên kết tsudev.com.\nGồm toàn bộ thay đổi của V1.88-vn: thông tin phiên bản có chữ ký số (ECDSA P-256), hiện mã SHA-256 của gói, chỉ kết nối tới máy chủ trong danh sách cho phép.</contents_vi>
-		<contents_en>Release V1.89-vn. Fixes the About dialog layout: the "Acknowledgements" label no longer overlaps the tsudev.com link.\nIncludes all V1.88-vn changes: digitally signed version info (ECDSA P-256), package SHA-256 shown, connections restricted to an allow-list of hosts.</contents_en>
+		<contents_vi>Bản V1.90-vn. Skin mặc định mới 0_tsudev_Cu (chú cú tsudev, nền sáng) và skin tsudev_VongMang (nền tối).\nGỡ 4 skin có hình nhân vật hoạt hình của bên thứ ba (0_MacDinh, MacDinh2, GiaoDien01, GiaoDien02); máy đang dùng các skin này tự chuyển sang skin mặc định mới.</contents_vi>
+		<contents_en>Release V1.90-vn. New default skin 0_tsudev_Cu (tsudev owl, light) and skin tsudev_VongMang (dark).\nRemoved 4 inherited skins featuring third-party cartoon characters (0_MacDinh, MacDinh2, GiaoDien01, GiaoDien02); installations using them switch to the new default skin.</contents_en>
 	</update_contents>
 </root>
