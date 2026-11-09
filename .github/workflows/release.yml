@@ -121,7 +121,9 @@ jobs:
         run: |
           set -euo pipefail
           test -n "$UPDATE_SIGNING_KEY" || { echo "Thiếu secret UPDATE_SIGNING_KEY"; exit 1; }
-          python3 -I tools/version_manifest.py build --tag "$TAG" --dist dist --repo "$GITHUB_REPOSITORY" > dist/version_signed.xml
+          # Liên kết tải trong manifest LUÔN theo owner cũ tsudev-tsudev: bản đã cài (<= 26.11.0902) chỉ tin tiền tố này;
+          # repo đã chuyển sang tsudev-org nên GitHub chuyển hướng URL cũ. Không đổi sang $GITHUB_REPOSITORY.
+          python3 -I tools/version_manifest.py build --tag "$TAG" --dist dist --repo "tsudev-tsudev/tsudev-trafficmonitor" > dist/version_signed.xml
           umask 077
           key="$RUNNER_TEMP/update_key.pem"
           printf '%s\n' "$UPDATE_SIGNING_KEY" > "$key"
