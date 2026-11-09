@@ -32,6 +32,21 @@ jobs:
       - name: Kiểm tra URL (chỉ HTTPS, danh sách cho phép, URL C++ chỉ ở ForkConfig.h)
         run: python3 -I tools/check_urls.py
 
+  unit-tests:
+    name: Kiểm thử C++
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build và chạy tests/UpdateSecurityTests.cpp (x64)
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
+          call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I TrafficMonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTests.exe || exit /b 1
+          UpdateSecurityTests.exe tests\fixtures
+
   build:
     name: Build ${{ matrix.platform }}
     needs: i18n-check

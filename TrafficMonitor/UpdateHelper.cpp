@@ -3,10 +3,7 @@
 #include "SimpleXML.h"
 #include "Common.h"
 #include "TrafficMonitor.h"
-#include <bcrypt.h>
-#include <wincrypt.h>
-#pragma comment(lib, "bcrypt.lib")
-#pragma comment(lib, "crypt32.lib")
+#include "UpdateSecurity.h"
 
 
 CUpdateHelper::CUpdateHelper()
@@ -52,124 +49,26 @@ bool CUpdateHelper::CheckForUpdate()
     return true;
 }
 
+//Logic thuần nằm ở UpdateSecurity.h (có kiểm thử tự động: tests/UpdateSecurityTests.cpp)
 bool CUpdateHelper::VerifySignature(const std::string& data, const std::string& signature_base64)
 {
-    //Giải mã khóa công khai X||Y từ chuỗi hex
-    const char* hex = FORK_UPDATE_PUBLIC_KEY_HEX;
-    const size_t KEY_LEN = 32;
-    if (strlen(hex) != KEY_LEN * 4)
-        return false;
-    std::vector<BYTE> key_blob(sizeof(BCRYPT_ECCKEY_BLOB) + KEY_LEN * 2);
-    auto* header = reinterpret_cast<BCRYPT_ECCKEY_BLOB*>(key_blob.data());
-    header->dwMagic = BCRYPT_ECDSA_PUBLIC_P256_MAGIC;
-    header->cbKey = static_cast<ULONG>(KEY_LEN);
-    for (size_t i = 0; i < KEY_LEN * 2; i++)
-    {
-        unsigned int value{};
-        if (sscanf_s(hex + i * 2, "%2x", &value) != 1)
-            return false;
-        key_blob[sizeof(BCRYPT_ECCKEY_BLOB) + i] = static_cast<BYTE>(value);
-    }
-
-    //Giải mã chữ ký base64 (bỏ khoảng trắng/xuống dòng ở cuối); chữ ký thô r||s phải đúng 64 byte
-    std::string sig_text = signature_base64;
-    while (!sig_text.empty() && isspace(static_cast<unsigned char>(sig_text.back())))
-        sig_text.pop_back();
-    if (sig_text.empty() || sig_text.size() > 256)
-        return false;
-    BYTE sig[128]{};
-    DWORD sig_len = sizeof(sig);
-    if (!CryptStringToBinaryA(sig_text.c_str(), static_cast<DWORD>(sig_text.size()), CRYPT_STRING_BASE64, sig, &sig_len, nullptr, nullptr)
-        || sig_len != KEY_LEN * 2)
-        return false;
-
-    bool verified{ false };
-    BCRYPT_ALG_HANDLE hash_alg{}, ecdsa_alg{};
-    BCRYPT_HASH_HANDLE hash{};
-    BCRYPT_KEY_HANDLE key{};
-    BYTE digest[32]{};
-    if (BCRYPT_SUCCESS(BCryptOpenAlgorithmProvider(&hash_alg, BCRYPT_SHA256_ALGORITHM, nullptr, 0))
-        && BCRYPT_SUCCESS(BCryptCreateHash(hash_alg, &hash, nullptr, 0, nullptr, 0, 0))
-        && BCRYPT_SUCCESS(BCryptHashData(hash, reinterpret_cast<PUCHAR>(const_cast<char*>(data.data())), static_cast<ULONG>(data.size()), 0))
-        && BCRYPT_SUCCESS(BCryptFinishHash(hash, digest, sizeof(digest), 0))
-        && BCRYPT_SUCCESS(BCryptOpenAlgorithmProvider(&ecdsa_alg, BCRYPT_ECDSA_P256_ALGORITHM, nullptr, 0))
-        && BCRYPT_SUCCESS(BCryptImportKeyPair(ecdsa_alg, nullptr, BCRYPT_ECCPUBLIC_BLOB, &key, key_blob.data(), static_cast<ULONG>(key_blob.size()), 0)))
-    {
-        verified = BCRYPT_SUCCESS(BCryptVerifySignature(key, nullptr, digest, sizeof(digest), sig, sig_len, 0));
-    }
-    if (key) BCryptDestroyKey(key);
-    if (hash) BCryptDestroyHash(hash);
-    if (ecdsa_alg) BCryptCloseAlgorithmProvider(ecdsa_alg, 0);
-    if (hash_alg) BCryptCloseAlgorithmProvider(hash_alg, 0);
-    return verified;
+    return UpdateSecurity::VerifySignature(data, signature_base64);
 }
 
 bool CUpdateHelper::IsTrustedDownloadUrl(const std::wstring& url)
 {
-    //Bảo mật: liên kết tải bản cập nhật phải
-    //  1. là HTTPS hợp lệ (không khoảng trắng/ký tự điều khiển),
-    //  2. bắt đầu đúng bằng tiền tố trang Releases của repo này (FORK_RELEASE_DOWNLOAD_PREFIX),
-    //  3. không chứa "..", "@", "?" hoặc "#" (chống vượt đường dẫn, chuyển hướng tên miền, tham số lạ),
-    //  4. trỏ tới tệp .zip hoặc .exe.
-    //Nhờ vậy, kể cả khi tệp version_utf8.info bị giả mạo, chương trình cũng không mở liên kết tới nơi khác.
-    if (!CCommon::IsHttpsUrl(url))
-        return false;
-    const std::wstring prefix{ FORK_RELEASE_DOWNLOAD_PREFIX };
-    if (url.size() <= prefix.size() || url.compare(0, prefix.size(), prefix) != 0)
-        return false;
-    if (url.find(L"..") != std::wstring::npos || url.find_first_of(L"@?#\\%") != std::wstring::npos)
-        return false;
-    auto ends_with = [&](const wchar_t* ext) {
-        size_t len = wcslen(ext);
-        return url.size() > len && _wcsicmp(url.c_str() + url.size() - len, ext) == 0;
-    };
-    return ends_with(L".zip") || ends_with(L".exe");
+    //Kể cả khi thông tin phiên bản bị giả mạo, chương trình cũng không mở liên kết ngoài trang Releases của repo này
+    return UpdateSecurity::IsTrustedDownloadUrl(url);
 }
 
 bool CUpdateHelper::IsValidVersionString(const std::wstring& version)
 {
-    //Phiên bản hợp lệ: 1~4 nhóm số ngăn cách bởi dấu chấm, mỗi nhóm tối đa 5 chữ số (ví dụ 1.86 hoặc 1.86.1)
-    if (version.empty() || version.size() > 23)
-        return false;
-    int group_len = 0;
-    int group_count = 1;
-    for (wchar_t ch : version)
-    {
-        if (ch >= L'0' && ch <= L'9')
-        {
-            if (++group_len > 5)
-                return false;
-        }
-        else if (ch == L'.')
-        {
-            if (group_len == 0 || ++group_count > 4)
-                return false;
-            group_len = 0;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    return group_len > 0;
+    return UpdateSecurity::IsValidVersionString(version);
 }
 
 int CUpdateHelper::CompareVersion(const std::wstring& a, const std::wstring& b)
 {
-    //So sánh phiên bản theo giá trị số từng nhóm (1.100 > 1.86 > 1.9), thay cho so sánh chuỗi trước đây
-    //vốn cho kết quả sai khi số chữ số khác nhau.
-    std::vector<std::wstring> pa, pb;
-    CCommon::StringSplit(a, L'.', pa);
-    CCommon::StringSplit(b, L'.', pb);
-    size_t n = (std::max)(pa.size(), pb.size());
-    for (size_t i = 0; i < n; i++)
-    {
-        long va = (i < pa.size()) ? wcstol(pa[i].c_str(), nullptr, 10) : 0;
-        long vb = (i < pb.size()) ? wcstol(pb[i].c_str(), nullptr, 10) : 0;
-        if (va != vb)
-            return va < vb ? -1 : 1;
-    }
-    return 0;
+    return UpdateSecurity::CompareVersion(a, b);
 }
 
 void CUpdateHelper::ParseUpdateInfo(wstring version_info)

@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "AdapterCommon.h"
 #include "TrafficMonitor.h"
+#include "UpdateSecurity.h"
 
 
 CCommon::CCommon()
@@ -842,36 +843,14 @@ HMODULE CCommon::SafeLoadLibrary(LPCWSTR full_path)
 
 bool CCommon::IsHttpsUrl(const wstring& url)
 {
-    //Chỉ chấp nhận URL bắt đầu bằng "https://" (không phân biệt hoa thường) và không chứa ký tự điều khiển/khoảng trắng
-    if (url.size() <= 8 || url.size() > 2048 || _wcsnicmp(url.c_str(), L"https://", 8) != 0)
-        return false;
-    for (wchar_t ch : url)
-    {
-        if (ch <= L' ' || ch == 0x7f)
-            return false;
-    }
-    return true;
+    //Chỉ chấp nhận URL "https://" không chứa ký tự điều khiển/khoảng trắng (logic ở UpdateSecurity.h, có kiểm thử)
+    return UpdateSecurity::IsHttpsUrl(url);
 }
 
 bool CCommon::IsTrustedHostUrl(const wstring& url)
 {
-    //URL phải là HTTPS và host (không phân biệt hoa thường) khớp đúng một mục trong FORK_TRUSTED_HOSTS.
-    //Từ chối URL có thông tin đăng nhập ("user@host") hoặc cổng khác mặc định.
-    if (!IsHttpsUrl(url))
-        return false;
-    size_t start = 8;   //sau "https://"
-    size_t end = url.find_first_of(L"/?#", start);
-    wstring authority = url.substr(start, end == wstring::npos ? wstring::npos : end - start);
-    if (authority.empty() || authority.find_first_of(L"@:\\") != wstring::npos)
-        return false;
-    std::vector<wstring> hosts;
-    StringSplit(FORK_TRUSTED_HOSTS, L'|', hosts);
-    for (const auto& host : hosts)
-    {
-        if (!host.empty() && _wcsicmp(host.c_str(), authority.c_str()) == 0)
-            return true;
-    }
-    return false;
+    //URL HTTPS có host khớp đúng một mục trong FORK_TRUSTED_HOSTS; từ chối "user@host" và cổng lạ
+    return UpdateSecurity::IsTrustedHostUrl(url);
 }
 
 bool CCommon::GetURL(const wstring& url, std::string& result, const wstring& user_agent)
