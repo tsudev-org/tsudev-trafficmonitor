@@ -65,7 +65,12 @@ cd website && npm ci && npm run build
 | Lệch ở đâu | Vì sao | Kế hoạch |
 | --- | --- | --- |
 | PROJECT_STRUCTURE: không có `src/`, `assets/`; mã ở `TrafficMonitor/`, `include/`, script ở `tools/` | Bản phái sinh của mã C++/MFC có sẵn; dời thư mục làm hỏng `.vcxproj`/`.sln` và khó đối chiếu với mã gốc | Giữ nguyên; script mới đặt trong `tools/` |
+<<<<<<< HEAD
 | TESTING_QUALITY: chưa có unit/integration test tự động cho C++ | Mã kế thừa không có khung test; CI build bằng `/WX` có chọn lọc + CodeQL + kiểm Việt hóa/URL/chữ bị cắt | Thêm dự án test cho logic thuần (so sánh phiên bản, kiểm chữ ký, phân tích URL) khi sửa các phần đó |
+=======
+| TESTING_QUALITY: test tự động C++ mới phủ logic thuần của kênh cập nhật (`tests/UpdateSecurityTests.cpp`: so sánh/kiểm phiên bản, lọc URL, chữ ký ECDSA với manifest thật), chưa phủ giao diện MFC | Mã giao diện MFC kế thừa khó tách để test; CI còn build `/WX` có chọn lọc + CodeQL + kiểm Việt hóa/URL/chữ bị cắt | Logic thuần mới tách vào header không phụ thuộc MFC và thêm test vào `tests/` (job "Kiểm thử C++" trong build.yml) |
+| ACCESSIBILITY (website): chưa chạy axe-core trong CI | Website tĩnh nhỏ, đã kiểm thủ công (lang, bỏ qua tới nội dung, focus-visible, alt, một h1) | Thêm axe-core khi website có tương tác |
+>>>>>>> origin/main
 | VERSIONING: gói phát hành là `.zip` chạy ngay (không `-setup.exe`), kiến trúc `arm64ec` | Ứng dụng di động (portable), không có bộ cài; build là ARM64EC | Ghi ở README mục Tải về |
 | LANGUAGE_SELECTION: C++/MFC | Kế thừa | Không đổi |
 
