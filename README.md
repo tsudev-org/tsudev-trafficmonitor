@@ -88,7 +88,7 @@ Gặp sự cố? Xem [Câu hỏi thường gặp](./Help.md).
 
 Cửa sổ nổi (skin mặc định):
 
-![Cửa sổ nổi hiện tốc độ tải lên và tải xuống](./Screenshots/vi/main.png)
+![Cửa sổ nổi với skin mặc định 0_tsudev_Cu: tốc độ tải lên, tải xuống, CPU và RAM](./Screenshots/vi/main.png)
 
 Cửa sổ trên thanh tác vụ (Windows 11):
 

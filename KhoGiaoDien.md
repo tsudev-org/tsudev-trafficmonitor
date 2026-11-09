@@ -10,10 +10,8 @@ Mọi bản phát hành của TrafficMonitor-VN kèm sẵn các skin dưới đ�
 
 | Tên thư mục | Ảnh nền | Ghi chú |
 |---|---|---|
-| `0_MacDinh` | ![](./Screenshots/skins/0_MacDinh.png) | Skin mặc định |
-| `MacDinh2` | ![](./Screenshots/skins/MacDinh2.png) | Biến thể của skin mặc định |
-| `GiaoDien01` | ![](./Screenshots/skins/GiaoDien01.png) | |
-| `GiaoDien02` | ![](./Screenshots/skins/GiaoDien02.png) | |
+| `0_tsudev_Cu` | ![](./Screenshots/skins/0_tsudev_Cu.png) | **Skin mặc định** — chú cú tsudev, nền sáng |
+| `tsudev_VongMang` | ![](./Screenshots/skins/tsudev_VongMang.png) | Biểu tượng tsudev, nền tối |
 | `GiaoDien03` | ![](./Screenshots/skins/GiaoDien03.png) | Nền tối |
 | `GiaoDien05` | ![](./Screenshots/skins/GiaoDien05.png) | |
 | `GiaoDien06` | ![](./Screenshots/skins/GiaoDien06.png) | Nền tối |
@@ -23,7 +21,7 @@ Mọi bản phát hành của TrafficMonitor-VN kèm sẵn các skin dưới đ�
 | `GiaoDien10_Doc` | ![](./Screenshots/skins/GiaoDien10_Doc.png) | Dạng dọc |
 | `GiaoDien11` | ![](./Screenshots/skins/GiaoDien11.png) | Ô màu CPU/RAM |
 
-Các skin này kế thừa từ dự án gốc TrafficMonitor (tác giả zhongyang219, xem [NOTICE.md](./NOTICE.md)).
+Hai skin `0_tsudev_Cu` và `tsudev_VongMang` do tsudev thiết kế (nguồn ảnh và script sinh ở `tools/skin_assets/`). Các skin `GiaoDien*` kế thừa từ dự án gốc TrafficMonitor (tác giả zhongyang219, xem [NOTICE.md](./NOTICE.md)). Từ V1.90-vn, bốn skin có hình nhân vật hoạt hình của bên thứ ba (`0_MacDinh`, `MacDinh2`, `GiaoDien01`, `GiaoDien02`) không còn kèm theo; máy đang dùng các skin này sẽ tự chuyển sang `0_tsudev_Cu`.
 
 ## Cài thêm skin
 
