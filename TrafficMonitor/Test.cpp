@@ -26,7 +26,7 @@ static void TestGetLicense()
 static void TestSkin()
 {
     CSkinFile skin;
-    skin.Load(L"0_MacDinh");
+    skin.Load(L"0_tsudev_Cu");
     int a = 0;
 }
 

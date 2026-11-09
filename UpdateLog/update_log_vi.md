@@ -4,6 +4,12 @@
 
 Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tại [update_log_en-us.md](./update_log_en-us.md).
 
+## Chưa phát hành
+
+### Giao diện (skin)
+* Skin mặc định mới **`0_tsudev_Cu`** (chú cú tsudev, nền sáng) và skin **`tsudev_VongMang`** (biểu tượng tsudev, nền tối), sinh bằng `tools/skin_assets/make_skins.py` từ ảnh nguồn của tsudev.
+* Gỡ 4 skin có hình nhân vật hoạt hình của bên thứ ba kế thừa từ bản gốc: `0_MacDinh`, `MacDinh2`, `GiaoDien01`, `GiaoDien02`. Máy đang dùng các skin này tự chuyển sang `0_tsudev_Cu` (skin đầu tiên theo thứ tự tên).
+
 ## V1.89-vn (2026-11-09)
 
 ### Sửa lỗi

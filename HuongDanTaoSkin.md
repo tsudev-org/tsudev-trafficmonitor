@@ -11,7 +11,7 @@ Mỗi skin là một thư mục con trong thư mục `skins` (nằm cạnh `Traf
 ```
 TrafficMonitor.exe
 skins\
-  0_MacDinh\
+  0_tsudev_Cu\
     background.png      ← nền khi "Hiện thêm thông số" TẮT (cửa sổ nhỏ)
     background_l.png    ← nền khi "Hiện thêm thông số" BẬT (cửa sổ lớn)
     skin.xml            ← tệp cấu hình skin (khuyến nghị)
@@ -118,7 +118,7 @@ Quy định cách ghép ảnh xem trước trong hộp thoại **Đổi giao di�
 
 ## 3. Quy trình tạo skin nhanh
 
-1. Sao chép một skin có sẵn (ví dụ `skins\0_MacDinh`) thành thư mục mới.
+1. Sao chép một skin có sẵn (ví dụ `skins\0_tsudev_Cu`) thành thư mục mới.
 2. Thay `background.png` và `background_l.png` bằng ảnh của bạn (giữ nguyên kích thước hoặc sửa `width`/`height` trong `skin.xml` cho khớp).
 3. Sửa `skin.xml`: tác giả, phông chữ, màu, vị trí các mục.
 4. Mở TrafficMonitor → menu chuột phải → **Chức năng khác** → **Đổi giao diện...**, chọn skin mới để xem trước và áp dụng. Sau mỗi lần sửa, chọn sang skin khác rồi chọn lại để nạp lại.
