@@ -20,7 +20,7 @@ Copyright (c) <2019> <copyright zhongyang219>
 
 | Thành phần | Bản quyền | Giấy phép |
 |---|---|---|
-| [TinyXML-2](https://github.com/leethomason/tinyxml2) (`TrafficMonitor/tinyxml2`) | Lee Thomason | zlib |
+| [TinyXML-2](https://github.com/leethomason/tinyxml2) 11.0.0 (`TrafficMonitor/tinyxml2`, nguyên văn bản phát hành) | Lee Thomason | zlib |
 | [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) (`OpenHardwareMonitorApi/LibreHardwareMonitorLib.dll`, chỉ bản đầy đủ) | Những người đóng góp LibreHardwareMonitor | MPL-2.0 |
 | Microsoft Foundation Classes (MFC), Windows SDK | Microsoft Corporation | Theo giấy phép Visual Studio / Windows SDK |
 
