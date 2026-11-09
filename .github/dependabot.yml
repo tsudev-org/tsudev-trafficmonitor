@@ -1,4 +1,4 @@
-# Tự động đề xuất cập nhật phiên bản GitHub Actions (vá lỗ hổng chuỗi cung ứng CI)
+# Tự động đề xuất cập nhật GitHub Actions và phụ thuộc npm của website (vá lỗ hổng chuỗi cung ứng)
 version: 2
 updates:
   - package-ecosystem: github-actions
@@ -7,3 +7,15 @@ updates:
       interval: weekly
     commit-message:
       prefix: "ci"
+  - package-ecosystem: npm
+    directory: /website
+    schedule:
+      interval: weekly
+    # Chỉ đề xuất bản đã phát hành ít nhất 7 ngày (giảm rủi ro gói độc hại mới đăng)
+    cooldown:
+      default-days: 7
+    groups:
+      website:
+        patterns: ["*"]
+    commit-message:
+      prefix: "website"
