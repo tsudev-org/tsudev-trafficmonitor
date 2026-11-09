@@ -3,7 +3,7 @@
 // Chạy sau `npm run build`: `npm run check:a11y` (CI: website.yml). Cần Chromium của Playwright:
 // `npx playwright install --with-deps chromium`.
 import { createServer } from 'node:http';
-import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, extname, join, normalize, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
@@ -18,10 +18,10 @@ const MIME = {
 
 function pages(dir) {
   const out = [];
-  for (const name of readdirSync(dir)) {
-    const p = join(dir, name);
-    if (statSync(p).isDirectory()) out.push(...pages(p));
-    else if (name.endsWith('.html')) out.push('/' + relative(dist, p).split(sep).join('/').replace(/(^|\/)index\.html$/, '$1'));
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, e.name);
+    if (e.isDirectory()) out.push(...pages(p));
+    else if (e.isFile() && e.name.endsWith('.html')) out.push('/' + relative(dist, p).split(sep).join('/').replace(/(^|\/)index\.html$/, '$1'));
   }
   return out.sort();
 }
@@ -31,13 +31,18 @@ const server = createServer((req, res) => {
   let path = decodeURIComponent(new URL(req.url, 'http://127.0.0.1').pathname);
   if (path.endsWith('/')) path += 'index.html';
   const file = normalize(join(dist, path));
-  if (!file.startsWith(dist) || !existsSync(file) || statSync(file).isDirectory()) {
+  // Đọc thẳng rồi bắt lỗi (không kiểm tồn tại trước: tránh TOCTOU); chặn vượt ra ngoài dist/
+  let body = null;
+  if (file.startsWith(dist + sep)) {
+    try { body = readFileSync(file); } catch { body = null; }   // không có, hoặc là thư mục (EISDIR)
+  }
+  if (body === null) {
     res.writeHead(404, { 'content-type': MIME['.html'] });
     res.end(readFileSync(join(dist, '404.html')));
     return;
   }
   res.writeHead(200, { 'content-type': MIME[extname(file)] ?? 'application/octet-stream' });
-  res.end(readFileSync(file));
+  res.end(body);
 });
 await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const base = `http://127.0.0.1:${server.address().port}`;

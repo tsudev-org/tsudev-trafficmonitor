@@ -1,16 +1,16 @@
 // Kiểm tra bản build: mọi trang có title đúng khuôn, og:site_name = tsudev, canonical, description 120-160 ký tự,
 // không có <script> nội tuyến hay style nội tuyến (CSP), liên kết ra ngoài mở tab mới có rel đủ.
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const dist = join(dirname(fileURLToPath(import.meta.url)), '../dist');
 const loi = [];
 function duyet(thuMuc) {
-  for (const ten of readdirSync(thuMuc)) {
-    const p = join(thuMuc, ten);
-    if (statSync(p).isDirectory()) duyet(p);
-    else if (ten.endsWith('.html')) kiemTra(p, readFileSync(p, 'utf8'));
+  for (const e of readdirSync(thuMuc, { withFileTypes: true })) {
+    const p = join(thuMuc, e.name);
+    if (e.isDirectory()) duyet(p);
+    else if (e.isFile() && e.name.endsWith('.html')) kiemTra(p, readFileSync(p, 'utf8'));
   }
 }
 function kiemTra(tep, html) {

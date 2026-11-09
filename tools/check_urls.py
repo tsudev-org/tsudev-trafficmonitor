@@ -19,6 +19,7 @@ import re
 import subprocess
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -58,6 +59,9 @@ ALLOWED_PREFIXES = [
 ]
 
 # http:// duy nhất được chấp nhận: namespace XML (không phải liên kết tải)
+# URL là định danh (không phải trang web), bỏ qua khi kiểm liên kết còn sống
+NOT_PAGES = ["https://spdx.dev/Document/"]
+
 ALLOWED_HTTP = ["http://schemas.microsoft.com/developer/msbuild/2003", "http://www.sitemaps.org/schemas/sitemap/0.9",
                 "http://localhost:", "http://127.0.0.1"]   # máy chủ tạm chỉ trên máy (website/scripts/check-a11y.mjs)
 
@@ -169,8 +173,10 @@ def scan() -> tuple[list[str], set[str]]:
 def check_live(urls: set[str]) -> list[str]:
     bad = []
     for url in sorted(urls):
-        if "img.shields.io" in url or url.startswith("https://api") or url.endswith("/releases/download/"):
-            continue  # huy hiệu, API trả nội dung động, tiền tố tải (không phải trang)
+        host = (urllib.parse.urlsplit(url).hostname or "").lower()
+        if host == "img.shields.io" or host.startswith("api.") or url.endswith("/releases/download/") \
+                or any(url.startswith(p) for p in NOT_PAGES):
+            continue  # huy hiệu, API trả nội dung động, tiền tố tải, định danh (không phải trang)
         target = url.split("#", 1)[0]
         req = urllib.request.Request(target, method="GET", headers={"User-Agent": "tsudev-trafficmonitor-link-check"})
         try:
