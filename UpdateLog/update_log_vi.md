@@ -4,7 +4,9 @@
 
 Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 
-## 26.11.0903 (09/11/2026)
+## 26.11.0904 (09/11/2026)
+
+> Số 26.11.0903 không phát hành (bản build lỗi ở bước sinh SBOM trước khi tạo Release); 26.11.0904 có cùng nội dung.
 
 ### Bảo mật
 * Nâng thư viện đọc XML tinyxml2 lên 11.0.0 (trước là bản 9.0 chưa phát hành chính thức), vá CVE-2024-50614 và CVE-2024-50615: tệp `skin.xml` độc hại có thể làm ứng dụng dừng đột ngột.

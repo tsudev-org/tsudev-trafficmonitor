@@ -4,7 +4,9 @@
 
 Changes in each TrafficMonitor-VN release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 
-## 26.11.0903 (09/11/2026)
+## 26.11.0904 (09/11/2026)
+
+> Version 26.11.0903 was not released (the build failed while generating the SBOM, before the Release was created); 26.11.0904 has the same content.
 
 ### Security
 * Upgraded the tinyxml2 XML library to 11.0.0 (previously an unreleased 9.0 snapshot), fixing CVE-2024-50614 and CVE-2024-50615: a malicious `skin.xml` could crash the app.
