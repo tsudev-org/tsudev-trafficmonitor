@@ -31,12 +31,13 @@ export function docTep(duongDan: string): string {
 
 /** Slug kiểu GitHub: chữ thường, bỏ dấu câu, khoảng trắng -> "-" (giữ chữ có dấu tiếng Việt). */
 export function slug(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/<[^>]+>/g, '')
-    .replace(/[^\p{L}\p{N}\s_-]/gu, '')
-    .replace(/\s/g, '-');
+  // Bỏ thẻ HTML lặp tới khi hết (một lượt có thể để lại thẻ ghép lồng như "<scr<b>ipt>")
+  let s = text.toLowerCase().trim();
+  for (let truoc = ''; truoc !== s; ) {
+    truoc = s;
+    s = s.replace(/<[^<>]*>/g, '');
+  }
+  return s.replace(/[^\p{L}\p{N}\s_-]/gu, '').replace(/\s/g, '-');
 }
 
 function viTriLienKet(href: string, tepMd: string): string {
@@ -50,8 +51,14 @@ function viTriLienKet(href: string, tepMd: string): string {
   return `${REPO_URL}/${loai}/main/${encodeURI(tuyetDoi)}${neo ? '#' + neo : ''}`;
 }
 
+/** Liên kết ngoài = http(s) tới host khác trang này (so hostname, không so chuỗi đầu: "trafficmonitor.tsudev.com.evil.example" là ngoài). */
 function laNgoai(href: string): boolean {
-  return /^https?:/.test(href) && !href.startsWith(SITE);
+  if (!/^https?:/i.test(href)) return false;
+  try {
+    return new URL(href).hostname.toLowerCase() !== new URL(SITE).hostname;
+  } catch {
+    return true;   // URL hỏng: coi là ngoài (thêm rel="noopener noreferrer")
+  }
 }
 
 /** Chuyển Markdown của repo sang HTML: sửa liên kết tương đối, thêm id cho tiêu đề, rel cho liên kết ngoài. */
