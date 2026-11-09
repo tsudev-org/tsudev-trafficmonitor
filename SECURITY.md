@@ -46,7 +46,7 @@ openssl dgst -sha256 -verify update_signing_pub.pem -signature sig.der version_s
 
 ## Build tái lập (reproducible build)
 
-Từ 26.11.0906, cùng mã nguồn (cùng commit) build bằng cùng bộ công cụ cho ra `TrafficMonitor.exe` và gói zip **giống nhau từng byte**:
+Từ 26.11.1001, cùng mã nguồn (cùng commit) build bằng cùng bộ công cụ cho ra `TrafficMonitor.exe` và gói zip **giống nhau từng byte**:
 
 * `/Brepro` cho trình biên dịch và trình liên kết: PE timestamp và GUID PDB lấy từ băm nội dung thay vì thời điểm build; `/PDBALTPATH:%_PDB%` không ghi đường dẫn thư mục build vào exe ([`Directory.Build.props`](./Directory.Build.props)).
 * "Ngày biên dịch" trong hộp thoại Giới thiệu là **thời điểm commit** (`SOURCE_DATE_EPOCH` hoặc `git log -1 --format=%ct`), không phải giờ build ([`TrafficMonitor/print_compile_time.bat`](./TrafficMonitor/print_compile_time.bat)).
@@ -57,7 +57,7 @@ Tự kiểm một bản phát hành (Windows, Visual Studio 2022 có MFC v143):
 
 ```powershell
 git clone https://github.com/tsudev-org/tsudev-trafficmonitor; cd tsudev-trafficmonitor
-git checkout V26.11.0906-vn
+git checkout V26.11.1001-vn
 msbuild TrafficMonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=x64 -p:PlatformToolset=v143
 Get-FileHash "Bin\x64\Release (lite)\TrafficMonitor.exe"   # so với TrafficMonitor.exe trong gói zip của bản phát hành
 ```

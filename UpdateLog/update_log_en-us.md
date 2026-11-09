@@ -4,6 +4,15 @@
 
 Changes in each TrafficMonitor-VN release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 
+## 26.11.1001 (10/11/2026)
+
+### Fixes
+* After downloading an update and verifying its SHA-256, 26.11.0905 did not open the Downloads folder; it now opens the folder with the file selected.
+
+### Security
+* Safer skin file (`skin.xml`) parsing: files up to 1 MB, limits on element count and depth; out-of-range sizes, positions, font sizes and colors are clamped; overly long strings are truncated. Invalid skins fall back to the default look. Covered by automated tests and fuzzing with the real skins.
+* **Reproducible builds:** the same source and toolchain produce byte-identical `TrafficMonitor.exe` and zip packages; CI builds twice to check. The "compiled date" in About is now the source commit time. How to verify: [SECURITY.md](../SECURITY.md) (Vietnamese).
+
 ## 26.11.0905 (09/11/2026)
 
 ### Security

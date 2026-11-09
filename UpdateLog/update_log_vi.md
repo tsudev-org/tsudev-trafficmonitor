@@ -4,6 +4,15 @@
 
 Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 
+## 26.11.1001 (10/11/2026)
+
+### Sửa lỗi
+* Sau khi tự tải gói cập nhật và kiểm SHA-256 khớp, bản 26.11.0905 không mở được thư mục Tải về; nay mở đúng thư mục và chọn sẵn tệp.
+
+### Bảo mật
+* Đọc tệp skin (`skin.xml`) an toàn hơn: tệp tối đa 1 MB, giới hạn số phần tử và độ sâu; kích thước, tọa độ, cỡ phông, màu ngoài khoảng hợp lệ được đưa về khoảng hợp lệ; chuỗi quá dài bị cắt. Skin không hợp lệ thì dùng giao diện mặc định. Có kiểm thử tự động và fuzzing với các skin thật.
+* **Build tái lập:** cùng mã nguồn và cùng bộ công cụ cho ra cùng `TrafficMonitor.exe` và cùng gói zip từng byte; CI tự build hai lần để kiểm. "Ngày biên dịch" trong Giới thiệu nay là thời điểm commit của mã nguồn. Cách tự kiểm: [SECURITY.md](../SECURITY.md#build-tái-lập-reproducible-build).
+
 ## 26.11.0905 (09/11/2026)
 
 ### Bảo mật
