@@ -33,9 +33,6 @@ ALLOWED_PREFIXES = [
     "https://tsudev.com",
     # Repo cũ (lưu trữ): chỉ để dẫn tới lịch sử commit
     "https://github.com/tsudev-tsudev/TrafficMonitor-VN",
-    # Dự án gốc (ghi công theo giấy phép Anti 996) và plugin/skin của tác giả gốc
-    "https://github.com/zhongyang219/TrafficMonitor",
-    "https://raw.githubusercontent.com/zhongyang219/TrafficMonitorPlugins/",
     # Ghi công thư viện bên thứ ba
     "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor",
     "https://github.com/leethomason/tinyxml2",
@@ -43,11 +40,6 @@ ALLOWED_PREFIXES = [
     "https://api.ipify.org/",
     "https://api6.ipify.org/",
     "https://www.ipify.org/",
-    # Ghi công người dịch (TRANSLATOR_URL trong gói ngôn ngữ) và người đóng góp skin
-    "https://www.facebook.com/czoooz",
-    "https://hberkayaktas.github.io/",
-    "https://github.com/Knres",
-    "https://github.com/mooondark",
     # Tài liệu tham khảo, huy hiệu README
     "https://learn.microsoft.com/",
     "https://docs.microsoft.com/",
@@ -64,12 +56,11 @@ ALLOWED_PREFIXES = [
 ALLOWED_HTTP = ["http://schemas.microsoft.com/developer/msbuild/2003", "http://www.sitemaps.org/schemas/sitemap/0.9",
                 "http://localhost:"]
 
-# Tệp/thư mục không kiểm tra: mã và tài liệu bên thứ ba giữ nguyên văn, lịch sử của dự án gốc
+# Tệp/thư mục không kiểm tra: mã và tài liệu bên thứ ba giữ nguyên văn
 EXCLUDE = [
     re.compile(r"^LICENSE"),
     re.compile(r"^TrafficMonitor/tinyxml2/"),
     re.compile(r"^OpenHardwareMonitorApi/LibreHardwareMonitorLib\.xml$"),
-    re.compile(r"^UpdateLog/update_log_en-us\.md$"),
     re.compile(r"^tools/check_urls\.py$"),
     re.compile(r"^website/package-lock\.json$"),
     re.compile(r"^website/public/fonts/"),

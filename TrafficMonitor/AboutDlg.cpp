@@ -20,19 +20,12 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
     CBaseDialog::DoDataExchange(pDX);
     DDX_Control(pDX, IDC_STATIC_MAIL, m_mail);
-    DDX_Control(pDX, IDC_STATIC_ACKNOWLEDGEMENT, m_acknowledgement);
     DDX_Control(pDX, IDC_STATIC_GITHUB, m_github);
     DDX_Control(pDX, IDC_TRANSLATOR_STATIC, m_translator_static);
     DDX_Control(pDX, IDC_STATIC_LICENSE, m_license);
     DDX_Control(pDX, IDC_OPENHARDWAREMONITOR_LINK, m_openhardwaremonitor_link);
     DDX_Control(pDX, IDC_TINYXML2_LINK, m_tinyxml2_link);
-    DDX_Control(pDX, IDC_STATIC_GITEE, m_gitee);
     DDX_Control(pDX, IDC_STATIC_TSUDEV, m_tsudev);
-}
-
-CString CAboutDlg::GetDonateList()
-{
-    return CCommon::GetTextResource(IDR_ACKNOWLEDGEMENT_TEXT, 2);
 }
 
 CString CAboutDlg::GetDialogName() const
@@ -45,10 +38,8 @@ bool CAboutDlg::InitializeControls()
     RepositionTextBasedControls({
         { CtrlTextInfo::L4, IDC_STATIC_MAIL },
         { CtrlTextInfo::L3, IDC_STATIC_GITHUB },
-        { CtrlTextInfo::L2, IDC_STATIC_GITEE },
-        { CtrlTextInfo::L4, IDC_STATIC_LICENSE },
-        { CtrlTextInfo::L3, IDC_STATIC_ACKNOWLEDGEMENT },     //Cùng cột thứ hai với "GitHub" (x=55 trong tài nguyên)
-        { CtrlTextInfo::L2, IDC_STATIC_TSUDEV }               //Cùng cột thứ ba với "Dự án gốc"
+        { CtrlTextInfo::L2, IDC_STATIC_TSUDEV },
+        { CtrlTextInfo::L4, IDC_STATIC_LICENSE }              //Dòng "Giấy phép": mở LICENSE (nơi giữ thông báo bản quyền bắt buộc)
         });
     return true;
 }
@@ -73,12 +64,10 @@ BOOL CAboutDlg::OnInitDialog()
     // TODO:  Thêm khởi tạo bổ sung tại đây
     SetRememberDlgSize(false);
 
-    //Bản Việt hóa: "Liên hệ" mở trang báo lỗi của repo Việt hóa; "GitHub" mở repo Việt hóa; "Dự án gốc" mở repo của tác giả gốc
+    //Bản Việt hóa: "Liên hệ" mở trang báo lỗi của repo; "GitHub" mở repo; "Giấy phép" hiện nội dung LICENSE
     m_mail.SetURL(CString(FORK_REPO_URL) + _T("/issues"));   //Thiết lập siêu liên kết
     m_github.SetURL(FORK_REPO_URL);
-    m_gitee.SetURL(UPSTREAM_REPO_URL);
     m_tsudev.SetURL(TSUDEV_HOME_URL);
-    m_acknowledgement.SetLinkIsURL(false);
     m_license.SetLinkIsURL(false);
 
     m_openhardwaremonitor_link.SetURL(THIRD_PARTY_LIBREHARDWAREMONITOR_URL);
@@ -86,9 +75,7 @@ BOOL CAboutDlg::OnInitDialog()
     m_openhardwaremonitor_link.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_tinyxml2_link.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_mail.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
-    m_acknowledgement.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_github.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
-    m_gitee.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_tsudev.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_license.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
 
@@ -127,7 +114,6 @@ BOOL CAboutDlg::OnInitDialog()
     m_tool_tip.Create(this, TTS_ALWAYSTIP | TTS_NOPREFIX);
     m_tool_tip.AddTool(&m_mail, CCommon::LoadText(IDS_SEND_EMAIL_TO_ATHOUR, _T("\r\n")) + m_mail.GetURL());
     m_tool_tip.AddTool(&m_github, CCommon::LoadText(IDS_GOTO_GITHUB, _T("\r\n")) + FORK_REPO_URL);
-    m_tool_tip.AddTool(&m_gitee, CCommon::LoadText(IDS_GOTO_GITEE, _T("\r\n")) + UPSTREAM_REPO_URL);
     m_tool_tip.AddTool(&m_tsudev, TSUDEV_HOME_URL);
     m_tool_tip.AddTool(&m_openhardwaremonitor_link, m_openhardwaremonitor_link.GetURL());
     m_tool_tip.AddTool(&m_tinyxml2_link, m_tinyxml2_link.GetURL());
@@ -182,18 +168,7 @@ BOOL CAboutDlg::PreTranslateMessage(MSG* pMsg)
 afx_msg LRESULT CAboutDlg::OnLinkClicked(WPARAM wParam, LPARAM lParam)
 {
     CWnd* pCtrl = (CWnd*)wParam;
-    if (pCtrl == &m_acknowledgement)
-    {
-        CString strContent = GetDonateList();
-        //strContent += _T("\r\n");
-        //strContent += CCommon::LoadText(IDS_ACKNOWLEDGEMENT_EXPLAIN);
-        CMessageDlg dlg;
-        dlg.SetWindowTitle(CCommon::LoadText(IDS_TITLE_ACKNOWLEDGEMENT));
-        //dlg.SetInfoText(CCommon::LoadText(IDS_THANKS_DONORS));
-        dlg.SetMessageText(strContent);
-        dlg.DoModal();
-    }
-    else if (pCtrl == &m_license)
+    if (pCtrl == &m_license)
     {
         CMessageDlg dlg;
         dlg.SetWindowTitle(CCommon::LoadText(IDS_LICENSE));

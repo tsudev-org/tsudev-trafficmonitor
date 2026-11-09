@@ -83,13 +83,13 @@ const wchar_t* CPluginDemo::GetInfo(PluginInfoIndex index)
         str.LoadString(IDS_PLUGIN_DESCRIPTION);
         return str.GetString();
     case TMI_AUTHOR:
-        return L"zhongyang219";
+        return L"tsudev";
     case TMI_COPYRIGHT:
-        return L"Copyright (C) by Zhong Yang 2021";
+        return L"Copyright (c) 2026 tsudev";
     case TMI_VERSION:
         return L"1.0";
     case ITMPlugin::TMI_URL:
-        return L"https://github.com/zhongyang219/TrafficMonitor";
+        return L"https://trafficmonitor.tsudev.com";
         break;
     default:
         break;

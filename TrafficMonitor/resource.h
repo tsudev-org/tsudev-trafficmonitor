@@ -36,7 +36,6 @@
 #define IDR_TEXT                        290
 #define IDD_DIALOG1                     293
 #define IDD_MESSAGE_DIALOG              293
-#define IDR_ACKNOWLEDGEMENT_TEXT        294
 #define IDI_NOFITY_ICON4                299
 #define IDB_NOTIFY_ICON_PREVIEW_LIGHT   302
 #define IDB_BITMAP3                     305
@@ -143,7 +142,6 @@
 #define IDC_SPEED_SHORT_MODE_CHECK2     1043
 #define IDC_SET_LIGHT_MODE_BUTTON       1043
 #define IDC_CHECK_UPDATE_CHECK          1044
-#define IDC_STATIC_GITEE                1044
 #define IDC_CHECK_NOW_BUTTON            1045
 #define IDC_AUTO_RUN_CHECK              1046
 #define IDC_TASKBAR_WND_ON_LEFT_CHECK   1047
@@ -207,7 +205,6 @@
 #define IDC_PREVIEW_BUTTON              1083
 #define IDC_MAIN_BOARD_TEMP_VALUE_STATIC 1083
 #define IDC_INDEX_STATIC                1084
-#define IDC_STATIC_ACKNOWLEDGEMENT      1085
 #define IDC_TRADITIONAL_CHINESE_TRANSLATOR_STATIC 1086
 #define IDC_TRANSLATOR_STATIC           1087
 #define IDC_SEPARATE_VALUE_UNIT_CHECK   1089

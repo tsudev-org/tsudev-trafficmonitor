@@ -20,7 +20,6 @@
 #include "TaskBarDlgDrawCommon.h"
 #include "DllFunctions.h"
 #include "StrTable.h"
-#include "PluginUpdateHelper.h"
 #include "PluginInterface.h"
 
 // CTrafficMonitorApp:
@@ -89,7 +88,6 @@ public:
     CPluginManager m_plugins;
     CDllFunctions m_dll_functions;
     CStrTable m_str_table;
-    CPluginUpdateHelper m_plugin_update;
 
     CMenu m_main_menu;          //Menu chuột phải của cửa sổ chính
     CMenu m_main_menu_plugin;   //Menu chuột phải khi nhấp vào vùng plugin của cửa sổ chính
