@@ -1,8 +1,8 @@
-**Tiếng Việt | [English (dự án gốc)](./update_log_en-us.md)**
+**Tiếng Việt | [English](./update_log_en-us.md)**
 
 # Nhật ký cập nhật — TrafficMonitor-VN
 
-Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tại [update_log_en-us.md](./update_log_en-us.md).
+Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 
 ## 26.11.0901 (2026-11-09)
 
@@ -30,12 +30,12 @@ Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tạ
 ## V1.89-vn (2026-11-09)
 
 ### Sửa lỗi
-* Hộp thoại Giới thiệu: chữ "Lời cảm ơn" đè lên liên kết "tsudev.com" (V1.88-vn) vì được xếp vào cột thứ ba khi tự giãn theo độ dài chữ; nay "Lời cảm ơn" cùng cột với "GitHub", "tsudev.com" cùng cột với "Dự án gốc".
+* Hộp thoại Giới thiệu: chữ "Lời cảm ơn" đè lên liên kết "tsudev.com" (V1.88-vn) vì được xếp vào cột thứ ba khi tự giãn theo độ dài chữ; nay các liên kết xếp đúng hai cột.
 
 ## V1.88-vn (2026-11-09) — Bản cập nhật có chữ ký số
 
 ### Nhận diện tsudev
-* Thông tin tệp chương trình: nhà phát hành `tsudev`, `Copyright (c) 2026 tsudev` (giữ ghi công ZhongYang), kèm `https://tsudev.com`.
+* Thông tin tệp chương trình: nhà phát hành `tsudev`, `Copyright (c) 2026 tsudev`, kèm `https://tsudev.com`.
 * Hộp thoại Giới thiệu thêm liên kết tới [tsudev.com](https://tsudev.com).
 * Trang sản phẩm [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com): tải về kèm SHA-256, hướng dẫn, nhật ký, bảo mật.
 
@@ -66,9 +66,9 @@ Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tạ
 * Thông báo trong các gói ngôn ngữ có dấu `=` thừa trước cụm trong ngoặc kép (ví dụ `tệp= "..."`, `"Tùy chọn" >= "Cài đặt chung"`), lỗi có sẵn từ bản gốc; đã bỏ ở mọi gói ngôn ngữ.
 
 ### Chuyển liên kết về TrafficMonitor-VN
-* "Tải thêm mẫu mạng" (Kho giao diện), "Tải thêm Plugin" và "Hướng dẫn làm Plugin" (Quản lý Plugin) mở trang tiếng Việt của TrafficMonitor-VN: [KhoGiaoDien.md](../KhoGiaoDien.md), [Plugin.md](../Plugin.md), [PhatTrienPlugin.md](../PhatTrienPlugin.md) thay vì trang tiếng Trung/Anh của dự án gốc.
-* Thông báo crash ở 14 gói ngôn ngữ còn lại (Pháp, Đức, Nhật...) hướng dẫn báo lỗi tại trang Issues của TrafficMonitor-VN thay vì gửi email cho tác giả gốc.
-* Mọi URL của bản Việt hóa gom về `ForkConfig.h` (gồm cả nguồn tra phiên bản plugin của dự án gốc).
+* "Tải thêm mẫu mạng" (Kho giao diện), "Tải thêm Plugin" và "Hướng dẫn làm Plugin" (Quản lý Plugin) mở trang tiếng Việt của TrafficMonitor-VN: [KhoGiaoDien.md](../KhoGiaoDien.md), [Plugin.md](../Plugin.md), [PhatTrienPlugin.md](../PhatTrienPlugin.md)
+* Thông báo crash ở 14 gói ngôn ngữ còn lại (Pháp, Đức, Nhật...) hướng dẫn báo lỗi tại trang Issues của TrafficMonitor-VN thay vì gửi email.
+* Mọi URL của bản Việt hóa gom về `ForkConfig.h`.
 
 ### Giao diện (bổ sung sau khi kiểm tra bằng ảnh chụp thật)
 * Rút gọn "Đổi vị trí hàng trên/dưới cho Upload/Download", "Mỗi thông số một màu riêng biệt" (bị khung nhóm che dù điều khiển tự giãn khi chạy) và tên ngôn ngữ "Tiếng Việt (Chuẩn)" → "Tiếng Việt" (bị cắt trong ô chọn ngôn ngữ).
@@ -82,7 +82,7 @@ Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tạ
 
 ## V1.86-vn (2026-11-07) — Bản Việt hóa đầu tiên
 
-Dựa trên TrafficMonitor 1.86 (commit `930f175` của dự án gốc).
+Dựa trên TrafficMonitor 1.86.
 
 ### Việt hóa
 * Giao diện tiếng Việt mặc định ở lần chạy đầu; gói ngôn ngữ tiếng Việt đầy đủ 438/438 chuỗi và được nhúng trong tệp chương trình.
@@ -95,11 +95,11 @@ Dựa trên TrafficMonitor 1.86 (commit `930f175` của dự án gốc).
 
 ### Gỡ tiếng Trung và phân định bản quyền
 * Bỏ gói ngôn ngữ tiếng Trung giản thể/phồn thể, hộp thoại chọn màu tiếng Trung, lời cảm ơn tiếng Trung (thay bằng bản tiếng Việt) và phần nội dung cập nhật tiếng Trung.
-* Thông tin phiên bản của tệp chương trình dùng locale tiếng Việt, tên sản phẩm "TrafficMonitor-VN", giữ ghi công tác giả gốc.
-* Hộp thoại Giới thiệu: bỏ mục quảng bá phần mềm khác của tác giả gốc, thêm dòng bản quyền của bản Việt hóa; báo lỗi khi crash chuyển về trang Issues của TrafficMonitor-VN thay vì email tác giả gốc.
+* Thông tin phiên bản của tệp chương trình dùng locale tiếng Việt, tên sản phẩm "TrafficMonitor-VN".
+* Hộp thoại Giới thiệu: bỏ mục quảng bá phần mềm khác, thêm dòng bản quyền của bản Việt hóa; báo lỗi khi crash chuyển về trang Issues của TrafficMonitor-VN thay vì email.
 * Bỏ 2 skin dùng hình nền/logo Windows của Microsoft (GiaoDien04, GiaoDien07); skin GiaoDien11 đổi chữ tiếng Trung "bộ nhớ" in trong ảnh nền thành "RAM".
 * Bỏ ảnh chụp màn hình giao diện tiếng Trung khỏi tài liệu (sẽ thay bằng ảnh giao diện tiếng Việt).
-* Thêm NOTICE.md phân định bản quyền: phần thay đổi của TrafficMonitor-VN © 2026 tsudev-tsudev; mã kế thừa © zhongyang219 (bắt buộc giữ theo giấy phép Anti 996).
+* Thêm NOTICE.md phân định bản quyền; giữ nguyên thông báo giấy phép gốc theo yêu cầu của giấy phép Anti 996.
 * `tools/check_i18n.py` quét chữ Trung trong cả tài liệu, tệp `.rc` UTF-16, `.ini`, `.xml`... (trừ LICENSE_CN và gói tiếng Nhật).
 
 ### Bảo mật

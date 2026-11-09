@@ -13,9 +13,7 @@ Theo dõi tốc độ mạng, CPU, RAM trên Windows — bản Việt hóa và g
 
 Một sản phẩm của [tsudev](https://tsudev.com). Trang sản phẩm: [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com). Hạng sản phẩm **C** (chạy ngoại tuyến, không tài khoản; mạng chỉ dùng để kiểm tra bản cập nhật và tra IP công cộng khi người dùng bấm).
 
-**TrafficMonitor-VN** là bản Việt hóa và gia cố bảo mật của [TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor) — phần mềm giám sát tốc độ mạng, mức sử dụng CPU/RAM/GPU/ổ cứng trên Windows với cửa sổ nổi và hiển thị trực tiếp trên thanh tác vụ (Taskbar).
-
-> Dự án gốc do **zhongyang219** phát triển, phát hành theo giấy phép **Anti 996**. TrafficMonitor-VN giữ nguyên giấy phép và thông báo bản quyền của tác giả gốc.
+**TrafficMonitor-VN** là bản Việt hóa và gia cố bảo mật của TrafficMonitor — phần mềm giám sát tốc độ mạng, mức sử dụng CPU/RAM/GPU/ổ cứng trên Windows với cửa sổ nổi và hiển thị trực tiếp trên thanh tác vụ (Taskbar).
 
 ## Điểm khác biệt so với bản gốc
 
@@ -41,7 +39,9 @@ Chi tiết xem [SECURITY.md](./SECURITY.md).
 
 ## Tải về
 
-* Bản phát hành: [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` — hãy đối chiếu mã băm trước khi chạy (xem [SECURITY.md](./SECURITY.md#kiểm-tra-tính-toàn-vẹn-tệp-tải-về)).
+* Bản phát hành: [trang Tải về](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` và chứng thực nguồn gốc build — hãy đối chiếu mã băm trước khi chạy (xem [SECURITY.md](./SECURITY.md#kiểm-tra-tính-toàn-vẹn-tệp-tải-về)).
+* Gói phát hành là tệp `.zip` giải nén là chạy (`tsudev-trafficmonitor_<phiên bản>_<kiến trúc>_Lite.zip`), không có bộ cài `-setup.exe` như mẫu tên trong chuẩn VERSIONING của tsudev; kiến trúc là `x64`, `x86` hoặc `arm64ec` (ghi đúng kiểu build ARM64EC thay cho `arm64`).
+* Kiểm tra cập nhật trong ứng dụng chỉ tin thông tin phiên bản có **chữ ký số** (ECDSA P-256) và hiển thị SHA-256 của gói để đối chiếu.
 * Bản build thử nghiệm: tab [Actions](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml) (cần đăng nhập GitHub).
 
 TrafficMonitor-VN **chỉ** được phát hành qua repo GitHub trên. Mọi trang web khác tự xưng là “trang chính thức” đều không liên quan.
@@ -50,7 +50,7 @@ Chương trình cần **Microsoft Visual C++ Redistributable**. Nếu khi chạy
 
 ## Phiên bản
 
-TrafficMonitor-VN phát hành bản **Lite** (không cần quyền Quản trị viên). Từ bản gốc 1.86, bản Lite đã có giám sát GPU và ổ cứng; chỉ thiếu đo nhiệt độ. Nhu cầu đo nhiệt độ/quạt/công suất nên dùng plugin [Hardware Monitor](https://github.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download_en.md) của tác giả gốc.
+TrafficMonitor-VN phát hành bản **Lite** (không cần quyền Quản trị viên). Bản Lite có giám sát GPU và ổ cứng, nhưng **không đo nhiệt độ**.
 
 | Tính năng | Bản đầy đủ (tự build) | Bản Lite |
 |---|---|---|
@@ -106,7 +106,7 @@ Chi tiết mạng (nhấp đúp vào cửa sổ nổi; địa chỉ MAC, IP và 
 
 Plugin là tệp `.dll` đặt trong thư mục `plugins` cạnh `TrafficMonitor.exe`, được nạp khi chương trình khởi động; quản lý tại **Cài đặt Chung** → **Nâng cao** → **Quản lý Plugin...**.
 
-* Cài plugin và nguồn plugin: [Plugin](./Plugin.md).
+* Cài plugin: [Plugin](./Plugin.md).
 * Phát triển plugin: [Phát triển plugin](./PhatTrienPlugin.md); giao diện lập trình (đã chú thích tiếng Việt) ở [`include/PluginInterface.h`](./include/PluginInterface.h), ví dụ ở [`PluginDemo`](./PluginDemo).
 
 > ⚠️ Plugin chạy **cùng quyền với TrafficMonitor**. Chỉ cài plugin từ nguồn tin cậy.
@@ -133,28 +133,24 @@ Tệp kết quả nằm trong `Bin\x64\Release (lite)\` (hoặc `Bin\x64\Release
 
 Cấu hình riêng của bản Việt hóa (repo, URL cập nhật, ngôn ngữ mặc định) tập trung tại [`TrafficMonitor/ForkConfig.h`](./TrafficMonitor/ForkConfig.h). Cờ biên dịch bảo mật nằm ở [`Directory.Build.props`](./Directory.Build.props).
 
-### Đồng bộ với dự án gốc
+### Phát hành (người bảo trì)
 
-Repo này bắt đầu bằng một commit nhập mã nguồn (từ bản V1.87-vn); lịch sử commit trước đó, gồm cả lịch sử của dự án gốc, được lưu ở repo cũ [tsudev-tsudev/TrafficMonitor-VN](https://github.com/tsudev-tsudev/TrafficMonitor-VN) (chỉ đọc). Vì vậy repo không chung lịch sử với dự án gốc và không thể `git merge` trực tiếp. Để lấy bản sửa mới từ dự án gốc, hãy áp dụng từng thay đổi bằng bản vá:
+1. Cập nhật số phiên bản `{YY}.{M}.{DD}{NN}` ở `VERSION` (`TrafficMonitor/stdafx.h`), VERSIONINFO trong `TrafficMonitor/TrafficMonitor.rc` và `version_utf8.info`.
+2. Thêm một dòng vào [CHANGELOG.md](./CHANGELOG.md) và phần chi tiết vào `UpdateLog/update_log_vi.md` + `UpdateLog/update_log_en-us.md`.
+3. PR → CI đạt → gộp; gắn tag có chữ ký `V<phiên bản>-vn`; duyệt environment `release`; kiểm SHA-256, chứng thực build và chữ ký `version_signed.xml`; deploy website.
 
-```bash
-git remote add upstream https://github.com/zhongyang219/TrafficMonitor.git   # chỉ cần một lần
-git fetch upstream
-git diff <commit-cũ-đã-đồng-bộ> upstream/master > upstream.patch
-git apply --3way upstream.patch
-```
+### Lịch sử mã nguồn
 
-Commit dự án gốc đã đồng bộ gần nhất: `930f175` (v1.86). Vì chú thích mã nguồn đã được dịch, khi áp dụng có thể phát sinh xung đột ở các dòng chú thích: hãy giữ phần **mã** của bản gốc và phần **chú thích** tiếng Việt.
+Repo này bắt đầu bằng một commit nhập mã nguồn (từ bản V1.87-vn); lịch sử commit trước đó được lưu ở repo cũ [tsudev-tsudev/TrafficMonitor-VN](https://github.com/tsudev-tsudev/TrafficMonitor-VN) (chỉ đọc).
 
 ## Đóng góp
 
 * Báo lỗi / đề xuất: [Issues](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues/new/choose).
 * Lỗ hổng bảo mật: **không** đăng công khai, xem [SECURITY.md](./SECURITY.md).
-* Nhật ký thay đổi: [UpdateLog/update_log_vi.md](./UpdateLog/update_log_vi.md).
+* Nhật ký thay đổi: [CHANGELOG.md](./CHANGELOG.md) (mỗi bản một dòng), chi tiết ở [UpdateLog/update_log_vi.md](./UpdateLog/update_log_vi.md).
 
 ## Giấy phép
 
 Phát hành theo giấy phép **"Anti 996" License 1.0** — xem [LICENSE](./LICENSE) (bản tiếng Anh) và [LICENSE_CN](./LICENSE_CN) (bản tiếng Trung). Bản dịch tiếng Việt chỉ để tham khảo: [LICENSE_VI.md](./LICENSE_VI.md).
 
-Copyright (c) 2017-2026 zhongyang219 (dự án gốc — bắt buộc giữ theo điều 1 của giấy phép).
-Phần Việt hóa, gia cố bảo mật và các thay đổi của TrafficMonitor-VN: Copyright (c) 2026 tsudev. Chi tiết phân định bản quyền xem [NOTICE.md](./NOTICE.md).
+Copyright (c) 2026 tsudev. Thông báo bản quyền của dự án gốc (bắt buộc giữ theo điều 1 của giấy phép) nằm trong [LICENSE](./LICENSE) và [NOTICE.md](./NOTICE.md).

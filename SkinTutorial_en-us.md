@@ -4,7 +4,7 @@
 
 A skin defines the background image, font, text colours and item positions of TrafficMonitor's **main window** (the floating window). The taskbar window does not use skins.
 
-> This guide is written from the skin loader source code (`TrafficMonitor/SkinFile.cpp`). The original (Chinese) guide by zhongyang219 is in the Wiki of the [original project](https://github.com/zhongyang219/TrafficMonitor).
+> This guide is written from the skin loader source code (`TrafficMonitor/SkinFile.cpp`).
 
 ## 1. Folder structure
 

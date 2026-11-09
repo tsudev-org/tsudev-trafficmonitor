@@ -21,7 +21,7 @@ Every TrafficMonitor-VN release ships the skins below in the `skins` folder next
 | `GiaoDien10_Doc` | ![](./Screenshots/skins/GiaoDien10_Doc.png) | Vertical |
 | `GiaoDien11` | ![](./Screenshots/skins/GiaoDien11.png) | Coloured CPU/RAM tiles |
 
-`0_tsudev_Cu` and `tsudev_VongMang` are designed by tsudev (source images and generator script in `tools/skin_assets/`). The `GiaoDien*` skins come from the original TrafficMonitor project (author zhongyang219, see [NOTICE.md](./NOTICE.md)). Since V1.90-vn, four skins featuring third-party cartoon characters (`0_MacDinh`, `MacDinh2`, `GiaoDien01`, `GiaoDien02`) are no longer included; computers using them switch to `0_tsudev_Cu` automatically.
+`0_tsudev_Cu` and `tsudev_VongMang` are designed by tsudev (source images and generator script in `tools/skin_assets/`). The `GiaoDien*` skins come from the original TrafficMonitor project (see [NOTICE.md](./NOTICE.md)). Since V1.90-vn, four skins featuring third-party cartoon characters (`0_MacDinh`, `MacDinh2`, `GiaoDien01`, `GiaoDien02`) are no longer included; computers using them switch to `0_tsudev_Cu` automatically.
 
 ## Installing more skins
 

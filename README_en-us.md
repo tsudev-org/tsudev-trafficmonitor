@@ -2,7 +2,8 @@
 
 [![Build](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/tsudev-trafficmonitor/build.yml?branch=main&label=Build&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml)
 [![CodeQL](https://img.shields.io/github/actions/workflow/status/tsudev-tsudev/tsudev-trafficmonitor/codeql.yml?branch=main&label=CodeQL&logo=github&style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/codeql.yml)
-[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
+[![Release](https://img.shields.io/github/v/release/tsudev-tsudev/tsudev-trafficmonitor?style=flat-square)](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest)
+[![License](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
 
 <img src="./website/public/brand/logo-mark.png" alt="tsudev" height="56">
 
@@ -10,130 +11,147 @@
 
 Network speed, CPU and RAM monitor for Windows — the Vietnamese-localized, security-hardened edition of TrafficMonitor.
 
-A [tsudev](https://tsudev.com) product. Product page: [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com). Product class **C** (offline, no account; network is used only for update checks and the on-demand public IP lookup).
+A [tsudev](https://tsudev.com) product. Product page: [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com). Product class **C** (works offline, no account; the network is used only to check for updates and to look up your public IP when you ask for it).
 
-TrafficMonitor-VN is a **Vietnamese-localized and security-hardened** fork of [TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor) by zhongyang219. It defaults to a Vietnamese UI, ships a complete embedded Vietnamese language pack, and adds HTTPS-only networking, strict update-link validation, DLL-hijacking protection and Control Flow Guard/CET/ASLR/DEP build hardening. See [SECURITY.md](./SECURITY.md) (Vietnamese) for details.
+**TrafficMonitor-VN** monitors network speed and CPU/RAM/GPU/disk usage on Windows, with a floating window and an embedded display on the taskbar.
 
-TrafficMonitor is a network monitoring software with floating window feature for Windows. It displays the current internet speed and CPU and RAM usage. There are also other capabilities like an embedded display in the taskbar, changeable display skins, and historical traffic statistics.
+## What is different
 
-# Related Links
+### Localization
+* **Vietnamese UI by default** on first run (you can still pick another language or "Follow system" in **General Settings**). The English UI is fully supported.
+* The Vietnamese language pack covers **100%** of UI strings and is **embedded** in the executable (no `language` folder needed).
+* Source code comments (≈2,800 blocks in 186 files) are in Vietnamese.
 
-Download the latest release from [Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Each release includes `SHA256SUMS.txt` and a GitHub build provenance attestation.
+### Security
+| Area | Original | TrafficMonitor-VN |
+|---|---|---|
+| Update source | GitHub or Gitee | Only the tsudev-trafficmonitor repository on GitHub |
+| Update information | Unsigned | **Signed** (ECDSA P-256, verified with Windows CNG); the update dialog shows the package SHA-256 |
+| Download link validation | Any `github.com/`, `gitee.com/` path | Only this repository's Releases page; rejects `..`, `@`, `?`, `#`, `%`; `.zip`/`.exe` only |
+| Version comparison | String comparison (wrong for `1.100` vs `1.86`) | Numeric |
+| Network protocol | Anything `OpenURL` supports (including `file://`, `ftp://`) | **HTTPS only**, timeout, 1 MB limit, no cache/cookies, allowed hosts only |
+| Public IP lookup | Third-party service that also returns location | [ipify](https://www.ipify.org/) (open source, returns only the IP), only on demand |
+| DLL / plugin loading | Default DLL search order | DLL hijacking protection (`SetDefaultDllDirectories`, safe `LoadLibraryEx`) |
+| Compiler flags | Defaults | `/guard:cf`, `/sdl`, `/GS`, ASLR, DEP, CET Shadow Stack |
+| CI/CD | Build on tag | Build on every push/PR, CodeQL, Dependabot, SHA-256 and build provenance attestation for releases |
 
-If you encounter any problems, please [click here](./Help_en-us.md) for frequently asked questions.
+Details: [SECURITY.md](./SECURITY.md) (Vietnamese).
 
-CI builds are available from [Actions](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml).
+## Download
 
-TrafficMonitor relies on the Microsoft Visual C++ runtime. If an error prompts "Cannot find MSVC*.dll" when the program starts, please install the [latest supported Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist).
+* Releases: [Download page](https://trafficmonitor.tsudev.com/tai-ve/) or [GitHub Releases](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/latest). Each release includes `SHA256SUMS.txt` and a GitHub build provenance attestation — check the hash before running.
+* Packages are ready-to-run `.zip` files (`tsudev-trafficmonitor_<version>_<arch>_Lite.zip`); there is no `-setup.exe` installer as in tsudev's VERSIONING naming template, and the architecture is `x64`, `x86` or `arm64ec` (named after the actual ARM64EC build instead of `arm64`).
+* The in-app update check only trusts **signed** version information and shows the package's SHA-256 so you can compare it after downloading.
+* CI test builds: [Actions](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/actions/workflows/build.yml) (GitHub sign-in required).
 
-# Version description
+TrafficMonitor-VN is published **only** through the GitHub repository above and trafficmonitor.tsudev.com. Any other site claiming to be "official" is unrelated.
 
-There are two versions of TrafficMonitor, the standard version and the Lite version. The standard version includes all the functions, while the Lite version does not include hardware monitoring functions such as temperature monitoring, GPU usage, and hard disk usage. The standard version requires administrator privilege to run, while the Lite version does not. 
+The program needs the **Microsoft Visual C++ Redistributable**. If it reports a missing `MSVC*.dll`/`mfc*.dll`, install the [latest supported Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist).
 
-If there is no need to monitor the temperature and other hardware information, it is recommended to use the Lite version.
+## Editions
 
-See below for the functions comparison of the two versions.
+TrafficMonitor-VN releases the **Lite** edition (no administrator rights needed). Lite monitors GPU and disk usage but **does not measure temperatures**.
 
-| Functions                                     | Standard Version | Lite Version |
-| --------------------------------------------- | ---------------- | ------------ |
-| Internet speed monitoring                     | ✔                | ✔            |
-| CPU and RAM usage monitoring                  | ✔                | ✔            |
-| CPU, GPU, hard disk, mother board temperature | ✔                | ❌            |
-| CPU frequency monitoring                      | ✔                | ✔            |
-| GPU usage monitoring                          | ✔                | ✔            |
-| Hard disk usage monitoring                    | ✔                | ✔            |
-| Network connection details                    | ✔                | ✔            |
-| Plug-in system                                | ✔                | ✔            |
-| Change the skin of the main window            | ✔                | ✔            |
-| Administrator privilege required              | Yes              | No           |
+| Feature | Full edition (build it yourself) | Lite |
+|---|---|---|
+| Network speed | ✔ | ✔ |
+| CPU and RAM usage | ✔ | ✔ |
+| CPU frequency, GPU and disk usage | ✔ | ✔ |
+| CPU/GPU/disk/motherboard temperature | ✔ | ❌ |
+| Connection details, traffic statistics | ✔ | ✔ |
+| Skins, plugins | ✔ | ✔ |
+| Administrator rights required | Yes | No |
 
-Note: Since version 1.86, the TrafficMonitor Lite version also provides monitoring functions for GPU and hard disk usage. Compared to the standard version, it only lacks the temperature monitoring function. The temperature monitoring function in subsequent versions of TrafficMonitor will no longer be maintained. TrafficMonitor will no longer provide the standard version but only the Lite version. The temperature monitoring function has been moved to the [Hardware Monitor plugin](https://github.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download_en.md#hardware-monitor-plugin). If you need to use the temperature monitoring function, please download the Hardware Monitor plugin.
+## Main features
 
-# Main Features
+* Shows upload/download speed, CPU and memory usage.
+* Selects the network adapter automatically or manually when there are several connections.
+* Shows network connection details.
+* Embedded display on the taskbar (Windows 11 and multiple monitors supported).
+* Changeable skins ([skin gallery](./SkinGallery_en-us.md)) and custom skins ([tutorial](./SkinTutorial_en-us.md)).
+* Traffic statistics by day/week/month/quarter/year.
+* Plugin system.
 
-* Displays current network transmission speed and CPU and RAM usage
-* If multiple network adapters are available, users can automatically or manually select networks to connect 
-* Display network connection details
-* Support embedded display in taskbar
-* Support skin change and customizable skins
-* Historical traffic statistics
-* Hardware information monitoring
-* Plug-in system
+## How to use
 
-# Instructions for use
+When the program starts, a **floating window** showing the network speed appears on the screen. Right-click it to open the menu.
 
-**[Click here](https://github.com/zhongyang219/TrafficMonitor/wiki) to go to the Wiki page to view detailed documentation on TrafficMonitor (Only Available in Chinese).**
+* **Show on the taskbar:** right-click menu → **Show Taskbar Window**.
+* **Choose what the taskbar window shows:** right-click the taskbar window → **Display Settings...**.
+* **Show CPU/RAM in the floating window:** right-click menu → **Show More Info**.
+* **Change skin:** right-click menu → **Other Functions** → **Change Skin...**.
+* **Options:** right-click menu → **Options...** (text color, font, speed unit, traffic alerts, auto run...).
 
-# Screenshots
+Having problems? See the [FAQ](./Help_en-us.md).
 
-Main Floating Window:  
-![](./Screenshots/en_us/main1.png)  
-Right-Click Menu:  
-![](./Screenshots/en_us/main.png)  
-Taskbar Window  
+## Screenshots
 
-![](./Screenshots/en_us/taskbar.png)  
+The screenshots show the Vietnamese UI; with English selected, the same windows use the English labels above.
 
-Options:  
+Floating window (default skin):
 
-<img src="./Screenshots/en_us/option.jpg" style="zoom:80%;" />  
+![Floating window with the default skin 0_tsudev_Cu: upload and download speed, CPU and RAM](./Screenshots/vi/main.png)
 
-# How to Use
+Taskbar window (Windows 11):
 
-As the program starts, a floating window showing network speed will appear on the screen. Right click on the floating window to open up the pop-up menu.
+![Network speed on the taskbar](./Screenshots/vi/taskbar.png)
 
-TrafficMonitor can display information on the taskbar. However, the default setting for TrafficMonitor shows only the main window (floating window), in order to show embedded display on the taskbar, right click the window and select "Show Taskbar Window" in the pop-up menu.
+Options:
 
-Users can customize displayed items on the embedded taskbar window. By default, only the network speed is displayed. In order to display CPU and RAM usage, or other informations, please select “Display Settings” in the right-click menu of the taskbar window, and check the items you want to display in the “Display Settings” dialog box.
+![Options dialog, Main Window Settings tab](./Screenshots/vi/options.png)
 
-# Customizable Skin
+Connection details (double-click the floating window; MAC address, IP and adapter name are masked):
 
-You can select “Other Functions”-“Change Skin” on the right-click menu of the main window or notification area icon to open the interface of changing skin. Users can also download more skins and customize the skins [here](https://github.com/zhongyang219/TrafficMonitorSkin/blob/master/%E7%9A%AE%E8%82%A4%E4%B8%8B%E8%BD%BD.md) according to their own needs.
+![Connection details dialog](./Screenshots/vi/network_info.png)
 
-Skin files are stored under the `skins` directory within the directory where the app is located. Each skin is stored in its individual folder and the name of the folder is the name of the skin. 
+## Skins
 
-Among the files, `background.bmp` and `background_l.bmp` are background pictures，`skin.ini` is the configuration document for the skin, users can customize text colors, fonts, skin creator, and the size and location of each items etc. 
+Skins live in the `skins` folder next to `TrafficMonitor.exe`, one folder per skin (the folder name is the skin name). A skin consists of background images (`background.png`/`background_l.png` with transparency, or `.bmp`) and a configuration file `skin.xml` (or the older `skin.ini`) that sets text colors, fonts, the author, and the size and position of each item. Without `skin.xml`, temperatures and GPU usage cannot be shown.
 
-Since version 1.80, an xml format of skin configuration file `skin.xml` has been added. Without the xml skin configuration document, TrafficMonitor will not be able to display temperature and GUP usage.
+* Browse the included skins: [Skin gallery](./SkinGallery_en-us.md).
+* Make your own: [Skin tutorial](./SkinTutorial_en-us.md).
 
-Since version 1.85, support for background images in png format has been added, you can use the png format to create skins with transparent backgrounds. The file names of the background image files are `background.png` and `background_l.png`.
+## Plugins
 
-Click the link below for detailed instruction on skin making: 
+Plugins are `.dll` files placed in the `plugins` folder next to `TrafficMonitor.exe` and loaded at startup; manage them in **General Settings** → **Advanced** → **Plug-in manage...**.
 
-[Skin making guide (Vietnamese)](./HuongDanTaoSkin.md)
+* Installing plugins: [Plugins](./Plugin_en-us.md).
+* Writing plugins: [Plugin development](./PluginDev_en-us.md); the API (with Vietnamese comments) is [`include/PluginInterface.h`](./include/PluginInterface.h), with an example in [`PluginDemo`](./PluginDemo).
 
-# Configuring Options
-<img src="./Screenshots/en_us/option.jpg" style="zoom:80%;" /><br>
-Choosing "Options..." in the pop-up menu allows users to access the options configuration. In the dialog box of options configuration, the user can set the text color, text font, background color, net speed unit, and displayed text etc. for the main window and task window separately. 
+> ⚠️ Plugins run **with the same rights as TrafficMonitor**. Only install plugins from sources you trust.
 
-In "Regular Configurations", users can change the settings on whether the program conducts auto-update and whether the program runs automatically when the computer starts up. Users can also configure when notifications need to be sent. 
+## Hardware monitoring
 
-For version 1.72 and later, users can configure text colors for each item individually. Check the option to "Designate Colors for Each Items", click the color box on the right of "text colors" to prompt a pop-up dialog box for detailed color configuration where users can designate colors for each items inidividually. 
+Temperature monitoring (full edition only) uses the [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) library and is **off by default**. Turn it on in **General Settings** → **Hardware Monitoring**.
 
-# Plug-in system
+**Note:** this feature can increase CPU/RAM usage; on some machines it has caused crashes or system hangs. Only turn it on if you accept these risks.
 
-For version 1.82 and later, plug-in system has been added. The plug-in dll must be placed in the "plugins" directory, at the same level directory with "TrafficMonitor.exe". The plug-in should load automatically as the program starts up. Users can view and manage the loaded plugins in the pop-up menu "More Functions"-"Plugin Management".
+## Building from source
 
-For instructions on how to develop the plugins for TrafficMonitor, please see [Plugin Development Guide · zhongyang219/TrafficMonitor Wiki (github.com)](https://github.com/zhongyang219/TrafficMonitor/wiki/Plugin-Development-Guide).
+Requirements: Windows 10/11, **Visual Studio 2022** with the *Desktop development with C++* workload, the **C++ MFC for latest v143 build tools** component (x86 & x64, plus ARM64EC if needed), and the **.NET Framework 4.7.2 targeting pack** (full edition).
 
-To download the TrafficMonitor plugins, please [click here](https://github.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download.md).
+```bat
+:: Lite edition (recommended)
+msbuild TrafficMonitor_Lite.sln -p:Configuration="Release (lite)" -p:Platform=x64
 
-# About the hardware monitoring function
+:: Full edition (temperature monitoring)
+msbuild TrafficMonitor.sln -p:Configuration=Release -p:Platform=x64
+```
 
-For version 1.80 or later, the hardware monitoring functions (including temperature, CPU frequency, and GPU usage monitoring) have been added to TrafficMonitor. It relies on the open source library [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor). If you encounter issues using the temperature monitoring function, please [click here](./Help_en-us.md#13-about-the-temperature-monitoring-of-trafficmonitor). 
+Output goes to `Bin\x64\Release (lite)\` (or `Bin\x64\Release\`).
 
-It should also be noted that the temperature monitoring function is turned off by default. If users want to use the temperature monitoring function in TrafficMonitor, please go to ["Option Settings"-"General Settings"-"Hardware Monitoring"](https://github.com/zhongyang219/TrafficMonitor/wiki/%E9%80%89%E9%A1%B9%E8%AE%BE%E7%BD%AE) to enable it.
+Fork-specific settings (repository, update URLs, default language) are in [`TrafficMonitor/ForkConfig.h`](./TrafficMonitor/ForkConfig.h). Security compiler flags are in [`Directory.Build.props`](./Directory.Build.props).
 
-**Note: The hardware monitoring function (including temperature monitoring and GPU usage monitoring) may still have some issues, which might consume more CPU and RAM. According to the feedback from some users, turning on the temperature function causes issues such as program crashing and system crashing, etc. Please consider the above risks before turning on the hardware monitoring function. Otherwise, please do not use the hardware monitoring function.**
+This repository starts with a source import commit (from V1.87-vn); earlier history is kept in the archived repository [tsudev-tsudev/TrafficMonitor-VN](https://github.com/tsudev-tsudev/TrafficMonitor-VN) (read-only).
 
-# Update log
+## Contributing
 
-**[Fork changelog (Vietnamese)](./UpdateLog/update_log_vi.md) · [Original project update log](./UpdateLog/update_log_en-us.md)**
+* Bugs / suggestions: [Issues](https://github.com/tsudev-tsudev/tsudev-trafficmonitor/issues/new/choose).
+* Security vulnerabilities: do **not** post publicly; see [SECURITY.md](./SECURITY.md).
+* Changes: [CHANGELOG.md](./CHANGELOG.md) (one line per release), details in the [update log](./UpdateLog/update_log_en-us.md).
 
-# Disclaimer
+## License
 
-TrafficMonitor-VN is distributed **only** through [github.com/tsudev-tsudev/tsudev-trafficmonitor](https://github.com/tsudev-tsudev/tsudev-trafficmonitor). The original TrafficMonitor is distributed by its author at [github.com/zhongyang219/TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor). Any other site claiming to be "official" is unrelated.
+Released under the **"Anti 996" License 1.0** — see [LICENSE](./LICENSE) (English) and [LICENSE_CN](./LICENSE_CN) (Chinese). A Vietnamese translation for reference: [LICENSE_VI.md](./LICENSE_VI.md).
 
-# License
-
-"Anti 996" License 1.0 — see [LICENSE](./LICENSE). Copyright (c) zhongyang219 (original project).
+Copyright (c) 2026 tsudev. The original project's copyright notice (required by clause 1 of the license) is in [LICENSE](./LICENSE) and [NOTICE.md](./NOTICE.md).
