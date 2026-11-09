@@ -1,4 +1,4 @@
-**Tiếng Việt** · [Trang chủ](./README.md) · [Hỏi đáp](./Help.md) · [Phát triển plugin](./PhatTrienPlugin.md)
+**Tiếng Việt | [English](./Plugin_en-us.md)** · [Trang chủ](./README.md) · [Hỏi đáp](./Help.md) · [Phát triển plugin](./PhatTrienPlugin.md)
 
 # Plugin — TrafficMonitor-VN
 

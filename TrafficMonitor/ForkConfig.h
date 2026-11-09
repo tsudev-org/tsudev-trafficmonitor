@@ -37,16 +37,22 @@
 #define FORK_TRUSTED_HOSTS          L"github.com|objects.githubusercontent.com|release-assets.githubusercontent.com|raw.githubusercontent.com|trafficmonitor.tsudev.com|api.ipify.org|api6.ipify.org"
 
 // Các trang tài liệu (website trafficmonitor.tsudev.com, sinh từ các tệp .md trong repo;
-// bản .md trên GitHub vẫn giữ làm dự phòng). Ngôn ngữ khác tiếng Việt dùng tài liệu tiếng Anh trên GitHub.
+// bản .md trên GitHub vẫn giữ làm dự phòng). Ngôn ngữ khác tiếng Việt dùng tài liệu tiếng Anh (*_EN_URL) trên GitHub,
+// chọn qua CTrafficMonitorApp::DocUrl().
 #define FORK_HELP_URL               L"https://trafficmonitor.tsudev.com/huong-dan/hoi-dap/"
 #define FORK_HELP_EN_URL            L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/Help_en-us.md"
 #define FORK_UPDATE_LOG_URL         L"https://trafficmonitor.tsudev.com/nhat-ky/"
 #define FORK_UPDATE_LOG_EN_URL      L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/UpdateLog/update_log_en-us.md"
 #define FORK_WIKI_URL               L"https://trafficmonitor.tsudev.com/huong-dan/"
+#define FORK_WIKI_EN_URL            L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/README_en-us.md"
 #define FORK_SKIN_TUTORIAL_URL      L"https://trafficmonitor.tsudev.com/huong-dan/tu-lam-giao-dien/"
+#define FORK_SKIN_TUTORIAL_EN_URL   L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/SkinTutorial_en-us.md"
 #define FORK_SKIN_DOWNLOAD_URL      L"https://trafficmonitor.tsudev.com/huong-dan/kho-giao-dien/"
+#define FORK_SKIN_DOWNLOAD_EN_URL   L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/SkinGallery_en-us.md"
 #define FORK_PLUGIN_DOWNLOAD_URL    L"https://trafficmonitor.tsudev.com/huong-dan/plugin/"
+#define FORK_PLUGIN_DOWNLOAD_EN_URL L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/Plugin_en-us.md"
 #define FORK_PLUGIN_DEV_GUIDE_URL   L"https://trafficmonitor.tsudev.com/huong-dan/phat-trien-plugin/"
+#define FORK_PLUGIN_DEV_GUIDE_EN_URL L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/blob/main/PluginDev_en-us.md"
 
 // Hệ sinh thái tsudev (ECOSYSTEM_IDENTITY mục 2.3: hộp thoại Giới thiệu có liên kết tới tsudev.com)
 #define TSUDEV_HOME_URL             L"https://tsudev.com"

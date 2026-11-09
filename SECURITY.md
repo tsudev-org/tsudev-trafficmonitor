@@ -22,7 +22,7 @@ Lỗ hổng thuộc phần mã kế thừa từ dự án gốc cũng sẽ đư�
 Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` do quy trình CI tự tạo. Trước khi chạy, hãy kiểm tra mã băm trong PowerShell:
 
 ```powershell
-Get-FileHash .\TrafficMonitor-VN_V1.86_x64_Lite.zip -Algorithm SHA256
+Get-FileHash .\tsudev-trafficmonitor_26.11.0901_x64_Lite.zip -Algorithm SHA256
 ```
 
 So sánh kết quả với dòng tương ứng trong `SHA256SUMS.txt`. Nếu không khớp, **không chạy** tệp và báo cho chúng tôi.
@@ -30,7 +30,7 @@ So sánh kết quả với dòng tương ứng trong `SHA256SUMS.txt`. Nếu kh�
 Bản phát hành còn kèm **chứng thực nguồn gốc build** (build provenance attestation) của GitHub. Có thể xác minh bằng GitHub CLI:
 
 ```bash
-gh attestation verify TrafficMonitor-VN_V1.86_x64_Lite.zip --repo tsudev-tsudev/tsudev-trafficmonitor
+gh attestation verify tsudev-trafficmonitor_26.11.0901_x64_Lite.zip --repo tsudev-tsudev/tsudev-trafficmonitor
 ```
 
 ## Chuỗi tin cậy của bản cập nhật

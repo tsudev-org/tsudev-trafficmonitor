@@ -1,4 +1,4 @@
-**Tiếng Việt** · [Trang chủ](./README.md) · [Hỏi đáp](./Help.md) · [Tự làm skin](./HuongDanTaoSkin.md)
+**Tiếng Việt | [English](./SkinGallery_en-us.md)** · [Trang chủ](./README.md) · [Hỏi đáp](./Help.md) · [Tự làm skin](./HuongDanTaoSkin.md)
 
 # Kho giao diện (skin) — TrafficMonitor-VN
 

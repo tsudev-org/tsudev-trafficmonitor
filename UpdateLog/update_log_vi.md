@@ -4,6 +4,16 @@
 
 Lịch sử thay đổi của dự án gốc (đến phiên bản 1.86) xem tại [update_log_en-us.md](./update_log_en-us.md).
 
+## 26.11.0901 (2026-11-09)
+
+### Cách đánh số phiên bản mới
+* Từ bản này, phiên bản theo khuôn **`{YY}.{M}.{DD}{NN}`** của tsudev (năm.tháng.ngày + số thứ tự trong ngày): `26.11.0901` là bản đầu tiên ngày 09/11/2026. Bản ngay trước là V1.91-vn; so sánh theo số nên các bản cũ vẫn nhận ra bản cập nhật.
+* Tag phát hành dạng `V26.11.0901-vn`; gói tải về đổi tên thành `tsudev-trafficmonitor_26.11.0901_<kiến trúc>_Lite.zip`.
+
+### Tài liệu tiếng Anh
+* Thêm tài liệu tiếng Anh: Plugin (`Plugin_en-us.md`), Kho giao diện (`SkinGallery_en-us.md`), Hướng dẫn tạo skin (`SkinTutorial_en-us.md`), Phát triển plugin (`PluginDev_en-us.md`).
+* Khi giao diện dùng ngôn ngữ khác tiếng Việt, các liên kết Trợ giúp, Tải thêm mẫu mạng, Hướng dẫn tạo skin, Tải thêm Plugin, Hướng dẫn làm Plugin mở tài liệu tiếng Anh (Trợ giúp mở `README_en-us.md`); tiếng Việt vẫn mở website.
+
 ## V1.91-vn (2026-11-09)
 
 ### Liên kết

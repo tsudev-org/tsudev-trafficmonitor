@@ -2,6 +2,8 @@
 # tạo SHA256SUMS.txt, chứng thực nguồn gốc build (provenance) và tạo GitHub Release.
 #
 # Quy trình phát hành:
+#   Phiên bản theo khuôn {YY}.{M}.{DD}{NN} (VERSIONING.md của tsudev), ví dụ tag V26.11.0901-vn,
+#   gói tsudev-trafficmonitor_26.11.0901_x64_Lite.zip.
 #   1. Cập nhật VERSION trong TrafficMonitor/stdafx.h và version_utf8.info (liên kết tải cho bản cũ V1.86/V1.87,
 #      nội dung cập nhật — cũng được đưa vào version_signed.xml có chữ ký mà bản V1.88+ đọc).
 #   2. git tag V<phiên bản>-vn && git push origin V<phiên bản>-vn
@@ -63,7 +65,7 @@ jobs:
         id: pkg
         shell: pwsh
         run: |
-          $name = "TrafficMonitor-VN_V${{ steps.ver.outputs.version }}_${{ matrix.arch }}_Lite"
+          $name = "tsudev-trafficmonitor_${{ steps.ver.outputs.version }}_${{ matrix.arch }}_Lite"
           $stage = Join-Path $env:RUNNER_TEMP "$name\TrafficMonitor"
           New-Item -ItemType Directory -Force -Path $stage | Out-Null
           Copy-Item "${{ matrix.outdir }}\TrafficMonitor.exe" $stage

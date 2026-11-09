@@ -144,9 +144,9 @@ BOOL CSkinDlg::OnInitDialog()
     EnableDlgCtrl(IDC_SKIN_AUTO_ADAPT_BUTTON, theApp.m_cfg_data.skin_auto_adapt);
 
     //Thiết lập siêu liên kết
-    //Bản Việt hóa: hướng dẫn tạo skin bằng tiếng Việt trong repo TrafficMonitor-VN; kho skin vẫn dùng của tác giả gốc (GitHub)
-    m_skin_course.SetURL(FORK_SKIN_TUTORIAL_URL);
-    m_skin_download.SetURL(FORK_SKIN_DOWNLOAD_URL);
+    //Bản Việt hóa: hướng dẫn tạo skin và kho giao diện trên website (tiếng Việt); ngôn ngữ khác dùng bản tiếng Anh
+    m_skin_course.SetURL(theApp.DocUrl(FORK_SKIN_TUTORIAL_URL, FORK_SKIN_TUTORIAL_EN_URL));
+    m_skin_download.SetURL(theApp.DocUrl(FORK_SKIN_DOWNLOAD_URL, FORK_SKIN_DOWNLOAD_EN_URL));
     m_open_skin_dir_lnk.SetLinkIsURL(false);
 
     return TRUE;  // return TRUE unless you set the focus to a control

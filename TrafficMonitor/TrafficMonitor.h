@@ -199,6 +199,10 @@ public:
     afx_msg void OnUpdateLog();
     virtual int ExitInstance();
 
+public:
+    //Bản Việt hóa: chọn liên kết tài liệu theo ngôn ngữ giao diện (tiếng Việt: website; ngôn ngữ khác: bản tiếng Anh)
+    const wchar_t* DocUrl(const wchar_t* vi_url, const wchar_t* en_url) const;
+
     // Kế thừa qua ITrafficMonitor
 private:
     virtual int GetAPIVersion() override;
