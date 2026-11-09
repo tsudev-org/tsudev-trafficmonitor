@@ -81,14 +81,22 @@ namespace UpdateSecurity
 
     //Liên kết tải bản cập nhật phải:
     //  1. là HTTPS hợp lệ (không khoảng trắng/ký tự điều khiển),
-    //  2. bắt đầu đúng bằng tiền tố trang Releases của repo này (FORK_RELEASE_DOWNLOAD_PREFIX),
+    //  2. bắt đầu đúng bằng một tiền tố trang Releases của repo này (FORK_RELEASE_DOWNLOAD_PREFIX hoặc
+    //     FORK_RELEASE_DOWNLOAD_PREFIX_ORG sau khi chuyển repo sang tsudev-org; danh sách ngăn cách bởi '|'),
     //  3. không chứa "..", "@", "?", "#", "\" hoặc "%" (chống vượt đường dẫn, chuyển hướng tên miền, tham số lạ),
     //  4. trỏ tới tệp .zip hoặc .exe.
-    inline bool IsTrustedDownloadUrl(const std::wstring& url, const std::wstring& prefix = FORK_RELEASE_DOWNLOAD_PREFIX)
+    inline bool IsTrustedDownloadUrl(const std::wstring& url,
+        const std::wstring& prefixes = std::wstring(FORK_RELEASE_DOWNLOAD_PREFIX) + L"|" + FORK_RELEASE_DOWNLOAD_PREFIX_ORG)
     {
         if (!IsHttpsUrl(url))
             return false;
-        if (url.size() <= prefix.size() || url.compare(0, prefix.size(), prefix) != 0)
+        bool prefix_ok = false;
+        for (const auto& prefix : SplitTrim(prefixes, L'|'))
+        {
+            if (url.size() > prefix.size() && url.compare(0, prefix.size(), prefix) == 0)
+                prefix_ok = true;
+        }
+        if (!prefix_ok)
             return false;
         if (url.find(L"..") != std::wstring::npos || url.find_first_of(L"@?#\\%") != std::wstring::npos)
             return false;

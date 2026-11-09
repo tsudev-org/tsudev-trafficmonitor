@@ -111,6 +111,16 @@ static void TestUrls()
     CHECK(!IsTrustedDownloadUrl(L"https://github.com/evil/repo/releases/download/V1/x.zip"));
     CHECK(!IsTrustedDownloadUrl(L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor-evil/releases/download/V1/x.zip"));
     CHECK(!IsTrustedDownloadUrl(L"http://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V1/x.zip"));
+
+    // Sau khi chuyển repo sang Organization tsudev-org: chấp nhận cả tiền tố cũ và mới, không chấp nhận owner khác
+    const std::wstring org = L"https://github.com/tsudev-org/tsudev-trafficmonitor/releases/download/";
+    CHECK(IsTrustedDownloadUrl(org + L"V26.11.1001-vn/tsudev-trafficmonitor_26.11.1001_x64_Lite.zip"));
+    CHECK(!IsTrustedDownloadUrl(org));
+    CHECK(!IsTrustedDownloadUrl(org + L"V1/../x.zip"));
+    CHECK(!IsTrustedDownloadUrl(L"https://github.com/tsudev-org/other-repo/releases/download/V1/x.zip"));
+    CHECK(!IsTrustedDownloadUrl(L"https://github.com/tsudev-org-evil/tsudev-trafficmonitor/releases/download/V1/x.zip"));
+    CHECK(IsTrustedDownloadUrl(rel + L"V1/x.zip", rel));                  // danh sách một tiền tố
+    CHECK(!IsTrustedDownloadUrl(org + L"V1/x.zip", rel));
 }
 
 static void TestSignature(const std::string& fixtures)

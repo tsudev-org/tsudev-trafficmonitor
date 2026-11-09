@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parent.parent
 ALLOWED_PREFIXES = [
     # Sản phẩm
     "https://github.com/tsudev-tsudev/tsudev-trafficmonitor",
+    "https://github.com/tsudev-org/tsudev-trafficmonitor",   # repo sau khi chuyển sang Organization tsudev-org
     "https://raw.githubusercontent.com/tsudev-tsudev/tsudev-trafficmonitor/",
     "https://trafficmonitor.tsudev.com",
     "https://tsudev.com",

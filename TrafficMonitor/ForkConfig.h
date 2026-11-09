@@ -21,6 +21,11 @@
 // Bản cập nhật chỉ được chấp nhận khi liên kết tải trỏ đúng vào trang Releases của repo này,
 // nhằm ngăn tệp thông tin phiên bản bị giả mạo chuyển hướng người dùng tới tệp độc hại.
 #define FORK_RELEASE_DOWNLOAD_PREFIX L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/"
+// Repo chuyển sang Organization tsudev-org (11/2026); GitHub chuyển hướng URL cũ sang repo mới.
+// Chấp nhận cả hai tiền tố. release.yml vẫn ghi liên kết theo owner cũ (tsudev-tsudev) vào version_signed.xml
+// để các bản đã cài (chỉ tin tiền tố cũ) vẫn cập nhật được. KHÔNG tạo lại repo tsudev-tsudev/tsudev-trafficmonitor:
+// GitHub sẽ bỏ chuyển hướng và mọi bản đã cài mất kênh cập nhật.
+#define FORK_RELEASE_DOWNLOAD_PREFIX_ORG L"https://github.com/tsudev-org/tsudev-trafficmonitor/releases/download/"
 
 // Thông tin phiên bản CÓ CHỮ KÝ (từ V1.88-vn): release.yml tạo version_signed.xml (phiên bản, liên kết tải,
 // SHA-256 từng gói) và ký bằng ECDSA P-256/SHA-256; khóa bí mật chỉ nằm trong secret UPDATE_SIGNING_KEY
