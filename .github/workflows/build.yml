@@ -46,6 +46,32 @@ jobs:
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
           cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I TrafficMonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTests.exe || exit /b 1
           UpdateSecurityTests.exe tests\fixtures
+      - name: Chạy lại kiểm thử dưới AddressSanitizer
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
+          call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I TrafficMonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTestsAsan.exe || exit /b 1
+          UpdateSecurityTestsAsan.exe tests\fixtures
+      - name: Fuzzing logic cập nhật (libFuzzer + ASan, 120 giây)
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
+          call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I TrafficMonitor tests\fuzz\UpdateSecurityFuzz.cpp /Fe:UpdateSecurityFuzz.exe || exit /b 1
+          mkdir fuzz-corpus
+          xcopy /q /y tests\fuzz\corpus\* fuzz-corpus\ >nul
+          UpdateSecurityFuzz.exe -max_total_time=120 -timeout=10 -rss_limit_mb=2048 -print_final_stats=1 fuzz-corpus
+      - name: Lưu đầu vào gây lỗi của fuzzer
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        with:
+          name: fuzz-crash-${{ github.sha }}
+          path: |
+            crash-*
+            leak-*
+            timeout-*
+          if-no-files-found: ignore
 
   build:
     name: Build ${{ matrix.platform }}

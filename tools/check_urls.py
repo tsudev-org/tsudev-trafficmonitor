@@ -52,6 +52,7 @@ ALLOWED_PREFIXES = [
     "https://github.com/github/gitignore",
     "https://github.com/microsoft/Windows-classic-samples",
     "https://cli.github.com/",
+    "https://spdx.dev/",                  # định danh kiểu chứng thực SBOM (predicate type), không phải liên kết tải
     "https://astro.build",
     "https://api.github.com/repos/tsudev-org/tsudev-trafficmonitor/",
 ]
