@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include "UpdateDownload.h"
+
 class CUpdateHelper
 {
 public:
@@ -22,6 +24,11 @@ public:
     static bool VerifySignature(const std::string& data, const std::string& signature_base64);
 
     void SetUpdateSource(UpdateSource update_source);
+
+    //Tự tải gói cập nhật vào thư mục Downloads và kiểm SHA-256 (logic ở UpdateDownload.h; xem mô tả ở đó).
+    //Gọi ở luồng nền (chặn tới khi xong). progress trả về false để hủy.
+    static UpdateDownload::Result DownloadPackage(const std::wstring& url, const std::wstring& expected_sha256,
+        std::wstring& saved_path, std::wstring& actual_sha256, UpdateDownload::ProgressFn progress = nullptr, void* context = nullptr);
 
     bool CheckForUpdate();
 
