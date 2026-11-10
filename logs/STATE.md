@@ -32,7 +32,7 @@
 > Quyết định kiến trúc lớn thì viết ADR riêng theo `docs/templates/ADR.md` và chỉ
 > ghi một dòng tham chiếu ở đây.
 
-- 10/11/2026 - Ký số Authenticode: HOÃN. Không có phương án miễn phí phù hợp (SignPath Foundation đòi giấy phép OSI; Anti 996 không thuộc OSI); phương án trả phí: Azure Artifact Signing ~10 USD/tháng. Trạng thái ghi ở SECURITY.md mục "Chữ ký số Authenticode"
+- 10/11/2026 - Dự án giữ **chi phí 0 đồng**: BỎ hẳn kế hoạch ký số Authenticode (mọi chứng thư tin cậy đều tốn phí; SignPath Foundation miễn phí nhưng đòi giấy phép OSI, Anti 996 không thuộc). Không đề xuất lại dịch vụ/công cụ trả phí. Toàn vẹn dựa vào SHA-256, chứng thực build + SBOM, manifest ký ECDSA, build tái lập (SECURITY.md)
 - 10/11/2026 - Build tái lập là yêu cầu: bước build/đóng gói mới phải giữ exe và zip tất định (CI build 2 lần so SHA-256); không dùng __DATE__/__TIME__ hay giờ build trong tài nguyên
 - 10/11/2026 - ĐÃ XÓA repo `tsudev-tsudev/TrafficMonitor-VN` (sao lưu `~/backups/github/20261109/`; bản V1.86-vn mất kênh thông báo cập nhật) và fork `tsudev-tsudev/winget-pkgs` (fork thừa, tạo lại khi cần nộp manifest)
 - 09/11/2026 - Bản phát hành chỉ build từ tag đẩy lên (environment `release` chỉ nhận tag V*); workflow_dispatch không qua được environment. Bước nào của release.yml đổi thì phải có bước thử tương đương trong build.yml (bài học 26.11.0903)
