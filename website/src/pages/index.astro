@@ -24,7 +24,7 @@ const baoMat = [
     <div class="khung mo-dau__luoi">
       <div>
         <span class="nhan">Phiên bản {ban.phienBan} · {ban.ngay}</span>
-        <h1>Theo dõi tốc độ mạng và tài nguyên máy, bằng tiếng Việt</h1>
+        <h1>Theo dõi tốc độ mạng và tài nguyên máy, <span class="chu-tim">bằng tiếng Việt</span></h1>
         <p class="mo-dau__phu">TrafficMonitor-VN hiện tốc độ mạng, mức dùng CPU, RAM ngay trên thanh tác vụ Windows. Nhẹ, miễn phí, mã nguồn mở và được gia cố bảo mật.</p>
         <div class="mo-dau__nut">
           {x64 && <a class="nut nut--chinh" href={x64.url}>Tải bản 64-bit (x64)</a>}
@@ -45,7 +45,7 @@ const baoMat = [
     </div>
   </section>
 
-  <section class="muc muc--nen" aria-labelledby="tinh-nang">
+  <section class="muc" aria-labelledby="tinh-nang">
     <div class="khung">
       <h2 id="tinh-nang">Tính năng</h2>
       <p class="muc__dan">Giữ nguyên mọi tính năng của TrafficMonitor, thêm giao diện tiếng Việt và các lớp bảo vệ cho người dùng.</p>
@@ -72,7 +72,7 @@ const baoMat = [
     </div>
   </section>
 
-  <section class="muc muc--nen" aria-labelledby="bao-mat">
+  <section class="muc" aria-labelledby="bao-mat">
     <div class="khung">
       <h2 id="bao-mat">An toàn từ khâu build tới khâu cập nhật</h2>
       <p class="muc__dan">Chi tiết và cách tự kiểm tra ở trang <a href="/bao-mat/">Bảo mật</a>.</p>

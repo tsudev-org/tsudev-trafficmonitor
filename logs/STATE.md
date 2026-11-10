@@ -5,6 +5,7 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
+- [ ] Người dùng: merge PR giao diện đen + tím (phiếu `20261110-05`), rồi `cd website && npm run deploy`; kiểm production: `theme-color` `#0a0a0a`, console 0 lỗi CSP.
 - (trống) - việc tùy chọn (chỉ khi người dùng yêu cầu): xem phiếu `logs/handover/20261110-01_ket-phien-1001-va-xoa-repo-cu.md` mục 2
 
 ## Đang thực hiện
@@ -14,6 +15,7 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 10/11/2026 - Phiếu `20261110-05`: website đen tuyền + tím kiểu Supabase, bộ chọn Sáng/Tối/Hệ thống ở chân trang (`public/theme.js`, CSP `script-src 'self'`), CI thêm `check:theme`. Chi tiết: mục Kết quả của phiếu.
 - 10/11/2026 - Phát hành 26.11.1001 (#45-#48): đọc skin.xml an toàn (`XmlParsing.h`: 1 MB, 4096 phần tử, sâu 16, kẹp giá trị) + test + fuzz; mở đúng thư mục Downloads sau khi tải; **build tái lập** (`/Brepro`, ngày biên dịch = thời điểm commit, `tools/make_zip.py`): exe trong gói phát hành trùng từng byte với build độc lập của `build.yml`. Đã kiểm sha256/provenance/SBOM/chữ ký; thử Windows 0905 -> 1001 (tự tải, SHA khớp), 0904 -> 1001, 1001 báo mới nhất, 12 skin giống ảnh chuẩn
 - 09/11/2026 - Phát hành 26.11.0905 (#42, #44): ứng dụng tự tải gói cập nhật, kiểm SHA-256 với manifest đã ký, lưu vào Downloads (không ghi đè, Mark of the Web); test tích hợp tải gói thật trong CI. Thử Windows: build PR #42 tải 0905 thật, SHA khớp; 0904/0901 thấy 0905. Tự duyệt environment `release` bằng `gh api ... pending_deployments` CHẠY ĐƯỢC
 - 09/11/2026 - Cảnh báo hạn security.txt hằng tuần (`tools/check_security_txt.py`, #43); gỡ liên kết repo cũ `TrafficMonitor-VN` (#41) trước khi xóa repo cũ (sao lưu cục bộ `~/backups/github/20261109/`)
