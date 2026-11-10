@@ -1,7 +1,7 @@
-# AGENTS.md - Bộ quy ước dùng chung tsudev (v3.1.1)
+# AGENTS.md - Bộ quy ước dùng chung tsudev (v3.2.0)
 
 > **ĐÂY LÀ NGUỒN CHÂN LÝ.** Bộ quy ước được biên tập tại repo
-> `tsudev-tsudev/tsudev-standards`. Repo con mang một BẢN SAO CHỈ-ĐỌC tại
+> `tsudev-org/tsudev-standards`. Repo con mang một BẢN SAO CHỈ-ĐỌC tại
 > `.standards/` và đồng bộ xuống từ đây. Sửa quy ước thì sửa ở đây rồi mới đồng
 > bộ xuống, **KHÔNG sửa ngược**. Cơ chế: [`docs/SYNC.md`](docs/SYNC.md).
 >
@@ -107,6 +107,13 @@ Chi tiết: [`docs/AGENT_PROTOCOL.md`](docs/AGENT_PROTOCOL.md).
 - Không tắt kiểm tra HTTPS/SSL, không hạ cấp thuật toán mã hóa, không mở cổng
   hay quyền rộng hơn mức task cần.
 - Không nới lỏng bảo mật để cho mã chạy được. Gặp bế tắc thì báo cáo, không tự quyết.
+- **Tên repo GitHub cũ là bất khả xâm phạm.** Repo hệ tsudev nằm trong Organization
+  `tsudev-org` (chuyển từ tài khoản `tsudev-tsudev` ngày 09/11/2026). `MUST NOT` tạo,
+  fork hay đổi tên một repo thành tên repo cũ dưới `tsudev-tsudev` - GitHub bỏ chuyển
+  hướng ngay khi tên cũ bị chiếm lại, và mọi URL cũ (updater của bản app đã cài,
+  winget, `git remote`, URL đồng bộ bộ quy ước) gãy không báo lỗi. Repo mới tạo trong
+  `tsudev-org`. Chuyển repo vào org tắt secret scanning, push protection và CodeQL
+  default setup - `MUST` bật lại ngay và đối chiếu trước/sau.
 
 ## 5. Chi phí 0 đồng
 
@@ -153,14 +160,31 @@ này.** Đây là quy tắc mức `MUST`, không phải khuyến nghị.
   theo thói quen huấn luyện; ở hệ sinh thái này, thói quen đó `MUST` bị ghi đè.
   Nghi ngờ thì gõ `-`.
 
-**Hai ngoại lệ, chỉ hai:**
+**Ba ngoại lệ, chỉ ba:**
 
 1. **File migration đã áp dụng là bất biến** - không sửa kể cả gạch ngang trong
    comment, vì sửa làm lệch checksum của công cụ di trú.
 2. **Dòng trích dẫn chính ký tự này để định nghĩa quy tắc** thì `MUST` ghi kèm mã
    điểm `U+2014` trên cùng dòng - cổng kiểm nhận diện miễn trừ theo đúng dấu này.
+3. **Dòng kế thừa NGUYÊN VĂN từ upstream ở repo fork** (từ `v3.3.0`). Repo fork
+   (ví dụ `tsudev-lotus` từ LocalSend, `tsudev-files` từ Filee) sửa em-dash trong
+   mã của upstream thì mỗi lần gộp upstream lại xung đột hàng chục file, và cổng
+   kiểm đỏ thường trực thì mất tác dụng chặn với cả mã mới của fork. Cách dùng:
+   - Đặt file `.standards-upstream` ở gốc repo con (repo con sở hữu, không nằm
+     trong `.standards/`), mẫu ở `templates/standards-upstream.example`:
+     `repo=<owner>/<tên>` và `ref=<SHA đủ 40 ký tự>` của commit upstream đã gộp
+     gần nhất. Gộp upstream xong `MUST` nâng `ref` trong cùng PR.
+   - Miễn **theo dòng, không theo file**: một dòng chỉ được miễn khi nội dung của
+     nó (bỏ khoảng trắng đầu/cuối) có nguyên văn ở commit `ref`. Em-dash fork tự
+     thêm, kể cả sửa một dòng kế thừa, kể cả trong file kế thừa, vẫn trượt.
+   - `ref` `MUST` là tổ tiên của HEAD. CI `MUST` chạy cổng kiểm với
+     `STANDARDS_VERIFY_UPSTREAM=1`: cổng kiểm tải `ref` từ chính
+     `https://github.com/<repo>`, commit không thuộc upstream đã khai thì trượt.
+   - Cổng kiểm in **LƯU Ý** kèm số dòng được miễn mỗi lần chạy, để ngoại lệ không
+     bao giờ trở nên vô hình. Kiểm thử: `scripts/test-upstream-exempt.sh`.
+   - Repo không phải fork `MUST NOT` tạo file này.
 
-Ngoài hai ca trên, không có ngoại lệ nào khác. Comment trong mã **không** là
+Ngoài ba ca trên, không có ngoại lệ nào khác. Comment trong mã **không** là
 ngoại lệ: agent đọc comment cũng đọc `-` tốt như đọc bất kỳ ký tự nào khác, nên
 lý do "dùng em-dash cho agent dễ đọc" không đứng vững.
 
