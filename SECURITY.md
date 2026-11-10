@@ -66,9 +66,14 @@ Get-FileHash "Bin\x64\Release (lite)\TrafficMonitor.exe"   # so với TrafficMon
 
 ## Chữ ký số Authenticode
 
-`TrafficMonitor.exe` **chưa** được ký Authenticode, nên Windows SmartScreen có thể cảnh báo "Windows protected your PC" khi chạy lần đầu. Thay vào đó, tính toàn vẹn được bảo đảm bằng: SHA-256 (`SHA256SUMS.txt`), chứng thực nguồn gốc build và SBOM của GitHub, thông tin phiên bản có chữ ký ECDSA và việc tự kiểm SHA-256 khi cập nhật trong ứng dụng.
+`TrafficMonitor.exe` **không** được ký Authenticode, và dự án **không có kế hoạch** ký: TrafficMonitor-VN được xây dựng và phát triển với **chi phí 0 đồng**, trong khi mọi chứng thư ký mã được Windows tin cậy đều tốn phí; chương trình ký miễn phí cho mã nguồn mở (SignPath Foundation) chỉ nhận giấy phép được OSI phê duyệt, còn TrafficMonitor-VN phải giữ giấy phép Anti 996 của dự án gốc.
 
-Lý do (11/2026): chứng thư ký mã được Windows tin cậy đều tốn phí (Azure Artifact Signing khoảng 10 USD/tháng; chứng thư OV/EV từ CA). Chương trình ký miễn phí cho mã nguồn mở của SignPath Foundation yêu cầu giấy phép được OSI phê duyệt, trong khi TrafficMonitor-VN phải giữ giấy phép Anti 996 của dự án gốc (không thuộc danh sách OSI). Khi có chứng thư, bước ký sẽ chạy trong `release.yml` trước khi đóng gói và mục này sẽ hướng dẫn kiểm bằng `signtool verify /pa /v`.
+Vì vậy Windows SmartScreen có thể cảnh báo "Windows protected your PC" khi chạy lần đầu (bấm **More info** → **Run anyway** sau khi đã kiểm tra tệp). Tính toàn vẹn được bảo đảm bằng các cách miễn phí, kiểm được độc lập:
+
+* SHA-256 trong `SHA256SUMS.txt` và trên trang Tải về;
+* chứng thực nguồn gốc build và SBOM của GitHub (`gh attestation verify`);
+* thông tin phiên bản có chữ ký ECDSA, ứng dụng tự kiểm SHA-256 khi cập nhật;
+* build tái lập: tự build lại từ mã nguồn tại tag và so SHA-256 (mục trên).
 
 ## Mô hình mối đe dọa và biện pháp đã áp dụng
 

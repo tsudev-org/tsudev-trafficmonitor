@@ -15,15 +15,15 @@ Toàn bộ kế hoạch 7 mục (`.handoff/HANDOFF-2026-11-11.md`), chi tiết t
 - Thử Windows: 0905 -> 1001 tự tải, SHA khớp; 0904/0901 thấy bản mới; 1001 báo mới nhất; 12 skin giống ảnh chuẩn. Máy người dùng đã khôi phục (đang chạy 0904, config md5 `caf3c0f5…`).
 - Website https://trafficmonitor.tsudev.com đã deploy 26.11.1001 (người dùng chạy).
 - Đã XÓA `tsudev-tsudev/TrafficMonitor-VN` và `tsudev-tsudev/winget-pkgs` (sao lưu `~/backups/github/20261109/`). Người dùng đã thu hồi lại quyền `delete_repo` của gh.
-- Mục 3 (ký số Authenticode): HOÃN - không có phương án miễn phí (SignPath Foundation đòi giấy phép OSI; Anti 996 không thuộc). Ghi ở SECURITY.md mục "Chữ ký số Authenticode".
+- Mục 3 (ký số Authenticode): BỎ (chi phí 0 đồng) - không có phương án miễn phí (SignPath Foundation đòi giấy phép OSI; Anti 996 không thuộc). Ghi ở SECURITY.md mục "Chữ ký số Authenticode".
 
 ## 2. Việc dang dở + bước tiếp theo CỤ THỂ
 
 Không có việc bắt buộc. Việc tùy chọn, chỉ làm khi người dùng yêu cầu:
 
-- [ ] **Ký số Authenticode** - chỉ khi người dùng đồng ý trả phí (Azure Artifact Signing ~10 USD/tháng). Bước: người dùng tạo tài khoản + profile, cấu hình federated credential (OIDC) vào environment `release`, tự thêm action ký của Microsoft vào chính sách Actions; agent thêm bước ký exe trong `release.yml` TRƯỚC `tools/make_package.ps1`, thêm bước thử tương ứng trong `build.yml`, kiểm `signtool verify /pa /v`, cập nhật SECURITY.md. Lưu ý: chữ ký làm exe khác byte so với build.yml - phải sửa bước so SHA (so exe trước khi ký).
+- [x] ~~Ký số Authenticode~~ - BỎ (10/11/2026): người dùng chốt mục tiêu chi phí 0 đồng.
 - [ ] **Máy người dùng còn chạy 0904**: gói 1001 đã có sẵn ở `C:\Users\devng\Downloads\tsudev-trafficmonitor_26.11.1001_x64_Lite.zip` (SHA `a7adf581…`). Chỉ cập nhật nếu người dùng muốn.
-- [ ] **Dọn tàn dư (hỏi người dùng trước khi xóa)**: thư mục thử `%TEMP%\tmvn-pr42`, `tmvn-0901`, `tmvn-0905`, `tmvn-1001`, `tmvn-main`, `tmvn-shots5`, script `%TEMP%\tmvn-*.ps1`; bản clone cục bộ `~/projects/TrafficMonitor-VN` (repo GitHub đã xóa; còn nhánh `docs/da-chuyen-repo` và `.wrangler/` chưa theo dõi).
+- [x] Dọn tàn dư: đã xóa `%TEMP%\tmvn-*` và bản clone `~/projects/TrafficMonitor-VN` (10/11/2026, theo yêu cầu người dùng).
 
 ## 3. File liên quan / đang khóa
 
@@ -54,4 +54,4 @@ Không có việc bắt buộc. Việc tùy chọn, chỉ làm khi người dùn
 
 ## 7. Kết quả xử lý (agent nhận điền sau khi thực hiện)
 
--
+- 10/11/2026: theo yêu cầu người dùng, đã xóa thư mục/script thử `%TEMP%\tmvn-*` (gồm cả `tmvn-bak`; config hiện tại của người dùng không bị đụng) và bản clone `~/projects/TrafficMonitor-VN` (mọi commit có trong `~/backups/github/20261109/TrafficMonitor-VN.bundle`). Bỏ kế hoạch ký số: SECURITY.md, logs/STATE.md đã cập nhật. Việc tùy chọn còn lại duy nhất: cập nhật máy người dùng 0904 -> 1001 nếu người dùng muốn.
