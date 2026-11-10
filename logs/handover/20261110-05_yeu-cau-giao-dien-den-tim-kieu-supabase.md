@@ -120,3 +120,5 @@ chiều từ gốc chung `tsudev-files@35400351`, giữ bố cục riêng của 
 - **Kiểm**: `check-dist` 0, `check-theme` 0, `check-a11y` 12 trang x 2 chế độ 0 lỗi; ảnh 1440/390px hai chế độ xem
   bằng mắt.
 - Phiếu `20261110-02` được THAY bởi phiếu này - đã đánh dấu.
+- Nút phụ dùng viền `border-control` (#6E6E6E/#71717A, đạt 3:1 - hàng "viền ô nhập/nút" của bảng §2), không dùng
+  `border-strong` như mẫu tsudev-files (#2E2E2E trên #0A0A0A dưới 3:1, trượt WCAG 1.4.11).
