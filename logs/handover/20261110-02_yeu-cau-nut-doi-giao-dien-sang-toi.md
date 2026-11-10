@@ -49,7 +49,7 @@ trên tsudev.com để người dùng thấy một hệ sinh thái nhất quán.
 - Repo tsudev (`~/projects/tsudev` hoặc `github.com/tsudev-org/tsudev`): `apps/frontend-main/pages/_document.tsx`
   (`THEME_SCRIPT`), `packages/ui/src/components/ThemeToggle.tsx`, `apps/frontend-main/test/themeTokens.test.ts`.
 - Bài học đã trả giá ở tsudev: đổi nội dung script nội tuyến mà quên cập nhật băm CSP ⇒ production chặn script,
-  site vẫn 200, không gì báo lỗi. Dev/E2E chạy `http://localhost` không có CSP nên không bắt được.
+  site vẫn 200, không gì báo lỗi. Dev/E2E chạy `localhost` không có CSP nên không bắt được.
 
 ## Kết quả xử lý
 

@@ -20,7 +20,7 @@
 
 1. **Tông màu chủ đạo: ĐEN TUYỀN + TÍM TƯƠI.** Thay tông đen + xanh dương/xanh lá của phiên 46. Xám trung tính
    cho mọi bề mặt, tím CHỈ ở điểm nhấn (nút chính, liên kết, một quầng sáng tĩnh ở đỉnh trang).
-2. **Bố cục, nút, hiệu ứng tham khảo https://supabase.com** (không chép logo/chữ/ảnh của Supabase - chỉ học
+2. **Bố cục, nút, hiệu ứng tham khảo supabase.com** (không chép logo/chữ/ảnh của Supabase - chỉ học
    ngôn ngữ thiết kế): nền LIỀN MẠCH, không dải nền khác màu giữa các khối, không khung đứt đoạn.
 3. **Chỉ BA lựa chọn giao diện: Sáng / Tối / Hệ thống** (như supabase.com). **Bỏ chế độ Ấm** ở mọi nơi.
    Mặc định cho khách mới là **Tối**; "Hệ thống" là lựa chọn người dùng tự bật.
