@@ -1,6 +1,8 @@
 # Website trafficmonitor.tsudev.com
 
-Trang sản phẩm của TrafficMonitor-VN: [Astro](https://astro.build) dựng trang tĩnh, **không có JavaScript phía trình duyệt**,
+Trang sản phẩm của TrafficMonitor-VN: [Astro](https://astro.build) dựng trang tĩnh; JavaScript phía trình duyệt chỉ có
+`public/theme.js` (bộ chọn giao diện Sáng/Tối/Hệ thống ở chân trang, mặc định Tối, khóa `tsudev-theme` như tsudev.com;
+nạp chặn trong `<head>`, CSP `script-src 'self'`, không script nội tuyến),
 host trên Cloudflare Pages (dự án `tsudev-trafficmonitor`).
 
 * Nội dung tài liệu lấy trực tiếp từ các tệp `.md` ở gốc repo (`Help.md`, `KhoGiaoDien.md`, `SECURITY.md`...), ảnh từ `Screenshots/`
@@ -17,7 +19,8 @@ cd website
 npm ci
 npm run dev       # xem thử ở http://localhost:4321
 npm run build     # dựng vào dist/ và kiểm tra
-npm run check:a11y   # axe-core WCAG 2.2 AA mọi trang, sáng + tối (lần đầu: npx playwright install chromium)
+npm run check:a11y   # axe-core WCAG 2.2 AA mọi trang, Sáng + Tối (lần đầu: npx playwright install chromium)
+npm run check:theme  # bộ chọn giao diện trong Chromium, với CSP của production
 npm run deploy    # build rồi đưa lên Cloudflare Pages (cần `npx wrangler login` với tài khoản tsudev)
 ```
 
