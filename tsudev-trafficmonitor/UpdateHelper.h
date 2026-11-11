@@ -7,13 +7,6 @@ public:
     CUpdateHelper();
     ~CUpdateHelper();
 
-    //Giữ enum để tương thích cấu hình cũ; bản Việt hóa luôn dùng GitHub
-    enum class UpdateSource
-    {
-        GitHubSource,
-        GiteeSource
-    };
-
     //Kiểm tra liên kết tải bản cập nhật có thuộc trang Releases của repo này hay không
     static bool IsTrustedDownloadUrl(const std::wstring& url);
     //Kiểm tra định dạng chuỗi phiên bản (vd: 1.86, 1.86.1)
@@ -22,8 +15,6 @@ public:
     static int CompareVersion(const std::wstring& a, const std::wstring& b);
     //Xác minh chữ ký ECDSA P-256/SHA-256 (base64, dạng thô r||s 64 byte) của dữ liệu bằng khóa FORK_UPDATE_PUBLIC_KEY_HEX
     static bool VerifySignature(const std::string& data, const std::string& signature_base64);
-
-    void SetUpdateSource(UpdateSource update_source);
 
     //Tự tải gói cập nhật vào thư mục Downloads và kiểm SHA-256 (logic ở UpdateDownload.h; xem mô tả ở đó).
     //Gọi ở luồng nền (chặn tới khi xong). progress trả về false để hủy.
@@ -61,5 +52,4 @@ private:
     std::wstring m_contents_vi;
     std::wstring m_contents_en;
     bool m_row_data{ true };
-    UpdateSource m_update_source{ UpdateSource::GitHubSource };
 };

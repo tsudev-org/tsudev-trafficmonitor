@@ -26,8 +26,8 @@ Một sản phẩm của [tsudev](https://tsudev.com). Trang sản phẩm: [traf
 ### Bảo mật
 | Hạng mục | Bản gốc | tsudev-trafficmonitor |
 |---|---|---|
-| Nguồn cập nhật | GitHub hoặc Gitee | Chỉ repo tsudev-trafficmonitor trên GitHub |
-| Kiểm tra liên kết tải bản cập nhật | Chấp nhận mọi đường dẫn `github.com/`, `gitee.com/` | Chỉ chấp nhận trang Releases của repo này, chặn `..`, `@`, `?`, `#`, `%`, chỉ `.zip`/`.exe` |
+| Nguồn cập nhật | Nhiều máy chủ, có thể chọn | Chỉ repo tsudev-trafficmonitor trên GitHub |
+| Kiểm tra liên kết tải bản cập nhật | Chấp nhận mọi đường dẫn trên máy chủ mã nguồn | Chỉ chấp nhận trang Releases của repo này, chặn `..`, `@`, `?`, `#`, `%`, chỉ `.zip`/`.exe` |
 | Tải bản cập nhật | Mở trình duyệt, không kiểm tệp tải về | Thông tin phiên bản có **chữ ký số** (ECDSA P-256); ứng dụng tự tải gói và chỉ lưu khi **SHA-256 khớp** giá trị đã ký |
 | So sánh phiên bản | So sánh chuỗi (sai khi `1.100` vs `1.86`) | So sánh theo số |
 | Giao thức tải dữ liệu | Mọi giao thức `OpenURL` hỗ trợ (kể cả `file://`, `ftp://`) | **Chỉ HTTPS**, có timeout, giới hạn 1 MB, không cache/cookie |

@@ -350,7 +350,6 @@ struct TaskBarSettingData : public PublicSettingData
 struct GeneralSettingData
 {
     bool check_update_when_start{ true };
-    int update_source{};                    //Nguồn cập nhật. 0: GitHub; 1: Gitee (bản Việt hóa luôn dùng GitHub)
     bool auto_run{ false };
     bool auto_run_by_task_scheduler{ false };   //Có tự khởi động cùng hệ thống qua Task Scheduler hay không
     bool show_notify_icon{ true };    //Hiển thị biểu tượng ở vùng thông báo

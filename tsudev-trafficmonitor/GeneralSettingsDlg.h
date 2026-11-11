@@ -33,7 +33,6 @@ protected:
     bool m_auto_run_modified{ false };      //Sẽ được đặt thành true nếu thiết lập tự khởi động cùng Windows bị thay đổi
     bool m_show_all_interface_modified{ false };
     int m_monitor_time_span_ori{};
-    int m_update_source_ori{};
     //bool m_taskbar_item_modified{ false };
     wstring m_auto_run_path;
 
@@ -89,8 +88,6 @@ public:
     afx_msg void OnBnClickedGpuTempTipCheck();
     afx_msg void OnBnClickedHddTempTipCheck();
     afx_msg void OnBnClickedMbdTempTipCheck();
-    afx_msg void OnBnClickedGithubRadio();
-    afx_msg void OnBnClickedGiteeRadio();
     virtual void OnCancel();
     afx_msg void OnBnClickedRestoreDefaultTimeSpanButton();
     afx_msg void OnCbnSelchangeSelectHardDiskCombo();

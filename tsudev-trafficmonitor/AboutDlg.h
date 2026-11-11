@@ -18,6 +18,7 @@ protected:
     CLinkStatic m_mail;             //Siêu liên kết “Liên hệ tác giả”
     CLinkStatic m_github;           //Siêu liên kết “GitHub”
     CLinkStatic m_tsudev;           //Siêu liên kết “tsudev.com”
+    CLinkStatic m_donate;           //Siêu liên kết “Ủng hộ tsudev” (TSUDEV_DONATE_URL)
     CLinkStatic m_license;          //Siêu liên kết “Giấy phép mã nguồn mở”
     CToolTipCtrl m_tool_tip;            //Chú giải (tooltip) khi trỏ chuột vào
     CLinkStatic m_translator_static;
@@ -37,7 +38,6 @@ protected:
 public:
     virtual BOOL OnInitDialog();
     virtual BOOL PreTranslateMessage(MSG* pMsg);
-    //  afx_msg void OnStnClickedStaticDonate();
 protected:
     afx_msg LRESULT OnLinkClicked(WPARAM wParam, LPARAM lParam);
 public:

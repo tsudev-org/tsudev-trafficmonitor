@@ -159,7 +159,6 @@ void CTsudevTrafficMonitorApp::LoadConfig()
     //m_general_data.allow_skin_cover_font = ini.GetBool(_T("general"), _T("allow_skin_cover_font"), true);
     //m_general_data.allow_skin_cover_text = ini.GetBool(_T("general"), _T("allow_skin_cover_text"), true);
     m_general_data.show_all_interface = ini.GetBool(L"general", L"show_all_interface", false);
-    m_general_data.update_source = 0;   //Bản Việt hóa: nguồn cập nhật luôn là GitHub (repo tsudev-org/tsudev-trafficmonitor), bỏ qua giá trị cũ trong cấu hình
     m_general_data.cpu_usage_acquire_method = static_cast<GeneralSettingData::CpuUsageAcquireMethod>(ini.GetInt(L"general", L"cpu_usage_acquire_method", GeneralSettingData::CA_PDH));
     m_general_data.monitor_time_span = ini.GetInt(L"general", L"monitor_time_span", 1000);
     if (m_general_data.monitor_time_span < MONITOR_TIME_SPAN_MIN || m_general_data.monitor_time_span > MONITOR_TIME_SPAN_MAX)
@@ -383,7 +382,6 @@ void CTsudevTrafficMonitorApp::SaveConfig()
     //ini.WriteBool(_T("general"), _T("allow_skin_cover_font"), m_general_data.allow_skin_cover_font);
     //ini.WriteBool(_T("general"), _T("allow_skin_cover_text"), m_general_data.allow_skin_cover_text);
     ini.WriteString(_T("general"), _T("language"), m_general_data.language.toConfigString());
-    ini.WriteInt(L"general", L"update_source", m_general_data.update_source);
     ini.WriteBool(L"general", L"show_all_interface", m_general_data.show_all_interface);
     ini.WriteInt(L"general", L"cpu_usage_acquire_method", m_general_data.cpu_usage_acquire_method);
     ini.WriteInt(L"general", L"monitor_time_span", m_general_data.monitor_time_span);
@@ -628,7 +626,6 @@ void CTsudevTrafficMonitorApp::CheckUpdate(bool message)
     wstring contents_en;    //Nội dung cập nhật (English)
     wstring contents_vi;    //Nội dung cập nhật (tiếng Việt)
     CUpdateHelper update_helper;
-    update_helper.SetUpdateSource(static_cast<CUpdateHelper::UpdateSource>(m_general_data.update_source));
     if (!update_helper.CheckForUpdate())
     {
         if (message)

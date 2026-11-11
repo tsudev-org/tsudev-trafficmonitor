@@ -63,7 +63,6 @@ void CGeneralSettingsDlg::OnSettingsApplied()
 {
     //Khi thiết lập được áp dụng thì đặt lại giá trị xxxx_ori
     m_monitor_time_span_ori = m_data.monitor_time_span;
-    m_update_source_ori = m_data.update_source;
 }
 
 bool CGeneralSettingsDlg::InitializeControls()
@@ -72,9 +71,7 @@ bool CGeneralSettingsDlg::InitializeControls()
         { CtrlTextInfo::L4, IDC_CHECK_NOW_BUTTON, CtrlTextInfo::W16 }
         });
     RepositionTextBasedControls({
-        { CtrlTextInfo::L4, IDC_UPDATE_SORUCE_STATIC },
-        { CtrlTextInfo::L3, IDC_GITHUB_RADIO },
-        { CtrlTextInfo::L2, IDC_GITEE_RADIO }
+        { CtrlTextInfo::L4, IDC_UPDATE_SORUCE_STATIC }      //"Nguồn tải: GitHub" - nguồn cập nhật duy nhất (ForkConfig.h)
         });
     RepositionTextBasedControls({
         { CtrlTextInfo::L4, IDC_RESET_AUTO_RUN_BUTTON, CtrlTextInfo::W16 }
@@ -233,8 +230,6 @@ BEGIN_MESSAGE_MAP(CGeneralSettingsDlg, CTabDlg)
     ON_BN_CLICKED(IDC_GPU_TEMP_TIP_CHECK, &CGeneralSettingsDlg::OnBnClickedGpuTempTipCheck)
     ON_BN_CLICKED(IDC_HDD_TEMP_TIP_CHECK, &CGeneralSettingsDlg::OnBnClickedHddTempTipCheck)
     ON_BN_CLICKED(IDC_MBD_TEMP_TIP_CHECK, &CGeneralSettingsDlg::OnBnClickedMbdTempTipCheck)
-    ON_BN_CLICKED(IDC_GITHUB_RADIO, &CGeneralSettingsDlg::OnBnClickedGithubRadio)
-    ON_BN_CLICKED(IDC_GITEE_RADIO, &CGeneralSettingsDlg::OnBnClickedGiteeRadio)
     ON_BN_CLICKED(IDC_RESTORE_DEFAULT_TIME_SPAN_BUTTON, &CGeneralSettingsDlg::OnBnClickedRestoreDefaultTimeSpanButton)
     ON_CBN_SELCHANGE(IDC_SELECT_HARD_DISK_COMBO, &CGeneralSettingsDlg::OnCbnSelchangeSelectHardDiskCombo)
     ON_BN_CLICKED(IDC_CPU_CHECK, &CGeneralSettingsDlg::OnBnClickedCpuCheck)
@@ -269,12 +264,6 @@ BOOL CGeneralSettingsDlg::OnInitDialog()
         EnableDlgCtrl(IDC_SHOW_NOTIFY_ICON_CHECK, FALSE);
     }
     CheckDlgButton(IDC_SHOW_NOTIFY_ICON_CHECK, m_data.show_notify_icon);
-
-    //Bản Việt hóa: chỉ hỗ trợ nguồn cập nhật GitHub (repo tsudev-org/tsudev-trafficmonitor), vô hiệu hóa lựa chọn Gitee
-    m_data.update_source = 0;
-    CheckDlgButton(IDC_GITHUB_RADIO, TRUE);
-    CheckDlgButton(IDC_GITEE_RADIO, FALSE);
-    EnableDlgCtrl(IDC_GITEE_RADIO, FALSE);
 
     //Kiểm tra trong thư mục “Startup” của menu Start có lối tắt của chương trình không; nếu có thì thiết lập tự khởi động rồi xóa lối tắt
     wstring start_up_path = CCommon::GetStartUpPath();
@@ -387,7 +376,6 @@ BOOL CGeneralSettingsDlg::OnInitDialog()
     m_monitor_span_edit.SetValue(m_data.monitor_time_span);
 
     m_monitor_time_span_ori = m_data.monitor_time_span;
-    m_update_source_ori = m_data.update_source;
 
     if (CTsudevTrafficMonitorDlg::Instance()->IsGetDiskUsageByPdh())
     {
@@ -685,30 +673,9 @@ void CGeneralSettingsDlg::OnBnClickedMbdTempTipCheck()
 }
 
 
-void CGeneralSettingsDlg::OnBnClickedGithubRadio()
-{
-    // TODO: Thêm mã xử lý thông báo của điều khiển tại đây
-    m_data.update_source = 0;
-    theApp.m_general_data.update_source = 0;        //Khi nhấn nút chọn “Nguồn cập nhật” thì đồng thời đổi thiết lập trong theApp, đảm bảo khi nhấn “Kiểm tra ngay” sẽ dùng nguồn cập nhật đã chọn
-}
-
-
-void CGeneralSettingsDlg::OnBnClickedGiteeRadio()
-{
-    // TODO: Thêm mã xử lý thông báo của điều khiển tại đây
-    //Bản Việt hóa: không hỗ trợ Gitee, luôn giữ nguồn GitHub
-    m_data.update_source = 0;
-    theApp.m_general_data.update_source = 0;
-    CheckDlgButton(IDC_GITHUB_RADIO, TRUE);
-    CheckDlgButton(IDC_GITEE_RADIO, FALSE);
-}
-
-
 void CGeneralSettingsDlg::OnCancel()
 {
     // TODO: Thêm mã chuyên biệt và/hoặc gọi lớp cơ sở tại đây
-    theApp.m_general_data.update_source = m_update_source_ori;      //Khôi phục tùy chọn “Nguồn cập nhật” ban đầu khi nhấn “Hủy”
-
     CTabDlg::OnCancel();
 }
 

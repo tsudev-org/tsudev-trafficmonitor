@@ -5,7 +5,6 @@
 #include "DrawCommon.h"
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CBaseDialog)
-    //ON_STN_CLICKED(IDC_STATIC_DONATE, &CAboutDlg::OnStnClickedStaticDonate)
     ON_MESSAGE(WM_LINK_CLICKED, &CAboutDlg::OnLinkClicked)
     ON_WM_PAINT()
     ON_WM_ERASEBKGND()
@@ -26,6 +25,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_OPENHARDWAREMONITOR_LINK, m_openhardwaremonitor_link);
     DDX_Control(pDX, IDC_TINYXML2_LINK, m_tinyxml2_link);
     DDX_Control(pDX, IDC_STATIC_TSUDEV, m_tsudev);
+    DDX_Control(pDX, IDC_STATIC_DONATE, m_donate);
 }
 
 CString CAboutDlg::GetDialogName() const
@@ -39,7 +39,8 @@ bool CAboutDlg::InitializeControls()
         { CtrlTextInfo::L4, IDC_STATIC_MAIL },
         { CtrlTextInfo::L3, IDC_STATIC_GITHUB },
         { CtrlTextInfo::L2, IDC_STATIC_TSUDEV },
-        { CtrlTextInfo::L4, IDC_STATIC_LICENSE }              //Dòng "Giấy phép": mở LICENSE (nơi giữ thông báo bản quyền bắt buộc)
+        { CtrlTextInfo::L4, IDC_STATIC_LICENSE },             //Dòng "Giấy phép": mở LICENSE (nơi giữ thông báo bản quyền bắt buộc)
+        { CtrlTextInfo::L3, IDC_STATIC_DONATE }               //"Ủng hộ tsudev": mở trang ủng hộ chung của hệ sinh thái
         });
     return true;
 }
@@ -68,6 +69,7 @@ BOOL CAboutDlg::OnInitDialog()
     m_mail.SetURL(CString(FORK_REPO_URL) + _T("/issues"));   //Thiết lập siêu liên kết
     m_github.SetURL(FORK_REPO_URL);
     m_tsudev.SetURL(TSUDEV_HOME_URL);
+    m_donate.SetURL(TSUDEV_DONATE_URL);   //Chỉ trỏ về trang, không nhúng số tài khoản/QR vào chương trình
     m_license.SetLinkIsURL(false);
 
     m_openhardwaremonitor_link.SetURL(THIRD_PARTY_LIBREHARDWAREMONITOR_URL);
@@ -77,6 +79,7 @@ BOOL CAboutDlg::OnInitDialog()
     m_mail.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_github.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_tsudev.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
+    m_donate.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
     m_license.SetBackgroundColor(GetSysColor(COLOR_WINDOW));
 
     //Thiết lập thông tin phiên bản
@@ -115,6 +118,7 @@ BOOL CAboutDlg::OnInitDialog()
     m_tool_tip.AddTool(&m_mail, CCommon::LoadText(IDS_SEND_EMAIL_TO_ATHOUR, _T("\r\n")) + m_mail.GetURL());
     m_tool_tip.AddTool(&m_github, CCommon::LoadText(IDS_GOTO_GITHUB, _T("\r\n")) + FORK_REPO_URL);
     m_tool_tip.AddTool(&m_tsudev, TSUDEV_HOME_URL);
+    m_tool_tip.AddTool(&m_donate, TSUDEV_DONATE_URL);
     m_tool_tip.AddTool(&m_openhardwaremonitor_link, m_openhardwaremonitor_link.GetURL());
     m_tool_tip.AddTool(&m_tinyxml2_link, m_tinyxml2_link.GetURL());
 
@@ -158,12 +162,6 @@ BOOL CAboutDlg::PreTranslateMessage(MSG* pMsg)
 
     return CBaseDialog::PreTranslateMessage(pMsg);
 }
-
-//void CAboutDlg::OnStnClickedStaticDonate()
-//{
-//  CDonateDlg donateDlg;
-//  donateDlg.DoModal();
-//}
 
 afx_msg LRESULT CAboutDlg::OnLinkClicked(WPARAM wParam, LPARAM lParam)
 {

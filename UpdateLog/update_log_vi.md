@@ -14,6 +14,10 @@ Các bản trước khi đổi tên mang tên **TrafficMonitor-VN**; nội dung 
 * Bản cũ và bản mới không chạy cùng lúc: chạy bản mới khi bản cũ đang mở sẽ báo phần mềm đang chạy.
 * Plugin có sẵn vẫn dùng được (giao diện plugin không đổi; tên `ITrafficMonitor` giữ làm tên khác của `ITsudevTrafficMonitor`).
 
+### Gọn giao diện
+* Gỡ lựa chọn nguồn cập nhật Gitee (đã vô hiệu từ bản Việt hóa đầu tiên); Cài đặt Chung ghi "Nguồn tải: GitHub".
+* Gỡ chuỗi và tài nguyên ủng hộ của dự án gốc; hộp thoại Giới thiệu có liên kết **Ủng hộ tsudev** mở https://tsudev.com/ung-ho/ (chương trình không chứa thông tin chuyển khoản).
+
 ### Thương hiệu
 * Logo mới cho icon chương trình, icon khay, hộp thoại Giới thiệu và website; thêm skin `tsudev_Logo`.
 
