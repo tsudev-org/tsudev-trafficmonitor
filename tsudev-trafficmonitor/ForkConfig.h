@@ -63,8 +63,9 @@
 
 // Hệ sinh thái tsudev (ECOSYSTEM_IDENTITY mục 2.3: hộp thoại Giới thiệu có liên kết tới tsudev.com)
 #define TSUDEV_HOME_URL             L"https://tsudev.com"
-// Trang Ủng hộ chung của hệ sinh thái tsudev (phiếu 20261112-01): ứng dụng chỉ mở trang, không nhúng thông tin chuyển khoản
-#define TSUDEV_DONATE_URL           L"https://tsudev.com/ung-ho/"
+// Trang Ủng hộ của sản phẩm (phiếu 20261112-01; dữ liệu website/src/data/ung-ho.json): ứng dụng chỉ mở trang,
+// không nhúng thông tin chuyển khoản - đổi kênh không cần phát hành lại ứng dụng.
+#define TSUDEV_DONATE_URL           L"https://trafficmonitor.tsudev.com/ung-ho/"
 #define FORK_PRODUCT_URL            L"https://trafficmonitor.tsudev.com"
 
 // Ghi công thư viện bên thứ ba (hộp thoại Giới thiệu)

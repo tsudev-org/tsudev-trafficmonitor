@@ -5,7 +5,7 @@
 Changes in each tsudev-trafficmonitor release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 Releases before the rename were called **TrafficMonitor-VN**; their entries below are kept as released.
 
-## Unreleased
+## 26.11.1201 (12/11/2026)
 
 ### Renamed to tsudev-trafficmonitor
 * The app, executable (`tsudev-trafficmonitor.exe`), folder inside the zip, documentation and website now use the name **tsudev-trafficmonitor**, in line with the tsudev ecosystem.
@@ -14,9 +14,12 @@ Releases before the rename were called **TrafficMonitor-VN**; their entries belo
 * The old and new versions do not run at the same time: starting the new one while the old one is open reports that the app is already running.
 * Existing plugins keep working (the plugin interface is unchanged; `ITrafficMonitor` remains an alias of `ITsudevTrafficMonitor`).
 
+### Fixes
+* **Previous day's traffic lost:** after midnight, the first automatic save overwrote yesterday's record in the history file (it stayed only in memory); if the app was terminated abnormally before a normal exit, that day was lost. Saves are now full whenever the file does not match, and on startup any days missing from the history are recovered from `history_traffic.dat.bak`.
+
 ### Interface cleanup
 * Removed the Gitee update source option (disabled since the first localized release); General Settings shows "Update source: GitHub".
-* Removed the original project's donation strings and resources; the About dialog links to **Support tsudev** at https://tsudev.com/ung-ho/ (the program contains no payment details).
+* Removed the original project's donation strings and resources; the About dialog links to **Support tsudev** at https://trafficmonitor.tsudev.com/ung-ho/ (the program contains no payment details).
 
 ### Branding
 * New logo for the program icon, tray icon, About dialog and website; new `tsudev_Logo` skin.

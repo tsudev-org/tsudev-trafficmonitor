@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "name": "tsudev-trafficmonitor",
-  "winget": "tsudev.tsudev-trafficmonitor",
+  "winget": "tsudev.TrafficMonitor",
   "homepage": "https://trafficmonitor.tsudev.com",
   "license": "LicenseRef-Anti-996",
   "description": {

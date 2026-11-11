@@ -128,6 +128,7 @@ void CHistoryTrafficFile::SaveTodayOnly() const
 
 	// Đọc các dòng còn lại của tệp (từ dòng 3 trở đi) để cập nhật tăng dần
 	vector<string> remaining_lines;
+	string second_line;
 	ifstream in_file{ m_file_path };
 	if (in_file.is_open())
 	{
@@ -136,9 +137,14 @@ void CHistoryTrafficFile::SaveTodayOnly() const
 		while (std::getline(in_file, line))
 		{
 			line_num++;
-			if (line_num > 2) // Bỏ qua hai dòng đầu
+			if (line_num == 2)
+				second_line = line;
+			else if (line_num > 2) // Bỏ qua hai dòng đầu
 			{
-				remaining_lines.push_back(line);
+				if (!line.empty() && line.back() == '\r')
+					line.pop_back();
+				if (!line.empty())
+					remaining_lines.push_back(line);
 			}
 		}
 		in_file.close();
@@ -147,6 +153,18 @@ void CHistoryTrafficFile::SaveTodayOnly() const
 	{
 		//Không đọc được tệp (ví dụ đang bị chương trình khác khóa): lưu đầy đủ từ dữ liệu trong bộ nhớ,
 		//tránh ghi tệp mới chỉ có bản ghi hôm nay làm mất toàn bộ lịch sử
+		Save();
+		return;
+	}
+
+	// Chỉ ghi đè dòng 2 khi dòng đó đúng là bản ghi HÔM NAY và phần còn lại của tệp khớp danh sách lịch sử trong bộ nhớ.
+	// Ngay sau khi sang ngày mới, dòng 2 của tệp vẫn là bản ghi HÔM QUA (OnDateChanged đã chuyển nó vào m_history_traffics
+	// nhưng chưa ghi xuống đĩa); ghi đè dòng 2 lúc đó làm mất bản ghi hôm qua trên đĩa - nếu chương trình bị tắt đột ngột
+	// trước lần lưu đầy đủ khi thoát thì mất hẳn (lỗi có từ trước 26.11.1201). Khi không khớp thì lưu đầy đủ.
+	char date_prefix[16];
+	sprintf_s(date_prefix, "%.4d/%.2d/%.2d ", m_today_traffic.year, m_today_traffic.month, m_today_traffic.day);
+	if (second_line.compare(0, strlen(date_prefix), date_prefix) != 0 || remaining_lines.size() != m_history_traffics.size())
+	{
 		Save();
 		return;
 	}

@@ -5,7 +5,7 @@
 Thay đổi của từng bản phát hành tsudev-trafficmonitor do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 Các bản trước khi đổi tên mang tên **TrafficMonitor-VN**; nội dung của chúng bên dưới giữ nguyên như lúc phát hành.
 
-## Chưa phát hành
+## 26.11.1201 (12/11/2026)
 
 ### Đổi tên thành tsudev-trafficmonitor
 * Phần mềm, tệp chương trình (`tsudev-trafficmonitor.exe`), thư mục trong gói zip, tài liệu và website thống nhất tên **tsudev-trafficmonitor** theo hệ sinh thái tsudev.
@@ -14,9 +14,12 @@ Các bản trước khi đổi tên mang tên **TrafficMonitor-VN**; nội dung 
 * Bản cũ và bản mới không chạy cùng lúc: chạy bản mới khi bản cũ đang mở sẽ báo phần mềm đang chạy.
 * Plugin có sẵn vẫn dùng được (giao diện plugin không đổi; tên `ITrafficMonitor` giữ làm tên khác của `ITsudevTrafficMonitor`).
 
+### Sửa lỗi
+* **Mất lưu lượng của ngày hôm trước:** sau khi qua nửa đêm, lần lưu tự động đầu tiên ghi đè bản ghi hôm qua trong tệp lịch sử (chỉ còn trong bộ nhớ); nếu chương trình bị tắt đột ngột trước khi thoát bình thường thì mất hẳn ngày đó. Nay lưu đầy đủ khi tệp chưa khớp, và lúc khởi động luôn lấy lại những ngày còn thiếu từ tệp sao lưu `history_traffic.dat.bak`.
+
 ### Gọn giao diện
 * Gỡ lựa chọn nguồn cập nhật Gitee (đã vô hiệu từ bản Việt hóa đầu tiên); Cài đặt Chung ghi "Nguồn tải: GitHub".
-* Gỡ chuỗi và tài nguyên ủng hộ của dự án gốc; hộp thoại Giới thiệu có liên kết **Ủng hộ tsudev** mở https://tsudev.com/ung-ho/ (chương trình không chứa thông tin chuyển khoản).
+* Gỡ chuỗi và tài nguyên ủng hộ của dự án gốc; hộp thoại Giới thiệu có liên kết **Ủng hộ tsudev** mở trang ủng hộ https://trafficmonitor.tsudev.com/ung-ho/ (chương trình không chứa thông tin chuyển khoản).
 
 ### Thương hiệu
 * Logo mới cho icon chương trình, icon khay, hộp thoại Giới thiệu và website; thêm skin `tsudev_Logo`.
