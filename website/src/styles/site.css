@@ -57,7 +57,8 @@ pre {
 .dau-trang__nut { display: flex; gap: 0.5rem; margin-left: auto; }
 .thuong-hieu { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--text-primary); text-decoration: none; font-weight: 600; font-size: 1.05rem; }
 .thuong-hieu:hover { color: var(--text-primary); }
-.thuong-hieu img { width: auto; height: 2.2rem; }
+.thuong-hieu picture { display: inline-flex; }
+.thuong-hieu img { width: auto; height: 2.2rem; border-radius: 22%; }
 .thuong-hieu--nho { font-size: 1rem; }
 .thuong-hieu--nho img { height: 1.6rem; }
 .menu { display: flex; gap: 0.15rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
@@ -81,6 +82,8 @@ pre {
 /* Trang chủ: hero canh giữa */
 .mo-dau { padding: 5rem 0 3rem; text-align: center; }
 .mo-dau__luoi { display: grid; gap: 3rem; justify-items: center; }
+.mo-dau__logo { display: block; margin: 0 auto 1.25rem; }
+.mo-dau__logo img { display: block; width: clamp(7.5rem, 22vw, 10rem); height: auto; filter: drop-shadow(0 0 1.5rem rgba(63, 182, 245, 0.25)); }
 .mo-dau h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); line-height: 1.12; margin: 0 auto 1.1rem; letter-spacing: -0.025em; max-width: 46rem; }
 .chu-tim {
   background: linear-gradient(90deg, var(--primary), var(--accent));

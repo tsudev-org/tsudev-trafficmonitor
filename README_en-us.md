@@ -5,7 +5,7 @@
 [![Release](https://img.shields.io/github/v/release/tsudev-org/tsudev-trafficmonitor?style=flat-square)](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest)
 [![License](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
 
-<img src="./website/public/brand/logo-mark.png" alt="tsudev" height="56">
+<img src="./assets/brand/logo-tsudev-trafficmonitor.png" alt="Logo tsudev-trafficmonitor" height="120">
 
 # TrafficMonitor-VN
 

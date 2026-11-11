@@ -1,0 +1,30 @@
+{
+  "_ghi_chu": "Cấu hình dây chuyền thương hiệu (tools/brand/build_brand.py). Đổi logo: thay source/, sửa ô cắt nếu cần, chạy lại script. Toạ độ tính theo ảnh nguồn (px).",
+  "source": "source/logo-tsudev-trafficmonitor.png",
+  "name": "tsudev-trafficmonitor",
+  "background": {
+    "_ghi_chu": "Nền ảnh nguồn là đen đặc. Vùng tối (max RGB < seed_max) nối với mép ảnh là nền; quầng sáng gần mép lấy alpha theo độ sáng (gỡ nhân trước với nền đen).",
+    "seed_max": 12,
+    "open_px": 7,
+    "soft_band_px": 13,
+    "soft_lo": 6,
+    "soft_hi": 60
+  },
+  "mark_box": [367, 262, 887, 782],
+  "mark_small_box": [412, 322, 842, 752],
+  "mark_radius": 0.22,
+  "colors": {
+    "_ghi_chu": "Màu nền đặc cho apple-touch/maskable/og-image: bg-base chế độ Tối của website (website/src/styles/palette.css). Màu nhấn lấy từ logo (xanh lơ), không phải token giao diện.",
+    "bg": "#0A0A0A",
+    "surface": "#111111",
+    "border": "#242424",
+    "text": "#EDEDED",
+    "text2": "#B4B4B4",
+    "primary": "#A970FF",
+    "on_primary": "#0A0A0A",
+    "logo_accent": "#3FB6F5",
+    "about_bg": "#FFFFFF",
+    "about_text": "#0A0A0A",
+    "about_accent": "#1565C0"
+  }
+}

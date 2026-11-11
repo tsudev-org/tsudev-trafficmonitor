@@ -1,0 +1,16 @@
+---
+// Ảnh thương hiệu tsudev-trafficmonitor: AVIF -> WebP -> PNG (trình duyệt chọn định dạng tốt nhất nó hỗ trợ).
+// Ảnh sinh bởi tools/brand/build_brand.py vào public/brand/ (không sửa tay).
+//   loai="mark": dấu hiệu thu gọn (mặt cú, không chữ), 128x128 - dùng cho cỡ nhỏ (đầu trang, chân trang)
+//   loai="logo": logo đầy đủ, nền trong suốt, 512x512
+// Đi kèm chữ dựng bằng text thì để alt="" (BRAND_ASSETS mục 8).
+interface Props { loai: 'mark' | 'logo'; co: number; alt?: string; class?: string; uuTien?: boolean }
+const { loai, co, alt = '', class: lop, uuTien = false } = Astro.props;
+const goc = `/brand/${loai}-tsudev-trafficmonitor`;
+---
+<picture class={lop}>
+  <source srcset={`${goc}.avif`} type="image/avif">
+  <source srcset={`${goc}.webp`} type="image/webp">
+  <img src={`${goc}.png`} alt={alt} width={co} height={co} decoding="async"
+    loading={uuTien ? 'eager' : 'lazy'} fetchpriority={uuTien ? 'high' : undefined}>
+</picture>

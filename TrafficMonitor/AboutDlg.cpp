@@ -188,7 +188,7 @@ void CAboutDlg::OnPaint()
     CDrawCommon draw;
     draw.Create(&dc, this);
     CRect rc_pic = CalculatePicRect();
-    draw.GetDC()->FillSolidRect(rc_pic, RGB(255, 255, 255));    //Trùng màu nền ảnh (tools/brand/make_app_icons.py, ABOUT_BG)
+    draw.GetDC()->FillSolidRect(rc_pic, RGB(255, 255, 255));    //Trùng màu nền ảnh (tools/brand/build_brand.py, about_bg trong assets/brand/brand.json)
     draw.DrawBitmap(m_about_pic, rc_pic.TopLeft(), rc_pic.Size(), CDrawCommon::StretchMode::FIT);
 }
 
