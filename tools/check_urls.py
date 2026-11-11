@@ -36,6 +36,9 @@ ALLOWED_PREFIXES = [
     "https://raw.githubusercontent.com/tsudev-org/tsudev-trafficmonitor/",
     "https://trafficmonitor.tsudev.com",
     "https://tsudev.com",
+    # Kênh cài bằng lệnh (tsudev-standards PACKAGING.md): bucket Scoop do dự án duy trì + trang Scoop
+    "https://github.com/tsudev-org/scoop-bucket",
+    "https://scoop.sh",
     # Ghi công thư viện bên thứ ba
     "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor",
     "https://github.com/leethomason/tinyxml2",
