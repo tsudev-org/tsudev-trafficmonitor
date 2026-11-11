@@ -14,6 +14,9 @@ Releases before the rename were called **TrafficMonitor-VN**; their entries belo
 * The old and new versions do not run at the same time: starting the new one while the old one is open reports that the app is already running.
 * Existing plugins keep working (the plugin interface is unchanged; `ITrafficMonitor` remains an alias of `ITsudevTrafficMonitor`).
 
+### Fixes
+* **Previous day's traffic lost:** after midnight, the first automatic save overwrote yesterday's record in the history file (it stayed only in memory); if the app was terminated abnormally before a normal exit, that day was lost. Saves are now full whenever the file does not match, and on startup any days missing from the history are recovered from `history_traffic.dat.bak`.
+
 ### Interface cleanup
 * Removed the Gitee update source option (disabled since the first localized release); General Settings shows "Update source: GitHub".
 * Removed the original project's donation strings and resources; the About dialog links to **Support tsudev** at https://trafficmonitor.tsudev.com/ung-ho/ (the program contains no payment details).

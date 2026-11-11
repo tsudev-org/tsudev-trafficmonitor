@@ -9,9 +9,9 @@
 		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1201-vn/tsudev-trafficmonitor_26.11.1201_arm64ec_Lite.zip</link_without_temperature_arm64ec>
 	</GitHub>
 	<update_contents>
-		<contents_vi>Bản 26.11.1201: phần mềm đổi tên thành tsudev-trafficmonitor, logo mới; tự chuyển cấu hình, lịch sử lưu lượng và tự khởi động của bản cũ sang tên mới.
+		<contents_vi>Bản 26.11.1201: sửa lỗi mất lưu lượng của ngày hôm trước sau nửa đêm (tự lấy lại từ tệp sao lưu); phần mềm đổi tên thành tsudev-trafficmonitor, logo mới; tự chuyển cấu hình, lịch sử lưu lượng và tự khởi động của bản cũ sang tên mới.
 Gỡ lựa chọn nguồn cập nhật Gitee; hộp thoại Giới thiệu có liên kết Ủng hộ tsudev; thêm skin tsudev_Logo.</contents_vi>
-		<contents_en>Release 26.11.1201: renamed to tsudev-trafficmonitor with a new logo; settings, traffic history and start-with-Windows from the old version move to the new name automatically.
+		<contents_en>Release 26.11.1201: fixes losing the previous day's traffic after midnight (recovered from the backup file); renamed to tsudev-trafficmonitor with a new logo; settings, traffic history and start-with-Windows from the old version move to the new name automatically.
 Removed the Gitee update source option; the About dialog links to Support tsudev; new tsudev_Logo skin.</contents_en>
 	</update_contents>
 </root>

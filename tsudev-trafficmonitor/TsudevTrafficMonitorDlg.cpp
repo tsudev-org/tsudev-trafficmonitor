@@ -743,17 +743,14 @@ void CTsudevTrafficMonitorDlg::LoadHistoryTraffic()
 {
     m_history_traffic.Load();
     CHistoryTrafficFile backup_file(theApp.m_history_traffic_path + L".bak");
-    backup_file.LoadSize();     //Đọc số bản ghi lưu lượng trong tệp sao lưu
-    
-    // Nếu số bản ghi lưu lượng trong tệp sao lưu lớn hơn số hiện tại thì thử khôi phục từ tệp sao lưu
-    if (backup_file.Size() > m_history_traffic.Size())
+
+    // Luôn gộp tệp sao lưu: bổ sung những NGÀY tệp hiện tại đang thiếu, ngày trùng lấy giá trị lớn hơn, bỏ bản ghi "tương lai"
+    // (Merge với ignore_same_data = true, gộp lại nhiều lần cho cùng kết quả). Trước 26.11.1201 chỉ khôi phục khi tệp sao lưu
+    // có NHIỀU bản ghi hơn, nên một ngày bị ghi đè (cùng số bản ghi, khác ngày) không bao giờ được lấy lại.
+    if (CCommon::FileExist(backup_file.GetFilePath().c_str()))
     {
         size_t size_before = m_history_traffic.Size();
         backup_file.Load();     //Nạp tệp sao lưu (sẽ dọn bản ghi "tương lai")
-        size_t backup_size_after_load = backup_file.Size();  //Số bản ghi thực tế sau khi nạp (có thể giảm do dọn bản ghi "tương lai")
-        
-        // Sau khi nạp, chỉ khôi phục nếu số bản ghi trong tệp sao lưu vẫn lớn hơn tệp hiện tại
-        if (backup_size_after_load > m_history_traffic.Size())
         {
             m_history_traffic.Merge(backup_file, true);
             size_t size_after = m_history_traffic.Size();
