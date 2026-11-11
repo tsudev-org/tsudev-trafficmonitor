@@ -1,0 +1,8 @@
+# Mọi thay đổi vào main cần chủ dự án xem xét.
+* @tsudev-tsudev
+# Kênh ủng hộ (số tài khoản, mã QR) và bước kiểm: chỉ chủ dự án duyệt - chống tráo tài khoản nhận tiền (phiếu 20261112-01).
+/website/src/data/ung-ho.json @tsudev-tsudev
+/website/src/lib/ung-ho.ts @tsudev-tsudev
+/website/public/ung-ho/ @tsudev-tsudev
+/.github/FUNDING.yml @tsudev-tsudev
+/tsudev-trafficmonitor/ForkConfig.h @tsudev-tsudev

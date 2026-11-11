@@ -5,7 +5,7 @@
 Thay đổi của từng bản phát hành tsudev-trafficmonitor do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 Các bản trước khi đổi tên mang tên **TrafficMonitor-VN**; nội dung của chúng bên dưới giữ nguyên như lúc phát hành.
 
-## Chưa phát hành
+## 26.11.1201 (12/11/2026)
 
 ### Đổi tên thành tsudev-trafficmonitor
 * Phần mềm, tệp chương trình (`tsudev-trafficmonitor.exe`), thư mục trong gói zip, tài liệu và website thống nhất tên **tsudev-trafficmonitor** theo hệ sinh thái tsudev.
@@ -16,7 +16,7 @@ Các bản trước khi đổi tên mang tên **TrafficMonitor-VN**; nội dung 
 
 ### Gọn giao diện
 * Gỡ lựa chọn nguồn cập nhật Gitee (đã vô hiệu từ bản Việt hóa đầu tiên); Cài đặt Chung ghi "Nguồn tải: GitHub".
-* Gỡ chuỗi và tài nguyên ủng hộ của dự án gốc; hộp thoại Giới thiệu có liên kết **Ủng hộ tsudev** mở https://tsudev.com/ung-ho/ (chương trình không chứa thông tin chuyển khoản).
+* Gỡ chuỗi và tài nguyên ủng hộ của dự án gốc; hộp thoại Giới thiệu có liên kết **Ủng hộ tsudev** mở trang ủng hộ https://trafficmonitor.tsudev.com/ung-ho/ (chương trình không chứa thông tin chuyển khoản).
 
 ### Thương hiệu
 * Logo mới cho icon chương trình, icon khay, hộp thoại Giới thiệu và website; thêm skin `tsudev_Logo`.

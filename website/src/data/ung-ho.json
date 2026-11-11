@@ -1,0 +1,21 @@
+{
+  "ghiChu": "Nguồn DUY NHẤT của kênh ủng hộ tsudev-trafficmonitor, hiển thị ở https://trafficmonitor.tsudev.com/ung-ho/ (ứng dụng, README, nút Sponsor GitHub chỉ trỏ tới trang đó). Dữ liệu và ảnh QR chép nguyên văn từ bản tham chiếu tsudev-files (phiếu ~/projects/logs/handover/20261112-01); build kiểm CRC VietQR, NAPAS, BIN, số tài khoản và SHA-256 ảnh QR (src/lib/ung-ho.ts). Chỉ chủ dự án sửa (CODEOWNERS).",
+  "kenh": [
+    {
+      "ten": "Chuyển khoản ngân hàng (VietQR)",
+      "moTa": "Quét mã bằng ứng dụng ngân hàng hoặc ví điện tử hỗ trợ VietQR/NAPAS 247, hoặc chuyển khoản theo thông tin bên dưới. Nội dung chuyển khoản gợi ý: Ung ho tsudev-trafficmonitor.",
+      "chiTiet": [
+        "Ngân hàng: VIB (Ngân hàng TMCP Quốc Tế Việt Nam)",
+        "Số tài khoản: 056485506",
+        "Chủ tài khoản: NGUYEN TRANG TINH SU"
+      ],
+      "anhQr": "/ung-ho/vietqr-vib.svg",
+      "anhQrSha256": "7209698f1393857607ec7bea95b06349ca8ce332d6fb0c9f1774d6beab4cecae",
+      "vietqr": {
+        "bin": "970441",
+        "soTaiKhoan": "056485506",
+        "payload": "00020101021138530010A0000007270123000697044101090564855060208QRIBFTTA53037045802VN63040B90"
+      }
+    }
+  ]
+}

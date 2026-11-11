@@ -29,8 +29,10 @@ Theo phiếu gốc mục 4: gỡ kênh cũ, `FUNDING.yml`, trang/nút Ủng hộ
 
 - Không còn `DonateDlg`/ảnh QR của tác giả gốc trong mã (chỉ còn ID tài nguyên thừa và mã chú thích - đã gỡ: `IDB_DONATE_*`,
   `IDC_DONATE_PIC`, `OnStnClickedStaticDonate`). Gỡ chuỗi `IDS_DONATE_ATHOUR` ("Donate the author") khỏi 15 gói ngôn ngữ.
-- Hộp Giới thiệu: thêm liên kết "Ủng hộ tsudev" (`TXT_ABOUT_DONATE`, `IDC_STATIC_DONATE`) mở `TSUDEV_DONATE_URL` =
-  `https://tsudev.com/ung-ho/` (khai trong `ForkConfig.h`, `check_urls.py` canh). Exe KHÔNG chứa số tài khoản/QR.
-- `.github/FUNDING.yml`: `custom: ["https://tsudev.com/ung-ho/"]`. Chân trang website: liên kết "Ủng hộ tsudev".
-- Website sản phẩm không có trang ủng hộ riêng (trỏ về trang trung tâm) nên không cần dữ liệu/QR/CODEOWNERS ở repo này.
-- Chờ: trang `tsudev.com/ung-ho/` lên production (phiếu của repo `tsudev`) trước khi phát hành bản có liên kết này.
+- Hộp Giới thiệu: thêm liên kết "Ủng hộ tsudev" (`TXT_ABOUT_DONATE`, `IDC_STATIC_DONATE`) mở `TSUDEV_DONATE_URL` (xem dòng CẬP NHẬT) (khai trong `ForkConfig.h`, `check_urls.py` canh). Exe KHÔNG chứa số tài khoản/QR.
+- `.github/FUNDING.yml` và chân trang website trỏ về trang Ủng hộ (xem dòng CẬP NHẬT).
+- CẬP NHẬT 12/11/2026: trang trung tâm `tsudev.com/ung-ho/` chưa có (404, phiếu của repo `tsudev` còn CHỜ NHẬN) nên
+  repo này dựng trang riêng `https://trafficmonitor.tsudev.com/ung-ho/` theo bản tham chiếu tsudev-files: dữ liệu
+  `website/src/data/ung-ho.json`, kiểm lúc build `website/src/lib/ung-ho.ts` (CRC VietQR, NAPAS, VND, BIN + số tài khoản,
+  SHA-256 ảnh QR - đã thử tráo ảnh: build dừng), ảnh `website/public/ung-ho/vietqr-vib.svg` (SHA-256 `7209698f…`),
+  `.github/CODEOWNERS`. Ứng dụng (`TSUDEV_DONATE_URL`), FUNDING.yml, chân trang đều trỏ về trang này.

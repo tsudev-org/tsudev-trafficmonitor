@@ -5,7 +5,7 @@
 Changes in each tsudev-trafficmonitor release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 Releases before the rename were called **TrafficMonitor-VN**; their entries below are kept as released.
 
-## Unreleased
+## 26.11.1201 (12/11/2026)
 
 ### Renamed to tsudev-trafficmonitor
 * The app, executable (`tsudev-trafficmonitor.exe`), folder inside the zip, documentation and website now use the name **tsudev-trafficmonitor**, in line with the tsudev ecosystem.
@@ -16,7 +16,7 @@ Releases before the rename were called **TrafficMonitor-VN**; their entries belo
 
 ### Interface cleanup
 * Removed the Gitee update source option (disabled since the first localized release); General Settings shows "Update source: GitHub".
-* Removed the original project's donation strings and resources; the About dialog links to **Support tsudev** at https://tsudev.com/ung-ho/ (the program contains no payment details).
+* Removed the original project's donation strings and resources; the About dialog links to **Support tsudev** at https://trafficmonitor.tsudev.com/ung-ho/ (the program contains no payment details).
 
 ### Branding
 * New logo for the program icon, tray icon, About dialog and website; new `tsudev_Logo` skin.

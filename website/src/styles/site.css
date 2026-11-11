@@ -183,3 +183,9 @@ pre {
   /* Logo và hai nút cùng hàng; điều hướng xuống hàng dưới */
   .dau-trang nav { order: 3; flex-basis: 100%; margin-left: 0; padding-bottom: 0.5rem; }
 }
+
+/* Trang Ủng hộ (theo tsudev-files): thẻ kênh; ảnh QR luôn nền trắng + vùng lặng để máy quét đọc được ở chế độ Tối */
+.kenh-ung-ho { list-style: none; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+.kenh-ung-ho > li { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem; border: 1px solid var(--border); border-radius: 0.75rem; background: var(--bg-surface); }
+.kenh-ung-ho__chi-tiet { display: flex; flex-direction: column; font-variant-numeric: tabular-nums; color: var(--text-secondary); }
+.kenh-ung-ho img { width: 200px; max-width: 100%; height: auto; border-radius: 0.5rem; background: #fff; padding: 0.5rem; align-self: flex-start; }

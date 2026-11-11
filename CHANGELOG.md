@@ -5,7 +5,7 @@ Trước khi đổi tên, phần mềm mang tên TrafficMonitor-VN (các dòng c
 Mỗi bản phát hành một dòng, mới nhất trên cùng. Chi tiết: [UpdateLog/update_log_vi.md](./UpdateLog/update_log_vi.md) ([English](./UpdateLog/update_log_en-us.md)).
 
 ```
-Chưa phát hành - Đổi tên thành tsudev-trafficmonitor (tự chuyển cấu hình, lịch sử, tự khởi động); logo mới; thêm skin tsudev_Logo; gỡ lựa chọn Gitee và mục ủng hộ cũ, thêm liên kết Ủng hộ tsudev
+26.11.1201 - 12/11/2026 - Đổi tên thành tsudev-trafficmonitor (tự chuyển cấu hình, lịch sử, tự khởi động); logo mới; thêm skin tsudev_Logo; gỡ lựa chọn Gitee và mục ủng hộ cũ, thêm liên kết Ủng hộ tsudev
 26.11.1001 - 10/11/2026 - Mở đúng thư mục Tải về sau khi tải bản cập nhật; đọc tệp skin an toàn hơn; bản phát hành build tái lập được
 26.11.0905 - 09/11/2026 - Cập nhật trong ứng dụng tự tải gói và chỉ lưu khi SHA-256 khớp thông tin phiên bản có chữ ký số
 26.11.0904 - 09/11/2026 - Kho mã chuyển sang tổ chức tsudev-org (bản đã cài vẫn cập nhật bình thường); vá lỗi bảo mật khi đọc skin độc hại (tinyxml2 11.0.0); bản phát hành kèm SBOM có chứng thực

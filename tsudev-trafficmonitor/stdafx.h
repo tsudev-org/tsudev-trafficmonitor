@@ -109,7 +109,7 @@ using std::ofstream;
 #define LEGACY_APP_NAME _T("TrafficMonitor")
 #define LEGACY_APP_CLASS_NAME _T("TrafficMonitor_r7XZaS4p")
 #define LEGACY_PRODUCT_NAME L"TrafficMonitor-VN"
-#define VERSION L"26.11.1001"   //Khuôn {YY}.{M}.{DD}{NN} theo VERSIONING.md của tsudev (từ 26.11.0901, trước đó 1.91)
+#define VERSION L"26.11.1201"   //Khuôn {YY}.{M}.{DD}{NN} theo VERSIONING.md của tsudev (từ 26.11.0901, trước đó 1.91)
 #define COPYRITE_YEAR L"2026"
 
 #define MAX_NOTIFY_ICON 6       //Số lượng biểu tượng vùng thông báo có thể chọn
