@@ -115,12 +115,12 @@ BEGIN
         BLOCK "042a04b0"
         BEGIN
             VALUE "CompanyName", "tsudev"
-            VALUE "FileDescription", "Plugin Demo for TrafficMonitor"
+            VALUE "FileDescription", "Plugin Demo for tsudev-trafficmonitor"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "PluginDe.dll"
             VALUE "LegalCopyright", "Copyright (c) 2026 tsudev"
             VALUE "OriginalFilename", "PluginDe.dll"
-            VALUE "ProductName", "Plugin Demo for TrafficMonitor"
+            VALUE "ProductName", "Plugin Demo for tsudev-trafficmonitor"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
@@ -156,8 +156,8 @@ IDB_PNG1                PNG                     "res\\icon1.png"
 
 STRINGTABLE
 BEGIN
-    IDS_PLUGIN_NAME         "Plugin mẫu cho TrafficMonitor"
-    IDS_PLUGIN_DESCRIPTION  "Plugin mẫu cho TrafficMonitor, cung cấp ví dụ để nhà phát triển xây dựng plugin cho TrafficMonitor."
+    IDS_PLUGIN_NAME         "Plugin mẫu cho tsudev-trafficmonitor"
+    IDS_PLUGIN_DESCRIPTION  "Plugin mẫu cho tsudev-trafficmonitor, cung cấp ví dụ để nhà phát triển xây dựng plugin cho tsudev-trafficmonitor."
     IDS_TIME                "Giờ"
     IDS_DATE                "Ngày"
     IDS_CUSTOM_DRAW_ITEM    "Ví dụ tự vẽ"
@@ -229,8 +229,8 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_PLUGIN_NAME         "A sample plug-in for TrafficMonitor."
-    IDS_PLUGIN_DESCRIPTION  "A sample plug-in for TrafficMonitor, providing an example for developers to develop TrafficMonitor plug-ins."
+    IDS_PLUGIN_NAME         "A sample plug-in for tsudev-trafficmonitor."
+    IDS_PLUGIN_DESCRIPTION  "A sample plug-in for tsudev-trafficmonitor, providing an example for developers to develop tsudev-trafficmonitor plug-ins."
     IDS_TIME                "Time"
     IDS_DATE                "Date"
     IDS_CUSTOM_DRAW_ITEM    "Custom draw example"

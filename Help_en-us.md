@@ -1,8 +1,8 @@
 **[Tiếng Việt](./Help.md) | English**
 
-# TrafficMonitor-VN - Frequently Asked Questions (FAQ)
+# tsudev-trafficmonitor - Frequently Asked Questions (FAQ)
 
-Common questions about using TrafficMonitor-VN. Features and basic usage are described in the [README](./README_en-us.md).
+Common questions about using tsudev-trafficmonitor. Features and basic usage are described in the [README](./README_en-us.md).
 
 > Menu and button names on this page are the labels of the English UI (`language/English.ini`). If you use Vietnamese, see the [Vietnamese version](./Help.md).
 
@@ -16,7 +16,7 @@ If Widgets is not shown on the taskbar, this option is greyed out.
 
 ### On Windows 11, "Taskbar window appears to the left of the taskbar" is greyed out
 
-On Windows 11 this option is only available when the taskbar is **centered**. When the taskbar is left-aligned, there is no free space on the left for TrafficMonitor.
+On Windows 11 this option is only available when the taskbar is **centered**. When the taskbar is left-aligned, there is no free space on the left for tsudev-trafficmonitor.
 
 ### On Windows 11, the taskbar window overlaps the taskbar icons when the taskbar is full
 
@@ -48,12 +48,12 @@ Go to **Options...** → **Taskbar Window Settings** tab, check **Specify colors
 
 There are two auto-run methods, chosen in **General Settings** → **Auto-run mode**:
 
-* **Registry**: creates a `TrafficMonitor` value under `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run`. No administrator rights needed, but it does not work if the program is set to always **run as administrator**.
+* **Registry**: creates a `tsudev-trafficmonitor` value under `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run`. No administrator rights needed, but it does not work if the program is set to always **run as administrator**.
 * **Task Scheduler (requires admin)**: creates a task in Task Scheduler (open it via `Control Panel\System and Security\Administrative Tools`). The edition with temperature monitoring needs this method because the hardware library requires elevated rights.
 
 The most common cause is that you **moved the program folder** after turning on auto run. To fix it: open **General Settings**, uncheck **Auto run when Windows starts**, click **OK**, then open it again and check it again; or click **Reset autorun**.
 
-Some antivirus/security software can block auto run - allow TrafficMonitor in that software.
+Some antivirus/security software can block auto run - allow tsudev-trafficmonitor in that software.
 
 When you switch between the two methods, the program removes the auto-run entry of the old method.
 
@@ -61,23 +61,23 @@ When you switch between the two methods, the program removes the auto-run entry 
 
 The program cannot write to its own folder. To fix it:
 
-1. Move the program to a writable folder (for example `D:\Tools\TrafficMonitor`); do **not** put it under `C:\Program Files` unless it runs as administrator; or
-2. Go to **General Settings** → **Configuration and data files** → choose **Save to Appdata directory**. Settings are then saved in `C:\Users\<user name>\AppData\Roaming\TrafficMonitor`.
+1. Move the program to a writable folder (for example `D:\Tools\tsudev-trafficmonitor`); do **not** put it under `C:\Program Files` unless it runs as administrator; or
+2. Go to **General Settings** → **Configuration and data files** → choose **Save to Appdata directory**. Settings are then saved in `C:\Users\<user name>\AppData\Roaming\tsudev-trafficmonitor`.
 
-If the error persists, create (or edit) `global_cfg.ini` next to `TrafficMonitor.exe` with:
+If the error persists, create (or edit) `global_cfg.ini` next to `tsudev-trafficmonitor.exe` with:
 
 ```ini
 [config]
 portable_mode = false
 ```
 
-If you cannot create the file in place, create it on the Desktop and copy it into the program folder. As a last resort, delete `C:\Users\<user name>\AppData\Roaming\TrafficMonitor\config.ini` (it will be recreated).
+If you cannot create the file in place, create it on the Desktop and copy it into the program folder. As a last resort, delete `C:\Users\<user name>\AppData\Roaming\tsudev-trafficmonitor\config.ini` (it will be recreated).
 
 When the program folder is not writable, settings are saved to AppData automatically and **Save to the program directory** is disabled.
 
 ### Settings are lost after restarting the computer
 
-If you never saw "Unable to save settings", settings are being saved normally. The usual cause is **several copies of TrafficMonitor** on the computer, each saving settings next to its own exe. For example, you changed settings in `D:\software\TrafficMonitor\TrafficMonitor.exe`, but at startup `D:\software1\TrafficMonitor\TrafficMonitor.exe` runs.
+If you never saw "Unable to save settings", settings are being saved normally. The usual cause is **several copies of tsudev-trafficmonitor** on the computer, each saving settings next to its own exe. For example, you changed settings in `D:\software\tsudev-trafficmonitor\tsudev-trafficmonitor.exe`, but at startup `D:\software1\tsudev-trafficmonitor\tsudev-trafficmonitor.exe` runs.
 
 To fix it:
 
@@ -90,7 +90,7 @@ Fonts have different character widths, so values can be clipped. Go to **Options
 
 ### How do I turn off "Mouse Penetrate"?
 
-Right-click the TrafficMonitor icon in the **notification area** (right side of the taskbar) and uncheck **Mouse Penetrate**.
+Right-click the tsudev-trafficmonitor icon in the **notification area** (right side of the taskbar) and uncheck **Mouse Penetrate**.
 
 While it is on, the floating window ignores all mouse input; the notification area icon's right-click menu is the same as the floating window's. So that you never lose the menu, the notification area icon is **shown automatically** when:
 
@@ -122,7 +122,7 @@ In the full edition it is **off by default** because it can cause problems on so
 It relies on the open-source library [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor). If temperatures are missing or wrong, try running LibreHardwareMonitor itself:
 
 * If LibreHardwareMonitor cannot show them either → the problem is in the library/hardware; report it to the LibreHardwareMonitor project.
-* If the latest LibreHardwareMonitor shows them correctly → you can replace `LibreHardwareMonitorLib.dll` in the TrafficMonitor folder with the newer file. **Only download it from LibreHardwareMonitor's official page** and check its signature/hash before replacing.
+* If the latest LibreHardwareMonitor shows them correctly → you can replace `LibreHardwareMonitorLib.dll` in the tsudev-trafficmonitor folder with the newer file. **Only download it from LibreHardwareMonitor's official page** and check its signature/hash before replacing.
 
 > **Warning:** hardware monitoring (temperature, GPU usage) can increase CPU/RAM usage; some users have seen crashes or system hangs with it turned on. Only turn it on if you accept these risks.
 
@@ -135,7 +135,7 @@ Install the latest Microsoft Visual C++ Redistributable from Microsoft:
 
 How to install plugins and troubleshoot them: [Plugins](./Plugin_en-us.md); writing your own: [Plugin development](./PluginDev_en-us.md).
 
-> **Security note:** a plugin is a DLL that runs **with the same rights as TrafficMonitor**. Only install plugins from sources you trust; plugins of unknown origin may contain malware.
+> **Security note:** a plugin is a DLL that runs **with the same rights as tsudev-trafficmonitor**. Only install plugins from sources you trust; plugins of unknown origin may contain malware.
 
 ### How do I check that a download is genuine?
 
@@ -144,11 +144,11 @@ Download only from [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com
 ### The program crashes
 
 1. Restart the program and **turn off everything** in **General Settings** → **Hardware Monitoring** - most crashes are related to this feature.
-2. If it still crashes, go to **Advanced** → **Plug-in manage...**, disable all plugins and restart. (If the program won't open, delete the `.dll` files in the `plugins` folder next to `TrafficMonitor.exe`.)
+2. If it still crashes, go to **Advanced** → **Plug-in manage...**, disable all plugins and restart. (If the program won't open, delete the `.dll` files in the `plugins` folder next to `tsudev-trafficmonitor.exe`.)
 3. If you have ruled out both, [open an issue](https://github.com/tsudev-org/tsudev-trafficmonitor/issues/new/choose) with the text from the crash window.
 
 ### Feedback and bug reports
 
-Please use [TrafficMonitor-VN's GitHub Issues](https://github.com/tsudev-org/tsudev-trafficmonitor/issues). Describe the problem, error messages and what you have tried, with screenshots and your configuration file (**General Settings** → **Open configuration file directory**) if possible. Do **not** attach sensitive information.
+Please use [tsudev-trafficmonitor's GitHub Issues](https://github.com/tsudev-org/tsudev-trafficmonitor/issues). Describe the problem, error messages and what you have tried, with screenshots and your configuration file (**General Settings** → **Open configuration file directory**) if possible. Do **not** attach sensitive information.
 
 Report security vulnerabilities privately as described in [SECURITY.md](./SECURITY.md), not publicly.

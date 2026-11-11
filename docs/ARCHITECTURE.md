@@ -4,7 +4,7 @@
 
 | Thành phần | Thư mục | Công nghệ |
 | --- | --- | --- |
-| Ứng dụng giám sát mạng/CPU/RAM | `TrafficMonitor/` | C++ (MFC, Win32, Direct2D), MSBuild VS 2022 v143 |
+| Ứng dụng giám sát mạng/CPU/RAM | `tsudev-trafficmonitor/` | C++ (MFC, Win32, Direct2D), MSBuild VS 2022 v143 |
 | Giao diện plugin (API v8) | `include/PluginInterface.h` | C++ thuần ảo, DLL nạp từ thư mục `plugins` |
 | Plugin mẫu | `PluginDemo/` | C++/MFC DLL |
 | Đo nhiệt độ (chỉ bản đầy đủ, không phát hành) | `OpenHardwareMonitorApi/` | C++/CLI + LibreHardwareMonitor (MPL-2.0) |
@@ -13,7 +13,7 @@
 
 ## Mạng
 
-Ứng dụng chỉ gọi mạng ở hai việc, mọi URL khai trong `TrafficMonitor/ForkConfig.h`:
+Ứng dụng chỉ gọi mạng ở hai việc, mọi URL khai trong `tsudev-trafficmonitor/ForkConfig.h`:
 
 1. Kiểm tra cập nhật: tải `version_signed.xml` + chữ ký từ Releases của repo, xác minh ECDSA P-256 (Windows CNG) bằng khóa công khai nhúng sẵn.
 2. Tra IP công cộng khi người dùng mở Chi tiết mạng: `api.ipify.org`, `api6.ipify.org`.
@@ -24,7 +24,7 @@
 
 | Dữ liệu | Mức | Nơi lưu | Thời hạn |
 | --- | --- | --- | --- |
-| Cấu hình (`config.ini`), lịch sử lưu lượng | D1 | Máy người dùng (thư mục chương trình hoặc `%AppData%\TrafficMonitor`) | Do người dùng xóa |
+| Cấu hình (`config.ini`), lịch sử lưu lượng | D1 | Máy người dùng (thư mục chương trình hoặc `%AppData%\tsudev-trafficmonitor`) | Do người dùng xóa |
 | Tên card mạng, IP, MAC (hiển thị) | D1 | Chỉ trong bộ nhớ, không ghi ra ngoài | Theo phiên chạy |
 
 Không có tài khoản, không thu thập, không gửi dữ liệu người dùng đi đâu.

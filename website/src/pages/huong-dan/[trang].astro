@@ -4,11 +4,11 @@ import { renderMd } from '../../lib/noi-dung';
 
 export function getStaticPaths() {
   return [
-    { params: { trang: 'hoi-dap' }, props: { tep: 'Help.md', moTa: 'Hỏi đáp TrafficMonitor-VN: hiện tốc độ mạng trên thanh tác vụ, số liệu CPU không khớp Task Manager, lỗi thiếu DLL và cách báo lỗi.' } },
-    { params: { trang: 'kho-giao-dien' }, props: { tep: 'KhoGiaoDien.md', moTa: 'Kho giao diện TrafficMonitor-VN: các mẫu skin có sẵn kèm ảnh xem trước, cách đổi giao diện và chia sẻ mẫu do bạn tự làm.' } },
-    { params: { trang: 'tu-lam-giao-dien' }, props: { tep: 'HuongDanTaoSkin.md', moTa: 'Hướng dẫn tự làm giao diện (skin) cho TrafficMonitor-VN: cấu trúc tệp skin.xml, bố cục, hình nền, màu chữ và cách thử nghiệm.' } },
-    { params: { trang: 'plugin' }, props: { tep: 'Plugin.md', moTa: 'Plugin cho TrafficMonitor-VN: cách cài, bật tắt và quản lý plugin để hiện thêm thông số như nhiệt độ, thời tiết, ngày giờ.' } },
-    { params: { trang: 'phat-trien-plugin' }, props: { tep: 'PhatTrienPlugin.md', moTa: 'Hướng dẫn viết plugin cho TrafficMonitor-VN bằng C++: giao diện ITMPlugin, các mục hiển thị, cách build tệp DLL và thử nghiệm.' } },
+    { params: { trang: 'hoi-dap' }, props: { tep: 'Help.md', moTa: 'Hỏi đáp tsudev-trafficmonitor: hiện tốc độ mạng trên thanh tác vụ, số liệu CPU không khớp Task Manager, lỗi thiếu DLL và cách báo lỗi.' } },
+    { params: { trang: 'kho-giao-dien' }, props: { tep: 'KhoGiaoDien.md', moTa: 'Kho giao diện tsudev-trafficmonitor: các mẫu skin có sẵn kèm ảnh xem trước, cách đổi giao diện và chia sẻ mẫu do bạn tự làm.' } },
+    { params: { trang: 'tu-lam-giao-dien' }, props: { tep: 'HuongDanTaoSkin.md', moTa: 'Hướng dẫn tự làm giao diện (skin) cho tsudev-trafficmonitor: cấu trúc tệp skin.xml, bố cục, hình nền, màu chữ và cách thử nghiệm.' } },
+    { params: { trang: 'plugin' }, props: { tep: 'Plugin.md', moTa: 'Plugin cho tsudev-trafficmonitor: cách cài, bật tắt và quản lý plugin để hiện thêm thông số như nhiệt độ, thời tiết, ngày giờ.' } },
+    { params: { trang: 'phat-trien-plugin' }, props: { tep: 'PhatTrienPlugin.md', moTa: 'Hướng dẫn viết plugin cho tsudev-trafficmonitor bằng C++: giao diện ITMPlugin, các mục hiển thị, cách build tệp DLL và thử nghiệm.' } },
   ];
 }
 const { tep, moTa } = Astro.props;

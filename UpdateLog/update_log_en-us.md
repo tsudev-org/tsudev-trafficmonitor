@@ -1,8 +1,21 @@
 **[Tiếng Việt](./update_log_vi.md) | English**
 
-# Update log - TrafficMonitor-VN
+# Update log - tsudev-trafficmonitor
 
-Changes in each TrafficMonitor-VN release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
+Changes in each tsudev-trafficmonitor release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
+Releases before the rename were called **TrafficMonitor-VN**; their entries below are kept as released.
+
+## Unreleased
+
+### Renamed to tsudev-trafficmonitor
+* The app, executable (`tsudev-trafficmonitor.exe`), folder inside the zip, documentation and website now use the name **tsudev-trafficmonitor**, in line with the tsudev ecosystem.
+* **Automatic data migration:** on first run, settings and traffic history in `%AppData%\TrafficMonitor` are copied to `%AppData%\tsudev-trafficmonitor` (the old folder is kept so the old version still works).
+* **Automatic start-with-Windows migration:** this app's old Registry/Task Scheduler entry is replaced with the new name; an entry belonging to a separately installed original TrafficMonitor is left untouched.
+* The old and new versions do not run at the same time: starting the new one while the old one is open reports that the app is already running.
+* Existing plugins keep working (the plugin interface is unchanged; `ITrafficMonitor` remains an alias of `ITsudevTrafficMonitor`).
+
+### Branding
+* New logo for the program icon, tray icon, About dialog and website; new `tsudev_Logo` skin.
 
 ## 26.11.1001 (10/11/2026)
 

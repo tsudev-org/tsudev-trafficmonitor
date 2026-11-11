@@ -20,14 +20,14 @@ const baoMat = [
   { t: 'Gia cố tệp chương trình', d: 'Bật Control Flow Guard, ASLR, DEP, CET; chống nạp DLL giả mạo khi khởi động và khi nạp plugin.' },
 ];
 ---
-<Trang moTa="TrafficMonitor-VN: phần mềm theo dõi tốc độ mạng, CPU, RAM trên Windows, giao diện tiếng Việt, gia cố bảo mật, miễn phí và mã nguồn mở." duongDan="/">
+<Trang moTa="tsudev-trafficmonitor: phần mềm theo dõi tốc độ mạng, CPU, RAM trên Windows, giao diện tiếng Việt, gia cố bảo mật, miễn phí và mã nguồn mở." duongDan="/">
   <section class="mo-dau">
     <div class="khung mo-dau__luoi">
       <div>
         <AnhThuongHieu loai="logo" co={512} class="mo-dau__logo" uuTien />
         <span class="nhan">Phiên bản {ban.phienBan} · {ban.ngay}</span>
         <h1>Theo dõi tốc độ mạng và tài nguyên máy, <span class="chu-tim">bằng tiếng Việt</span></h1>
-        <p class="mo-dau__phu">TrafficMonitor-VN hiện tốc độ mạng, mức dùng CPU, RAM ngay trên thanh tác vụ Windows. Nhẹ, miễn phí, mã nguồn mở và được gia cố bảo mật.</p>
+        <p class="mo-dau__phu">tsudev-trafficmonitor hiện tốc độ mạng, mức dùng CPU, RAM ngay trên thanh tác vụ Windows. Nhẹ, miễn phí, mã nguồn mở và được gia cố bảo mật.</p>
         <div class="mo-dau__nut">
           {x64 && <a class="nut nut--chinh" href={x64.url}>Tải bản 64-bit (x64)</a>}
           <a class="nut nut--phu" href="/tai-ve/">Bản khác và kiểm tra tệp</a>
@@ -50,7 +50,7 @@ const baoMat = [
   <section class="muc" aria-labelledby="tinh-nang">
     <div class="khung">
       <h2 id="tinh-nang">Tính năng</h2>
-      <p class="muc__dan">Giữ nguyên mọi tính năng của TrafficMonitor, thêm giao diện tiếng Việt và các lớp bảo vệ cho người dùng.</p>
+      <p class="muc__dan">Giữ nguyên mọi tính năng của tsudev-trafficmonitor, thêm giao diện tiếng Việt và các lớp bảo vệ cho người dùng.</p>
       <ul class="the-luoi">
         {tinhNang.map((x) => <li class="the"><h3>{x.t}</h3><p>{x.d}</p></li>)}
       </ul>
@@ -87,7 +87,7 @@ const baoMat = [
   <section class="muc" aria-labelledby="nguon-goc">
     <div class="khung">
       <h2 id="nguon-goc">Mã nguồn và giấy phép</h2>
-      <p class="muc__dan">TrafficMonitor-VN là bản phái sinh của TrafficMonitor, phát hành theo giấy phép Anti 996; giấy phép và thông báo bản quyền bắt buộc có tại trang Bản quyền. Mã nguồn công khai tại <a href={REPO_URL} target="_blank" rel="noopener noreferrer">GitHub</a>. Hạng sản phẩm C theo quy ước tsudev: chạy ngoại tuyến, không tài khoản.</p>
+      <p class="muc__dan">tsudev-trafficmonitor là bản phái sinh của TrafficMonitor, phát hành theo giấy phép Anti 996; giấy phép và thông báo bản quyền bắt buộc có tại trang Bản quyền. Mã nguồn công khai tại <a href={REPO_URL} target="_blank" rel="noopener noreferrer">GitHub</a>. Hạng sản phẩm C theo quy ước tsudev: chạy ngoại tuyến, không tài khoản.</p>
       <div class="mo-dau__nut">
         <a class="nut nut--phu" href="/huong-dan/">Đọc hướng dẫn</a>
         <a class="nut nut--phu" href="/ban-quyen/">Bản quyền</a>

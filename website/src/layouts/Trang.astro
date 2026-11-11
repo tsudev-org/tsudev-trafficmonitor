@@ -13,7 +13,7 @@ interface Props {
   duongDan: string;    // ví dụ "/tai-ve/"
 }
 const { tieuDe, moTa, duongDan } = Astro.props;
-const SAN_PHAM = 'TrafficMonitor-VN';
+const SAN_PHAM = 'tsudev-trafficmonitor';
 const title = tieuDe ? `${tieuDe} - ${SAN_PHAM} | tsudev` : `${SAN_PHAM} | tsudev`;
 const ogTitle = tieuDe ? `${tieuDe} - ${SAN_PHAM}` : SAN_PHAM;
 const url = `${SITE}${duongDan}`;
@@ -63,9 +63,9 @@ const dangO = (href: string) => duongDan.startsWith(href);
     <a class="bo-qua" href="#noi-dung">Bỏ qua tới nội dung</a>
     <header class="dau-trang">
       <div class="khung dau-trang__trong">
-        <a class="thuong-hieu" href="/" aria-label="TrafficMonitor-VN - Trang chủ">
+        <a class="thuong-hieu" href="/" aria-label="tsudev-trafficmonitor - Trang chủ">
           <AnhThuongHieu loai="mark" co={36} uuTien />
-          <span>TrafficMonitor-VN</span>
+          <span>tsudev-trafficmonitor</span>
         </a>
         <nav aria-label="Chính">
           <ul class="menu">
@@ -91,7 +91,7 @@ const dangO = (href: string) => duongDan.startsWith(href);
               <AnhThuongHieu loai="mark" co={24} />
               <span>tsudev</span>
             </a>
-            <p>TrafficMonitor-VN là bản Việt hóa và gia cố bảo mật của TrafficMonitor,
+            <p>tsudev-trafficmonitor là bản Việt hóa và gia cố bảo mật của TrafficMonitor,
               phát hành theo giấy phép <a href="/ban-quyen/">Anti 996</a>.</p>
           </div>
           <nav aria-label="Hệ sinh thái tsudev">

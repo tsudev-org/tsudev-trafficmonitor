@@ -25,7 +25,7 @@ jobs:
         run: |
           set -e
           for f in website/public/favicon.ico website/public/favicon-96x96.png website/public/apple-touch-icon.png \
-                   website/public/og-image.png TrafficMonitor/res/TrafficMonitor.ico; do
+                   website/public/og-image.png tsudev-trafficmonitor/res/tsudev-trafficmonitor.ico; do
             test -f "$f" || { echo "Thiếu tài sản bắt buộc: $f (BRAND_ASSETS.md mục 12)"; exit 1; }
           done
 

@@ -43,7 +43,7 @@ Bản quy ước repo này đang dùng: xem [`.standards-version`](.standards-ve
 # Kiểm tra nhanh (Linux/WSL): URL, Việt hóa, cổng kiểm quy ước
 python3 tools/check_urls.py && python3 tools/check_i18n.py && bash scripts/check-standards.sh
 # Build ứng dụng: chỉ qua GitHub Actions (build.yml) hoặc Windows + VS 2022:
-#   msbuild TrafficMonitor_Lite.sln -p:Configuration="Release (lite)" -p:Platform=x64
+#   msbuild tsudev-trafficmonitor_Lite.sln -p:Configuration="Release (lite)" -p:Platform=x64
 # Website
 cd website && npm ci && npm run build
 ```
@@ -53,18 +53,18 @@ cd website && npm ci && npm run build
 | Vùng | Chủ sở hữu / quy tắc |
 | --- | --- |
 | `LICENSE`, `LICENSE_CN` | Giữ nguyên văn (giấy phép Anti 996 điều 1), `MUST NOT` sửa |
-| `TrafficMonitor/tinyxml2/`, `OpenHardwareMonitorApi/LibreHardwareMonitorLib.*` | Mã bên thứ ba, giữ nguyên thông báo bản quyền |
-| `TrafficMonitor/ForkConfig.h` | Nơi duy nhất khai URL của ứng dụng (`tools/check_urls.py` canh) |
+| `tsudev-trafficmonitor/tinyxml2/`, `OpenHardwareMonitorApi/LibreHardwareMonitorLib.*` | Mã bên thứ ba, giữ nguyên thông báo bản quyền |
+| `tsudev-trafficmonitor/ForkConfig.h` | Nơi duy nhất khai URL của ứng dụng (`tools/check_urls.py` canh) |
 | `assets/brand/source/` | Ảnh gốc logo (nguồn duy nhất của mọi logo/icon/favicon); đổi logo: xem `assets/brand/README.md` |
-| `assets/brand/*.{png,webp,avif}`, `TrafficMonitor/res/TrafficMonitor.ico`, `about_background_hd.bmp`, `website/public/` (favicon, icon PWA, og-image, `brand/`) | Sản phẩm sinh từ `tools/brand/build_brand.py`, không sửa tay |
-| `TrafficMonitor/skins/0_tsudev_Cu`, `tsudev_*` | Sinh từ `tools/skin_assets/*.py`, không sửa tay |
+| `assets/brand/*.{png,webp,avif}`, `tsudev-trafficmonitor/res/tsudev-trafficmonitor.ico`, `about_background_hd.bmp`, `website/public/` (favicon, icon PWA, og-image, `brand/`) | Sản phẩm sinh từ `tools/brand/build_brand.py`, không sửa tay |
+| `tsudev-trafficmonitor/skins/0_tsudev_Cu`, `tsudev_*` | Sinh từ `tools/skin_assets/*.py`, không sửa tay |
 | `tools/keys/update_signing_pub.pem` | Khóa công khai; khóa bí mật chỉ ở secret `UPDATE_SIGNING_KEY` (environment `release`) |
 
 ### B.4. Điểm lệch chuẩn đã biết
 
 | Lệch ở đâu | Vì sao | Kế hoạch |
 | --- | --- | --- |
-| PROJECT_STRUCTURE: không có `src/`, `assets/`; mã ở `TrafficMonitor/`, `include/`, script ở `tools/` | Bản phái sinh của mã C++/MFC có sẵn; dời thư mục làm hỏng `.vcxproj`/`.sln` và khó đối chiếu với mã gốc | Giữ nguyên; script mới đặt trong `tools/` |
+| PROJECT_STRUCTURE: không có `src/`, `assets/`; mã ở `tsudev-trafficmonitor/`, `include/`, script ở `tools/` | Bản phái sinh của mã C++/MFC có sẵn; dời thư mục làm hỏng `.vcxproj`/`.sln` và khó đối chiếu với mã gốc | Giữ nguyên; script mới đặt trong `tools/` |
 | TESTING_QUALITY: test tự động C++ phủ logic thuần của kênh cập nhật (`tests/UpdateSecurityTests.cpp`), tự tải gói + kiểm SHA-256 (`tests/UpdateDownloadTests.cpp`, tải gói phát hành thật) và phân tích XML (`tests/XmlParsingTests.cpp`, mọi skin.xml thật) - kèm ASan và 2 harness fuzz (`tests/fuzz/`); chưa phủ giao diện MFC | Mã giao diện MFC kế thừa khó tách để test; CI còn build `/WX` có chọn lọc + CodeQL + kiểm Việt hóa/URL/chữ bị cắt + build tái lập (build 2 lần, so SHA-256) | Logic thuần mới tách vào header không phụ thuộc MFC (như `UpdateSecurity.h`, `UpdateDownload.h`, `XmlParsing.h`) và thêm test vào `tests/` (job "Kiểm thử C++" trong build.yml) |
 | VERSIONING: gói phát hành là `.zip` chạy ngay (không `-setup.exe`), kiến trúc `arm64ec` | Ứng dụng di động (portable), không có bộ cài; build là ARM64EC | Ghi ở README mục Tải về |
 | LANGUAGE_SELECTION: C++/MFC | Kế thừa | Không đổi |
@@ -73,6 +73,6 @@ cd website && npm ci && npm run build
 ### B.5. Việc riêng của repo cần biết trước khi sửa
 
 - Giấy phép Anti 996: mọi bản phân phối kèm `LICENSE`, `LICENSE_CN`, `NOTICE.md` (release.yml đóng gói sẵn).
-- `TrafficMonitor/TrafficMonitor.rc`, `OpenHardwareMonitorApi/app.rc` là **UTF-16 LE có BOM**; script `.ps1` có tiếng Việt lưu UTF-8 có BOM.
+- `tsudev-trafficmonitor/tsudev-trafficmonitor.rc`, `OpenHardwareMonitorApi/app.rc` là **UTF-16 LE có BOM**; script `.ps1` có tiếng Việt lưu UTF-8 có BOM.
 - Không push thẳng `main`: nhánh → PR → CI → squash merge. Phát hành: README mục "Phát hành (người bảo trì)".
 - Bật hook chặn secret: `git config core.hooksPath .githooks` (cần `gitleaks`).

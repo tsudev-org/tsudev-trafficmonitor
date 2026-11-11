@@ -30,7 +30,7 @@ HICON CPluginDemo::GetIcon(UINT id)
     }
 }
 
-int CPluginDemo::DPI(int x, ITrafficMonitor::DPIType type)
+int CPluginDemo::DPI(int x, ITsudevTrafficMonitor::DPIType type)
 {
     int dpi = m_app->GetDPI(type);
     return x * dpi / 96;
@@ -125,7 +125,7 @@ void CPluginDemo::OnExtenedInfo(ExtendedInfoIndex index, const wchar_t* data)
     }
 }
 
-void CPluginDemo::OnInitialize(ITrafficMonitor* pApp)
+void CPluginDemo::OnInitialize(ITsudevTrafficMonitor* pApp)
 {
     m_app = pApp;
     std::wstring str = m_app->GetStringRes(L"IDS_MEMORY_USAGE", L"text");

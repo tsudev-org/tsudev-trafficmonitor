@@ -44,14 +44,14 @@ jobs:
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I TrafficMonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTests.exe || exit /b 1
           UpdateSecurityTests.exe tests\fixtures
       - name: Kiểm thử tích hợp tự tải gói cập nhật + kiểm SHA-256 (gói 26.11.0904 thật, có ASan)
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /Zi /fsanitize=address /I TrafficMonitor tests\UpdateDownloadTests.cpp /Fe:UpdateDownloadTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /Zi /fsanitize=address /I tsudev-trafficmonitor tests\UpdateDownloadTests.cpp /Fe:UpdateDownloadTests.exe || exit /b 1
           UpdateDownloadTests.exe
       - name: Thử sinh SBOM trên Windows (như release.yml)
         shell: bash
@@ -65,14 +65,14 @@ jobs:
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I TrafficMonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTestsAsan.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTestsAsan.exe || exit /b 1
           UpdateSecurityTestsAsan.exe tests\fixtures
       - name: Fuzzing logic cập nhật (libFuzzer + ASan, 120 giây)
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I TrafficMonitor tests\fuzz\UpdateSecurityFuzz.cpp /Fe:UpdateSecurityFuzz.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsudev-trafficmonitor tests\fuzz\UpdateSecurityFuzz.cpp /Fe:UpdateSecurityFuzz.exe || exit /b 1
           mkdir fuzz-corpus
           xcopy /q /y tests\fuzz\corpus\* fuzz-corpus\ >nul
           UpdateSecurityFuzz.exe -max_total_time=120 -timeout=10 -rss_limit_mb=2048 -print_final_stats=1 fuzz-corpus
@@ -82,21 +82,21 @@ jobs:
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
           mkdir xml-thuong xml-asan
-          cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 /Foxml-thuong\ TrafficMonitor\tinyxml2\tinyxml2.cpp || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I TrafficMonitor tests\XmlParsingTests.cpp xml-thuong\tinyxml2.obj /Fe:XmlParsingTests.exe || exit /b 1
-          XmlParsingTests.exe TrafficMonitor\skins || exit /b 1
-          cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 /Zi /fsanitize=address /Foxml-asan\ TrafficMonitor\tinyxml2\tinyxml2.cpp || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I TrafficMonitor tests\XmlParsingTests.cpp xml-asan\tinyxml2.obj /Fe:XmlParsingTestsAsan.exe || exit /b 1
-          XmlParsingTestsAsan.exe TrafficMonitor\skins
+          cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 /Foxml-thuong\ tsudev-trafficmonitor\tinyxml2\tinyxml2.cpp || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\XmlParsingTests.cpp xml-thuong\tinyxml2.obj /Fe:XmlParsingTests.exe || exit /b 1
+          XmlParsingTests.exe tsudev-trafficmonitor\skins || exit /b 1
+          cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 /Zi /fsanitize=address /Foxml-asan\ tsudev-trafficmonitor\tinyxml2\tinyxml2.cpp || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\XmlParsingTests.cpp xml-asan\tinyxml2.obj /Fe:XmlParsingTestsAsan.exe || exit /b 1
+          XmlParsingTestsAsan.exe tsudev-trafficmonitor\skins
       - name: Fuzzing phân tích skin.xml (libFuzzer + ASan, 120 giây; hạt giống là skin.xml thật)
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
           mkdir xml-fuzz skin-corpus
-          cl /nologo /c /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /Foxml-fuzz\ TrafficMonitor\tinyxml2\tinyxml2.cpp || exit /b 1
-          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I TrafficMonitor tests\fuzz\SkinXmlFuzz.cpp xml-fuzz\tinyxml2.obj /Fe:SkinXmlFuzz.exe || exit /b 1
-          for /d %%d in (TrafficMonitor\skins\*) do if exist "%%d\skin.xml" copy /y "%%d\skin.xml" "skin-corpus\%%~nxd.xml" >nul
+          cl /nologo /c /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /Foxml-fuzz\ tsudev-trafficmonitor\tinyxml2\tinyxml2.cpp || exit /b 1
+          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsudev-trafficmonitor tests\fuzz\SkinXmlFuzz.cpp xml-fuzz\tinyxml2.obj /Fe:SkinXmlFuzz.exe || exit /b 1
+          for /d %%d in (tsudev-trafficmonitor\skins\*) do if exist "%%d\skin.xml" copy /y "%%d\skin.xml" "skin-corpus\%%~nxd.xml" >nul
           copy /y tests\fixtures\version_signed.xml skin-corpus\version_signed.xml >nul
           SkinXmlFuzz.exe -max_total_time=120 -timeout=10 -rss_limit_mb=2048 -max_len=65536 -print_final_stats=1 skin-corpus
       - name: Lưu đầu vào gây lỗi của fuzzer
@@ -132,16 +132,16 @@ jobs:
       - name: Thêm MSBuild vào PATH
         uses: microsoft/setup-msbuild@30375c66a4eea26614e0d39710365f22f8b0af57  # v3.0.0
 
-      - name: Build TrafficMonitor (Lite)
+      - name: Build tsudev-trafficmonitor (Lite)
         env:
           # Coi các cảnh báo ép kiểu số / cắt con trỏ / ký tự ngoài code page là lỗi để không phát sinh lại
           CL: /we4244 /we4267 /we4018 /we4302 /we4311 /we4566
-        run: msbuild TrafficMonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143
+        run: msbuild tsudev-trafficmonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143
 
       - name: Kiểm tra cờ bảo mật của tệp thực thi
         shell: pwsh
         run: |
-          $exe = Join-Path "${{ matrix.outdir }}" "TrafficMonitor.exe"
+          $exe = Join-Path "${{ matrix.outdir }}" "tsudev-trafficmonitor.exe"
           $dumpbin = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -find "VC\Tools\MSVC\**\bin\Hostx64\x64\dumpbin.exe" | Select-Object -First 1
           $headers = & $dumpbin /headers /loadconfig $exe | Out-String
           $required = @("Dynamic base", "NX compatible", "Guard")
@@ -157,7 +157,7 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           $out = "${{ matrix.outdir }}"
-          $exe = Join-Path $out "TrafficMonitor.exe"
+          $exe = Join-Path $out "tsudev-trafficmonitor.exe"
           $epoch = [long](git log -1 --format=%ct)
           $name = "tsudev-trafficmonitor_0.0_${{ matrix.platform }}_Lite"
           $dumpbin = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -find "VC\Tools\MSVC\**\bin\Hostx64\x64\dumpbin.exe" | Select-Object -First 1
@@ -167,7 +167,7 @@ jobs:
           $zip1 = (Get-FileHash goi1.zip -Algorithm SHA256).Hash
 
           # Build lại từ đầu (Rebuild) và đóng gói ở thư mục tạm khác
-          msbuild TrafficMonitor_Lite.sln -m -t:Rebuild -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143 -v:minimal -nologo
+          msbuild tsudev-trafficmonitor_Lite.sln -m -t:Rebuild -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143 -v:minimal -nologo
           if ($LASTEXITCODE -ne 0) { throw "Build lại thất bại" }
           $stamp2 = (& $dumpbin /headers $exe | Select-String "time date stamp").Line.Trim()
           $exe2 = (Get-FileHash $exe -Algorithm SHA256).Hash
@@ -177,7 +177,7 @@ jobs:
           "PE timestamp 1: $stamp1"; "PE timestamp 2: $stamp2"
           "exe: $exe1 / $exe2"; "zip: $zip1 / $zip2"
           if ($stamp1 -ne $stamp2) { Write-Error "PE timestamp khác nhau giữa hai lần build (/Brepro không có tác dụng?)" }
-          if ($exe1 -ne $exe2) { Write-Error "TrafficMonitor.exe KHÔNG tái lập được (SHA-256 khác giữa hai lần build)" }
+          if ($exe1 -ne $exe2) { Write-Error "tsudev-trafficmonitor.exe KHÔNG tái lập được (SHA-256 khác giữa hai lần build)" }
           if ($zip1 -ne $zip2) { Write-Error "Gói zip KHÔNG tái lập được" }
           if ($stamp1 -ne $stamp2 -or $exe1 -ne $exe2 -or $zip1 -ne $zip2) { exit 1 }
           "Build tái lập: exe và zip giống nhau từng byte"
@@ -185,9 +185,9 @@ jobs:
       - name: Tải lên artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
-          name: TrafficMonitor-VN_${{ matrix.platform }}_Lite_${{ github.sha }}
+          name: tsudev-trafficmonitor_${{ matrix.platform }}_Lite_${{ github.sha }}
           path: |
-            ${{ matrix.outdir }}/TrafficMonitor.exe
+            ${{ matrix.outdir }}/tsudev-trafficmonitor.exe
             ${{ matrix.outdir }}/*.dll
             ${{ matrix.outdir }}/*.pdb
           if-no-files-found: error
@@ -207,7 +207,7 @@ jobs:
       - name: Thêm MSBuild vào PATH
         uses: microsoft/setup-msbuild@30375c66a4eea26614e0d39710365f22f8b0af57  # v3.0.0
 
-      - name: Build TrafficMonitor (bản đầy đủ)
+      - name: Build tsudev-trafficmonitor (bản đầy đủ)
         env:
           CL: /we4244 /we4267 /we4018 /we4302 /we4311 /we4566
-        run: msbuild TrafficMonitor.sln -m -restore -p:Configuration=Release -p:Platform=x64 -p:PlatformToolset=v143
+        run: msbuild tsudev-trafficmonitor.sln -m -restore -p:Configuration=Release -p:Platform=x64 -p:PlatformToolset=v143

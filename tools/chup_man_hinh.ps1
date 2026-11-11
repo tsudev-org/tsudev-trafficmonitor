@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-  Chụp ảnh giao diện TrafficMonitor-VN đang chạy (cho README và để soát chữ bị cắt).
+  Chụp ảnh giao diện tsudev-trafficmonitor đang chạy (cho README và để soát chữ bị cắt).
 
 .DESCRIPTION
   Chế độ "readme": chụp cửa sổ nổi, cửa sổ trên thanh tác vụ, hộp thoại Cài đặt và Chi tiết mạng.
@@ -8,7 +8,7 @@
   Quản lý Plugin, Giới thiệu, Lịch sử lưu lượng để kiểm tra chữ bị cắt bằng mắt.
 
   Script tự mở rồi đóng các hộp thoại bằng cách gửi lệnh menu (WM_COMMAND) tới cửa sổ chính.
-  Cần TrafficMonitor đang chạy, cửa sổ nổi và cửa sổ thanh tác vụ đang hiện.
+  Cần tsudev-trafficmonitor đang chạy, cửa sổ nổi và cửa sổ thanh tác vụ đang hiện.
 
   LƯU Ý QUYỀN RIÊNG TƯ: ảnh Chi tiết mạng chứa địa chỉ MAC, IP, tên card mạng của máy chụp.
   Phải che các giá trị này trước khi đưa ảnh lên repo.
@@ -64,11 +64,11 @@ public class C {
 "@
 
 [C]::SetProcessDPIAware() | Out-Null
-$p = Get-Process TrafficMonitor -ErrorAction SilentlyContinue | Select-Object -First 1
-if (-not $p) { Write-Error "TrafficMonitor chưa chạy." }
+$p = Get-Process tsudev-trafficmonitor -ErrorAction SilentlyContinue | Select-Object -First 1
+if (-not $p) { Write-Error "tsudev-trafficmonitor chưa chạy." }
 $pid_ = [uint32]$p.Id
 $main = $p.MainWindowHandle
-# Mã lệnh menu (TrafficMonitor\resource.h)
+# Mã lệnh menu (tsudev-trafficmonitor\resource.h)
 $ID_NETWORK_INFO = 32772; $ID_CHANGE_SKIN = 32819; $ID_TRAFFIC_HISTORY = 32826; $ID_OPTIONS = 32829
 $ID_PLUGIN_MANAGE = 32886; $ID_APP_ABOUT = 57664
 
@@ -94,7 +94,7 @@ function ShotWindow($h, $file) {
 }
 function OpenDlg($cmd) {
   [C]::PostMessage($main, 0x0111, [IntPtr]$cmd, [IntPtr]::Zero) | Out-Null
-  for ($i=0; $i -lt 30; $i++) { Start-Sleep -Milliseconds 200; $d = [C]::Find($pid_, "#32770", "TrafficMonitorTaskbarWindow"); if ($d -ne [IntPtr]::Zero) { Start-Sleep -Milliseconds 800; return $d } }
+  for ($i=0; $i -lt 30; $i++) { Start-Sleep -Milliseconds 200; $d = [C]::Find($pid_, "#32770", "tsudev-trafficmonitor-TaskbarWindow"); if ($d -ne [IntPtr]::Zero) { Start-Sleep -Milliseconds 800; return $d } }
   return [IntPtr]::Zero
 }
 function CloseDlg($d) { [C]::PostMessage($d, 0x0111, [IntPtr]2, [IntPtr]::Zero) | Out-Null; Start-Sleep -Milliseconds 500 }

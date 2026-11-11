@@ -7,12 +7,12 @@ body:
       options:
         - label: I have searched for related issues in the [issues](https://github.com/tsudev-org/tsudev-trafficmonitor/issues) list.
           required: true
-        - label: I have read the [wiki](https://github.com/tsudev-org/tsudev-trafficmonitor#readme) page and make sure that the current version of TrafficMonitor does not provide this feature.
+        - label: I have read the [wiki](https://github.com/tsudev-org/tsudev-trafficmonitor#readme) page and make sure that the current version of tsudev-trafficmonitor does not provide this feature.
           required: true
   - type: input
     attributes:
-      label: Current TrafficMonitor Version
-      description: "Right-click the TrafficMonitor tray icon, select `Help` → `About`."
+      label: Current tsudev-trafficmonitor Version
+      description: "Right-click the tsudev-trafficmonitor tray icon, select `Help` → `About`."
     validations: 
       required: true
   - type: textarea

@@ -1,5 +1,5 @@
 ﻿/*********************************************************
-* Giao diện plugin của TrafficMonitor-VN (API phiên bản 8, tương thích plugin TrafficMonitor)
+* Giao diện plugin của tsudev-trafficmonitor (API phiên bản 8, tương thích nhị phân với plugin viết cho dự án gốc TrafficMonitor)
 * Giấy phép: "Anti 996" License 1.0 - xem tệp LICENSE ở thư mục gốc.
 **********************************************************/
 #pragma once
@@ -170,7 +170,9 @@ public:
     virtual int IsDoubleLineExclusive() const { return 0; }
 };
 
-class ITrafficMonitor;
+class ITsudevTrafficMonitor;
+//Tên cũ của giao diện (dự án gốc TrafficMonitor): giữ để mã nguồn plugin có sẵn vẫn biên dịch được; bố cục vtable không đổi.
+using ITrafficMonitor = ITsudevTrafficMonitor;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //Giao diện plugin
@@ -336,27 +338,27 @@ public:
 
     /**
      * @brief   Khởi tạo plugin
-     * @detail  Được gọi khi plugin được nạp, truyền con trỏ giao diện ITrafficMonitor. Plugin có thể lưu con trỏ này để gọi các hàm trong giao diện ITrafficMonitor
+     * @detail  Được gọi khi plugin được nạp, truyền con trỏ giao diện ITsudevTrafficMonitor. Plugin có thể lưu con trỏ này để gọi các hàm trong giao diện ITsudevTrafficMonitor
      * @param   pApp
      */
-    virtual void OnInitialize(ITrafficMonitor* pApp) {}
+    virtual void OnInitialize(ITsudevTrafficMonitor* pApp) {}
 };
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //Giao diện chương trình chính
-class ITrafficMonitor
+class ITsudevTrafficMonitor
 {
 public:
     /**
      * @brief   Lấy phiên bản của giao diện này.
-     * @attention Khi plugin gọi các hàm trong ITrafficMonitor cần kiểm tra phiên bản giao diện trước
+     * @attention Khi plugin gọi các hàm trong ITsudevTrafficMonitor cần kiểm tra phiên bản giao diện trước
      * @return  int
      */
     virtual int GetAPIVersion() = 0;
 
     /**
-     * @brief   Lấy phiên bản TrafficMonitor.
+     * @brief   Lấy phiên bản tsudev-trafficmonitor.
      * @return  const wchar_t*
      */
     virtual const wchar_t* GetVersion() = 0;

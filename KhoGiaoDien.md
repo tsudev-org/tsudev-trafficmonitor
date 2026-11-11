@@ -1,12 +1,12 @@
 **Tiếng Việt | [English](./SkinGallery_en-us.md)** · [Trang chủ](./README.md) · [Hỏi đáp](./Help.md) · [Tự làm skin](./HuongDanTaoSkin.md)
 
-# Kho giao diện (skin) - TrafficMonitor-VN
+# Kho giao diện (skin) - tsudev-trafficmonitor
 
 Trang này được mở từ liên kết **Tải thêm mẫu mạng** trong hộp thoại **Kho Giao diện (Skin)**.
 
 ## Skin có sẵn trong bản phát hành
 
-Mọi bản phát hành của TrafficMonitor-VN kèm sẵn các skin dưới đây trong thư mục `skins` cạnh `TrafficMonitor.exe`. Ảnh dưới đây là ảnh nền chế độ hiện thêm thông số (`background_l`); chữ và số do chương trình vẽ lên khi chạy.
+Mọi bản phát hành của tsudev-trafficmonitor kèm sẵn các skin dưới đây trong thư mục `skins` cạnh `tsudev-trafficmonitor.exe`. Ảnh dưới đây là ảnh nền chế độ hiện thêm thông số (`background_l`); chữ và số do chương trình vẽ lên khi chạy.
 
 | Tên thư mục | Ảnh nền | Ghi chú |
 |---|---|---|
@@ -29,7 +29,7 @@ Các skin `0_tsudev_Cu`, `tsudev_Logo`, `tsudev_VongMang`, `tsudev_DoThi_Sang`, 
 ## Cài thêm skin
 
 1. Mỗi skin là **một thư mục** gồm `skin.xml` hoặc `skin.ini` và ảnh nền `background.bmp`/`background.png` (cửa sổ thường) và `background_l.bmp`/`background_l.png` (khi hiện thêm thông số).
-2. Chép cả thư mục skin vào thư mục `skins` cạnh `TrafficMonitor.exe`.
+2. Chép cả thư mục skin vào thư mục `skins` cạnh `tsudev-trafficmonitor.exe`.
 3. Mở menu chuột phải → **Chức năng khác** → **Đổi giao diện...**, chọn skin vừa chép rồi bấm **OK**.
 
 > ⚠️ Skin chỉ chứa ảnh và tệp cấu hình văn bản, không chứa mã chạy được. Dù vậy, chỉ tải skin từ nguồn bạn tin cậy và không chạy tệp `.exe`/`.bat` đi kèm gói skin.
@@ -40,7 +40,7 @@ Xem [Hướng dẫn tạo skin](./HuongDanTaoSkin.md): bố cục, toạ độ t
 
 ## Đóng góp skin
 
-Bạn có skin muốn chia sẻ? Mở [Issue](https://github.com/tsudev-org/tsudev-trafficmonitor/issues) hoặc Pull Request thêm thư mục skin vào `TrafficMonitor/skins` kèm:
+Bạn có skin muốn chia sẻ? Mở [Issue](https://github.com/tsudev-org/tsudev-trafficmonitor/issues) hoặc Pull Request thêm thư mục skin vào `tsudev-trafficmonitor/skins` kèm:
 
 * ảnh nền do bạn tự thiết kế hoặc có quyền phân phối lại (không dùng logo, nhân vật, hình ảnh có bản quyền của bên thứ ba);
 * tên tác giả trong `skin_author` của tệp cấu hình;

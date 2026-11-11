@@ -4,7 +4,7 @@
 # Quy trình phát hành:
 #   Phiên bản theo khuôn {YY}.{M}.{DD}{NN} (VERSIONING.md của tsudev), ví dụ tag V26.11.0901-vn,
 #   gói tsudev-trafficmonitor_26.11.0901_x64_Lite.zip.
-#   1. Cập nhật VERSION trong TrafficMonitor/stdafx.h và version_utf8.info (liên kết tải cho bản cũ V1.86/V1.87,
+#   1. Cập nhật VERSION trong tsudev-trafficmonitor/stdafx.h và version_utf8.info (liên kết tải cho bản cũ V1.86/V1.87,
 #      nội dung cập nhật - cũng được đưa vào version_signed.xml có chữ ký mà bản V1.88+ đọc).
 #   2. git tag V<phiên bản>-vn && git push origin V<phiên bản>-vn
 name: Release
@@ -59,7 +59,7 @@ jobs:
           "version=$($Matches[1])" >> $env:GITHUB_OUTPUT
 
       - name: Build
-        run: msbuild TrafficMonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143
+        run: msbuild tsudev-trafficmonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143
 
       - name: Đóng gói (zip tất định, tools/make_package.ps1 - cùng script với bước thử trong build.yml)
         id: pkg
@@ -154,7 +154,7 @@ jobs:
         run: |
           gh release create "$TAG" dist/*.zip dist/*.spdx.json dist/SHA256SUMS.txt dist/version_signed.xml dist/version_signed.xml.sig \
             --repo "$GITHUB_REPOSITORY" \
-            --title "TrafficMonitor-VN $TAG" \
+            --title "tsudev-trafficmonitor $TAG" \
             --notes "Xem nhật ký thay đổi: https://github.com/$GITHUB_REPOSITORY/blob/main/UpdateLog/update_log_vi.md
 
           Kiểm tra mã băm SHA-256 trong SHA256SUMS.txt và chứng thực nguồn gốc build (gh attestation verify) trước khi sử dụng - xem SECURITY.md. Mỗi gói kèm SBOM SPDX (*.spdx.json) có chứng thực."

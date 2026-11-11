@@ -1,17 +1,17 @@
 **[Tiếng Việt](./HuongDanTaoSkin.md) | English** · [Home](./README_en-us.md) · [Skin gallery](./SkinGallery_en-us.md)
 
-# Skin making-up tutorial for TrafficMonitor-VN
+# Skin making-up tutorial for tsudev-trafficmonitor
 
-A skin defines the background image, font, text colours and item positions of TrafficMonitor's **main window** (the floating window). The taskbar window does not use skins.
+A skin defines the background image, font, text colours and item positions of tsudev-trafficmonitor's **main window** (the floating window). The taskbar window does not use skins.
 
-> This guide is written from the skin loader source code (`TrafficMonitor/SkinFile.cpp`).
+> This guide is written from the skin loader source code (`tsudev-trafficmonitor/SkinFile.cpp`).
 
 ## 1. Folder structure
 
-Each skin is a subfolder of the `skins` folder (next to `TrafficMonitor.exe`). **The folder name is the skin name.**
+Each skin is a subfolder of the `skins` folder (next to `tsudev-trafficmonitor.exe`). **The folder name is the skin name.**
 
 ```
-TrafficMonitor.exe
+tsudev-trafficmonitor.exe
 skins\
   0_tsudev_Cu\
     background.png      ← background when "Show More Info" is OFF (small window)
@@ -123,7 +123,7 @@ Defines how the preview in the **Change Skin** dialog is composed: `width`/`heig
 1. Copy an existing skin (for example `skins\0_tsudev_Cu`) into a new folder.
 2. Replace `background.png` and `background_l.png` with your images (keep their size, or update `width`/`height` in `skin.xml` to match).
 3. Edit `skin.xml`: author, font, colours, item positions.
-4. Open TrafficMonitor → right-click menu → **Other Functions** → **Change Skin...**, select the new skin to preview and apply it. After each edit, switch to another skin and back to reload it.
+4. Open tsudev-trafficmonitor → right-click menu → **Other Functions** → **Change Skin...**, select the new skin to preview and apply it. After each edit, switch to another skin and back to reload it.
 
 ## 4. Safety notes
 

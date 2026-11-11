@@ -1,6 +1,6 @@
-# Thông báo bản quyền - TrafficMonitor-VN
+# Thông báo bản quyền - tsudev-trafficmonitor
 
-## TrafficMonitor-VN
+## tsudev-trafficmonitor
 
 ```
 Copyright (c) 2026 tsudev
@@ -10,7 +10,7 @@ Phát hành theo giấy phép **"Anti 996" License 1.0** ([LICENSE](./LICENSE)).
 
 ## Dự án gốc
 
-TrafficMonitor-VN là bản phái sinh của dự án TrafficMonitor, phát hành theo giấy phép "Anti 996" License 1.0 ([LICENSE](./LICENSE), [LICENSE_CN](./LICENSE_CN)):
+tsudev-trafficmonitor (trước đây tên TrafficMonitor-VN) là bản phái sinh của dự án TrafficMonitor, phát hành theo giấy phép "Anti 996" License 1.0 ([LICENSE](./LICENSE), [LICENSE_CN](./LICENSE_CN)):
 
 ```
 Copyright (c) <2019> <copyright zhongyang219>
@@ -20,7 +20,7 @@ Copyright (c) <2019> <copyright zhongyang219>
 
 | Thành phần | Bản quyền | Giấy phép |
 |---|---|---|
-| [TinyXML-2](https://github.com/leethomason/tinyxml2) 11.0.0 (`TrafficMonitor/tinyxml2`, nguyên văn bản phát hành) | Lee Thomason | zlib |
+| [TinyXML-2](https://github.com/leethomason/tinyxml2) 11.0.0 (`tsudev-trafficmonitor/tinyxml2`, nguyên văn bản phát hành) | Lee Thomason | zlib |
 | [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) (`OpenHardwareMonitorApi/LibreHardwareMonitorLib.dll`, chỉ bản đầy đủ) | Những người đóng góp LibreHardwareMonitor | MPL-2.0 |
 | Microsoft Foundation Classes (MFC), Windows SDK | Microsoft Corporation | Theo giấy phép Visual Studio / Windows SDK |
 
