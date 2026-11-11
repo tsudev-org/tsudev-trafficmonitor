@@ -5,7 +5,7 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] Khi nộp winget bản mới (sau khi PR winget-pkgs #477193 của 26.11.1001 được duyệt): mã gói giữ `tsudev.TrafficMonitor`, `RelativeFilePath` đổi thành `tsudev-trafficmonitor\tsudev-trafficmonitor.exe`.
+- [ ] Theo dõi PR winget-pkgs #477193 (`tsudev.TrafficMonitor` 26.11.1001, chờ Microsoft duyệt): phiếu `logs/handover/20261112-03_nhac-theo-doi-winget.md` - kiểm mỗi phiên, gộp xong thì nộp 26.11.1201 với `RelativeFilePath` tên mới.
 - 12/11/2026 - Đã deploy website (logo, tên mới, /ung-ho/; QR production khớp SHA-256). Deploy: `XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy`.
 - (trống) - việc tùy chọn (chỉ khi người dùng yêu cầu): xem phiếu `logs/handover/20261110-01_ket-phien-1001-va-xoa-repo-cu.md` mục 2
 
