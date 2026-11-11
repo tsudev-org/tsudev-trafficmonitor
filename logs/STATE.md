@@ -5,6 +5,9 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
+- [ ] Phát hành 26.11.12NN (đổi tên + logo + gỡ Gitee/ủng hộ cũ): CHỜ chủ dự án quyết; điều kiện: trang https://tsudev.com/ung-ho/ lên production (đang 404, phiếu repo `tsudev`) và nên thử trên Windows việc chuyển `%AppData%\TrafficMonitor` + tự khởi động cũ sang tên mới (sao lưu config trước).
+- [ ] Ngay sau phát hành: sửa `~/projects/scoop-bucket/bucket/tsudev-trafficmonitor.json` - `extract_dir` "tsudev-trafficmonitor", shortcut "tsudev-trafficmonitor.exe" (excavator tự nâng phiên bản sẽ làm hỏng cài đặt nếu không sửa).
+- [ ] Người dùng: `cd website && npm run deploy` (logo mới, tên mới, liên kết Ủng hộ).
 - [ ] Người dùng: merge PR giao diện đen + tím (phiếu `20261110-05`), rồi `cd website && npm run deploy`; kiểm production: `theme-color` `#0a0a0a`, console 0 lỗi CSP.
 - (trống) - việc tùy chọn (chỉ khi người dùng yêu cầu): xem phiếu `logs/handover/20261110-01_ket-phien-1001-va-xoa-repo-cu.md` mục 2
 
@@ -15,6 +18,7 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 12/11/2026 - Logo sản phẩm `logo-tsudev-trafficmonitor` (#57, dây chuyền `tools/brand/build_brand.py`, skin `tsudev_Logo`); đổi tên toàn bộ thành tsudev-trafficmonitor kèm chuyển dữ liệu/tự khởi động bản cũ (#58); gỡ Gitee và mục ủng hộ cũ, liên kết Ủng hộ tsudev (#59, phiếu 20261112-01). Phiếu đề xuất logo riêng gửi `tsudev-standards` (logs/handover/20261112-01).
 - 10/11/2026 - Phiếu `20261110-05`: website đen tuyền + tím kiểu Supabase, bộ chọn Sáng/Tối/Hệ thống ở chân trang (`public/theme.js`, CSP `script-src 'self'`), CI thêm `check:theme`. Chi tiết: mục Kết quả của phiếu.
 - 10/11/2026 - Phát hành 26.11.1001 (#45-#48): đọc skin.xml an toàn (`XmlParsing.h`: 1 MB, 4096 phần tử, sâu 16, kẹp giá trị) + test + fuzz; mở đúng thư mục Downloads sau khi tải; **build tái lập** (`/Brepro`, ngày biên dịch = thời điểm commit, `tools/make_zip.py`): exe trong gói phát hành trùng từng byte với build độc lập của `build.yml`. Đã kiểm sha256/provenance/SBOM/chữ ký; thử Windows 0905 -> 1001 (tự tải, SHA khớp), 0904 -> 1001, 1001 báo mới nhất, 12 skin giống ảnh chuẩn
 - 09/11/2026 - Phát hành 26.11.0905 (#42, #44): ứng dụng tự tải gói cập nhật, kiểm SHA-256 với manifest đã ký, lưu vào Downloads (không ghi đè, Mark of the Web); test tích hợp tải gói thật trong CI. Thử Windows: build PR #42 tải 0905 thật, SHA khớp; 0904/0901 thấy 0905. Tự duyệt environment `release` bằng `gh api ... pending_deployments` CHẠY ĐƯỢC
@@ -34,6 +38,7 @@
 > Quyết định kiến trúc lớn thì viết ADR riêng theo `docs/templates/ADR.md` và chỉ
 > ghi một dòng tham chiếu ở đây.
 
+- 12/11/2026 - Tên sản phẩm duy nhất **tsudev-trafficmonitor** (cả thư mục mã, .sln/.vcxproj, exe, %AppData%). Tên cũ chỉ còn ở: LICENSE*, câu ghi công dự án gốc (Anti 996), lịch sử CHANGELOG/UpdateLog, hằng LEGACY_* dùng để chuyển dữ liệu bản cũ. Logo riêng của sản phẩm (lệch BRAND_ASSETS, AGENTS.md B.4)
 - 10/11/2026 - Dự án giữ **chi phí 0 đồng**: BỎ hẳn kế hoạch ký số Authenticode (mọi chứng thư tin cậy đều tốn phí; SignPath Foundation miễn phí nhưng đòi giấy phép OSI, Anti 996 không thuộc). Không đề xuất lại dịch vụ/công cụ trả phí. Toàn vẹn dựa vào SHA-256, chứng thực build + SBOM, manifest ký ECDSA, build tái lập (SECURITY.md)
 - 10/11/2026 - Build tái lập là yêu cầu: bước build/đóng gói mới phải giữ exe và zip tất định (CI build 2 lần so SHA-256); không dùng __DATE__/__TIME__ hay giờ build trong tài nguyên
 - 10/11/2026 - ĐÃ XÓA repo `tsudev-tsudev/TrafficMonitor-VN` (sao lưu `~/backups/github/20261109/`; bản V1.86-vn mất kênh thông báo cập nhật) và fork `tsudev-tsudev/winget-pkgs` (fork thừa, tạo lại khi cần nộp manifest)
