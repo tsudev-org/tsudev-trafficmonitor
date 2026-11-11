@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "name": "tsudev-trafficmonitor",
+  "winget": "tsudev.TrafficMonitor",
+  "homepage": "https://trafficmonitor.tsudev.com",
+  "license": "LicenseRef-Anti-996",
+  "description": {
+    "vi": "Theo dõi tốc độ mạng, CPU, RAM trên thanh tác vụ Windows - bản Việt hóa, gia cố bảo mật của TrafficMonitor",
+    "en": "Network speed, CPU and RAM monitor in the Windows taskbar - Vietnamese, security-hardened TrafficMonitor"
+  },
+  "release": {
+    "repo": "tsudev-org/tsudev-trafficmonitor",
+    "tagRegex": "^V(?<version>\\d+\\.\\d+\\.\\d+)-vn$",
+    "sums": "SHA256SUMS.txt"
+  },
+  "assets": {
+    "windows-x64": {
+      "file": "tsudev-trafficmonitor_{version}_x64_Lite.zip",
+      "kind": "portable",
+      "bin": "TrafficMonitor/TrafficMonitor.exe"
+    },
+    "windows-x86": {
+      "file": "tsudev-trafficmonitor_{version}_x86_Lite.zip",
+      "kind": "portable",
+      "bin": "TrafficMonitor/TrafficMonitor.exe"
+    },
+    "windows-arm64": {
+      "file": "tsudev-trafficmonitor_{version}_arm64ec_Lite.zip",
+      "kind": "portable",
+      "bin": "TrafficMonitor/TrafficMonitor.exe"
+    }
+  },
+  "channels": [
+    "scoop"
+  ],
+  "planned": [
+    "winget"
+  ]
+}
