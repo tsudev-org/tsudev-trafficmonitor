@@ -36,3 +36,9 @@ Theo phiếu gốc mục 4: gỡ kênh cũ, `FUNDING.yml`, trang/nút Ủng hộ
   `website/src/data/ung-ho.json`, kiểm lúc build `website/src/lib/ung-ho.ts` (CRC VietQR, NAPAS, VND, BIN + số tài khoản,
   SHA-256 ảnh QR - đã thử tráo ảnh: build dừng), ảnh `website/public/ung-ho/vietqr-vib.svg` (SHA-256 `7209698f…`),
   `.github/CODEOWNERS`. Ứng dụng (`TSUDEV_DONATE_URL`), FUNDING.yml, chân trang đều trỏ về trang này.
+
+## 5. Bổ sung 12/11/2026 - phương án theo nền tảng (đã chốt)
+
+Áp dụng phiếu `~/projects/logs/handover/20261112-02_quyet-dinh-ung-ho-theo-nen-tang.md` (thay mục 3.5 của phiếu gốc):
+web hiện đầy đủ; desktop/Android chỉ nút mở trang web kèm câu "tự nguyện, 100% tới nhà phát triển, không mở khóa gì";
+iOS App Store ẩn hoàn toàn. Ghi một dòng kết quả vào mục 5 của phiếu đó.
