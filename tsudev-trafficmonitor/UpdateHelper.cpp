@@ -15,15 +15,9 @@ CUpdateHelper::~CUpdateHelper()
 {
 }
 
-void CUpdateHelper::SetUpdateSource(UpdateSource update_source)
-{
-    m_update_source = update_source;
-}
-
 bool CUpdateHelper::CheckForUpdate()
 {
     //Bản Việt hóa: chỉ dùng một nguồn cập nhật duy nhất là repo GitHub của tsudev-trafficmonitor (xem ForkConfig.h).
-    //Lựa chọn nguồn Gitee (nếu có trong cấu hình cũ) được bỏ qua.
     //Từ V1.88-vn: chỉ tin thông tin phiên bản có chữ ký hợp lệ (version_signed.xml + .sig trong bản phát hành mới nhất).
     //Tệp version_utf8.info không chữ ký chỉ còn phục vụ các bản cũ (V1.86-vn, V1.87-vn).
     m_row_data = true;

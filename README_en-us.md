@@ -25,9 +25,9 @@ A [tsudev](https://tsudev.com) product. Product page: [trafficmonitor.tsudev.com
 ### Security
 | Area | Original | tsudev-trafficmonitor |
 |---|---|---|
-| Update source | GitHub or Gitee | Only the tsudev-trafficmonitor repository on GitHub |
+| Update source | Several hosts, selectable | Only the tsudev-trafficmonitor repository on GitHub |
 | Update information | Unsigned | **Signed** (ECDSA P-256, verified with Windows CNG); the app downloads the package itself and keeps it only if its **SHA-256 matches** the signed value |
-| Download link validation | Any `github.com/`, `gitee.com/` path | Only this repository's Releases page; rejects `..`, `@`, `?`, `#`, `%`; `.zip`/`.exe` only |
+| Download link validation | Any path on the code-hosting site | Only this repository's Releases page; rejects `..`, `@`, `?`, `#`, `%`; `.zip`/`.exe` only |
 | Version comparison | String comparison (wrong for `1.100` vs `1.86`) | Numeric |
 | Network protocol | Anything `OpenURL` supports (including `file://`, `ftp://`) | **HTTPS only**, timeout, 1 MB limit, no cache/cookies, allowed hosts only |
 | Public IP lookup | Third-party service that also returns location | [ipify](https://www.ipify.org/) (open source, returns only the IP), only on demand |

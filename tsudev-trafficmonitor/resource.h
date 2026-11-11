@@ -13,7 +13,6 @@
 #define IDB_BITMAP1                     140
 #define IDD_HISTORY_TRAFFIC_DIALOG      141
 #define IDB_BITMAP2                     145
-#define IDB_DONATE_BITMAP               145
 #define IDI_NOFITY_ICON                 146
 #define IDD_OPTIONS_DIALOG              147
 #define IDD_MAIN_WND_SETTINGS_DIALOG    149
@@ -39,7 +38,6 @@
 #define IDI_NOFITY_ICON4                299
 #define IDB_NOTIFY_ICON_PREVIEW_LIGHT   302
 #define IDB_BITMAP3                     305
-#define IDB_DONATE_WECHAT               305
 #define IDD_ATUO_ADAPT_SETTING_DIALOG   306
 #define IDR_LICENSE                     310
 #define IDI_EXIT                        311
@@ -104,7 +102,6 @@
 #define IDC_INFO_LIST1                  1017
 #define IDC_HISTORY_INFO_LIST           1017
 #define IDC_STATIC_LICENSE              1017
-#define IDC_DONATE_PIC                  1018
 #define IDC_FONT_NAME_EDIT              1019
 #define IDC_FONT_SIZE_EDIT              1020
 #define IDC_STATIC_CHECK_UPDATE         1021
@@ -244,8 +241,6 @@
 #define IDC_TINYXML2_LINK               1123
 #define IDC_MUSICPLAYER2_LINK           1124
 #define IDC_SIMPLENOTEPAD_LINK          1125
-#define IDC_GITHUB_RADIO                1126
-#define IDC_GITEE_RADIO                 1127
 #define IDC_MEMORY_DISPLAY_COMBO        1127
 #define IDC_RESTORE_DEFAULT_TIME_SPAN_BUTTON 1128
 #define IDC_SELECT_HARD_DISK_COMBO      1129

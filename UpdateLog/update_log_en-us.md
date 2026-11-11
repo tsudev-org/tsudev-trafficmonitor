@@ -14,6 +14,10 @@ Releases before the rename were called **TrafficMonitor-VN**; their entries belo
 * The old and new versions do not run at the same time: starting the new one while the old one is open reports that the app is already running.
 * Existing plugins keep working (the plugin interface is unchanged; `ITrafficMonitor` remains an alias of `ITsudevTrafficMonitor`).
 
+### Interface cleanup
+* Removed the Gitee update source option (disabled since the first localized release); General Settings shows "Update source: GitHub".
+* Removed the original project's donation strings and resources; the About dialog links to **Support tsudev** at https://tsudev.com/ung-ho/ (the program contains no payment details).
+
 ### Branding
 * New logo for the program icon, tray icon, About dialog and website; new `tsudev_Logo` skin.
 
