@@ -11,8 +11,8 @@ body:
           required: true
   - type: input
     attributes:
-      label: Current TrafficMonitor Version
-      description: Right-click the TrafficMonitor tray icon, select `Help` → `About`.
+      label: Current tsudev-trafficmonitor Version
+      description: Right-click the tsudev-trafficmonitor tray icon, select `Help` → `About`.
     validations: 
       required: true
   - type: input
@@ -29,7 +29,7 @@ body:
   - type: textarea
     attributes:
       label: Log Output
-      description: "Error logs can be found in the TrafficMonitor root directory.<br>This will be automatically formatted as code, so no backticks are needed."
+      description: "Error logs can be found in the tsudev-trafficmonitor root directory.<br>This will be automatically formatted as code, so no backticks are needed."
       render: shell
   - type: textarea
     attributes:

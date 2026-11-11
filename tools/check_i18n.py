@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Kiểm tra chất lượng bản Việt hóa của TrafficMonitor-VN.
+"""Kiểm tra chất lượng bản Việt hóa của tsudev-trafficmonitor.
 
 Chạy:  python3 tools/check_i18n.py   (từ thư mục gốc repo)
 
@@ -17,7 +17,7 @@ import re
 import sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-LANG_DIR = os.path.join(ROOT, "TrafficMonitor", "language")
+LANG_DIR = os.path.join(ROOT, "tsudev-trafficmonitor", "language")
 CJK = re.compile("[一-鿿]")
 KEY_RE = re.compile(r"^\s*([A-Za-z0-9_]+)\s*=\s*(.*?)\s*$")
 FMT_RE = re.compile(r"<%\d+%>|%(?:\d+\$)?[-+ #0]*\d*(?:\.\d+)?(?:l|ll|h|I64)?[sdifuxXcS]")
@@ -61,7 +61,7 @@ def check_language_pack():
 
 
 def check_default_language(vi):
-    cfg_path = os.path.join(ROOT, "TrafficMonitor", "ForkConfig.h")
+    cfg_path = os.path.join(ROOT, "tsudev-trafficmonitor", "ForkConfig.h")
     with open(cfg_path, encoding="utf-8-sig") as f:
         m = re.search(r'#define\s+DEFAULT_LANGUAGE_CONFIG\s+L"([^"]*)"', f.read())
     if not m:
@@ -75,7 +75,7 @@ def check_default_language(vi):
 
 # Tệp được phép chứa chữ Hán: giấy phép gốc (bắt buộc giữ nguyên văn), gói tiếng Nhật (kanji), và chính tệp này.
 CJK_ALLOWED = {
-    os.path.join("TrafficMonitor", "language", "Japanese.ini"),
+    os.path.join("tsudev-trafficmonitor", "language", "Japanese.ini"),
     os.path.join("tools", "check_i18n.py"),
 }
 

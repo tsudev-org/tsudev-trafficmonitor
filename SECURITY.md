@@ -1,4 +1,4 @@
-# Chính sách bảo mật - TrafficMonitor-VN
+# Chính sách bảo mật - tsudev-trafficmonitor
 
 ## Phiên bản được hỗ trợ
 
@@ -46,10 +46,10 @@ openssl dgst -sha256 -verify update_signing_pub.pem -signature sig.der version_s
 
 ## Build tái lập (reproducible build)
 
-Từ 26.11.1001, cùng mã nguồn (cùng commit) build bằng cùng bộ công cụ cho ra `TrafficMonitor.exe` và gói zip **giống nhau từng byte**:
+Từ 26.11.1001, cùng mã nguồn (cùng commit) build bằng cùng bộ công cụ cho ra `tsudev-trafficmonitor.exe` và gói zip **giống nhau từng byte**:
 
 * `/Brepro` cho trình biên dịch và trình liên kết: PE timestamp và GUID PDB lấy từ băm nội dung thay vì thời điểm build; `/PDBALTPATH:%_PDB%` không ghi đường dẫn thư mục build vào exe ([`Directory.Build.props`](./Directory.Build.props)).
-* "Ngày biên dịch" trong hộp thoại Giới thiệu là **thời điểm commit** (`SOURCE_DATE_EPOCH` hoặc `git log -1 --format=%ct`), không phải giờ build ([`TrafficMonitor/print_compile_time.bat`](./TrafficMonitor/print_compile_time.bat)).
+* "Ngày biên dịch" trong hộp thoại Giới thiệu là **thời điểm commit** (`SOURCE_DATE_EPOCH` hoặc `git log -1 --format=%ct`), không phải giờ build ([`tsudev-trafficmonitor/print_compile_time.bat`](./tsudev-trafficmonitor/print_compile_time.bat)).
 * Gói zip tạo bằng [`tools/make_zip.py`](./tools/make_zip.py): thứ tự mục, thời gian (thời điểm commit), thuộc tính cố định ([`tools/make_package.ps1`](./tools/make_package.ps1), dùng chung cho phát hành và CI).
 * Mỗi lần CI (`build.yml`), mỗi kiến trúc được build hai lần (lần hai là *Rebuild*) và đóng gói ở hai thư mục khác nhau; PE timestamp, SHA-256 của exe và zip phải trùng, nếu không CI báo lỗi.
 
@@ -58,15 +58,15 @@ Tự kiểm một bản phát hành (Windows, Visual Studio 2022 có MFC v143):
 ```powershell
 git clone https://github.com/tsudev-org/tsudev-trafficmonitor; cd tsudev-trafficmonitor
 git checkout V26.11.1001-vn
-msbuild TrafficMonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=x64 -p:PlatformToolset=v143
-Get-FileHash "Bin\x64\Release (lite)\TrafficMonitor.exe"   # so với TrafficMonitor.exe trong gói zip của bản phát hành
+msbuild tsudev-trafficmonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=x64 -p:PlatformToolset=v143
+Get-FileHash "Bin\x64\Release (lite)\tsudev-trafficmonitor.exe"   # so với tsudev-trafficmonitor.exe trong gói zip của bản phát hành
 ```
 
 **Giới hạn:** exe chỉ trùng byte khi dùng **cùng phiên bản** MSVC, MFC và Windows SDK như máy build của GitHub Actions (ảnh `windows-2022` tại thời điểm phát hành; phiên bản ghi trong nhật ký job "Build" của lần phát hành). Khác phiên bản bộ công cụ thì mã máy khác, không phải dấu hiệu bị sửa đổi. Gói zip còn phụ thuộc phiên bản zlib của Python; để đối chiếu, giải nén rồi so từng tệp. Chứng thực nguồn gốc build (`gh attestation verify`) vẫn là cách kiểm chính.
 
 ## Chữ ký số Authenticode
 
-`TrafficMonitor.exe` **không** được ký Authenticode, và dự án **không có kế hoạch** ký: TrafficMonitor-VN được xây dựng và phát triển với **chi phí 0 đồng**, trong khi mọi chứng thư ký mã được Windows tin cậy đều tốn phí; chương trình ký miễn phí cho mã nguồn mở (SignPath Foundation) chỉ nhận giấy phép được OSI phê duyệt, còn TrafficMonitor-VN phải giữ giấy phép Anti 996 của dự án gốc.
+`tsudev-trafficmonitor.exe` **không** được ký Authenticode, và dự án **không có kế hoạch** ký: tsudev-trafficmonitor được xây dựng và phát triển với **chi phí 0 đồng**, trong khi mọi chứng thư ký mã được Windows tin cậy đều tốn phí; chương trình ký miễn phí cho mã nguồn mở (SignPath Foundation) chỉ nhận giấy phép được OSI phê duyệt, còn tsudev-trafficmonitor phải giữ giấy phép Anti 996 của dự án gốc.
 
 Vì vậy Windows SmartScreen có thể cảnh báo "Windows protected your PC" khi chạy lần đầu (bấm **More info** → **Run anyway** sau khi đã kiểm tra tệp). Tính toàn vẹn được bảo đảm bằng các cách miễn phí, kiểm được độc lập:
 
@@ -77,14 +77,14 @@ Vì vậy Windows SmartScreen có thể cảnh báo "Windows protected your PC" 
 
 ## Mô hình mối đe dọa và biện pháp đã áp dụng
 
-TrafficMonitor là ứng dụng desktop chạy với quyền người dùng (bản Lite) hoặc quyền Quản trị viên (bản đầy đủ có đo nhiệt độ). Các bề mặt tấn công chính và biện pháp tương ứng:
+tsudev-trafficmonitor là ứng dụng desktop chạy với quyền người dùng (bản Lite) hoặc quyền Quản trị viên (bản đầy đủ có đo nhiệt độ). Các bề mặt tấn công chính và biện pháp tương ứng:
 
 ### 1. Cơ chế kiểm tra cập nhật
 *Rủi ro:* tệp thông tin phiên bản bị giả mạo (tấn công chuỗi cung ứng, MITM) dẫn người dùng tới tệp độc hại.
 
 * **Thông tin phiên bản có chữ ký (từ V1.88-vn).** Mỗi bản phát hành kèm `version_signed.xml` (phiên bản, liên kết tải, **SHA-256 của từng gói**) và chữ ký `version_signed.xml.sig` (ECDSA P-256/SHA-256). Khóa bí mật chỉ nằm trong secret của environment `release` trên GitHub (job phát hành cần chủ repo duyệt); khóa công khai nhúng trong `ForkConfig.h` và có bản PEM tại [`tools/keys/update_signing_pub.pem`](./tools/keys/update_signing_pub.pem). Ứng dụng xác minh chữ ký bằng Windows CNG; chữ ký sai thì bỏ toàn bộ thông tin cập nhật. Vì vậy kể cả khi GitHub, DNS hay kết nối mạng bị giả mạo, kẻ tấn công không thể đưa phiên bản/liên kết/mã băm giả vào ứng dụng.
 * **Chống hạ cấp:** chỉ báo cập nhật khi phiên bản trong thông tin có chữ ký **lớn hơn** phiên bản đang chạy (so sánh theo số).
-* Bản V1.87-vn (trước khi có chữ ký) đọc `version_utf8.info` không chữ ký qua **HTTPS**; tệp này vẫn được duy trì cho bản đó. Bản V1.86-vn đọc thông tin cập nhật từ repo cũ `TrafficMonitor-VN` đã gỡ (11/2026) nên không còn nhận thông báo; hãy tải bản mới tại trang Tải về.
+* Bản V1.87-vn (trước khi có chữ ký) đọc `version_utf8.info` không chữ ký qua **HTTPS**; tệp này vẫn được duy trì cho bản đó. Bản V1.86-vn đọc thông tin cập nhật từ repo cũ `tsudev-trafficmonitor` đã gỡ (11/2026) nên không còn nhận thông báo; hãy tải bản mới tại trang Tải về.
 * Liên kết tải phải bắt đầu **chính xác** bằng `https://github.com/tsudev-org/tsudev-trafficmonitor/releases/download/` hoặc địa chỉ cũ trước khi chuyển repo `https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/` (GitHub chuyển hướng; bản phát hành ghi liên kết theo địa chỉ cũ để bản đã cài vẫn cập nhật được), không chứa `..`, `@`, `?`, `#`, `%`, `\`, khoảng trắng hay ký tự điều khiển, và chỉ trỏ tới `.zip`/`.exe`. Liên kết được kiểm tra **hai lần** (khi phân tích và ngay trước khi mở).
 * **Tự tải và kiểm SHA-256 (từ 26.11.0905).** Chỉ sau khi người dùng đồng ý, ứng dụng tải gói ở luồng nền (hộp thoại tiến độ có nút Hủy):
   * chỉ tải liên kết đã qua bộ lọc trên và trỏ tới gói `.zip`; tên tệp lưu lấy từ liên kết, chỉ gồm `A-Z a-z 0-9 . _ -`, không phải tên thiết bị DOS;
@@ -105,16 +105,16 @@ TrafficMonitor là ứng dụng desktop chạy với quyền người dùng (b�
 ### 3. Nạp DLL và plugin
 * Khi khởi động: `SetDllDirectory("")` và `SetDefaultDllDirectories(LOAD_LIBRARY_SEARCH_DEFAULT_DIRS)` - loại thư mục hiện hành và biến `PATH` khỏi thứ tự tìm DLL (chống DLL hijacking/preloading).
 * Plugin được nạp bằng đường dẫn tuyệt đối với `LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS`.
-* **Giới hạn đã biết:** plugin là mã gốc chạy cùng tiến trình và cùng quyền với TrafficMonitor; chương trình **không** xác minh chữ ký số của plugin. Chỉ cài plugin từ nguồn tin cậy. Nên đặt TrafficMonitor ở thư mục mà người dùng thường không ghi được (ví dụ `C:\Program Files\TrafficMonitor-VN`) khi chạy bản đầy đủ với quyền Quản trị viên, để tránh phần mềm khác cài plugin trái phép.
+* **Giới hạn đã biết:** plugin là mã gốc chạy cùng tiến trình và cùng quyền với tsudev-trafficmonitor; chương trình **không** xác minh chữ ký số của plugin. Chỉ cài plugin từ nguồn tin cậy. Nên đặt TrafficMonitor ở thư mục mà người dùng thường không ghi được (ví dụ `C:\Program Files\tsudev-trafficmonitor`) khi chạy bản đầy đủ với quyền Quản trị viên, để tránh phần mềm khác cài plugin trái phép.
 
 ### 3b. Đọc tệp skin (`skin.xml`)
 *Rủi ro:* skin tải từ nguồn khác chứa XML độc hại (làm ứng dụng dừng, tốn bộ nhớ, giá trị kích thước bất thường).
 
-* Phần phân tích thuần nằm ở [`TrafficMonitor/XmlParsing.h`](./TrafficMonitor/XmlParsing.h) (không phụ thuộc MFC), dùng tinyxml2 11.0.0 (không hỗ trợ DTD/thực thể ngoài, nên không có XXE).
+* Phần phân tích thuần nằm ở [`tsudev-trafficmonitor/XmlParsing.h`](./tsudev-trafficmonitor/XmlParsing.h) (không phụ thuộc MFC), dùng tinyxml2 11.0.0 (không hỗ trợ DTD/thực thể ngoài, nên không có XXE).
 * Giới hạn: tệp tối đa **1 MB** (kiểm kích thước trước khi đọc), tối đa 4096 phần tử, sâu tối đa 16 cấp; tối đa 256 màu/văn bản hiển thị/mục bố cục/ánh xạ plugin, chuỗi tối đa 256 byte (cắt đúng ranh giới UTF-8), tên phông quá 128 byte thì dùng phông mặc định. Vượt giới hạn hoặc sai cú pháp: skin bị bỏ, ứng dụng dùng giao diện mặc định.
 * Số đọc từ thuộc tính không tràn (thay `atoi`) và bị kẹp: kích thước 0-4096, tọa độ -4096-4096, chiều cao chữ 0-512, cỡ phông 0-72, màu 0-0xFFFFFF, kiểu căn lề lạ coi là căn trái.
 * Thông tin phiên bản (`version_signed.xml`) chỉ được phân tích **sau** khi xác minh chữ ký; hàm tìm nút đơn giản cũng nằm trong `XmlParsing.h` (đã sửa trường hợp thẻ đóng đứng trước thẻ mở).
-* Kiểm thử: `tests/XmlParsingTests.cpp` (kể cả mọi `skin.xml` thật trong `TrafficMonitor/skins`, chạy thường và dưới ASan) và harness fuzz `tests/fuzz/SkinXmlFuzz.cpp` (libFuzzer + ASan 120 giây mỗi lần CI, hạt giống là các `skin.xml` thật) kiểm mọi giá trị trả về nằm trong khoảng hợp lệ.
+* Kiểm thử: `tests/XmlParsingTests.cpp` (kể cả mọi `skin.xml` thật trong `tsudev-trafficmonitor/skins`, chạy thường và dưới ASan) và harness fuzz `tests/fuzz/SkinXmlFuzz.cpp` (libFuzzer + ASan 120 giây mỗi lần CI, hạt giống là các `skin.xml` thật) kiểm mọi giá trị trả về nằm trong khoảng hợp lệ.
 
 ### 4. Gia cố tệp thực thi (cấu hình Release)
 Thiết lập tại [`Directory.Build.props`](./Directory.Build.props):

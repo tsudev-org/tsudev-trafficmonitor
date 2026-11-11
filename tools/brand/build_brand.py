@@ -11,8 +11,8 @@ Không sửa tay bất kỳ sản phẩm sinh ra nào; muốn đổi logo thì t
 Sinh ra (xem assets/brand/README.md):
   assets/brand/logo-tsudev-trafficmonitor.{png,webp,avif}  logo đầy đủ, nền trong suốt, 1024x1024
   assets/brand/mark-tsudev-trafficmonitor.{png,webp,avif}  dấu hiệu thu gọn (mặt cú, không chữ), 512x512
-  TrafficMonitor/res/TrafficMonitor.ico                    icon exe/cửa sổ/khay kiểu 4: 16..256 (16-40 dùng dấu hiệu thu gọn)
-  TrafficMonitor/res/about_background_hd.bmp               ảnh đầu hộp thoại Giới thiệu 479x92, 24-bit
+  tsudev-trafficmonitor/res/tsudev-trafficmonitor.ico                    icon exe/cửa sổ/khay kiểu 4: 16..256 (16-40 dùng dấu hiệu thu gọn)
+  tsudev-trafficmonitor/res/about_background_hd.bmp               ảnh đầu hộp thoại Giới thiệu 479x92, 24-bit
   website/public/favicon.ico, favicon-{16,32,96}.png, apple-touch-icon.png, android-chrome[-maskable]-{192,512}.png
   website/public/og-image.png                              ảnh chia sẻ 1200x630
   website/public/brand/{logo,mark}-tsudev-trafficmonitor.{png,webp,avif}
@@ -37,7 +37,7 @@ from scipy import ndimage
 ROOT = Path(__file__).resolve().parent.parent.parent
 BRAND = ROOT / "assets/brand"
 FONTS = BRAND / "fonts"
-RES = ROOT / "TrafficMonitor/res"
+RES = ROOT / "tsudev-trafficmonitor/res"
 WEB = ROOT / "website/public"
 ICO_SIZES = [16, 20, 24, 28, 32, 40, 48, 64, 128, 256]
 FAVICON_SIZES = [16, 24, 32, 48, 64, 128, 256]
@@ -225,7 +225,7 @@ def main() -> int:
     out.triple(BRAND / "mark-tsudev-trafficmonitor.png", mark)
 
     # ứng dụng Windows
-    make_ico(out, RES / "TrafficMonitor.ico", logo, mark, tiny, ICO_SIZES)
+    make_ico(out, RES / "tsudev-trafficmonitor.ico", logo, mark, tiny, ICO_SIZES)
     make_about(out, logo, c)
 
     # website

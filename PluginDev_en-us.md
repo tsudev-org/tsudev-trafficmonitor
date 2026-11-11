@@ -1,6 +1,6 @@
 **[Tiếng Việt](./PhatTrienPlugin.md) | English** · [Home](./README_en-us.md) · [Plugins](./Plugin_en-us.md)
 
-# Plugin development for TrafficMonitor-VN
+# Plugin development for tsudev-trafficmonitor
 
 This page opens from the **Plug-in development guide** link in the **Plug-in Manage** dialog (when the interface language is not Vietnamese).
 
@@ -12,7 +12,7 @@ Complete example: [`PluginDemo`](./PluginDemo) - 2 text items (date, time), 2 cu
 
 1. Visual Studio 2022 → **Dynamic-Link Library (DLL)** (C++). MFC is optional; `PluginDemo` uses MFC in a shared DLL.
 2. Add `include/PluginInterface.h` to the project.
-3. Build every architecture your users need: **x86**, **x64**, **ARM64EC**. A plugin must match the architecture of `TrafficMonitor.exe`.
+3. Build every architecture your users need: **x86**, **x64**, **ARM64EC**. A plugin must match the architecture of `tsudev-trafficmonitor.exe`.
 
 ## 2. Three required parts
 
@@ -38,7 +38,7 @@ To draw the item yourself, override `IsCustomDraw()` to return `true` and draw i
 | `DataRequired()` | Called on every refresh cycle; fetch your data here and store it |
 | `GetInfo(PluginInfoIndex)` | Name, description, author, copyright, version (`TMI_VERSION`, such as `1.2.3`), home page |
 
-Do not override `GetAPIVersion()` - the header defines it. Other optional functions: `ShowOptionsDialog`, `OnMonitorInfo` (receives the program's network/CPU/RAM/temperature readings), `GetTooltipInfo`, menu commands (`GetCommandCount`/`GetCommandName`/`OnPluginCommand`), `OnInitialize` (receives an `ITrafficMonitor` pointer for DPI, theme colour, configuration folder, language strings and notifications).
+Do not override `GetAPIVersion()` - the header defines it. Other optional functions: `ShowOptionsDialog`, `OnMonitorInfo` (receives the program's network/CPU/RAM/temperature readings), `GetTooltipInfo`, menu commands (`GetCommandCount`/`GetCommandName`/`OnPluginCommand`), `OnInitialize` (receives an `ITsudevTrafficMonitor` pointer for DPI, theme colour, configuration folder, language strings and notifications).
 
 ### Exported function - `TMPluginGetInstance`
 
@@ -116,15 +116,15 @@ extern "C" __declspec(dllexport) ITMPlugin* TMPluginGetInstance() { return &g_pl
 
 ## 4. Testing
 
-1. Copy the DLL into the `plugins` folder next to `TrafficMonitor.exe` (for a build from source: `Bin\<architecture>\<configuration>\plugins`).
-2. Open TrafficMonitor → **Plug-in Manage** to check the load status, details and version.
+1. Copy the DLL into the `plugins` folder next to `tsudev-trafficmonitor.exe` (for a build from source: `Bin\<architecture>\<configuration>\plugins`).
+2. Open tsudev-trafficmonitor → **Plug-in Manage** to check the load status, details and version.
 3. Turn on the new item in **Show More Info** (main window) or **Display settings...** (taskbar window).
 
 ## 5. Notes
 
-* **Threads:** `DataRequired` and `OnMonitorInfo` are called on TrafficMonitor's **monitoring thread**; `GetItemValueText`, `DrawItem`/`DrawItemEx`, dialogs and menu commands are called on the **UI thread**. Data written by the first group and read by the second must be protected (a lock, or write to a copy and swap it under a lock).
+* **Threads:** `DataRequired` and `OnMonitorInfo` are called on tsudev-trafficmonitor's **monitoring thread**; `GetItemValueText`, `DrawItem`/`DrawItemEx`, dialogs and menu commands are called on the **UI thread**. Data written by the first group and read by the second must be protected (a lock, or write to a copy and swap it under a lock).
 * **Performance:** `DataRequired` blocks the program's monitoring loop (network speed, CPU and RAM only update after it returns). Do slow work (network, disk) on your plugin's own thread and only copy the result in `DataRequired`.
-* **Language:** use `ITrafficMonitor::GetLanguageId()` or `GetStringRes()` to follow the language the user selected.
+* **Language:** use `ITsudevTrafficMonitor::GetLanguageId()` or `GetStringRes()` to follow the language the user selected.
 * **DPI:** scale sizes by `GetDPI()/96` when drawing yourself.
-* **Safety:** a plugin runs with the same privileges as TrafficMonitor. Do not download and run code from the network, and do not write outside the configuration folder (`GetPluginConfigDir()`) unless needed.
+* **Safety:** a plugin runs with the same privileges as tsudev-trafficmonitor. Do not download and run code from the network, and do not write outside the configuration folder (`GetPluginConfigDir()`) unless needed.
 * The plugin interface change history (versions 1-8) is at the end of [`include/PluginInterface.h`](./include/PluginInterface.h).

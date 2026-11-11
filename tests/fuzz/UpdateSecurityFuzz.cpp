@@ -1,8 +1,8 @@
-﻿// Fuzzing (libFuzzer + AddressSanitizer của MSVC) cho logic thuần của kênh cập nhật (TrafficMonitor/UpdateSecurity.h).
+﻿// Fuzzing (libFuzzer + AddressSanitizer của MSVC) cho logic thuần của kênh cập nhật (tsudev-trafficmonitor/UpdateSecurity.h).
 // Ngoài việc tìm lỗi bộ nhớ (ASan), harness kiểm các BẤT BIẾN BẢO MẬT: hễ một URL được tin thì nó phải thỏa mọi
 // điều kiện của bộ lọc; vi phạm => abort() để libFuzzer báo lỗi kèm đầu vào tái hiện.
 // CI (build.yml, job "Kiểm thử C++"):
-//   cl /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I TrafficMonitor tests\fuzz\UpdateSecurityFuzz.cpp
+//   cl /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsudev-trafficmonitor tests\fuzz\UpdateSecurityFuzz.cpp
 //   UpdateSecurityFuzz.exe -max_total_time=120 tests\fuzz\corpus
 
 #include "UpdateSecurity.h"

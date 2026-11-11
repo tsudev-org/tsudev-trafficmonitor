@@ -1,10 +1,10 @@
-﻿// Fuzzing (libFuzzer + AddressSanitizer của MSVC) cho phần phân tích XML thuần (TrafficMonitor/XmlParsing.h):
+﻿// Fuzzing (libFuzzer + AddressSanitizer của MSVC) cho phần phân tích XML thuần (tsudev-trafficmonitor/XmlParsing.h):
 // skin.xml (qua tinyxml2) và tìm nút đơn giản của thông tin phiên bản. Ngoài lỗi bộ nhớ (ASan), harness kiểm các
 // BẤT BIẾN: mọi giá trị trả về nằm trong khoảng hợp lệ, số mục và độ dài chuỗi không vượt giới hạn.
-// Corpus hạt giống: các skin.xml thật trong TrafficMonitor/skins (CI chép vào thư mục corpus trước khi chạy).
+// Corpus hạt giống: các skin.xml thật trong tsudev-trafficmonitor/skins (CI chép vào thư mục corpus trước khi chạy).
 // CI (build.yml, job "Kiểm thử C++"):
-//   cl /c /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer TrafficMonitor\tinyxml2\tinyxml2.cpp
-//   cl /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I TrafficMonitor tests\fuzz\SkinXmlFuzz.cpp tinyxml2.obj
+//   cl /c /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer tsudev-trafficmonitor\tinyxml2\tinyxml2.cpp
+//   cl /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsudev-trafficmonitor tests\fuzz\SkinXmlFuzz.cpp tinyxml2.obj
 //   SkinXmlFuzz.exe -max_total_time=120 skin-corpus
 
 #include "XmlParsing.h"

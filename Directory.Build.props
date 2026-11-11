@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Directory.Build.props - Gia cố bảo mật cho mọi project C++ trong TrafficMonitor-VN.
+  Directory.Build.props - Gia cố bảo mật cho mọi project C++ trong tsudev-trafficmonitor.
   MSBuild tự động import tệp này cho tất cả project nằm trong thư mục con.
 
   Áp dụng cho cấu hình Release (gồm "Release" và "Release (lite)"):

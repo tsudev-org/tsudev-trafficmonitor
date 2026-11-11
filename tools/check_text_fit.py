@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Ước lượng chữ bị cắt trong hộp thoại: đo chuỗi dịch bằng Segoe UI 9pt (cần Pillow và tệp segoeui.ttf)
-so với kích thước điều khiển trong TrafficMonitor.rc.
+so với kích thước điều khiển trong tsudev-trafficmonitor.rc.
 
-Cách dùng: python tools/check_text_fit.py TrafficMonitor/TrafficMonitor.rc TrafficMonitor/language/Vietnamese.ini [segoeui.ttf]
+Cách dùng: python tools/check_text_fit.py tsudev-trafficmonitor/tsudev-trafficmonitor.rc tsudev-trafficmonitor/language/Vietnamese.ini [segoeui.ttf]
 Lưu ý: điều khiển được CBaseDialog::RepositionTextBasedControls tự giãn khi chạy vẫn bị liệt kê; cần đối chiếu InitializeControls.
 """
 import re,sys

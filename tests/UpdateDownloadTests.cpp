@@ -1,6 +1,6 @@
-﻿// Kiểm thử tích hợp: tự tải gói cập nhật và kiểm SHA-256 (TrafficMonitor/UpdateDownload.h) với gói phát hành THẬT
+﻿// Kiểm thử tích hợp: tự tải gói cập nhật và kiểm SHA-256 (tsudev-trafficmonitor/UpdateDownload.h) với gói phát hành THẬT
 // trên GitHub. Cần mạng; chạy trong CI (build.yml, job "Kiểm thử C++"). Chạy tay trên Windows:
-//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /I TrafficMonitor tests\UpdateDownloadTests.cpp /Fe:UpdateDownloadTests.exe
+//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /I tsudev-trafficmonitor tests\UpdateDownloadTests.cpp /Fe:UpdateDownloadTests.exe
 //   UpdateDownloadTests.exe
 // Gói dùng để thử: bản 26.11.0904 x64 (tag bất biến), SHA-256 lấy từ SHA256SUMS.txt của bản phát hành đó.
 // Liên kết dùng tiền tố owner cũ tsudev-tsudev như version_signed.xml, nên còn thử luôn chuỗi chuyển hướng
@@ -91,7 +91,7 @@ static Result Download(const std::wstring& url, const std::wstring& sha, const s
 {
     std::wstring log;
     options.log = &log;
-    options.user_agent = L"TrafficMonitor-VN-tests";
+    options.user_agent = L"tsudev-trafficmonitor-tests";
     Result r = Result::NetworkError;
     for (int attempt = 0; attempt < 3; attempt++)
     {

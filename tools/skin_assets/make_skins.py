@@ -21,7 +21,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
-SKINS = ROOT / "TrafficMonitor/skins"
+SKINS = ROOT / "tsudev-trafficmonitor/skins"
 SHOTS = ROOT / "Screenshots/skins"
 SCALE = 1.5
 

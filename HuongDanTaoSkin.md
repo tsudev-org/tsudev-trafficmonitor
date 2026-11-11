@@ -1,17 +1,17 @@
 **Tiếng Việt | [English](./SkinTutorial_en-us.md)** · [Trang chủ](./README.md) · [Kho giao diện](./KhoGiaoDien.md)
 
-# Hướng dẫn tạo skin (giao diện) cho TrafficMonitor-VN
+# Hướng dẫn tạo skin (giao diện) cho tsudev-trafficmonitor
 
-Skin quyết định hình nền, phông chữ, màu chữ và vị trí các mục trên **cửa sổ nổi** (cửa sổ chính) của TrafficMonitor. Cửa sổ Taskbar không dùng skin.
+Skin quyết định hình nền, phông chữ, màu chữ và vị trí các mục trên **cửa sổ nổi** (cửa sổ chính) của tsudev-trafficmonitor. Cửa sổ Taskbar không dùng skin.
 
-> Tài liệu này được viết dựa trên mã nguồn đọc skin (`TrafficMonitor/SkinFile.cpp`).
+> Tài liệu này được viết dựa trên mã nguồn đọc skin (`tsudev-trafficmonitor/SkinFile.cpp`).
 
 ## 1. Cấu trúc thư mục
 
-Mỗi skin là một thư mục con trong thư mục `skins` (nằm cạnh `TrafficMonitor.exe`). **Tên thư mục chính là tên skin.**
+Mỗi skin là một thư mục con trong thư mục `skins` (nằm cạnh `tsudev-trafficmonitor.exe`). **Tên thư mục chính là tên skin.**
 
 ```
-TrafficMonitor.exe
+tsudev-trafficmonitor.exe
 skins\
   0_tsudev_Cu\
     background.png      ← nền khi "Hiện thêm thông số" TẮT (cửa sổ nhỏ)
@@ -123,7 +123,7 @@ Quy định cách ghép ảnh xem trước trong hộp thoại **Đổi giao di�
 1. Sao chép một skin có sẵn (ví dụ `skins\0_tsudev_Cu`) thành thư mục mới.
 2. Thay `background.png` và `background_l.png` bằng ảnh của bạn (giữ nguyên kích thước hoặc sửa `width`/`height` trong `skin.xml` cho khớp).
 3. Sửa `skin.xml`: tác giả, phông chữ, màu, vị trí các mục.
-4. Mở TrafficMonitor → menu chuột phải → **Chức năng khác** → **Đổi giao diện...**, chọn skin mới để xem trước và áp dụng. Sau mỗi lần sửa, chọn sang skin khác rồi chọn lại để nạp lại.
+4. Mở tsudev-trafficmonitor → menu chuột phải → **Chức năng khác** → **Đổi giao diện...**, chọn skin mới để xem trước và áp dụng. Sau mỗi lần sửa, chọn sang skin khác rồi chọn lại để nạp lại.
 
 ## 4. Lưu ý an toàn
 

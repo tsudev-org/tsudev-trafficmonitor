@@ -1,27 +1,27 @@
 **Tiếng Việt | [English](./Plugin_en-us.md)** · [Trang chủ](./README.md) · [Hỏi đáp](./Help.md) · [Phát triển plugin](./PhatTrienPlugin.md)
 
-# Plugin - TrafficMonitor-VN
+# Plugin - tsudev-trafficmonitor
 
 Trang này được mở từ liên kết **Tải thêm Plugin** trong hộp thoại **Quản lý Plugin**.
 
 Plugin là tệp `.dll` bổ sung mục hiển thị mới (ngày giờ, thời tiết, pin, nhiệt độ...) cho cửa sổ nổi và cửa sổ trên thanh tác vụ.
 
-> ⚠️ **Plugin chạy cùng quyền với TrafficMonitor** và có thể làm mọi việc chương trình làm được. Chỉ cài plugin từ nguồn bạn tin cậy, kiểm tra chữ ký hoặc mã băm do tác giả plugin công bố nếu có.
+> ⚠️ **Plugin chạy cùng quyền với tsudev-trafficmonitor** và có thể làm mọi việc chương trình làm được. Chỉ cài plugin từ nguồn bạn tin cậy, kiểm tra chữ ký hoặc mã băm do tác giả plugin công bố nếu có.
 
 ## Cài plugin
 
-1. Tải tệp plugin `.dll` **đúng kiến trúc** với bản TrafficMonitor-VN bạn dùng (x86, x64 hoặc ARM64EC - xem trong **Giới thiệu**).
-2. Thoát TrafficMonitor.
-3. Chép tệp `.dll` vào thư mục `plugins` cạnh `TrafficMonitor.exe` (tạo thư mục nếu chưa có).
-4. Mở lại TrafficMonitor. Plugin được nạp khi khởi động.
+1. Tải tệp plugin `.dll` **đúng kiến trúc** với bản tsudev-trafficmonitor bạn dùng (x86, x64 hoặc ARM64EC - xem trong **Giới thiệu**).
+2. Thoát tsudev-trafficmonitor.
+3. Chép tệp `.dll` vào thư mục `plugins` cạnh `tsudev-trafficmonitor.exe` (tạo thư mục nếu chưa có).
+4. Mở lại tsudev-trafficmonitor. Plugin được nạp khi khởi động.
 5. Bật mục hiển thị của plugin: menu chuột phải → **Hiện thêm thông số**, hoặc **Cài đặt** → **Cửa sổ Taskbar** → **Sắp xếp các mục...**.
 
-Quản lý plugin tại **Cài đặt** → **Cài đặt Chung** → **Nâng cao** → **Quản lý Plugin...**: xem thông tin, tùy chỉnh, tắt plugin, mở thư mục plugin. Tệp cấu hình của plugin nằm trong thư mục `plugins` của thư mục cấu hình (mặc định `%AppData%\TrafficMonitor\plugins`).
+Quản lý plugin tại **Cài đặt** → **Cài đặt Chung** → **Nâng cao** → **Quản lý Plugin...**: xem thông tin, tùy chỉnh, tắt plugin, mở thư mục plugin. Tệp cấu hình của plugin nằm trong thư mục `plugins` của thư mục cấu hình (mặc định `%AppData%\tsudev-trafficmonitor\plugins`).
 
 ## Nguồn plugin
 
-* **Plugin mẫu** `PluginDemo` (ngày, giờ, mục tự vẽ) được dựng cùng mã nguồn của TrafficMonitor-VN trong thư mục [`PluginDemo`](./PluginDemo); dùng để thử nghiệm và làm mẫu khi viết plugin.
-* **Plugin của bên thứ ba**: TrafficMonitor-VN giữ nguyên giao diện plugin (`ITMPlugin`, API phiên bản 8), nên plugin viết cho TrafficMonitor thường chạy được. Các plugin này **không do tsudev phát triển hay kiểm duyệt**; chỉ cài khi bạn tin nguồn phát hành, và tự theo dõi bản mới từ tác giả plugin (ứng dụng không kiểm tra phiên bản plugin qua mạng).
+* **Plugin mẫu** `PluginDemo` (ngày, giờ, mục tự vẽ) được dựng cùng mã nguồn của tsudev-trafficmonitor trong thư mục [`PluginDemo`](./PluginDemo); dùng để thử nghiệm và làm mẫu khi viết plugin.
+* **Plugin của bên thứ ba**: tsudev-trafficmonitor giữ nguyên giao diện plugin (`ITMPlugin`, API phiên bản 8), nên plugin viết cho tsudev-trafficmonitor thường chạy được. Các plugin này **không do tsudev phát triển hay kiểm duyệt**; chỉ cài khi bạn tin nguồn phát hành, và tự theo dõi bản mới từ tác giả plugin (ứng dụng không kiểm tra phiên bản plugin qua mạng).
 * **Plugin của bạn**: xem [Phát triển plugin](./PhatTrienPlugin.md). Muốn giới thiệu plugin trên trang này, hãy mở [Issue](https://github.com/tsudev-org/tsudev-trafficmonitor/issues) kèm liên kết mã nguồn.
 
 ## Đo nhiệt độ

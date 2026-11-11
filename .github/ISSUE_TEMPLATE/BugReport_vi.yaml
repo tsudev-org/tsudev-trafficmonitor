@@ -1,5 +1,5 @@
 name: Báo lỗi
-description: Gửi báo cáo lỗi cho TrafficMonitor-VN
+description: Gửi báo cáo lỗi cho tsudev-trafficmonitor
 labels: ["bug"]
 body:
   - type: checkboxes
@@ -14,8 +14,8 @@ body:
           required: true
   - type: input
     attributes:
-      label: Phiên bản TrafficMonitor-VN đang dùng
-      description: Nhấp chuột phải vào biểu tượng TrafficMonitor ở khay hệ thống, chọn `Trợ giúp` → `Giới thiệu`.
+      label: Phiên bản tsudev-trafficmonitor đang dùng
+      description: Nhấp chuột phải vào biểu tượng tsudev-trafficmonitor ở khay hệ thống, chọn `Trợ giúp` → `Giới thiệu`.
     validations:
       required: true
   - type: input
@@ -33,7 +33,7 @@ body:
   - type: textarea
     attributes:
       label: Nhật ký lỗi (log)
-      description: "Tệp nhật ký nằm trong thư mục cấu hình của TrafficMonitor (mặc định %AppData%\\TrafficMonitor). Nội dung sẽ được tự động định dạng thành mã."
+      description: "Tệp nhật ký nằm trong thư mục cấu hình của tsudev-trafficmonitor (mặc định %AppData%\\tsudev-trafficmonitor). Nội dung sẽ được tự động định dạng thành mã."
       render: shell
   - type: textarea
     attributes:

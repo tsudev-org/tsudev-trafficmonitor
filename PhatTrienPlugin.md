@@ -1,6 +1,6 @@
 **Tiếng Việt | [English](./PluginDev_en-us.md)** · [Trang chủ](./README.md) · [Plugin](./Plugin.md)
 
-# Phát triển plugin cho TrafficMonitor-VN
+# Phát triển plugin cho tsudev-trafficmonitor
 
 Trang này được mở từ liên kết **Hướng dẫn làm Plugin** trong hộp thoại **Quản lý Plugin**.
 
@@ -12,7 +12,7 @@ Ví dụ đầy đủ: [`PluginDemo`](./PluginDemo) - 2 mục văn bản (ngày,
 
 1. Visual Studio 2022 → **Dynamic-Link Library (DLL)** (C++). Dùng MFC hay không tùy bạn; `PluginDemo` dùng MFC dạng DLL dùng chung.
 2. Thêm `include/PluginInterface.h` vào dự án.
-3. Build đủ các kiến trúc người dùng cần: **x86**, **x64**, **ARM64EC**. Plugin phải cùng kiến trúc với `TrafficMonitor.exe`.
+3. Build đủ các kiến trúc người dùng cần: **x86**, **x64**, **ARM64EC**. Plugin phải cùng kiến trúc với `tsudev-trafficmonitor.exe`.
 
 ## 2. Ba thành phần bắt buộc
 
@@ -38,7 +38,7 @@ Muốn tự vẽ: ghi đè `IsCustomDraw()` trả về `true` và vẽ trong `Dr
 | `DataRequired()` | Được gọi theo chu kỳ làm mới; lấy dữ liệu tại đây rồi lưu lại |
 | `GetInfo(PluginInfoIndex)` | Tên, mô tả, tác giả, bản quyền, phiên bản (`TMI_VERSION`, dạng `1.2.3`), trang chủ |
 
-Không ghi đè `GetAPIVersion()` - giá trị này do tệp tiêu đề quyết định. Các hàm tùy chọn khác: `ShowOptionsDialog`, `OnMonitorInfo` (nhận số liệu mạng/CPU/RAM/nhiệt độ của chương trình chính), `GetTooltipInfo`, các lệnh menu (`GetCommandCount`/`GetCommandName`/`OnPluginCommand`), `OnInitialize` (nhận con trỏ `ITrafficMonitor` để lấy DPI, màu chủ đạo, thư mục cấu hình, chuỗi ngôn ngữ, hiện thông báo).
+Không ghi đè `GetAPIVersion()` - giá trị này do tệp tiêu đề quyết định. Các hàm tùy chọn khác: `ShowOptionsDialog`, `OnMonitorInfo` (nhận số liệu mạng/CPU/RAM/nhiệt độ của chương trình chính), `GetTooltipInfo`, các lệnh menu (`GetCommandCount`/`GetCommandName`/`OnPluginCommand`), `OnInitialize` (nhận con trỏ `ITsudevTrafficMonitor` để lấy DPI, màu chủ đạo, thư mục cấu hình, chuỗi ngôn ngữ, hiện thông báo).
 
 ### Hàm xuất - `TMPluginGetInstance`
 
@@ -116,15 +116,15 @@ extern "C" __declspec(dllexport) ITMPlugin* TMPluginGetInstance() { return &g_pl
 
 ## 4. Thử nghiệm
 
-1. Chép DLL vào thư mục `plugins` cạnh `TrafficMonitor.exe` (bản build từ mã nguồn: `Bin\<kiến trúc>\<cấu hình>\plugins`).
-2. Mở TrafficMonitor → **Quản lý Plugin** để kiểm tra trạng thái nạp, thông tin và phiên bản.
+1. Chép DLL vào thư mục `plugins` cạnh `tsudev-trafficmonitor.exe` (bản build từ mã nguồn: `Bin\<kiến trúc>\<cấu hình>\plugins`).
+2. Mở tsudev-trafficmonitor → **Quản lý Plugin** để kiểm tra trạng thái nạp, thông tin và phiên bản.
 3. Bật mục mới trong **Hiện thêm thông số** (cửa sổ nổi) hoặc **Sắp xếp các mục...** (thanh tác vụ).
 
 ## 5. Lưu ý
 
-* **Luồng:** `DataRequired` và `OnMonitorInfo` được gọi trên **luồng giám sát** của TrafficMonitor; `GetItemValueText`, `DrawItem`/`DrawItemEx`, hộp thoại và lệnh menu được gọi trên **luồng giao diện**. Dữ liệu ghi ở nhóm thứ nhất và đọc ở nhóm thứ hai phải được bảo vệ (khóa, hoặc ghi vào bản sao rồi hoán đổi dưới khóa).
+* **Luồng:** `DataRequired` và `OnMonitorInfo` được gọi trên **luồng giám sát** của tsudev-trafficmonitor; `GetItemValueText`, `DrawItem`/`DrawItemEx`, hộp thoại và lệnh menu được gọi trên **luồng giao diện**. Dữ liệu ghi ở nhóm thứ nhất và đọc ở nhóm thứ hai phải được bảo vệ (khóa, hoặc ghi vào bản sao rồi hoán đổi dưới khóa).
 * **Hiệu năng:** `DataRequired` chặn vòng giám sát của chương trình (tốc độ mạng, CPU, RAM chỉ cập nhật khi nó trả về). Việc chậm (mạng, đĩa) hãy làm ở luồng riêng của plugin và chỉ sao chép kết quả trong `DataRequired`.
-* **Ngôn ngữ:** dùng `ITrafficMonitor::GetLanguageId()` hoặc `GetStringRes()` để hiển thị theo ngôn ngữ người dùng chọn.
+* **Ngôn ngữ:** dùng `ITsudevTrafficMonitor::GetLanguageId()` hoặc `GetStringRes()` để hiển thị theo ngôn ngữ người dùng chọn.
 * **DPI:** nhân kích thước với `GetDPI()/96` khi tự vẽ.
-* **An toàn:** plugin chạy cùng quyền với TrafficMonitor. Không tải và chạy mã từ mạng, không ghi ra ngoài thư mục cấu hình (`GetPluginConfigDir()`) khi không cần.
+* **An toàn:** plugin chạy cùng quyền với tsudev-trafficmonitor. Không tải và chạy mã từ mạng, không ghi ra ngoài thư mục cấu hình (`GetPluginConfigDir()`) khi không cần.
 * Lịch sử thay đổi giao diện plugin (phiên bản 1-8) ở cuối tệp [`include/PluginInterface.h`](./include/PluginInterface.h).

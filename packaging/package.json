@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "name": "tsudev-trafficmonitor",
-  "winget": "tsudev.TrafficMonitor",
+  "winget": "tsudev.tsudev-trafficmonitor",
   "homepage": "https://trafficmonitor.tsudev.com",
   "license": "LicenseRef-Anti-996",
   "description": {
-    "vi": "Theo dõi tốc độ mạng, CPU, RAM trên thanh tác vụ Windows - bản Việt hóa, gia cố bảo mật của TrafficMonitor",
-    "en": "Network speed, CPU and RAM monitor in the Windows taskbar - Vietnamese, security-hardened TrafficMonitor"
+    "vi": "Theo dõi tốc độ mạng, CPU, RAM trên thanh tác vụ Windows - bản Việt hóa, gia cố bảo mật của TrafficMonitor (dự án gốc)",
+    "en": "Network speed, CPU and RAM monitor in the Windows taskbar - Vietnamese, security-hardened edition of the original TrafficMonitor"
   },
   "release": {
     "repo": "tsudev-org/tsudev-trafficmonitor",
@@ -17,17 +17,17 @@
     "windows-x64": {
       "file": "tsudev-trafficmonitor_{version}_x64_Lite.zip",
       "kind": "portable",
-      "bin": "TrafficMonitor/TrafficMonitor.exe"
+      "bin": "tsudev-trafficmonitor/tsudev-trafficmonitor.exe"
     },
     "windows-x86": {
       "file": "tsudev-trafficmonitor_{version}_x86_Lite.zip",
       "kind": "portable",
-      "bin": "TrafficMonitor/TrafficMonitor.exe"
+      "bin": "tsudev-trafficmonitor/tsudev-trafficmonitor.exe"
     },
     "windows-arm64": {
       "file": "tsudev-trafficmonitor_{version}_arm64ec_Lite.zip",
       "kind": "portable",
-      "bin": "TrafficMonitor/TrafficMonitor.exe"
+      "bin": "tsudev-trafficmonitor/tsudev-trafficmonitor.exe"
     }
   },
   "channels": [

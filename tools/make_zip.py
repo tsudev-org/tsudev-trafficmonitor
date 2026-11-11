@@ -8,8 +8,8 @@ Cùng nội dung thư mục => cùng từng byte của tệp zip, bất kể má
   * nén DEFLATE mức 9 (zlib của Python).
 
 Cách dùng:
-  python -I tools/make_zip.py --root <thư mục chứa gốc> --entry TrafficMonitor --out goi.zip [--epoch 1762700000]
-Mục trong zip có dạng "TrafficMonitor/..." (giống bố cục cũ của Compress-Archive).
+  python -I tools/make_zip.py --root <thư mục chứa gốc> --entry tsudev-trafficmonitor --out goi.zip [--epoch 1762700000]
+Mục trong zip có dạng "tsudev-trafficmonitor/..." (giống bố cục cũ của Compress-Archive).
 """
 from __future__ import annotations
 

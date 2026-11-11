@@ -7,13 +7,13 @@
 
 <img src="./assets/brand/logo-tsudev-trafficmonitor.png" alt="Logo tsudev-trafficmonitor" height="120">
 
-# TrafficMonitor-VN
+# tsudev-trafficmonitor
 
-Network speed, CPU and RAM monitor for Windows - the Vietnamese-localized, security-hardened edition of TrafficMonitor.
+Network speed, CPU and RAM monitor for Windows - the Vietnamese-localized, security-hardened edition of tsudev-trafficmonitor.
 
 A [tsudev](https://tsudev.com) product. Product page: [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com). Product class **C** (works offline, no account; the network is used only to check for updates and to look up your public IP when you ask for it).
 
-**TrafficMonitor-VN** monitors network speed and CPU/RAM/GPU/disk usage on Windows, with a floating window and an embedded display on the taskbar.
+**tsudev-trafficmonitor** monitors network speed and CPU/RAM/GPU/disk usage on Windows, with a floating window and an embedded display on the taskbar.
 
 ## What is different
 
@@ -23,7 +23,7 @@ A [tsudev](https://tsudev.com) product. Product page: [trafficmonitor.tsudev.com
 * Source code comments (≈2,800 blocks in 186 files) are in Vietnamese.
 
 ### Security
-| Area | Original | TrafficMonitor-VN |
+| Area | Original | tsudev-trafficmonitor |
 |---|---|---|
 | Update source | GitHub or Gitee | Only the tsudev-trafficmonitor repository on GitHub |
 | Update information | Unsigned | **Signed** (ECDSA P-256, verified with Windows CNG); the app downloads the package itself and keeps it only if its **SHA-256 matches** the signed value |
@@ -44,13 +44,13 @@ Details: [SECURITY.md](./SECURITY.md) (Vietnamese).
 * The in-app update check only trusts **signed** version information. From 26.11.0905, when you click **Yes**, the app downloads the package, checks its SHA-256 against the signed value, saves it to your Downloads folder (never overwriting an existing file) and opens the folder with the file selected; on a SHA-256 mismatch the file is deleted and an error is shown. The app never extracts or runs the package.
 * CI test builds: [Actions](https://github.com/tsudev-org/tsudev-trafficmonitor/actions/workflows/build.yml) (GitHub sign-in required).
 
-TrafficMonitor-VN is published **only** through the GitHub repository above and trafficmonitor.tsudev.com. Any other site claiming to be "official" is unrelated.
+tsudev-trafficmonitor is published **only** through the GitHub repository above and trafficmonitor.tsudev.com. Any other site claiming to be "official" is unrelated.
 
 The program needs the **Microsoft Visual C++ Redistributable**. If it reports a missing `MSVC*.dll`/`mfc*.dll`, install the [latest supported Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist).
 
 ## Editions
 
-TrafficMonitor-VN releases the **Lite** edition (no administrator rights needed). Lite monitors GPU and disk usage but **does not measure temperatures**.
+tsudev-trafficmonitor releases the **Lite** edition (no administrator rights needed). Lite monitors GPU and disk usage but **does not measure temperatures**.
 
 | Feature | Full edition (build it yourself) | Lite |
 |---|---|---|
@@ -106,19 +106,19 @@ Connection details (double-click the floating window; MAC address, IP and adapte
 
 ## Skins
 
-Skins live in the `skins` folder next to `TrafficMonitor.exe`, one folder per skin (the folder name is the skin name). A skin consists of background images (`background.png`/`background_l.png` with transparency, or `.bmp`) and a configuration file `skin.xml` (or the older `skin.ini`) that sets text colors, fonts, the author, and the size and position of each item. Without `skin.xml`, temperatures and GPU usage cannot be shown.
+Skins live in the `skins` folder next to `tsudev-trafficmonitor.exe`, one folder per skin (the folder name is the skin name). A skin consists of background images (`background.png`/`background_l.png` with transparency, or `.bmp`) and a configuration file `skin.xml` (or the older `skin.ini`) that sets text colors, fonts, the author, and the size and position of each item. Without `skin.xml`, temperatures and GPU usage cannot be shown.
 
 * Browse the included skins: [Skin gallery](./SkinGallery_en-us.md).
 * Make your own: [Skin tutorial](./SkinTutorial_en-us.md).
 
 ## Plugins
 
-Plugins are `.dll` files placed in the `plugins` folder next to `TrafficMonitor.exe` and loaded at startup; manage them in **General Settings** → **Advanced** → **Plug-in manage...**.
+Plugins are `.dll` files placed in the `plugins` folder next to `tsudev-trafficmonitor.exe` and loaded at startup; manage them in **General Settings** → **Advanced** → **Plug-in manage...**.
 
 * Installing plugins: [Plugins](./Plugin_en-us.md).
 * Writing plugins: [Plugin development](./PluginDev_en-us.md); the API (with Vietnamese comments) is [`include/PluginInterface.h`](./include/PluginInterface.h), with an example in [`PluginDemo`](./PluginDemo).
 
-> ⚠️ Plugins run **with the same rights as TrafficMonitor**. Only install plugins from sources you trust.
+> ⚠️ Plugins run **with the same rights as tsudev-trafficmonitor**. Only install plugins from sources you trust.
 
 ## Hardware monitoring
 
@@ -132,17 +132,17 @@ Requirements: Windows 10/11, **Visual Studio 2022** with the *Desktop developmen
 
 ```bat
 :: Lite edition (recommended)
-msbuild TrafficMonitor_Lite.sln -p:Configuration="Release (lite)" -p:Platform=x64
+msbuild tsudev-trafficmonitor_Lite.sln -p:Configuration="Release (lite)" -p:Platform=x64
 
 :: Full edition (temperature monitoring)
-msbuild TrafficMonitor.sln -p:Configuration=Release -p:Platform=x64
+msbuild tsudev-trafficmonitor.sln -p:Configuration=Release -p:Platform=x64
 ```
 
 Output goes to `Bin\x64\Release (lite)\` (or `Bin\x64\Release\`).
 
-Fork-specific settings (repository, update URLs, default language) are in [`TrafficMonitor/ForkConfig.h`](./TrafficMonitor/ForkConfig.h). Security compiler flags are in [`Directory.Build.props`](./Directory.Build.props).
+Fork-specific settings (repository, update URLs, default language) are in [`tsudev-trafficmonitor/ForkConfig.h`](./tsudev-trafficmonitor/ForkConfig.h). Security compiler flags are in [`Directory.Build.props`](./Directory.Build.props).
 
-This repository starts with a source import commit from V1.87-vn and is the only home of TrafficMonitor-VN's source, releases and update channel. Earlier changes (V1.86-vn, V1.87-vn) are summarized in [CHANGELOG.md](./CHANGELOG.md); code origin and licensing are in [NOTICE.md](./NOTICE.md). The former repository `tsudev-tsudev/TrafficMonitor-VN` has been removed (11/2026).
+This repository starts with a source import commit from V1.87-vn and is the only home of tsudev-trafficmonitor's source, releases and update channel. Earlier changes (V1.86-vn, V1.87-vn) are summarized in [CHANGELOG.md](./CHANGELOG.md); code origin and licensing are in [NOTICE.md](./NOTICE.md). The former repository `tsudev-tsudev/tsudev-trafficmonitor` has been removed (11/2026).
 
 ## Contributing
 

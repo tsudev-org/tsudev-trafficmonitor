@@ -1,8 +1,21 @@
 **Tiếng Việt | [English](./update_log_en-us.md)**
 
-# Nhật ký cập nhật - TrafficMonitor-VN
+# Nhật ký cập nhật - tsudev-trafficmonitor
 
-Thay đổi của từng bản phát hành TrafficMonitor-VN do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
+Thay đổi của từng bản phát hành tsudev-trafficmonitor do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
+Các bản trước khi đổi tên mang tên **TrafficMonitor-VN**; nội dung của chúng bên dưới giữ nguyên như lúc phát hành.
+
+## Chưa phát hành
+
+### Đổi tên thành tsudev-trafficmonitor
+* Phần mềm, tệp chương trình (`tsudev-trafficmonitor.exe`), thư mục trong gói zip, tài liệu và website thống nhất tên **tsudev-trafficmonitor** theo hệ sinh thái tsudev.
+* **Tự chuyển dữ liệu:** lần chạy đầu, cấu hình và lịch sử lưu lượng ở `%AppData%\TrafficMonitor` được chép sang `%AppData%\tsudev-trafficmonitor` (thư mục cũ giữ nguyên để quay lại bản cũ vẫn dùng được).
+* **Tự chuyển tự khởi động cùng Windows:** mục Registry/Task Scheduler tên cũ của chính phần mềm này được thay bằng tên mới; mục thuộc bản TrafficMonitor gốc cài riêng (nếu có) không bị đụng tới.
+* Bản cũ và bản mới không chạy cùng lúc: chạy bản mới khi bản cũ đang mở sẽ báo phần mềm đang chạy.
+* Plugin có sẵn vẫn dùng được (giao diện plugin không đổi; tên `ITrafficMonitor` giữ làm tên khác của `ITsudevTrafficMonitor`).
+
+### Thương hiệu
+* Logo mới cho icon chương trình, icon khay, hộp thoại Giới thiệu và website; thêm skin `tsudev_Logo`.
 
 ## 26.11.1001 (10/11/2026)
 

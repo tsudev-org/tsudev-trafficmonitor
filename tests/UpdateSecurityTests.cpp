@@ -1,6 +1,6 @@
-﻿// Kiểm thử tự động cho logic thuần của kênh cập nhật (TrafficMonitor/UpdateSecurity.h).
+﻿// Kiểm thử tự động cho logic thuần của kênh cập nhật (tsudev-trafficmonitor/UpdateSecurity.h).
 // Build và chạy trong CI (build.yml, job "Kiểm thử C++"); chạy tay trên Windows:
-//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /I TrafficMonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTests.exe
+//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /I tsudev-trafficmonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTests.exe
 //   UpdateSecurityTests.exe tests\fixtures
 // Dữ liệu mẫu tests/fixtures/version_signed.xml(.sig) là manifest thật của bản 26.11.0902 do release.yml ký,
 // nên test VerifySignature còn kiểm luôn khóa công khai đang nhúng trong ForkConfig.h.
