@@ -7,7 +7,7 @@
 
 - [ ] **Phát hành 26.11.1201** (mã đã ở main, đã thử Windows): chủ dự án tự gắn tag ký + đẩy (`git tag -s V26.11.1201-vn -m V26.11.1201-vn && git push origin V26.11.1201-vn`); phiên agent duyệt environment `release`, kiểm SHA-256/chứng thực/chữ ký `version_signed.xml`.
 - [ ] Ngay sau phát hành: sửa `~/projects/scoop-bucket/bucket/tsudev-trafficmonitor.json` - phiên bản, hash, `extract_dir` "tsudev-trafficmonitor", shortcut "tsudev-trafficmonitor.exe" (excavator tự nâng phiên bản sẽ làm hỏng cài đặt nếu không sửa). Manifest winget bản mới: `RelativeFilePath` tsudev-trafficmonitor\tsudev-trafficmonitor.exe (mã gói giữ `tsudev.TrafficMonitor`, PR winget-pkgs #477193 còn chờ duyệt).
-- [ ] Người dùng: `cd website && npm run deploy` TRƯỚC khi phát hành (trang /ung-ho/ mà ứng dụng 1201 mở; logo, tên mới).
+- 12/11/2026 - Đã deploy website (logo, tên mới, /ung-ho/; QR production khớp SHA-256). Deploy: `XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy`.
 - (trống) - việc tùy chọn (chỉ khi người dùng yêu cầu): xem phiếu `logs/handover/20261110-01_ket-phien-1001-va-xoa-repo-cu.md` mục 2
 
 ## Đang thực hiện

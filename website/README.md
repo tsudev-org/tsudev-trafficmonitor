@@ -21,7 +21,9 @@ npm run dev       # xem thử ở http://localhost:4321
 npm run build     # dựng vào dist/ và kiểm tra
 npm run check:a11y   # axe-core WCAG 2.2 AA mọi trang, Sáng + Tối (lần đầu: npx playwright install chromium)
 npm run check:theme  # bộ chọn giao diện trong Chromium, với CSP của production
-npm run deploy    # build rồi đưa lên Cloudflare Pages (cần `npx wrangler login` với tài khoản tsudev)
+XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy   # build rồi đưa lên Cloudflare Pages bằng cấu hình wrangler RIÊNG của tsudev
+# (đăng nhập wrangler chung của máy có thể là tài khoản khác -> lỗi "Authentication error [code: 10000]").
+# Lần đầu: XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npx wrangler login (tài khoản tsudev, account 9541f44e…)
 ```
 
 Sau mỗi lần phát hành bản mới, chạy lại `npm run deploy` để trang cập nhật phiên bản và mã SHA-256.
