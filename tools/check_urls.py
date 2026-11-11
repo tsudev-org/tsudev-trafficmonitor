@@ -76,6 +76,7 @@ EXCLUDE = [
     re.compile(r"^tests/"),                # kiểm thử cố ý chứa URL giả mạo/không tin cậy để thử bộ lọc
     re.compile(r"^website/package-lock\.json$"),
     re.compile(r"^website/public/fonts/"),
+    re.compile(r"^assets/brand/fonts/"),            # giấy phép phông (nguyên văn SIL OFL)
 ]
 
 TEXT_EXT = {".cpp", ".h", ".hpp", ".c", ".rc", ".rc2", ".ini", ".md", ".info", ".yml", ".yaml",
