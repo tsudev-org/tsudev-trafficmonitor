@@ -1,5 +1,6 @@
 ---
 import Trang from '../layouts/Trang.astro';
+import AnhThuongHieu from '../components/AnhThuongHieu.astro';
 import { banMoiNhat, REPO_URL } from '../lib/noi-dung';
 
 const ban = await banMoiNhat();
@@ -9,7 +10,7 @@ const tinhNang = [
   { t: 'CPU, RAM, GPU, ổ cứng', d: 'Theo dõi mức sử dụng tài nguyên máy cùng lúc với tốc độ mạng; tùy chọn hiện biểu đồ trên thanh tác vụ.' },
   { t: 'Giao diện tiếng Việt đầy đủ', d: 'Mặc định tiếng Việt ngay lần chạy đầu, dịch đủ 100% chuỗi giao diện, tài liệu hướng dẫn bằng tiếng Việt.' },
   { t: 'Thống kê lưu lượng', d: 'Lưu lượng đã dùng theo ngày, tháng, năm; cảnh báo khi dùng hết hạn mức dữ liệu trong ngày.' },
-  { t: 'Đổi giao diện (skin), plugin', d: 'Mười mẫu giao diện có sẵn, gồm hai mẫu tsudev; tự làm mẫu riêng; mở rộng thông số bằng plugin.' },
+  { t: 'Đổi giao diện (skin), plugin', d: '13 mẫu giao diện có sẵn, gồm 5 mẫu tsudev (có mẫu mang logo sản phẩm); tự làm mẫu riêng; mở rộng thông số bằng plugin.' },
   { t: 'Chạy ngoại tuyến, không tài khoản', d: 'Không thu thập dữ liệu. Mạng chỉ dùng để kiểm tra bản cập nhật và tra IP công cộng khi bạn bấm.' },
 ];
 const baoMat = [
@@ -23,6 +24,7 @@ const baoMat = [
   <section class="mo-dau">
     <div class="khung mo-dau__luoi">
       <div>
+        <AnhThuongHieu loai="logo" co={512} class="mo-dau__logo" uuTien />
         <span class="nhan">Phiên bản {ban.phienBan} · {ban.ngay}</span>
         <h1>Theo dõi tốc độ mạng và tài nguyên máy, <span class="chu-tim">bằng tiếng Việt</span></h1>
         <p class="mo-dau__phu">TrafficMonitor-VN hiện tốc độ mạng, mức dùng CPU, RAM ngay trên thanh tác vụ Windows. Nhẹ, miễn phí, mã nguồn mở và được gia cố bảo mật.</p>

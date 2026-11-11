@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""Sinh hai skin của tsudev cho cửa sổ nổi từ ảnh nguồn trong thư mục này.
+"""Sinh các skin của tsudev cho cửa sổ nổi.
 
   tsudev-cu.png        chú cú mascot tsudev (nền trong suốt)  -> skin mặc định  0_tsudev_Cu   (nền sáng)
   tsudev-vong-mang.png avatar "tsudev_" với vòng mạng          -> skin           tsudev_VongMang (nền tối)
+  assets/brand/logo-tsudev-trafficmonitor.png (logo sản phẩm, sinh bởi tools/brand/build_brand.py)
+                                                               -> skin           tsudev_Logo     (nền đen)
 
 Ảnh nền vẽ ở tỉ lệ 1,5 so với kích thước cửa sổ trong skin.ini (giống các skin có sẵn): cửa sổ lớn 232x55 -> 348x82,
 cửa sổ nhỏ 232x40 -> 348x59. Ảnh xem trước cho KhoGiaoDien.md lưu ở Screenshots/skins/.
 Màu lấy từ token tsudev (tsudev-standards/tokens). Cần Pillow.
 
-  python3 tools/skin_assets/make_skins.py --font C:/Windows/Fonts/segoeui.ttf
+  python3 tools/skin_assets/make_skins.py --font C:/Windows/Fonts/segoeui.ttf [--only tsudev_Logo]
 """
 from __future__ import annotations
 
@@ -168,14 +170,24 @@ def build(name: str, art: Image.Image, top: str, bottom: str, border: str, text:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--font", required=True, help="Segoe UI (segoeui.ttf, phông mặc định của ứng dụng; chỉ dùng cho ảnh xem trước)")
+    ap.add_argument("--only", nargs="*", help="chỉ sinh các skin này (mặc định: tất cả)")
     a = ap.parse_args()
+    want = (lambda n: not a.only or n in a.only)
     cu = Image.open(HERE / "tsudev-cu.png").convert("RGBA")
     cu = cu.crop(cu.getbbox())
     vong = circle_crop(Image.open(HERE / "tsudev-vong-mang.png"))
     # Nền sáng (token light): bg-surface -> bg-base, viền border-strong, chữ text-primary
-    build("0_tsudev_Cu", cu, "#FFFFFF", "#E3EDF8", "#9FB8D4", "#1C2B3A", None, a.font)
+    if want("0_tsudev_Cu"):
+        build("0_tsudev_Cu", cu, "#FFFFFF", "#E3EDF8", "#9FB8D4", "#1C2B3A", None, a.font)
     # Nền tối (token dark): bg-surface -> bg-base, viền border, chữ text-primary, quầng sáng primary
-    build("tsudev_VongMang", vong, "#16263C", "#0F1B2D", "#3F5B80", "#E6EDF5", "#66A3F2", a.font, art_scale=0.8)
+    if want("tsudev_VongMang"):
+        build("tsudev_VongMang", vong, "#16263C", "#0F1B2D", "#3F5B80", "#E6EDF5", "#66A3F2", a.font, art_scale=0.8)
+    # Nền đen (bảng màu Tối của website: bg-surface #111111 -> bg-base #0A0A0A), viền và quầng sáng lấy màu xanh lơ
+    # của logo, chữ text-primary #EDEDED (tương phản 17:1 trên nền)
+    if want("tsudev_Logo"):
+        logo = Image.open(ROOT / "assets/brand/logo-tsudev-trafficmonitor.png").convert("RGBA")
+        build("tsudev_Logo", logo.crop(logo.getbbox()), "#111111", "#0A0A0A", "#1F5F8F", "#EDEDED", "#3FB6F5", a.font,
+              art_scale=1.0)
 
 
 if __name__ == "__main__":

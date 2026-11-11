@@ -55,9 +55,9 @@ cd website && npm ci && npm run build
 | `LICENSE`, `LICENSE_CN` | Giữ nguyên văn (giấy phép Anti 996 điều 1), `MUST NOT` sửa |
 | `TrafficMonitor/tinyxml2/`, `OpenHardwareMonitorApi/LibreHardwareMonitorLib.*` | Mã bên thứ ba, giữ nguyên thông báo bản quyền |
 | `TrafficMonitor/ForkConfig.h` | Nơi duy nhất khai URL của ứng dụng (`tools/check_urls.py` canh) |
-| `TrafficMonitor/res/TrafficMonitor.ico`, `about_background_hd.bmp` | Sản phẩm sinh từ `tools/brand/make_app_icons.py`, không sửa tay |
+| `assets/brand/source/` | Ảnh gốc logo (nguồn duy nhất của mọi logo/icon/favicon); đổi logo: xem `assets/brand/README.md` |
+| `assets/brand/*.{png,webp,avif}`, `TrafficMonitor/res/TrafficMonitor.ico`, `about_background_hd.bmp`, `website/public/` (favicon, icon PWA, og-image, `brand/`) | Sản phẩm sinh từ `tools/brand/build_brand.py`, không sửa tay |
 | `TrafficMonitor/skins/0_tsudev_Cu`, `tsudev_*` | Sinh từ `tools/skin_assets/*.py`, không sửa tay |
-| `website/public/` (favicon, og-image) | Sinh từ `website/scripts/brand_assets.py` |
 | `tools/keys/update_signing_pub.pem` | Khóa công khai; khóa bí mật chỉ ở secret `UPDATE_SIGNING_KEY` (environment `release`) |
 
 ### B.4. Điểm lệch chuẩn đã biết
@@ -68,6 +68,7 @@ cd website && npm ci && npm run build
 | TESTING_QUALITY: test tự động C++ phủ logic thuần của kênh cập nhật (`tests/UpdateSecurityTests.cpp`), tự tải gói + kiểm SHA-256 (`tests/UpdateDownloadTests.cpp`, tải gói phát hành thật) và phân tích XML (`tests/XmlParsingTests.cpp`, mọi skin.xml thật) - kèm ASan và 2 harness fuzz (`tests/fuzz/`); chưa phủ giao diện MFC | Mã giao diện MFC kế thừa khó tách để test; CI còn build `/WX` có chọn lọc + CodeQL + kiểm Việt hóa/URL/chữ bị cắt + build tái lập (build 2 lần, so SHA-256) | Logic thuần mới tách vào header không phụ thuộc MFC (như `UpdateSecurity.h`, `UpdateDownload.h`, `XmlParsing.h`) và thêm test vào `tests/` (job "Kiểm thử C++" trong build.yml) |
 | VERSIONING: gói phát hành là `.zip` chạy ngay (không `-setup.exe`), kiến trúc `arm64ec` | Ứng dụng di động (portable), không có bộ cài; build là ARM64EC | Ghi ở README mục Tải về |
 | LANGUAGE_SELECTION: C++/MFC | Kế thừa | Không đổi |
+| BRAND_ASSETS mục 1, 7: logo, icon, favicon KHÔNG lấy từ dấu hiệu cú chung của repo `tsudev` mà từ logo sản phẩm riêng `assets/brand/source/logo-tsudev-trafficmonitor.png` (có chữ "tsudev"); icon <= 40 px dùng mặt cú cắt từ chính logo này (không chữ) | Chủ dự án chọn logo riêng cho sản phẩm (12/11/2026) | Đã gửi phiếu đề xuất cho `tsudev-standards` cho phép logo riêng từng sản phẩm; dây chuyền: `tools/brand/build_brand.py` |
 
 ### B.5. Việc riêng của repo cần biết trước khi sửa
 

@@ -10,6 +10,9 @@
 *.ico   binary
 *.bmp   binary
 *.png   binary
+*.webp  binary
+*.avif  binary
+*.ttf   binary
 .github/** text eol=lf
 
 # Dữ liệu mẫu có chữ ký: giữ nguyên từng byte

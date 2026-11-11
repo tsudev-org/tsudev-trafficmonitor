@@ -11,6 +11,7 @@ Every TrafficMonitor-VN release ships the skins below in the `skins` folder next
 | Folder name | Background | Notes |
 |---|---|---|
 | `0_tsudev_Cu` | ![](./Screenshots/skins/0_tsudev_Cu.png) | **Default skin** - tsudev owl, light background |
+| `tsudev_Logo` | ![](./Screenshots/skins/tsudev_Logo.png) | tsudev-trafficmonitor logo, black background |
 | `tsudev_VongMang` | ![](./Screenshots/skins/tsudev_VongMang.png) | tsudev logo, dark background |
 | `tsudev_DoThi_Sang` | ![](./Screenshots/skins/tsudev_DoThi_Sang.png) | Network graph, light background; also shows GPU and disk (`skin.xml`) |
 | `tsudev_DoThi_Toi` | ![](./Screenshots/skins/tsudev_DoThi_Toi.png) | Network graph, dark background; also shows GPU and disk (`skin.xml`) |
@@ -23,7 +24,7 @@ Every TrafficMonitor-VN release ships the skins below in the `skins` folder next
 | `GiaoDien10_Doc` | ![](./Screenshots/skins/GiaoDien10_Doc.png) | Vertical |
 | `GiaoDien11` | ![](./Screenshots/skins/GiaoDien11.png) | Coloured CPU/RAM tiles |
 
-`0_tsudev_Cu`, `tsudev_VongMang`, `tsudev_DoThi_Sang` and `tsudev_DoThi_Toi` are designed by tsudev (source images and generator scripts in `tools/skin_assets/`: `make_skins.py`, `make_skins_dothi.py`). The `GiaoDien*` skins come from the original TrafficMonitor project (see [NOTICE.md](./NOTICE.md)). Since V1.90-vn, four skins featuring third-party cartoon characters (`0_MacDinh`, `MacDinh2`, `GiaoDien01`, `GiaoDien02`) are no longer included; computers using them switch to `0_tsudev_Cu` automatically.
+`0_tsudev_Cu`, `tsudev_Logo`, `tsudev_VongMang`, `tsudev_DoThi_Sang` and `tsudev_DoThi_Toi` are designed by tsudev (source images and generator scripts in `tools/skin_assets/`: `make_skins.py`, `make_skins_dothi.py`). The `GiaoDien*` skins come from the original TrafficMonitor project (see [NOTICE.md](./NOTICE.md)). Since V1.90-vn, four skins featuring third-party cartoon characters (`0_MacDinh`, `MacDinh2`, `GiaoDien01`, `GiaoDien02`) are no longer included; computers using them switch to `0_tsudev_Cu` automatically.
 
 ## Installing more skins
 

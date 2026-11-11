@@ -2,7 +2,7 @@
 """Sinh hai skin "đồ thị mạng" của tsudev cho cửa sổ nổi: tsudev_DoThi_Sang (nền sáng) và tsudev_DoThi_Toi (nền tối).
 
 Nền: thẻ bo góc, lưới mờ, hai đường đồ thị tốc độ (tải xuống/tải lên) dạng vùng tô trong suốt ở nửa dưới,
-dấu hiệu cú tsudev nhỏ ở góc phải trên. PNG trong suốt ngoài thẻ.
+dấu hiệu thu gọn của tsudev-trafficmonitor (mặt cú) nhỏ ở góc phải trên. PNG trong suốt ngoài thẻ.
 Cấu hình skin.xml: cửa sổ lớn 3 hàng (↑/↓, CPU/RAM, GPU/HDD), cửa sổ nhỏ 1 hàng (↑/↓).
 
 Ảnh vẽ ở tỉ lệ 1,5 so với kích thước trong skin.xml (như các skin có sẵn). Đồ thị sinh từ hàm cố định (không ngẫu nhiên)
@@ -13,7 +13,6 @@ nên chạy lại cho cùng kết quả. Màu lấy từ token tsudev (light/dar
 from __future__ import annotations
 
 import argparse
-import hashlib
 import math
 from pathlib import Path
 
@@ -22,8 +21,7 @@ from PIL import Image, ImageDraw, ImageFont
 from make_skins import HERE, SHOTS, SKINS, SCALE, card, colorref, hex_rgb
 
 ROOT = HERE.parent.parent
-MARK = ROOT / "website/public/brand/logo-mark.png"
-MARK_SHA256 = "4cb423dc6a3e8d978f80ec7805109c2c4bdaf0a24578dbd6fb2d4a05d0817198"
+MARK = ROOT / "assets/brand/mark-tsudev-trafficmonitor.png"   # sinh bởi tools/brand/build_brand.py
 
 W_L, H_L = 232, 80      # cửa sổ lớn (đơn vị điểm ảnh cửa sổ)
 W_S, H_S = 232, 40      # cửa sổ nhỏ
@@ -69,8 +67,6 @@ XML = """\ufeff<?xml version="1.0" encoding="utf-8"?>
 
 
 def mark() -> Image.Image:
-    if hashlib.sha256(MARK.read_bytes()).hexdigest() != MARK_SHA256:
-        raise SystemExit(f"{MARK} không khớp SHA-256 bản chính thức")
     im = Image.open(MARK).convert("RGBA")
     return im.crop(im.getbbox())
 

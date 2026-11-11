@@ -1,4 +1,5 @@
 ---
+import AnhThuongHieu from '../components/AnhThuongHieu.astro';
 // Khung chung: <head> theo ECOSYSTEM_IDENTITY mục 2.2, đầu trang, chân trang nối về tsudev.com (mục 4).
 import '../styles/fonts.css';
 import '../styles/tokens.css';
@@ -63,7 +64,7 @@ const dangO = (href: string) => duongDan.startsWith(href);
     <header class="dau-trang">
       <div class="khung dau-trang__trong">
         <a class="thuong-hieu" href="/" aria-label="TrafficMonitor-VN - Trang chủ">
-          <img src="/brand/logo-mark.png" alt="" width="34" height="42">
+          <AnhThuongHieu loai="mark" co={36} uuTien />
           <span>TrafficMonitor-VN</span>
         </a>
         <nav aria-label="Chính">
@@ -87,7 +88,7 @@ const dangO = (href: string) => duongDan.startsWith(href);
         <div class="chan-trang__trong">
           <div class="chan-trang__cot">
             <a class="thuong-hieu thuong-hieu--nho" href="https://tsudev.com" target="_blank" rel="noopener noreferrer">
-              <img src="/brand/logo-mark.png" alt="" width="24" height="29">
+              <AnhThuongHieu loai="mark" co={24} />
               <span>tsudev</span>
             </a>
             <p>TrafficMonitor-VN là bản Việt hóa và gia cố bảo mật của TrafficMonitor,

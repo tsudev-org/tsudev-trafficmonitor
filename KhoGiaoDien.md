@@ -11,6 +11,7 @@ Mọi bản phát hành của TrafficMonitor-VN kèm sẵn các skin dưới đ�
 | Tên thư mục | Ảnh nền | Ghi chú |
 |---|---|---|
 | `0_tsudev_Cu` | ![](./Screenshots/skins/0_tsudev_Cu.png) | **Skin mặc định** - chú cú tsudev, nền sáng |
+| `tsudev_Logo` | ![](./Screenshots/skins/tsudev_Logo.png) | Logo tsudev-trafficmonitor, nền đen |
 | `tsudev_VongMang` | ![](./Screenshots/skins/tsudev_VongMang.png) | Biểu tượng tsudev, nền tối |
 | `tsudev_DoThi_Sang` | ![](./Screenshots/skins/tsudev_DoThi_Sang.png) | Đồ thị mạng, nền sáng; hiện thêm GPU và ổ cứng (`skin.xml`) |
 | `tsudev_DoThi_Toi` | ![](./Screenshots/skins/tsudev_DoThi_Toi.png) | Đồ thị mạng, nền tối; hiện thêm GPU và ổ cứng (`skin.xml`) |
@@ -23,7 +24,7 @@ Mọi bản phát hành của TrafficMonitor-VN kèm sẵn các skin dưới đ�
 | `GiaoDien10_Doc` | ![](./Screenshots/skins/GiaoDien10_Doc.png) | Dạng dọc |
 | `GiaoDien11` | ![](./Screenshots/skins/GiaoDien11.png) | Ô màu CPU/RAM |
 
-Các skin `0_tsudev_Cu`, `tsudev_VongMang`, `tsudev_DoThi_Sang`, `tsudev_DoThi_Toi` do tsudev thiết kế (nguồn ảnh và script sinh ở `tools/skin_assets/`: `make_skins.py`, `make_skins_dothi.py`). Các skin `GiaoDien*` kế thừa từ dự án gốc TrafficMonitor (xem [NOTICE.md](./NOTICE.md)). Từ V1.90-vn, bốn skin có hình nhân vật hoạt hình của bên thứ ba (`0_MacDinh`, `MacDinh2`, `GiaoDien01`, `GiaoDien02`) không còn kèm theo; máy đang dùng các skin này sẽ tự chuyển sang `0_tsudev_Cu`.
+Các skin `0_tsudev_Cu`, `tsudev_Logo`, `tsudev_VongMang`, `tsudev_DoThi_Sang`, `tsudev_DoThi_Toi` do tsudev thiết kế (nguồn ảnh và script sinh ở `tools/skin_assets/`: `make_skins.py`, `make_skins_dothi.py`). Các skin `GiaoDien*` kế thừa từ dự án gốc TrafficMonitor (xem [NOTICE.md](./NOTICE.md)). Từ V1.90-vn, bốn skin có hình nhân vật hoạt hình của bên thứ ba (`0_MacDinh`, `MacDinh2`, `GiaoDien01`, `GiaoDien02`) không còn kèm theo; máy đang dùng các skin này sẽ tự chuyển sang `0_tsudev_Cu`.
 
 ## Cài thêm skin
 
