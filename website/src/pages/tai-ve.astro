@@ -11,6 +11,7 @@ const tenX64 = ban.goi.find((g) => g.kienTruc === 'x64')?.ten ?? `tsudev-traffic
     <nav class="tai-lieu__menu" aria-label="Tải về">
       <p>Tải về</p>
       <ul>
+        <li><a href="#cai-bang-lenh">Cài bằng lệnh</a></li>
         <li><a href="#chon-goi">Chọn gói</a></li>
         <li><a href="#kiem-tra">Kiểm tra tệp</a></li>
         <li><a href="#cai-dat">Cài đặt</a></li>
@@ -19,6 +20,12 @@ const tenX64 = ban.goi.find((g) => g.kienTruc === 'x64')?.ten ?? `tsudev-traffic
     <article class="van-ban">
       <h1>Tải TrafficMonitor-VN {ban.phienBan}</h1>
       <p>Phát hành ngày {ban.ngay}. Mọi gói đều được build tự động trên GitHub Actions từ mã nguồn công khai; trang này chỉ dẫn tới <a href={ban.url} target="_blank" rel="noopener noreferrer">trang phát hành trên GitHub</a>, không lưu bản sao.</p>
+
+      <h2 id="cai-bang-lenh">Cài bằng lệnh</h2>
+      <p>Cách nhanh nhất, tự cập nhật về sau: dùng <a href="https://scoop.sh" target="_blank" rel="noopener noreferrer">Scoop</a> (không cần quyền quản trị). Scoop tự chọn đúng bản x64, x86 hay ARM64 và từ chối cài nếu mã SHA-256 không khớp bản phát hành.</p>
+      <pre tabindex="0"><code>scoop bucket add tsudev https://github.com/tsudev-org/scoop-bucket
+scoop install tsudev/tsudev-trafficmonitor</code></pre>
+      <p>Cập nhật: <code>scoop update tsudev-trafficmonitor</code>. Gỡ: <code>scoop uninstall tsudev-trafficmonitor</code>. Gói Scoop do chính dự án duy trì tại <a href="https://github.com/tsudev-org/scoop-bucket" target="_blank" rel="noopener noreferrer">tsudev-org/scoop-bucket</a>. Gói winget đang chờ Microsoft duyệt.</p>
 
       <h2 id="chon-goi">Chọn gói</h2>
       <div class="goi">
