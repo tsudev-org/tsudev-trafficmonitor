@@ -89,6 +89,16 @@ Cách xử lý:
 
 Mỗi phông chữ có độ rộng ký tự khác nhau nên đôi khi giá trị bị cắt. Vào **Cài đặt...** → **Cửa sổ Taskbar** và chọn giá trị lớn hơn ở danh sách **số chữ số**.
 
+### Thu gọn cửa sổ nổi vào mép màn hình
+
+Nắm cửa sổ nổi rồi kéo **sát mép màn hình** (trái, phải, trên hoặc dưới) và thả chuột: cửa sổ trượt ra ngoài mép và mờ dần, ở mép chỉ còn một **tay nắm hình mũi tên** nhỏ. Trong lúc kéo, khi tới đúng mép sẽ thấy tay nắm hiện mờ và cửa sổ nhạt đi - thả chuột lúc đó là thu gọn.
+
+* **Bấm mũi tên** (hoặc bấm biểu tượng ở khay hệ thống) để cửa sổ trượt trở lại.
+* **Kéo mũi tên dọc theo mép** để dời chỗ; **chuột phải** vào mũi tên để mở menu.
+* Cạnh giáp với màn hình thứ hai không thu gọn (kéo qua đó là chuyển sang màn hình kia).
+* Lần mở máy sau, cửa sổ vẫn ở trạng thái thu gọn như lúc tắt.
+* Tắt tính năng: **Cài đặt...** → **Cửa sổ chính** → bỏ chọn **Kéo cửa sổ sát mép màn hình để thu gọn**, hoặc chuột phải → **Chức năng khác** → **Thu gọn vào mép màn hình khi kéo sát mép**.
+
 ### Đã bật “Click xuyên qua” thì tắt bằng cách nào?
 
 Nhấp chuột phải vào biểu tượng tsudev-trafficmonitor ở **khay hệ thống** (góc phải thanh tác vụ), bỏ đánh dấu **Click xuyên qua (Bỏ qua chuột)**.

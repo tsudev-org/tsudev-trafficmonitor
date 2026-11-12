@@ -22,7 +22,8 @@ cd tools/skin_assets && ../../.venv/bin/python make_skins.py --font /mnt/c/Windo
 ```
 
 Sản phẩm: icon ứng dụng `tsudev-trafficmonitor/res/tsudev-trafficmonitor.ico` (16-256; <= 40 px dùng dấu hiệu thu gọn, <= 20 px ô cắt
-chặt hơn cho mắt to), ảnh đầu hộp thoại Giới thiệu `about_background_hd.bmp`, và trong `website/public/`: `favicon.ico`
+chặt hơn cho mắt to), icon vùng thông báo (khay) `notifyicon{,2,3,4,5}.ico` (16-64: mặt cú màu cho taskbar tối/sáng, cú khoét
+trắng/đen đơn sắc, cú tròn viền xanh lơ - các kiểu trong "Đổi Icon khay hệ thống"), ảnh đầu hộp thoại Giới thiệu `about_background_hd.bmp`, và trong `website/public/`: `favicon.ico`
 (16-256), `favicon-{16,32,96}x*.png`, `apple-touch-icon.png` (180, nền đặc), `android-chrome[-maskable]-{192,512}x*.png`
 (maskable chừa vùng an toàn 80%), `og-image.png` (1200x630), `brand/{logo,mark}-tsudev-trafficmonitor.{png,webp,avif}`.
 
