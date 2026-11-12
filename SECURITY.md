@@ -57,7 +57,7 @@ Tự kiểm một bản phát hành (Windows, Visual Studio 2022 có MFC v143):
 
 ```powershell
 git clone https://github.com/tsudev-org/tsudev-trafficmonitor; cd tsudev-trafficmonitor
-git checkout V26.11.1201-vn
+git checkout V26.11.1202-vn
 msbuild tsudev-trafficmonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=x64 -p:PlatformToolset=v143
 Get-FileHash "Bin\x64\Release (lite)\tsudev-trafficmonitor.exe"   # so với tsudev-trafficmonitor.exe trong gói zip của bản phát hành
 ```

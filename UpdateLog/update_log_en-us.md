@@ -5,6 +5,18 @@
 Changes in each tsudev-trafficmonitor release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 Releases before the rename were called **TrafficMonitor-VN**; their entries below are kept as released.
 
+## 26.11.1202 (12/11/2026)
+
+### Tuck the floating window away at screen edges
+* Drag the floating window **against a screen edge** (left, right, top, bottom) and release: it slides out past the edge and fades, leaving a small **arrow handle** (it lights up on hover). A faint hint appears while dragging once you reach an edge.
+* **Click the arrow** or the notification area icon: the window slides back with a gentle spring. **Drag the arrow along the edge** to move it; **right-click** for the menu.
+* Edges shared with a second monitor don't tuck. The tucked state is kept across restarts.
+* Toggle: **Options** → **Main Window Settings**, or **Other Functions** → **Tuck Away at Screen Edges** (on by default).
+* A window dragged past the screen now glides back smoothly instead of jumping.
+
+### Branding
+* The **notification area icon** now uses the new logo (26.11.1201 still showed the old wave icon). "Change Notify Icon" offers: color owl face (default), white/black monochrome owl, round owl with a blue ring.
+
 ## 26.11.1201 (12/11/2026)
 
 ### Renamed to tsudev-trafficmonitor

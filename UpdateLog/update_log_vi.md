@@ -5,6 +5,18 @@
 Thay đổi của từng bản phát hành tsudev-trafficmonitor do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 Các bản trước khi đổi tên mang tên **TrafficMonitor-VN**; nội dung của chúng bên dưới giữ nguyên như lúc phát hành.
 
+## 26.11.1202 (12/11/2026)
+
+### Thu gọn cửa sổ nổi vào mép màn hình
+* Kéo cửa sổ nổi **sát mép màn hình** (trái, phải, trên, dưới) rồi thả: cửa sổ trượt ra ngoài mép và mờ dần, ở mép còn một **tay nắm mũi tên** nhỏ (sáng lên khi trỏ chuột). Trong lúc kéo, khi tới mép sẽ có gợi ý mờ.
+* **Bấm mũi tên** hoặc bấm biểu tượng khay: cửa sổ trượt trở lại kèm hiệu ứng lò xo nhẹ. **Kéo mũi tên dọc mép** để dời chỗ; **chuột phải** mở menu.
+* Cạnh giáp màn hình thứ hai không thu gọn. Trạng thái thu gọn được nhớ qua lần chạy sau.
+* Bật/tắt: **Cài đặt** → **Cửa sổ chính**, hoặc menu **Chức năng khác** → **Thu gọn vào mép màn hình khi kéo sát mép** (mặc định bật).
+* Kéo cửa sổ lố ra ngoài màn hình thì cửa sổ trượt mượt về thay vì nhảy.
+
+### Thương hiệu
+* **Icon khay hệ thống** đổi sang logo mới (bản 26.11.1201 vẫn dùng icon sóng cũ). Mục "Đổi Icon khay hệ thống" có các kiểu: mặt cú màu (mặc định), cú đơn sắc trắng/đen, cú tròn viền xanh.
+
 ## 26.11.1201 (12/11/2026)
 
 ### Đổi tên thành tsudev-trafficmonitor
