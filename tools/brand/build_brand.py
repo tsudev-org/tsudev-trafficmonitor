@@ -13,6 +13,8 @@ Sinh ra (xem assets/brand/README.md):
   assets/brand/mark-tsudev-trafficmonitor.{png,webp,avif}  dấu hiệu thu gọn (mặt cú, không chữ), 512x512
   tsudev-trafficmonitor/res/tsudev-trafficmonitor.ico                    icon exe/cửa sổ/khay kiểu 4: 16..256 (16-40 dùng dấu hiệu thu gọn)
   tsudev-trafficmonitor/res/about_background_hd.bmp               ảnh đầu hộp thoại Giới thiệu 479x92, 24-bit
+  tsudev-trafficmonitor/res/notifyicon{,2,3,4,5}.ico              icon vùng thông báo (khay) 16..64, các kiểu chọn trong
+                                                                  "Đổi biểu tượng vùng thông báo" (xem make_notify_icons)
   website/public/favicon.ico, favicon-{16,32,96}.png, apple-touch-icon.png, android-chrome[-maskable]-{192,512}.png
   website/public/og-image.png                              ảnh chia sẻ 1200x630
   website/public/brand/{logo,mark}-tsudev-trafficmonitor.{png,webp,avif}
@@ -43,6 +45,7 @@ ICO_SIZES = [16, 20, 24, 28, 32, 40, 48, 64, 128, 256]
 FAVICON_SIZES = [16, 24, 32, 48, 64, 128, 256]
 SMALL_MAX = 40          # cỡ <= 40 px dùng dấu hiệu thu gọn (chữ "tsudev" của logo không đọc được ở cỡ nhỏ)
 TINY_MAX = 20           # cỡ <= 20 px dùng ô cắt chặt hơn (mắt to hơn)
+NOTIFY_SIZES = [16, 20, 24, 28, 32, 48, 64]   # icon khay: Windows nạp cỡ 16 x DPI (100%-400%)
 
 
 def hex_rgb(h: str) -> tuple[int, int, int]:
@@ -158,6 +161,72 @@ def make_ico(out: Out, path: Path, logo: Image.Image, mark: Image.Image, tiny: I
     out.image(path, big, sizes=[(s, s) for s in sizes], append_images=layers[:-1])
 
 
+def _shape_mask(size: int, shape: str, radius: float) -> np.ndarray:
+    ss = 4
+    m = Image.new("L", (size * ss, size * ss), 0)
+    d = ImageDraw.Draw(m)
+    if shape == "circle":
+        d.ellipse((0, 0, size * ss - 1, size * ss - 1), fill=255)
+    else:
+        d.rounded_rectangle((0, 0, size * ss - 1, size * ss - 1), radius=round(size * ss * radius), fill=255)
+    return np.asarray(m.resize((size, size), Image.LANCZOS)).astype(np.float32) / 255
+
+
+def owl_circle(face: Image.Image, ring: str) -> Image.Image:
+    """Mặt cú cắt tròn, viền màu nhấn của logo."""
+    s = face.width
+    im = face.convert("RGBA").copy()
+    im.putalpha(Image.fromarray((_shape_mask(s, "circle", 0) * 255).round().astype(np.uint8)))
+    ss = 4
+    r = Image.new("RGBA", (s * ss, s * ss), (0, 0, 0, 0))
+    w = round(s * ss * 0.05)
+    ImageDraw.Draw(r).ellipse((w // 2, w // 2, s * ss - 1 - w // 2, s * ss - 1 - w // 2), outline=hex_rgb(ring) + (255,), width=w)
+    im.alpha_composite(r.resize((s, s), Image.LANCZOS))
+    return im
+
+
+def owl_knockout(face: Image.Image, rgb: tuple[int, int, int]) -> Image.Image:
+    """Icon đơn sắc: hình tròn đặc một màu, các nét sáng của mặt cú (mắt, mày, mỏ) khoét trong suốt.
+
+    Giống kiểu icon khay đơn sắc của Windows: nền taskbar lộ qua chỗ khoét nên đọc được ở 16 px trên cả nền sáng lẫn tối.
+    """
+    a = np.asarray(face.convert("RGB")).astype(np.float32)
+    lum = (0.299 * a[..., 0] + 0.587 * a[..., 1] + 0.114 * a[..., 2]) / 255
+    feat = np.clip((lum - 0.30) / 0.35, 0, 1)
+    alpha = _shape_mask(face.width, "circle", 0) * (1 - feat)
+    out = np.zeros((*alpha.shape, 4), np.uint8)
+    out[..., :3] = rgb
+    out[..., 3] = (alpha * 255).round().astype(np.uint8)
+    return Image.fromarray(out, "RGBA")
+
+
+def make_notify_icons(out: Out, src: Image.Image, cfg: dict, mark: Image.Image, tiny: Image.Image) -> None:
+    """Icon vùng thông báo (khay hệ thống). Chỉ số = m_notify_icon_selected (TsudevTrafficMonitorDlg.cpp):
+
+    0 notifyicon.ico   mặc định taskbar tối: mặt cú màu (giống icon ứng dụng ở cỡ nhỏ)
+    1 notifyicon2.ico  đơn sắc trắng (taskbar tối)       <-> 5 khi "tự thích ứng" sáng/tối
+    2 notifyicon3.ico  mặt cú tròn viền xanh lơ (mặc định Windows 7/8)
+    3 (tsudev-trafficmonitor.ico của ứng dụng)
+    4 notifyicon4.ico  mặc định taskbar sáng: mặt cú màu  <-> 0
+    5 notifyicon5.ico  đơn sắc đen (taskbar sáng)        <-> 1
+    """
+    def face(box_key: str) -> Image.Image:
+        return src.convert("RGB").crop(tuple(cfg[box_key])).resize((512, 512), Image.LANCZOS)
+
+    big, small = face("mark_box"), face("mark_small_box")
+    ring = cfg["colors"]["logo_accent"]
+    styles = {
+        "notifyicon.ico": (mark, tiny),
+        "notifyicon4.ico": (mark, tiny),
+        "notifyicon2.ico": (owl_knockout(big, (255, 255, 255)), owl_knockout(small, (255, 255, 255))),
+        "notifyicon5.ico": (owl_knockout(big, (0, 0, 0)), owl_knockout(small, (0, 0, 0))),
+        "notifyicon3.ico": (owl_circle(big, ring), owl_circle(small, ring)),
+    }
+    for name, (normal, tight) in styles.items():
+        layers = [downscale(tight if s <= TINY_MAX else normal, s) for s in NOTIFY_SIZES]
+        out.image(RES / name, layers[-1], sizes=[(s, s) for s in NOTIFY_SIZES], append_images=layers[:-1])
+
+
 def make_about(out: Out, logo: Image.Image, c: dict) -> None:
     w, h = 479, 92
     im = Image.new("RGB", (w, h), hex_rgb(c["about_bg"]))
@@ -226,6 +295,7 @@ def main() -> int:
 
     # ứng dụng Windows
     make_ico(out, RES / "tsudev-trafficmonitor.ico", logo, mark, tiny, ICO_SIZES)
+    make_notify_icons(out, src, cfg, mark, tiny)
     make_about(out, logo, c)
 
     # website

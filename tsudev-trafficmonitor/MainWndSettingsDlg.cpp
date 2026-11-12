@@ -166,6 +166,7 @@ BEGIN_MESSAGE_MAP(CMainWndSettingsDlg, CTabDlg)
     ON_BN_CLICKED(IDC_MOUSE_PENETRATE_CHECK, &CMainWndSettingsDlg::OnBnClickedMousePenetrateCheck)
     ON_BN_CLICKED(IDC_LOCK_WINDOW_POS_CHECK, &CMainWndSettingsDlg::OnBnClickedLockWindowPosCheck)
     ON_BN_CLICKED(IDC_ALOW_OUT_OF_BORDER_CHECK, &CMainWndSettingsDlg::OnBnClickedAlowOutOfBorderCheck)
+    ON_BN_CLICKED(IDC_EDGE_AUTO_HIDE_CHECK, &CMainWndSettingsDlg::OnBnClickedEdgeAutoHideCheck)
     ON_BN_CLICKED(IDC_RESOTRE_SKIN_DEFAULT_BUTTON, &CMainWndSettingsDlg::OnBnClickedResotreSkinDefaultButton)
     ON_EN_CHANGE(IDC_FONT_SIZE_EDIT, &CMainWndSettingsDlg::OnEnChangeFontSizeEdit)
 END_MESSAGE_MAP()
@@ -260,6 +261,7 @@ BOOL CMainWndSettingsDlg::OnInitDialog()
     CheckDlgButton(IDC_MOUSE_PENETRATE_CHECK, m_data.m_mouse_penetrate);
     CheckDlgButton(IDC_LOCK_WINDOW_POS_CHECK, m_data.m_lock_window_pos);
     CheckDlgButton(IDC_ALOW_OUT_OF_BORDER_CHECK, m_data.m_alow_out_of_border);
+    CheckDlgButton(IDC_EDGE_AUTO_HIDE_CHECK, m_data.m_edge_auto_hide);
 
     ////Thiết lập điều khiển không phản hồi thông điệp con lăn chuột
     //m_unit_combo.SetMouseWheelEnable(false);
@@ -588,6 +590,12 @@ void CMainWndSettingsDlg::OnBnClickedAlowOutOfBorderCheck()
 {
     // TODO: Thêm mã xử lý thông báo của điều khiển tại đây
     m_data.m_alow_out_of_border = IsDlgButtonChecked(IDC_ALOW_OUT_OF_BORDER_CHECK) != 0;
+}
+
+
+void CMainWndSettingsDlg::OnBnClickedEdgeAutoHideCheck()
+{
+    m_data.m_edge_auto_hide = IsDlgButtonChecked(IDC_EDGE_AUTO_HIDE_CHECK) != 0;
 }
 
 

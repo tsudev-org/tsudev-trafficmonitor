@@ -862,6 +862,8 @@
     <ClInclude Include="TsudevTrafficMonitor.h" />
     <ClInclude Include="TsudevTrafficMonitorDlg.h" />
     <ClInclude Include="UpdateDownload.h" />
+    <ClInclude Include="EdgeDock.h" />
+    <ClInclude Include="EdgeHandleWnd.h" />
     <ClInclude Include="UpdateHelper.h" />
     <ClInclude Include="UpdateSecurity.h" />
     <ClInclude Include="XmlParsing.h" />
@@ -899,6 +901,7 @@
     <ClCompile Include="DrawCommonFactory.cpp" />
     <ClCompile Include="DrawCommonHelper.cpp" />
     <ClCompile Include="DrawTextManager.cpp" />
+    <ClCompile Include="EdgeHandleWnd.cpp" />
     <ClCompile Include="Dxgi1Support2.cpp" />
     <ClCompile Include="FileDialogEx.cpp" />
     <ClCompile Include="FilePathHelper.cpp" />

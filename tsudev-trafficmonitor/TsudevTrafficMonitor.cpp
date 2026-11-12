@@ -229,6 +229,8 @@ void CTsudevTrafficMonitorApp::LoadConfig()
     m_main_wnd_data.double_click_exe = ini.GetString(L"config", L"double_click_exe", (theApp.m_system_dir + L"\\Taskmgr.exe").c_str());
 
     m_main_wnd_data.m_alow_out_of_border = ini.GetBool(_T("config"), _T("alow_out_of_border"), false);
+    m_main_wnd_data.m_edge_auto_hide = ini.GetBool(_T("config"), _T("edge_auto_hide"), true);
+    m_cfg_data.m_edge_dock = ini.GetInt(_T("config"), _T("edge_dock"), 0);
 
     m_general_data.traffic_tip_enable = ini.GetBool(L"notify_tip", L"traffic_tip_enable", false);
     m_general_data.traffic_tip_value = ini.GetInt(L"notify_tip", L"traffic_tip_value", 200);
@@ -435,6 +437,8 @@ void CTsudevTrafficMonitorApp::SaveConfig()
     ini.WriteString(L"config", L"double_click_exe", m_main_wnd_data.double_click_exe);
 
     ini.WriteInt(L"config", L"alow_out_of_border", m_main_wnd_data.m_alow_out_of_border);
+    ini.WriteBool(L"config", L"edge_auto_hide", m_main_wnd_data.m_edge_auto_hide);
+    ini.WriteInt(L"config", L"edge_dock", m_cfg_data.m_edge_dock);
 
     ini.WriteBool(L"notify_tip", L"traffic_tip_enable", m_general_data.traffic_tip_enable);
     ini.WriteInt(L"notify_tip", L"traffic_tip_value", m_general_data.traffic_tip_value);

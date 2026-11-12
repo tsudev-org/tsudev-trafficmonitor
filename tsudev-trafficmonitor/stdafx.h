@@ -78,7 +78,9 @@ using std::ofstream;
 #define WM_PUBLIC_IP_ACQUIRED (WM_USER+1011)        //Luồng lấy IP công cộng đã có kết quả (wParam: 0 = IPv4, 1 = IPv6)
 #define WM_REINIT_CONNECTION (WM_USER+1012)         //Luồng giám sát yêu cầu khởi tạo lại kết nối mạng trên luồng giao diện (wParam: lý do)
 
-#define WM_NEXT_USER_MSG (WM_USER+1013)
+#define WM_EDGE_HANDLE_ACTION (WM_USER+1013)        //Tay nắm mũi tên ở mép màn hình được bấm/kéo (wParam: EdgeHandleAction, lParam: độ dịch khi kéo)
+
+#define WM_NEXT_USER_MSG (WM_USER+1014)
 
 //#define CONFIG_PATH _T(".\\config.ini")
 //#define CONFIG_PATHA ".\\config.ini"
@@ -95,6 +97,7 @@ using std::ofstream;
 #define RESTART_TASKBAR_TIMER 1240
 #define INIT_CONNECT_TIMER 1241
 #define DPI_CHANGE_TIMER 1242
+#define EDGE_ANIM_TIMER 1243    //Hoạt ảnh trượt/mờ của cửa sổ nổi khi thu vào mép màn hình
 
 #define MAX_INSERT_TO_TASKBAR_CNT 200     //Số lần tối đa thử nhúng vào thanh tác vụ
 #define WARN_INSERT_TO_TASKBAR_CNT 20     //Số lần thử nhúng vào thanh tác vụ thì cảnh báo

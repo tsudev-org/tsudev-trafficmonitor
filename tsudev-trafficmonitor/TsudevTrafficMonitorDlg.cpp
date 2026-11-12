@@ -124,6 +124,10 @@ BEGIN_MESSAGE_MAP(CTsudevTrafficMonitorDlg, CDialog)
     ON_MESSAGE(WM_MONITOR_INFO_UPDATED, &CTsudevTrafficMonitorDlg::OnMonitorInfoUpdated)
     ON_MESSAGE(WM_DISPLAYCHANGE, &CTsudevTrafficMonitorDlg::OnDisplaychange)
     ON_WM_EXITSIZEMOVE()
+    ON_WM_ENTERSIZEMOVE()
+    ON_WM_MOVING()
+    ON_MESSAGE(WM_EDGE_HANDLE_ACTION, &CTsudevTrafficMonitorDlg::OnEdgeHandleAction)
+    ON_COMMAND(ID_EDGE_AUTO_HIDE, &CTsudevTrafficMonitorDlg::OnEdgeAutoHide)
     ON_COMMAND(ID_PLUGIN_MANAGE, &CTsudevTrafficMonitorDlg::OnPluginManage)
     ON_MESSAGE(WM_REOPEN_TASKBAR_WND, &CTsudevTrafficMonitorDlg::OnReopenTaksbarWnd)
     ON_COMMAND(ID_OPEN_TASK_MANAGER, &CTsudevTrafficMonitorDlg::OnOpenTaskManager)
@@ -344,6 +348,8 @@ POINT CTsudevTrafficMonitorDlg::CalculateWindowMoveOffset(CRect rect, bool scree
 
 void CTsudevTrafficMonitorDlg::CheckWindowPos(bool screen_changed)
 {
+    if (m_edge_anim != EdgeAnim::None)     //Đang chạy hoạt ảnh trượt: cửa sổ tạm thời nằm ngoài màn hình là có chủ ý
+        return;
     if (!theApp.m_main_wnd_data.m_alow_out_of_border)
     {
         CRect rect;
@@ -914,6 +920,9 @@ void CTsudevTrafficMonitorDlg::ApplySettings(COptionsDlg& optionsDlg)
         CheckWindowPos();
     }
 
+    if (!theApp.m_main_wnd_data.m_edge_auto_hide && IsEdgeDocked())     //Tắt tính năng thu vào mép khi đang thu: hiện lại cửa sổ
+        UndockFromEdge(true);
+
     if (is_show_notify_icon_changed)
     {
         if (theApp.IsForceShowNotifyIcon())
@@ -1208,7 +1217,12 @@ BOOL CTsudevTrafficMonitorDlg::OnInitDialog()
     m_tool_tips.AddTool(this, _T(""));
 
     //Nếu khi khởi động chương trình đã thiết lập ẩn cửa sổ chính, hoặc cửa sổ nằm ở góc trên bên trái, thì đặt độ mờ đục bằng 0 trước
-    if (theApp.m_cfg_data.m_hide_main_window || (theApp.m_cfg_data.m_position_x == 0 && theApp.m_cfg_data.m_position_y == 0))
+    //Khôi phục trạng thái thu vào mép màn hình của lần chạy trước
+    m_edge_handle.Create(m_hWnd);
+    m_edge_dock = theApp.m_main_wnd_data.m_edge_auto_hide ? EdgeDock::EdgeFromInt(theApp.m_cfg_data.m_edge_dock) : EdgeDock::Edge::None;
+    theApp.m_cfg_data.m_edge_dock = static_cast<int>(m_edge_dock);
+
+    if (theApp.m_cfg_data.m_hide_main_window || IsEdgeDocked() || (theApp.m_cfg_data.m_position_x == 0 && theApp.m_cfg_data.m_position_y == 0))
         SetTransparency(0);
 
     SetTimer(TASKBAR_TIMER, 100, NULL);
@@ -1665,6 +1679,12 @@ void CTsudevTrafficMonitorDlg::ExitMonitorThread()
 void CTsudevTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
 {
     // TODO: Thêm mã xử lý thông điệp và/hoặc gọi giá trị mặc định tại đây
+    if (nIDEvent == EDGE_ANIM_TIMER)     //Khung hình hoạt ảnh trượt/mờ của cửa sổ nổi
+    {
+        StepEdgeAnim();
+        return;
+    }
+
     if (nIDEvent == MONITOR_TIMER)
     {
         //Báo luồng lấy dữ liệu giám sát
@@ -1682,6 +1702,11 @@ void CTsudevTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
             SetMousePenetrate();    //Thiết lập cho chuột xuyên qua
             if (theApp.m_cfg_data.m_hide_main_window)   //Thiết lập ẩn cửa sổ chính
                 ShowWindow(SW_HIDE);
+            else if (IsEdgeDocked())                    //Lần trước thoát khi cửa sổ nổi đang thu vào mép
+            {
+                ShowWindow(SW_HIDE);
+                ShowEdgeHandle();
+            }
 
             //Mở cửa sổ thanh tác vụ
             if (theApp.m_cfg_data.m_show_task_bar_wnd && m_tBarDlg == nullptr)
@@ -1720,7 +1745,14 @@ void CTsudevTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
             GetWindowRect(rect);
             HMONITOR h_current_monitor = ::MonitorFromRect(&rect, MONITOR_DEFAULTTONEAREST);
             m_is_foreground_fullscreen = CCommon::IsForegroundFullscreen(h_current_monitor);
-            if (theApp.m_main_wnd_data.hide_main_wnd_when_fullscreen)       //Khi đã bật ẩn cửa sổ nổi khi toàn màn hình
+            if (theApp.m_main_wnd_data.hide_main_wnd_when_fullscreen && IsEdgeDocked())     //Cửa sổ nổi đang thu vào mép: chỉ ẩn/hiện tay nắm
+            {
+                if (m_is_foreground_fullscreen)
+                    m_edge_handle.HideNow();
+                else if (!m_edge_handle.IsShown())
+                    ShowEdgeHandle();
+            }
+            else if (theApp.m_main_wnd_data.hide_main_wnd_when_fullscreen)       //Khi đã bật ẩn cửa sổ nổi khi toàn màn hình
             {
                 if (m_is_foreground_fullscreen || theApp.m_cfg_data.m_hide_main_window)
                     ShowWindow(SW_HIDE);
@@ -1779,6 +1811,9 @@ void CTsudevTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
         {
             GetScreenSize();
             CheckWindowPos();
+            //Cập nhật tay nắm mũi tên (đổi độ phân giải, thanh tác vụ di chuyển...) và giữ nó luôn trên cùng
+            if (IsEdgeDocked() && m_edge_anim == EdgeAnim::None && m_edge_handle.IsShown())
+                ShowEdgeHandle();
         }
 
         //Chỉ thực hiện xử lý dưới đây khi cửa sổ chính hoặc cửa sổ thanh tác vụ có ít nhất một cửa sổ đang hiển thị
@@ -2325,8 +2360,9 @@ void CTsudevTrafficMonitorDlg::OnInitMenu(CMenu* pMenu)
     pMenu->CheckMenuItem(ID_SHOW_CPU_MEMORY, MF_BYCOMMAND | (theApp.m_cfg_data.m_show_more_info ? MF_CHECKED : MF_UNCHECKED));
     pMenu->CheckMenuItem(ID_MOUSE_PENETRATE, MF_BYCOMMAND | (theApp.m_main_wnd_data.m_mouse_penetrate ? MF_CHECKED : MF_UNCHECKED));
     pMenu->CheckMenuItem(ID_SHOW_TASK_BAR_WND, MF_BYCOMMAND | (theApp.m_cfg_data.m_show_task_bar_wnd ? MF_CHECKED : MF_UNCHECKED));
-    pMenu->CheckMenuItem(ID_SHOW_MAIN_WND, MF_BYCOMMAND | (!theApp.m_cfg_data.m_hide_main_window ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(ID_SHOW_MAIN_WND, MF_BYCOMMAND | (!theApp.m_cfg_data.m_hide_main_window && !IsEdgeDocked() ? MF_CHECKED : MF_UNCHECKED));
     pMenu->CheckMenuItem(ID_ALOW_OUT_OF_BORDER, MF_BYCOMMAND | (theApp.m_main_wnd_data.m_alow_out_of_border ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(ID_EDGE_AUTO_HIDE, MF_BYCOMMAND | (theApp.m_main_wnd_data.m_edge_auto_hide ? MF_CHECKED : MF_UNCHECKED));
 
     //Thiết lập trạng thái chọn của các tùy chọn trong menu con “Chọn kết nối”
     SetConnectionMenuState(theApp.m_main_menu.GetSubMenu(0)->GetSubMenu(0));
@@ -2409,7 +2445,7 @@ void CTsudevTrafficMonitorDlg::OnMove(int x, int y)
 
     // TODO: Thêm mã xử lý thông điệp tại đây
 
-    if (!m_first_start)
+    if (!m_first_start && m_edge_anim == EdgeAnim::None)     //Vị trí tạm thời trong hoạt ảnh trượt thì không lưu
     {
         theApp.m_cfg_data.m_position_x = x;
         theApp.m_cfg_data.m_position_y = y;
@@ -2448,7 +2484,10 @@ afx_msg LRESULT CTsudevTrafficMonitorDlg::OnNotifyIcon(WPARAM wParam, LPARAM lPa
             }
             else        //Khi không có hộp thoại nào đang mở thì hiển thị cửa sổ chính
             {
-                ShowWindow(SW_RESTORE);
+                if (IsEdgeDocked())
+                    UndockFromEdge(true);       //Đang thu vào mép: trượt cửa sổ nổi trở lại
+                else
+                    ShowWindow(SW_RESTORE);
                 theApp.m_cfg_data.m_hide_main_window = false;
                 SetForegroundWindow();
                 SetAlwaysOnTop();
@@ -2486,7 +2525,10 @@ afx_msg LRESULT CTsudevTrafficMonitorDlg::OnNotifyIcon(WPARAM wParam, LPARAM lPa
         }
         else        //Khi không có hộp thoại nào đang mở thì hiển thị cửa sổ chính
         {
-            ShowWindow(SW_RESTORE);
+            if (IsEdgeDocked())
+                UndockFromEdge(true);
+            else
+                ShowWindow(SW_RESTORE);
             theApp.m_cfg_data.m_hide_main_window = false;
             SetForegroundWindow();
             SetAlwaysOnTop();
@@ -2521,6 +2563,10 @@ void CTsudevTrafficMonitorDlg::OnDestroy()
 
     //Xóa biểu tượng vùng thông báo khi chương trình thoát
     ::Shell_NotifyIcon(NIM_DELETE, &m_ntIcon);
+
+    KillTimer(EDGE_ANIM_TIMER);
+    if (m_edge_handle.GetSafeHwnd() != NULL)
+        m_edge_handle.DestroyWindow();
 
     // Dừng luồng giám sát
     ExitMonitorThread();
@@ -2665,6 +2711,13 @@ LRESULT CTsudevTrafficMonitorDlg::OnTaskBarCreated(WPARAM wParam, LPARAM lParam)
 void CTsudevTrafficMonitorDlg::OnShowMainWnd()
 {
     // TODO: Thêm mã xử lý lệnh tại đây
+    if (IsEdgeDocked())     //Đang thu vào mép: "Hiện cửa sổ nổi" = trượt cửa sổ trở lại
+    {
+        theApp.m_cfg_data.m_hide_main_window = false;
+        UndockFromEdge(true);
+        theApp.SaveConfig();
+        return;
+    }
     if (!theApp.m_cfg_data.m_hide_main_window)
     {
         ShowWindow(SW_HIDE);
@@ -2964,10 +3017,395 @@ LRESULT CTsudevTrafficMonitorDlg::OnDisplaychange(WPARAM wParam, LPARAM lParam)
 
 void CTsudevTrafficMonitorDlg::OnExitSizeMove()
 {
-    // TODO: Thêm mã xử lý thông điệp và/hoặc gọi giá trị mặc định tại đây
-    CheckWindowPos();
+    CRect rect;
+    GetWindowRect(rect);
+    if (m_drag_moved)
+    {
+        m_drag_moved = false;
+        m_drag_candidate = EdgeDock::Edge::None;
+        EdgeDock::Edge edge = DetectDockEdge(rect);
+        if (edge != EdgeDock::Edge::None)
+        {
+            DockToEdge(edge, true);     //Thả sát mép: trượt ra ngoài mép, hiện tay nắm mũi tên
+            CDialog::OnExitSizeMove();
+            return;
+        }
+        if (m_edge_handle.IsPreview())
+            m_edge_handle.HideAnimated();
+        ApplyWindowAlpha(ConfiguredAlpha());
+    }
+
+    //Cửa sổ bị kéo lố ra ngoài màn hình: trượt mượt về trong màn hình thay vì nhảy tức thì
+    if (!theApp.m_main_wnd_data.m_alow_out_of_border && m_edge_anim == EdgeAnim::None)
+    {
+        POINT offset = CalculateWindowMoveOffset(rect, false);
+        if (offset.x != 0 || offset.y != 0)
+        {
+            EdgeDock::Rect from{ rect.left, rect.top, rect.right, rect.bottom };
+            EdgeDock::Rect to = from.Offset(offset.x, offset.y);
+            StartEdgeAnim(EdgeAnim::Glide, from, to, to, ConfiguredAlpha(), ConfiguredAlpha(), 220.0);
+        }
+    }
 
     CDialog::OnExitSizeMove();
+}
+
+
+// ======================================================================== Thu cửa sổ nổi vào mép màn hình
+
+void CTsudevTrafficMonitorDlg::OnEnterSizeMove()
+{
+    //Người dùng nắm lấy cửa sổ khi hoạt ảnh đang chạy: dừng tại chỗ
+    if (m_edge_anim != EdgeAnim::None)
+        StopEdgeAnim();
+    m_drag_moved = false;
+    m_drag_candidate = EdgeDock::Edge::None;
+    CDialog::OnEnterSizeMove();
+}
+
+void CTsudevTrafficMonitorDlg::OnMoving(UINT fwSide, LPRECT pRect)
+{
+    CDialog::OnMoving(fwSide, pRect);
+    m_drag_moved = true;
+    if (pRect == nullptr)
+        return;
+
+    //Gợi ý trực quan khi đang kéo: tới mép thu gọn được thì hiện tay nắm mờ ở mép và làm cửa sổ nhạt đi
+    CRect rect(pRect);
+    EdgeDock::Edge edge = DetectDockEdge(rect);
+    if (edge != EdgeDock::Edge::None)
+    {
+        EdgeDock::Rect monitor, work;
+        if (GetMonitorRects(rect, monitor, work))
+        {
+            EdgeDock::Rect shown = EdgeDock::ShownRect(EdgeDock::Rect{ rect.left, rect.top, rect.right, rect.bottom }, edge, work, theApp.DPI(6));
+            EdgeDock::Rect handle = EdgeDock::HandleRect(shown, edge, work, CEdgeHandleWnd::Thickness(), CEdgeHandleWnd::Length());
+            if (edge != m_drag_candidate || !m_edge_handle.IsShown())
+                m_edge_handle.ShowAt(edge, handle, true);
+            else
+                m_edge_handle.MoveTo(handle);
+        }
+        if (m_drag_candidate == EdgeDock::Edge::None)
+            ApplyWindowAlpha(ConfiguredAlpha() * 3 / 5);
+    }
+    else if (m_drag_candidate != EdgeDock::Edge::None)
+    {
+        m_edge_handle.HideAnimated();
+        ApplyWindowAlpha(ConfiguredAlpha());
+    }
+    m_drag_candidate = edge;
+}
+
+bool CTsudevTrafficMonitorDlg::GetMonitorRects(const CRect& rect, EdgeDock::Rect& monitor, EdgeDock::Rect& work)
+{
+    MONITORINFO mi{};
+    mi.cbSize = sizeof(MONITORINFO);
+    if (!::GetMonitorInfo(::MonitorFromRect(&rect, MONITOR_DEFAULTTONEAREST), &mi))
+        return false;
+    monitor = EdgeDock::Rect{ mi.rcMonitor.left, mi.rcMonitor.top, mi.rcMonitor.right, mi.rcMonitor.bottom };
+    work = EdgeDock::Rect{ mi.rcWork.left, mi.rcWork.top, mi.rcWork.right, mi.rcWork.bottom };
+    return true;
+}
+
+EdgeDock::Edge CTsudevTrafficMonitorDlg::DetectDockEdge(const CRect& window_rect) const
+{
+    if (!theApp.m_main_wnd_data.m_edge_auto_hide || theApp.m_main_wnd_data.m_lock_window_pos || IsEdgeDocked())
+        return EdgeDock::Edge::None;
+    CPoint cursor;
+    ::GetCursorPos(&cursor);
+    //Màn hình đang chứa con trỏ (nơi người dùng thả cửa sổ)
+    MONITORINFO mi{};
+    mi.cbSize = sizeof(MONITORINFO);
+    if (!::GetMonitorInfo(::MonitorFromPoint(cursor, MONITOR_DEFAULTTONEAREST), &mi))
+        return EdgeDock::Edge::None;
+    const RECT& m = mi.rcMonitor;
+
+    EdgeDock::DetectParams params;
+    params.cursor_threshold = theApp.DPI(3);
+    params.overflow_ratio = 0.5;
+    //Cạnh nào có màn hình khác liền kề thì kéo qua đó là chuyển màn hình, không thu gọn
+    CPoint center = window_rect.CenterPoint();
+    auto has_monitor = [](LONG x, LONG y) {
+        POINT pt{ x, y };
+        return ::MonitorFromPoint(pt, MONITOR_DEFAULTTONULL) != NULL;
+    };
+    params.blocked[static_cast<int>(EdgeDock::Edge::Left)] = has_monitor(m.left - 1, cursor.y) || has_monitor(m.left - 1, center.y);
+    params.blocked[static_cast<int>(EdgeDock::Edge::Right)] = has_monitor(m.right, cursor.y) || has_monitor(m.right, center.y);
+    params.blocked[static_cast<int>(EdgeDock::Edge::Top)] = has_monitor(cursor.x, m.top - 1) || has_monitor(center.x, m.top - 1);
+    params.blocked[static_cast<int>(EdgeDock::Edge::Bottom)] = has_monitor(cursor.x, m.bottom) || has_monitor(center.x, m.bottom);
+
+    EdgeDock::Rect window{ window_rect.left, window_rect.top, window_rect.right, window_rect.bottom };
+    EdgeDock::Rect monitor{ m.left, m.top, m.right, m.bottom };
+    EdgeDock::Rect work{ mi.rcWork.left, mi.rcWork.top, mi.rcWork.right, mi.rcWork.bottom };
+    return EdgeDock::DetectEdge(window, EdgeDock::Point{ cursor.x, cursor.y }, monitor, work, params);
+}
+
+int CTsudevTrafficMonitorDlg::ConfiguredAlpha() const
+{
+    return theApp.m_cfg_data.m_transparency * 255 / 100;
+}
+
+void CTsudevTrafficMonitorDlg::ApplyWindowAlpha(int alpha)
+{
+    alpha = max(0, min(255, alpha));
+    if (m_skin.IsPNG())
+    {
+        //Skin nền PNG vẽ bằng UpdateLayeredWindow: chỉ đổi độ mờ đục, giữ nguyên nội dung đã vẽ (hdcSrc = NULL)
+        m_skin.SetAlpha(alpha);
+        BLENDFUNCTION bf{};
+        bf.BlendOp = AC_SRC_OVER;
+        bf.SourceConstantAlpha = static_cast<BYTE>(alpha);
+        bf.AlphaFormat = AC_SRC_ALPHA;
+        if (!::UpdateLayeredWindow(m_hWnd, nullptr, nullptr, nullptr, nullptr, nullptr, 0, &bf, ULW_ALPHA))
+            Invalidate(FALSE);
+    }
+    else
+    {
+        SetLayeredWindowAttributes(0, static_cast<BYTE>(alpha), LWA_ALPHA);
+    }
+}
+
+void CTsudevTrafficMonitorDlg::DockToEdge(EdgeDock::Edge edge, bool animate)
+{
+    CRect rect;
+    GetWindowRect(rect);
+    EdgeDock::Rect monitor, work;
+    if (edge == EdgeDock::Edge::None || !GetMonitorRects(rect, monitor, work))
+        return;
+    EdgeDock::Rect current{ rect.left, rect.top, rect.right, rect.bottom };
+    EdgeDock::Rect shown = EdgeDock::ShownRect(current, edge, work, theApp.DPI(6));
+    EdgeDock::Rect hidden = EdgeDock::HiddenRect(shown, edge, work);
+
+    m_edge_dock = edge;
+    theApp.m_cfg_data.m_edge_dock = static_cast<int>(edge);
+    theApp.m_cfg_data.m_position_x = shown.left;        //Vị trí lưu là vị trí khi hiện lại
+    theApp.m_cfg_data.m_position_y = shown.top;
+    theApp.SaveConfig();
+    m_tool_tips.Pop();
+
+    if (animate && IsWindowVisible())
+    {
+        //Trượt ra ngoài mép, chậm lúc đầu rồi nhanh dần, đồng thời mờ dần
+        int alpha_from = (m_drag_candidate != EdgeDock::Edge::None || m_edge_handle.IsPreview()) ? ConfiguredAlpha() * 3 / 5 : ConfiguredAlpha();
+        StartEdgeAnim(EdgeAnim::Hide, current, hidden, shown, alpha_from, 0, 240.0);
+    }
+    else
+    {
+        m_edge_anim = EdgeAnim::Hide;
+        m_anim_final = shown;
+        FinishEdgeAnim();
+    }
+}
+
+void CTsudevTrafficMonitorDlg::UndockFromEdge(bool animate)
+{
+    if (!IsEdgeDocked())
+        return;
+    EdgeDock::Edge edge = m_edge_dock;
+    m_edge_dock = EdgeDock::Edge::None;
+    theApp.m_cfg_data.m_edge_dock = 0;
+    m_edge_handle.HideAnimated();
+    theApp.SaveConfig();
+    if (theApp.m_cfg_data.m_hide_main_window)       //Cửa sổ nổi đang bị ẩn theo thiết lập: chỉ bỏ trạng thái thu vào mép
+        return;
+
+    CRect rect;
+    GetWindowRect(rect);
+    EdgeDock::Rect monitor, work;
+    if (!GetMonitorRects(rect, monitor, work))
+    {
+        ShowWindow(SW_SHOWNOACTIVATE);
+        SetTransparency();
+        return;
+    }
+    EdgeDock::Rect shown = EdgeDock::ShownRect(EdgeDock::Rect{ rect.left, rect.top, rect.right, rect.bottom }, edge, work, theApp.DPI(6));
+    EdgeDock::Rect hidden = EdgeDock::HiddenRect(shown, edge, work);
+    if (animate)
+    {
+        //Đặt cửa sổ ở ngoài mép, trong suốt, rồi trượt vào (vượt nhẹ kiểu lò xo) và rõ dần
+        m_edge_anim = EdgeAnim::Show;       //chặn OnMove lưu vị trí tạm thời
+        SetWindowPos(nullptr, hidden.left, hidden.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+        ApplyWindowAlpha(0);
+        ShowWindow(SW_SHOWNOACTIVATE);
+        SetAlwaysOnTop();
+        StartEdgeAnim(EdgeAnim::Show, hidden, shown, shown, 0, ConfiguredAlpha(), 380.0);
+    }
+    else
+    {
+        SetWindowPos(nullptr, shown.left, shown.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+        ShowWindow(SW_SHOWNOACTIVATE);
+        SetTransparency();
+        SetAlwaysOnTop();
+    }
+}
+
+void CTsudevTrafficMonitorDlg::ShowEdgeHandle()
+{
+    if (!IsEdgeDocked() || m_edge_handle.GetSafeHwnd() == NULL)
+        return;
+    if (theApp.m_cfg_data.m_hide_main_window
+        || (theApp.m_main_wnd_data.hide_main_wnd_when_fullscreen && m_is_foreground_fullscreen))
+    {
+        m_edge_handle.HideNow();
+        return;
+    }
+    CRect rect;
+    GetWindowRect(rect);
+    EdgeDock::Rect monitor, work;
+    if (!GetMonitorRects(rect, monitor, work))
+        return;
+    EdgeDock::Rect handle = EdgeDock::HandleRect(EdgeDock::Rect{ rect.left, rect.top, rect.right, rect.bottom }, m_edge_dock, work,
+        CEdgeHandleWnd::Thickness(), CEdgeHandleWnd::Length());
+    m_edge_handle.SetToolTipText(CCommon::LoadText(IDS_EDGE_HANDLE_TIP));
+    if (m_edge_handle.IsShown() && !m_edge_handle.IsPreview() && m_edge_handle.GetEdge() == m_edge_dock)
+    {
+        m_edge_handle.MoveTo(handle);
+        ::SetWindowPos(m_edge_handle.GetSafeHwnd(), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+    }
+    else
+    {
+        m_edge_handle.ShowAt(m_edge_dock, handle, false);
+    }
+}
+
+void CTsudevTrafficMonitorDlg::StartEdgeAnim(EdgeAnim kind, const EdgeDock::Rect& from, const EdgeDock::Rect& to, const EdgeDock::Rect& final_rect, int alpha_from, int alpha_to, double duration_ms)
+{
+    m_edge_anim = kind;
+    m_anim_from = from;
+    m_anim_to = to;
+    m_anim_final = final_rect;
+    m_anim_alpha_from = alpha_from;
+    m_anim_alpha_to = alpha_to;
+    m_anim_duration_ms = duration_ms;
+    m_anim_start_ms = CEdgeHandleWnd::NowMs();
+    SetTimer(EDGE_ANIM_TIMER, USER_TIMER_MINIMUM, nullptr);
+    StepEdgeAnim();
+}
+
+void CTsudevTrafficMonitorDlg::StepEdgeAnim()
+{
+    if (m_edge_anim == EdgeAnim::None)
+    {
+        KillTimer(EDGE_ANIM_TIMER);
+        return;
+    }
+    //Tiến độ theo thời gian thực (không theo số lần bộ định thời chạy) nên chuyển động đều cả khi máy bận
+    double t = EdgeDock::Progress(CEdgeHandleWnd::NowMs() - m_anim_start_ms, m_anim_duration_ms);
+    double pos_t{}, alpha_t{};
+    switch (m_edge_anim)
+    {
+    case EdgeAnim::Hide:
+        pos_t = EdgeDock::EaseInCubic(t);
+        alpha_t = EdgeDock::EaseInOutCubic(t);
+        break;
+    case EdgeAnim::Show:
+        pos_t = EdgeDock::EaseOutBack(t, 0.9);
+        alpha_t = EdgeDock::EaseOutCubic(EdgeDock::Clamp01(t * 1.6));
+        break;
+    default:
+        pos_t = EdgeDock::EaseOutCubic(t);
+        alpha_t = 1.0;
+        break;
+    }
+    EdgeDock::Rect r = EdgeDock::LerpRect(m_anim_from, m_anim_to, pos_t);
+    SetWindowPos(nullptr, r.left, r.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+    if (m_anim_alpha_from != m_anim_alpha_to)
+        ApplyWindowAlpha(EdgeDock::Lerp(m_anim_alpha_from, m_anim_alpha_to, alpha_t));
+    if (t >= 1.0)
+        FinishEdgeAnim();
+}
+
+void CTsudevTrafficMonitorDlg::FinishEdgeAnim()
+{
+    KillTimer(EDGE_ANIM_TIMER);
+    EdgeAnim kind = m_edge_anim;
+    m_edge_anim = EdgeAnim::None;
+    switch (kind)
+    {
+    case EdgeAnim::Hide:
+        //Ẩn hẳn, đặt cửa sổ (đang ẩn) về vị trí khi hiện lại và trả độ mờ đục theo thiết lập
+        ShowWindow(SW_HIDE);
+        SetWindowPos(nullptr, m_anim_final.left, m_anim_final.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+        SetTransparency();
+        ShowEdgeHandle();
+        break;
+    case EdgeAnim::Show:
+    case EdgeAnim::Glide:
+        SetWindowPos(nullptr, m_anim_final.left, m_anim_final.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+        SetTransparency();
+        if (m_skin.IsPNG())
+            Invalidate(FALSE);
+        break;
+    default:
+        break;
+    }
+    theApp.SaveConfig();
+}
+
+void CTsudevTrafficMonitorDlg::StopEdgeAnim()
+{
+    KillTimer(EDGE_ANIM_TIMER);
+    EdgeAnim kind = m_edge_anim;
+    if (kind == EdgeAnim::Hide)
+    {
+        FinishEdgeAnim();       //Đang thu vào thì hoàn tất (cửa sổ đã gần như khuất)
+        return;
+    }
+    m_edge_anim = EdgeAnim::None;
+    SetTransparency();
+    if (m_skin.IsPNG())
+        Invalidate(FALSE);
+    CRect rect;
+    GetWindowRect(rect);
+    theApp.m_cfg_data.m_position_x = rect.left;
+    theApp.m_cfg_data.m_position_y = rect.top;
+}
+
+afx_msg LRESULT CTsudevTrafficMonitorDlg::OnEdgeHandleAction(WPARAM wParam, LPARAM lParam)
+{
+    switch (static_cast<EdgeHandleAction>(wParam))
+    {
+    case EdgeHandleAction::Click:
+        theApp.m_cfg_data.m_hide_main_window = false;
+        UndockFromEdge(true);
+        break;
+    case EdgeHandleAction::DragAlong:
+        if (IsEdgeDocked())
+        {
+            //Kéo tay nắm dọc mép: dời vị trí (đang ẩn) của cửa sổ nổi theo
+            CRect rect;
+            GetWindowRect(rect);
+            EdgeDock::Rect monitor, work;
+            if (GetMonitorRects(rect, monitor, work))
+            {
+                EdgeDock::Rect moved = EdgeDock::SlideAlongEdge(EdgeDock::Rect{ rect.left, rect.top, rect.right, rect.bottom }, m_edge_dock, work, static_cast<int>(lParam));
+                SetWindowPos(nullptr, moved.left, moved.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+                ShowEdgeHandle();
+                theApp.SaveConfig();
+            }
+        }
+        break;
+    case EdgeHandleAction::ContextMenu:
+    {
+        CPoint point;
+        GetCursorPos(&point);
+        SetForegroundWindow();
+        theApp.m_main_menu.GetSubMenu(0)->SetDefaultItem(-1);
+        theApp.m_main_menu.GetSubMenu(0)->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
+        break;
+    }
+    default:
+        break;
+    }
+    return 0;
+}
+
+void CTsudevTrafficMonitorDlg::OnEdgeAutoHide()
+{
+    theApp.m_main_wnd_data.m_edge_auto_hide = !theApp.m_main_wnd_data.m_edge_auto_hide;
+    if (!theApp.m_main_wnd_data.m_edge_auto_hide && IsEdgeDocked())
+        UndockFromEdge(true);
+    theApp.SaveConfig();
 }
 
 
