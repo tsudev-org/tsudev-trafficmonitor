@@ -5,8 +5,8 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] Theo dõi PR winget-pkgs #477193 (`tsudev.TrafficMonitor` 26.11.1001, chờ Microsoft duyệt): phiếu `logs/handover/20261112-03_nhac-theo-doi-winget.md` - kiểm mỗi phiên, gộp xong thì nộp 26.11.1201 với `RelativeFilePath` tên mới.
-- 12/11/2026 - Đã deploy website (logo, tên mới, /ung-ho/; QR production khớp SHA-256). Deploy: `XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy`.
+- [ ] Theo dõi PR winget-pkgs #477193 (`tsudev.TrafficMonitor` 26.11.1001, chờ Microsoft duyệt): phiếu `logs/handover/20261112-03_nhac-theo-doi-winget.md` - kiểm mỗi phiên, gộp xong thì nộp bản mới nhất (26.11.1202) với `RelativeFilePath` tên mới.
+- Deploy website: `XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy` (12/11/2026 đã deploy 26.11.1202).
 - (trống) - việc tùy chọn (chỉ khi người dùng yêu cầu): xem phiếu `logs/handover/20261110-01_ket-phien-1001-va-xoa-repo-cu.md` mục 2
 
 ## Đang thực hiện
@@ -16,6 +16,7 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 12/11/2026 - **Phát hành 26.11.1202** (#64, #65; tag ký V26.11.1202-vn, tự duyệt environment bằng `gh api ... pending_deployments`): **thu cửa sổ nổi vào mép màn hình** (`EdgeDock.h` logic thuần + `tests/EdgeDockTests.cpp` 99 phép kiểm có ASan; tay nắm mũi tên `EdgeHandleWnd` GDI+ layered; hoạt ảnh trượt/mờ theo QPC; kéo tay nắm dọc mép; nhớ `edge_dock`/`edge_auto_hide`; bật/tắt trong Cài đặt > Cửa sổ chính và menu Chức năng khác) và **icon khay theo logo mới** (`notifyicon*.ico` sinh bằng `tools/brand/build_brand.py`; 1201 vẫn còn icon sóng cũ). SHA256SUMS, attestation 3 gói, chữ ký manifest ĐẠT; legacy URL chuyển hướng đúng. Thử Windows bằng build CI: mép trái/phải/trên, gợi ý khi kéo, hover + chú thích, bấm trượt lại, kéo dọc mép, khởi động lại nhớ trạng thái ĐẠT (kịch bản `%TEMP%\tsudev-tm-thu\thu_edge.ps1`, `top.ps1`). Máy chủ dự án đã nâng lên 1202 (Run key trỏ thư mục 1202; sao lưu `%TEMP%\tsudev-tm-thu\truoc-nang-cap-1202-*`). Website + Scoop (excavator) lên 1202.
 - 12/11/2026 - **Phát hành 26.11.1201** (tag ký V26.11.1201-vn, chủ dự án đẩy tag và duyệt environment): SHA256SUMS, `gh attestation verify` 3 gói, chữ ký ECDSA `version_signed.xml` đều ĐẠT; liên kết owner cũ chuyển hướng đúng. Thử thật trên máy chủ dự án: bản 1001 tự thấy 1201, tự tải, SHA khớp, có MotW; nâng cấp máy lên 1201 - chuyển %AppData%, Run key, lịch sử 5 ngày ĐẠT; hộp Giới thiệu đúng logo/tên/"Ủng hộ tsudev". Scoop: scoop-bucket#1 (extract_dir/shortcut tên mới, CI cài thử thật đạt). Website đã deploy 1201.
 - 12/11/2026 - Chuẩn bị 26.11.1201: logo sản phẩm (#57), đổi tên toàn bộ thành tsudev-trafficmonitor + chuyển dữ liệu/tự khởi động bản cũ (#58), gỡ Gitee + ủng hộ cũ (#59), trang `/ung-ho/` riêng (bản tham chiếu tsudev-files, kiểm VietQR + SHA-256) và **sửa lỗi mất bản ghi ngày hôm trước sau nửa đêm** (#61). Thử Windows bằng build CI: chặn chạy song song với bản cũ, chép %AppData%, chuyển Run key đều ĐẠT; lỗi lịch sử tái hiện trên 1001 và hết trên 1201; khôi phục ngày 11/11 bị mất trong dữ liệu thật của chủ máy (sao lưu ở %TEMP%\tsudev-tm-thu\).
 - 10/11/2026 - Phiếu `20261110-05`: website đen tuyền + tím kiểu Supabase, bộ chọn Sáng/Tối/Hệ thống ở chân trang (`public/theme.js`, CSP `script-src 'self'`), CI thêm `check:theme`. Chi tiết: mục Kết quả của phiếu.
