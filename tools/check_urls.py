@@ -39,6 +39,8 @@ ALLOWED_PREFIXES = [
     # Kênh cài bằng lệnh (tsudev-standards PACKAGING.md): bucket Scoop do dự án duy trì + trang Scoop
     "https://github.com/tsudev-org/scoop-bucket",
     "https://scoop.sh",
+    # Kho manifest winget (theo dõi PR nộp gói tsudev.TrafficMonitor)
+    "https://github.com/microsoft/winget-pkgs/",
     # Ghi công thư viện bên thứ ba
     "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor",
     "https://github.com/leethomason/tinyxml2",
