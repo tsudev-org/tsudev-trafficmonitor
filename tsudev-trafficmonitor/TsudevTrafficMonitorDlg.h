@@ -27,6 +27,8 @@
 #include "PdhHardwareQuery/GpuUsage.h"
 #include "PdhHardwareQuery/DiskUsage.h"
 #include "HistoryTrafficFile.h"
+#include "EdgeDock.h"
+#include "EdgeHandleWnd.h"
 
 // Hộp thoại CTsudevTrafficMonitorDlg
 class CTsudevTrafficMonitorDlg : public CDialog
@@ -155,6 +157,30 @@ protected:
     void CheckWindowPos(bool screen_changed = false);          //Kiểm tra vị trí cửa sổ; nếu cửa sổ nằm ngoài màn hình thì di chuyển để toàn bộ cửa sổ nằm trong màn hình và trả về vị trí mới
     void GetScreenSize();           //Lấy kích thước màn hình
 
+    // ---- Thu cửa sổ nổi vào mép màn hình (logic: EdgeDock.h; tay nắm mũi tên: EdgeHandleWnd.h) ----
+    enum class EdgeAnim { None, Hide, Show, Glide };
+    CEdgeHandleWnd m_edge_handle;
+    EdgeDock::Edge m_edge_dock{ EdgeDock::Edge::None };     //Mép đang thu vào (None: cửa sổ nổi hiện bình thường)
+    EdgeAnim m_edge_anim{ EdgeAnim::None };                 //Hoạt ảnh đang chạy
+    EdgeDock::Rect m_anim_from{}, m_anim_to{}, m_anim_final{};
+    int m_anim_alpha_from{}, m_anim_alpha_to{};
+    double m_anim_start_ms{}, m_anim_duration_ms{};
+    bool m_drag_moved{};                                    //Đang kéo cửa sổ nổi và cửa sổ đã dịch chuyển
+    EdgeDock::Edge m_drag_candidate{ EdgeDock::Edge::None };    //Mép sẽ thu vào nếu thả chuột lúc này
+
+    bool IsEdgeDocked() const { return m_edge_dock != EdgeDock::Edge::None; }
+    static bool GetMonitorRects(const CRect& rect, EdgeDock::Rect& monitor, EdgeDock::Rect& work);
+    EdgeDock::Edge DetectDockEdge(const CRect& window_rect) const;
+    int ConfiguredAlpha() const;                //Độ mờ đục theo thiết lập (0~255)
+    void ApplyWindowAlpha(int alpha);           //Đặt độ mờ đục tạm thời cho hoạt ảnh (0~255), không đổi thiết lập
+    void DockToEdge(EdgeDock::Edge edge, bool animate);     //Thu cửa sổ nổi vào mép
+    void UndockFromEdge(bool animate);                      //Hiện lại cửa sổ nổi từ mép
+    void ShowEdgeHandle();                                  //Hiện/cập nhật tay nắm mũi tên theo vị trí cửa sổ
+    void StartEdgeAnim(EdgeAnim kind, const EdgeDock::Rect& from, const EdgeDock::Rect& to, const EdgeDock::Rect& final_rect, int alpha_from, int alpha_to, double duration_ms);
+    void StepEdgeAnim();
+    void FinishEdgeAnim();
+    void StopEdgeAnim();                                    //Dừng hoạt ảnh tại chỗ (vd. người dùng nắm lấy cửa sổ)
+
     void AutoSelect();
     //void UpdateConnections();
     //Tự động chọn kết nối
@@ -234,6 +260,10 @@ public:
     virtual BOOL PreTranslateMessage(MSG* pMsg);
     afx_msg void OnLockWindowPos();
     afx_msg void OnMove(int x, int y);
+    afx_msg void OnEnterSizeMove();
+    afx_msg void OnMoving(UINT fwSide, LPRECT pRect);
+    afx_msg LRESULT OnEdgeHandleAction(WPARAM wParam, LPARAM lParam);
+    afx_msg void OnEdgeAutoHide();
 protected:
     afx_msg LRESULT OnNotifyIcon(WPARAM wParam, LPARAM lParam);
 public:

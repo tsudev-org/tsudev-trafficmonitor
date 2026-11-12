@@ -194,6 +194,7 @@ struct MainConfigData
 
     int m_position_x;   //Tọa độ x của vị trí cửa sổ
     int m_position_y;   //Tọa độ y của vị trí cửa sổ
+    int m_edge_dock{};  //Cửa sổ nổi đang thu vào mép nào (giá trị EdgeDock::Edge; 0 = không thu); khi thu, vị trí lưu là vị trí lúc hiện lại
 
     bool m_auto_select{ false };    //Tự động chọn kết nối
     bool m_select_all{ false };     //Thống kê tốc độ mạng của tất cả kết nối
@@ -267,6 +268,7 @@ struct MainWndSettingData : public PublicSettingData
     bool m_lock_window_pos{ false };    //Khóa vị trí cửa sổ
     bool m_mouse_penetrate{ false };    //Cho chuột xuyên qua
     bool m_alow_out_of_border{ false };     //Có cho phép cửa sổ nổi vượt ra ngoài biên màn hình hay không
+    bool m_edge_auto_hide{ true };          //Kéo cửa sổ nổi sát mép màn hình thì thu gọn vào mép (hiện tay nắm mũi tên)
 
     void FormSkinSettingData(const SkinSettingData& sking_setting_data);
     SkinSettingData ToSkinSettingData() const;

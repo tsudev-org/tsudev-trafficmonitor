@@ -88,6 +88,16 @@ To fix it:
 
 Fonts have different character widths, so values can be clipped. Go to **Options...** → **Taskbar Window Settings** and choose a larger **Net speed data width**.
 
+### Tucking the floating window away at a screen edge
+
+Grab the floating window, drag it **against a screen edge** (left, right, top or bottom) and release: the window slides out past the edge and fades, leaving only a small **arrow handle** at the edge. While dragging, a faint handle appears and the window dims once you reach an edge - releasing there tucks it away.
+
+* **Click the arrow** (or the notification area icon) to slide the window back.
+* **Drag the arrow along the edge** to move it; **right-click** it for the menu.
+* Edges shared with a second monitor don't tuck the window (dragging there moves it to the other monitor).
+* The tucked state is kept the next time the program starts.
+* To turn it off: **Options...** → **Main Window Settings** → uncheck **Drag to a screen edge to tuck the window away**, or right-click → **Other Functions** → **Tuck Away at Screen Edges**.
+
 ### How do I turn off "Mouse Penetrate"?
 
 Right-click the tsudev-trafficmonitor icon in the **notification area** (right side of the taskbar) and uncheck **Mouse Penetrate**.

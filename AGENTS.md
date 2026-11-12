@@ -56,7 +56,7 @@ cd website && npm ci && npm run build
 | `tsudev-trafficmonitor/tinyxml2/`, `OpenHardwareMonitorApi/LibreHardwareMonitorLib.*` | Mã bên thứ ba, giữ nguyên thông báo bản quyền |
 | `tsudev-trafficmonitor/ForkConfig.h` | Nơi duy nhất khai URL của ứng dụng (`tools/check_urls.py` canh) |
 | `assets/brand/source/` | Ảnh gốc logo (nguồn duy nhất của mọi logo/icon/favicon); đổi logo: xem `assets/brand/README.md` |
-| `assets/brand/*.{png,webp,avif}`, `tsudev-trafficmonitor/res/tsudev-trafficmonitor.ico`, `about_background_hd.bmp`, `website/public/` (favicon, icon PWA, og-image, `brand/`) | Sản phẩm sinh từ `tools/brand/build_brand.py`, không sửa tay |
+| `assets/brand/*.{png,webp,avif}`, `tsudev-trafficmonitor/res/tsudev-trafficmonitor.ico`, `notifyicon*.ico` (icon khay), `about_background_hd.bmp`, `website/public/` (favicon, icon PWA, og-image, `brand/`) | Sản phẩm sinh từ `tools/brand/build_brand.py`, không sửa tay |
 | `tsudev-trafficmonitor/skins/0_tsudev_Cu`, `tsudev_*` | Sinh từ `tools/skin_assets/*.py`, không sửa tay |
 | `tools/keys/update_signing_pub.pem` | Khóa công khai; khóa bí mật chỉ ở secret `UPDATE_SIGNING_KEY` (environment `release`) |
 

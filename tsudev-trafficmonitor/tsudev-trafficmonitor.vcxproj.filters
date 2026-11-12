@@ -379,6 +379,12 @@
     <ClInclude Include="XmlParsing.h">
       <Filter>Mã nguồn và header\Lớp dùng chung\SkinFile</Filter>
     </ClInclude>
+    <ClInclude Include="EdgeDock.h">
+      <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
+    </ClInclude>
+    <ClInclude Include="EdgeHandleWnd.h">
+      <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
+    </ClInclude>
     <ClInclude Include="UpdateDownload.h">
       <Filter>Mã nguồn và header\Lớp dùng chung\UpdateHelper</Filter>
     </ClInclude>
@@ -674,6 +680,9 @@
     </ClCompile>
     <ClCompile Include="CVariant.cpp">
       <Filter>Mã nguồn và header\Lớp dùng chung\CVariant</Filter>
+    </ClCompile>
+    <ClCompile Include="EdgeHandleWnd.cpp">
+      <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
     </ClCompile>
     <ClCompile Include="DrawCommonEx.cpp">
       <Filter>Mã nguồn và header\Lớp dùng chung\DrawCommon</Filter>

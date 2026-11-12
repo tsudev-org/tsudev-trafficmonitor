@@ -88,6 +88,15 @@ jobs:
           cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 /Zi /fsanitize=address /Foxml-asan\ tsudev-trafficmonitor\tinyxml2\tinyxml2.cpp || exit /b 1
           cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\XmlParsingTests.cpp xml-asan\tinyxml2.obj /Fe:XmlParsingTestsAsan.exe || exit /b 1
           XmlParsingTestsAsan.exe tsudev-trafficmonitor\skins
+      - name: Kiểm thử thu cửa sổ nổi vào mép màn hình (EdgeDock.h) - thường và ASan
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
+          call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\EdgeDockTests.cpp /Fe:EdgeDockTests.exe || exit /b 1
+          EdgeDockTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\EdgeDockTests.cpp /Fe:EdgeDockTestsAsan.exe || exit /b 1
+          EdgeDockTestsAsan.exe
       - name: Fuzzing phân tích skin.xml (libFuzzer + ASan, 120 giây; hạt giống là skin.xml thật)
         shell: cmd
         run: |
