@@ -39,6 +39,13 @@ ALLOWED_PREFIXES = [
     # Kênh cài bằng lệnh (tsudev-standards PACKAGING.md): bucket Scoop do dự án duy trì + trang Scoop
     "https://github.com/tsudev-org/scoop-bucket",
     "https://scoop.sh",
+    # Khối "Cài bằng lệnh" sinh LÚC BUILD (website/scripts/cai-bang-lenh.mjs, phiếu 20261114-02): catalog chính thức
+    # của ba kho gói + hỏi winget-pkgs xem manifest đã được duyệt chưa. Trang chạy không gọi các URL này.
+    "https://pkg.tsudev.com",
+    "https://raw.githubusercontent.com/tsudev-org/scoop-bucket/",
+    "https://raw.githubusercontent.com/tsudev-org/homebrew-tap/",
+    "https://github.com/tsudev-org/homebrew-tap",
+    "https://api.github.com/repos/microsoft/winget-pkgs/",
     # Kho manifest winget (theo dõi PR nộp gói tsudev.TrafficMonitor)
     "https://github.com/microsoft/winget-pkgs/",
     # Ghi công thư viện bên thứ ba
