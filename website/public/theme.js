@@ -82,4 +82,21 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ganNut);
   else ganNut();
+
+  // Nút "Chép" ở trang Ủng hộ (components/KhoiUngHo.astro): gắn ở đây vì theme.js là script DUY NHẤT của site.
+  function ganNutChep() {
+    Array.prototype.slice.call(document.querySelectorAll('[data-chep]')).forEach(function (n) {
+      n.addEventListener('click', function () {
+        var chu = n.querySelector('[aria-live]');
+        if (!navigator.clipboard) return;   // không có clipboard: giá trị vẫn hiện để chép tay
+        navigator.clipboard.writeText(n.getAttribute('data-chep') || '').then(function () {
+          if (!chu) return;
+          chu.textContent = 'Đã chép';
+          setTimeout(function () { chu.textContent = 'Chép'; }, 1800);
+        }, function () {});
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ganNutChep);
+  else ganNutChep();
 })();

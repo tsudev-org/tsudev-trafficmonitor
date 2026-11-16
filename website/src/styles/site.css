@@ -1,6 +1,6 @@
-/* Giao diện trafficmonitor.tsudev.com - token tsudev (tokens.css, sao nguyên văn từ tsudev-standards) + bảng màu đen/tím
+/* Giao diện trafficmonitor.tsudev.com - token tsudev (tokens.css, sao nguyên văn từ tsudev-standards) + bảng màu đen/xanh logo
    (palette.css). Ngôn ngữ thiết kế kiểu Supabase theo phiếu logs/handover/20261110-05 mục 4: MỘT nền liền mạch từ
-   header tới footer (không dải nền khác màu, không viền ngang cắt trang), tím chỉ ở điểm nhấn, không chuyển động nền.
+   header tới footer (không dải nền khác màu, không viền ngang cắt trang), xanh chỉ ở điểm nhấn, không chuyển động nền.
    Chế độ màu do public/theme.js đặt vào data-theme; CSS không hỏi hệ điều hành. */
 
 :root {
@@ -12,7 +12,7 @@
 html { scroll-padding-top: 5rem; background: var(--bg-base); }
 body {
   margin: 0;
-  /* Quầng tím TĨNH ở đỉnh trang, trên cùng một nền liền mạch */
+  /* Quầng xanh TĨNH ở đỉnh trang, trên cùng một nền liền mạch */
   background: radial-gradient(64rem 34rem at 50% -12rem, var(--glow), transparent 70%) no-repeat, var(--bg-base);
   color: var(--text-primary);
   line-height: 1.65;
@@ -128,7 +128,7 @@ pre {
 .chu-y p { margin: 0.3rem 0; }
 
 /* Trang tài liệu */
-.tai-lieu { display: grid; grid-template-columns: 15rem 1fr; gap: 2.5rem; padding: 2.5rem 0 4rem; }
+.tai-lieu { display: grid; grid-template-columns: 15rem 1fr; gap: 2.5rem; padding-top: 2.5rem; padding-bottom: 4rem; /* chỉ trục dọc: `padding` gộp từng xoá lề 1.25rem của .khung, chữ chạm mép màn điện thoại */ }
 .tai-lieu__menu { position: sticky; top: 5rem; align-self: start; }
 .tai-lieu__menu ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.1rem; }
 .tai-lieu__menu a { display: block; padding: 0.35rem 0.7rem; border-radius: 6px; text-decoration: none; color: var(--text-secondary); font-weight: 500; font-size: 0.94rem; }

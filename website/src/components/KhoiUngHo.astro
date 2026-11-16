@@ -1,0 +1,117 @@
+---
+// Khối kênh ủng hộ - CÙNG KHUÔN với https://tsudev.com/ung-ho (phiên 55 tsudev, 16/11/2026): khung cảnh báo "nơi
+// duy nhất công bố", thẻ QR trên ô trắng (quét được ở cả hai chế độ màu) + bảng thông tin có nút Chép, và hai câu
+// hỏi thường gặp. Dữ liệu vẫn chỉ đến từ src/lib/ung-ho.ts (đã kiểm CRC VietQR, BIN, số tài khoản, SHA-256 ảnh QR
+// lúc build) - khối này chỉ TRÌNH BÀY, không giữ số tài khoản nào của riêng nó.
+// Nút Chép do public/theme.js gắn (script DUY NHẤT của site - scripts/check-dist.mjs canh); clipboard bị chặn thì
+// giá trị vẫn hiện nguyên văn để chép tay.
+import type { KenhUngHo } from '../lib/ung-ho';
+
+interface Props { kenh: KenhUngHo[]; ten: string }
+const { kenh, ten } = Astro.props;
+
+/** "Ngân hàng: VIB (...)" -> { nhan: 'Ngân hàng', giaTri: 'VIB (...)' }. Dòng không có ":" giữ nguyên làm giá trị. */
+function tachDong(d: string) {
+  const i = d.indexOf(':');
+  return i < 0 ? { nhan: '', giaTri: d.trim() } : { nhan: d.slice(0, i).trim(), giaTri: d.slice(i + 1).trim() };
+}
+const chep = (nhan: string) => /số tài khoản|chủ tài khoản/i.test(nhan);
+---
+<div class="ung-ho">
+  <div class="ung-ho__luu-y" role="note">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/></svg>
+    <p><strong>Trang này là nơi duy nhất công bố kênh ủng hộ của {ten}</strong> và chỉ có MỘT tài khoản nhận dưới đây.
+      Ủng hộ là tự nguyện, 100% tới nhà phát triển, không mở khoá tính năng, không đổi lấy quyền lợi nào. Ai gửi bạn số
+      tài khoản hay mã QR khác nhân danh {ten} hoặc tsudev đều không phải chúng tôi.</p>
+  </div>
+
+  {kenh.map((k, i) => {
+    const dong = k.chiTiet.map(tachDong);
+    return (
+      <section class="ung-ho__the" aria-labelledby={`kenh-${i}`}>
+        {k.anhQr && (
+          <div class="ung-ho__qr">
+            <div class="ung-ho__qr-nen">
+              <img src={k.anhQr} width="232" height="232" loading="lazy"
+                alt={k.vietqr ? `Mã QR chuyển khoản ${k.vietqr.soTaiKhoan}` : `Mã QR ${k.ten}`}>
+            </div>
+            {k.vietqr && <p>VietQR · NAPAS 247</p>}
+          </div>
+        )}
+        <div class="ung-ho__noi-dung">
+          <h2 id={`kenh-${i}`}>{k.url ? <a href={k.url} target="_blank" rel="noopener noreferrer">{k.ten}</a> : k.ten}</h2>
+          <p class="ung-ho__mo-ta">{k.moTa}</p>
+          {dong.length > 0 && (
+            <dl class="ung-ho__bang">
+              {dong.map((d) => (
+                <div>
+                  <dt>{d.nhan}</dt>
+                  <dd>
+                    <span class={chep(d.nhan) ? 'ung-ho__so' : undefined}>{d.giaTri}</span>
+                    {chep(d.nhan) && (
+                      <button type="button" class="ung-ho__chep" data-chep={d.giaTri}>
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+                        <span aria-live="polite">Chép</span><span class="an-chu"> {d.nhan.toLowerCase()}</span>
+                      </button>
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </div>
+      </section>
+    );
+  })}
+
+  <section class="ung-ho__hoi" aria-label="Câu hỏi thường gặp">
+    <div>
+      <h2>Ứng dụng có hỏi xin ủng hộ không?</h2>
+      <p>Ứng dụng chỉ có một nút mở trang này trên trình duyệt - không chứa số tài khoản hay mã QR trong bản cài, nên
+        đổi kênh không cần phát hành lại ứng dụng.</p>
+    </div>
+    <div>
+      <h2>Làm sao biết đúng tài khoản?</h2>
+      <p>Mã QR được kiểm tự động mỗi lần dựng trang: mã phải chuyển tới đúng số tài khoản in bằng chữ ở trên, và ảnh QR
+        được ghim mã băm SHA-256 - ai tráo ảnh thì bản dựng dừng. Đối chiếu thêm với
+        <a href="https://tsudev.com/ung-ho" target="_blank" rel="noopener noreferrer">tsudev.com/ung-ho</a>.</p>
+    </div>
+  </section>
+</div>
+
+
+<style>
+  .ung-ho { display: grid; gap: 2rem; margin: 1.5rem 0 2.5rem; }
+  .ung-ho__luu-y { display: flex; gap: 0.75rem; padding: 1rem; border: 1px solid var(--border); border-radius: 0.5rem;
+    background: var(--bg-surface); color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; }
+  .ung-ho__luu-y svg { flex-shrink: 0; margin-top: 0.15rem; color: var(--text-link); }
+  .ung-ho__luu-y p { margin: 0; }
+  .ung-ho__luu-y strong { color: var(--text-primary); font-weight: 600; }
+  .ung-ho__the { display: grid; gap: 2rem; padding: 1.5rem; border: 1px solid var(--border); border-radius: 0.5rem;
+    background: var(--bg-surface); }
+  @media (min-width: 48rem) { .ung-ho__the { grid-template-columns: auto 1fr; padding: 2rem; } }
+  .ung-ho__qr { width: 100%; max-width: 16rem; margin: 0 auto; }
+  .ung-ho__qr-nen { padding: 0.75rem; border-radius: 0.5rem; background: #fff; }
+  .ung-ho .ung-ho__qr-nen img { display: block; width: 100%; height: auto; border: 0; border-radius: 0; background: none; }
+  .ung-ho__qr p { margin: 0.5rem 0 0; text-align: center; font-size: 0.75rem; color: var(--text-muted); }
+  .ung-ho__noi-dung { min-width: 0; }
+  .ung-ho__noi-dung h2 { margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--text-primary); border: 0; padding: 0; }
+  .ung-ho__mo-ta { margin: 0.4rem 0 0; font-size: 0.875rem; color: var(--text-secondary); }
+  .ung-ho__bang { margin: 1.25rem 0 0; border: 1px solid var(--border); border-radius: 0.375rem; }
+  .ung-ho__bang > div { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; }
+  .ung-ho__bang > div + div { border-top: 1px solid var(--border); }
+  .ung-ho__bang dt { width: 8rem; flex-shrink: 0; font-size: 0.875rem; color: var(--text-secondary); }
+  .ung-ho__bang dd { flex: 1; min-width: 0; margin: 0; display: flex; align-items: center; gap: 0.75rem; font-size: 0.875rem; color: var(--text-primary); }
+  .ung-ho__bang dd > span:first-child { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  .ung-ho__bang .ung-ho__so { font-family: var(--font-mono); font-size: 1rem; font-variant-numeric: tabular-nums; }
+  .ung-ho__chep { display: inline-flex; align-items: center; gap: 0.375rem; height: 2rem; flex-shrink: 0; padding: 0 0.5rem;
+    border: 0; border-radius: 0.25rem; background: transparent; color: var(--text-secondary); font: inherit; font-size: 0.875rem; cursor: pointer; }
+  .ung-ho__chep:hover { background: var(--bg-subtle); color: var(--text-primary); }
+  .ung-ho__chep:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+  .an-chu { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .ung-ho__hoi { display: grid; gap: 1.5rem; }
+  @media (min-width: 48rem) { .ung-ho__hoi { grid-template-columns: 1fr 1fr; } }
+  .ung-ho__hoi h2 { margin: 0; font-size: 1rem; font-weight: 600; color: var(--text-primary); border: 0; padding: 0; }
+  .ung-ho__hoi p { margin: 0.4rem 0 0; font-size: 0.875rem; color: var(--text-secondary); }
+  @media (max-width: 30rem) { .ung-ho__bang > div { flex-wrap: wrap; } .ung-ho__bang dt { width: 100%; } }
+</style>
