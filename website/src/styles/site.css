@@ -189,3 +189,11 @@ pre {
 .kenh-ung-ho > li { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem; border: 1px solid var(--border); border-radius: 0.75rem; background: var(--bg-surface); }
 .kenh-ung-ho__chi-tiet { display: flex; flex-direction: column; font-variant-numeric: tabular-nums; color: var(--text-secondary); }
 .kenh-ung-ho img { width: 200px; max-width: 100%; height: auto; border-radius: 0.5rem; background: #fff; padding: 0.5rem; align-self: flex-start; }
+
+/* Khối "Cài bằng lệnh" (trang Tải về) - dữ liệu sinh lúc build, nút Chép do theme.js gắn. */
+.cai-lenh { margin: 1rem 0 1.25rem; }
+.cai-lenh__kenh { margin: 0.75rem 0; }
+.cai-lenh__ten { margin: 0 0 0.35rem; }
+.cai-lenh__khoi { display: flex; gap: 0.5rem; align-items: flex-start; }
+.cai-lenh__khoi pre { margin: 0; flex: 1 1 auto; min-width: 0; }
+.cai-lenh__chep { flex: none; margin-top: 0.5rem; }
