@@ -1,9 +1,11 @@
 ---
 // Trang Ủng hộ: nơi DUY NHẤT liệt kê cách ủng hộ tsudev-trafficmonitor (ứng dụng, README, nút Sponsor GitHub trỏ về đây).
-// Dữ liệu: src/data/ung-ho.json, kiểm lúc build ở src/lib/ung-ho.ts. Theo bản tham chiếu tsudev-files (phiếu 20261112-01).
+// Dữ liệu: src/data/ung-ho.json, kiểm lúc build ở src/lib/ung-ho.ts. Theo bản tham chiếu tsudev-files (phiếu 20261112-01);
+// trình bày cùng khuôn với tsudev.com/ung-ho qua components/KhoiUngHo.astro (16/11/2026).
 import Trang from '../layouts/Trang.astro';
 import { REPO_URL } from '../lib/noi-dung';
 import { KENH } from '../lib/ung-ho';
+import KhoiUngHo from '../components/KhoiUngHo.astro';
 ---
 <Trang tieuDe="Ủng hộ" moTa="Cách ủng hộ tsudev-trafficmonitor, phần mềm theo dõi tốc độ mạng miễn phí của hệ sinh thái tsudev: kênh chuyển khoản chính thức và cách đóng góp không tốn tiền." duongDan="/ung-ho/">
   <div class="khung tai-lieu">
@@ -19,17 +21,7 @@ import { KENH } from '../lib/ung-ho';
       <p>tsudev-trafficmonitor miễn phí và sẽ luôn miễn phí, không quảng cáo, không thu thập dữ liệu. Mọi đóng góp đều dành cho việc phát triển tsudev-trafficmonitor và hệ sinh thái <a href="https://tsudev.com" target="_blank" rel="noopener noreferrer">tsudev</a>.</p>
 
       <h2 id="kenh-ung-ho">Kênh ủng hộ</h2>
-      <ul class="kenh-ung-ho">
-        {KENH.map((k) => (
-          <li>
-            {k.url ? <a href={k.url} target="_blank" rel="noopener noreferrer"><strong>{k.ten}</strong></a> : <strong>{k.ten}</strong>}
-            <span>{k.moTa}</span>
-            {k.chiTiet.length > 0 && <span class="kenh-ung-ho__chi-tiet">{k.chiTiet.map((d) => <span>{d}</span>)}</span>}
-            {k.anhQr && <img src={k.anhQr} alt={k.vietqr ? `Mã QR chuyển khoản VIB ${k.vietqr.soTaiKhoan}` : `Mã QR ${k.ten}`} width="200" height="200" loading="lazy">}
-          </li>
-        ))}
-      </ul>
-      <p>Đây là kênh ủng hộ duy nhất của tsudev-trafficmonitor; trang này là nơi duy nhất công bố kênh ủng hộ. Trước khi chuyển, hãy kiểm tra tên chủ tài khoản mà ứng dụng ngân hàng hiển thị khớp với thông tin trên; đừng chuyển tiền theo số tài khoản hay mã QR ở bất kỳ nơi nào khác tự nhận là tsudev. Phần mềm không bao giờ hiện số tài khoản hay mã QR bên trong ứng dụng.</p>
+      <KhoiUngHo kenh={KENH} ten="tsudev-trafficmonitor" />
 
       <h2 id="khong-ton-tien">Ủng hộ không tốn tiền</h2>
       <ul>
