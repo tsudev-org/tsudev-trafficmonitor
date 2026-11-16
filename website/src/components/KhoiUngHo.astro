@@ -46,13 +46,15 @@ const chep = (nhan: string) => /số tài khoản|chủ tài khoản/i.test(nhan
               {dong.map((d) => (
                 <div>
                   <dt>{d.nhan}</dt>
-                  <dd class={chep(d.nhan) ? 'ung-ho__so' : undefined}>{d.giaTri}</dd>
-                  {chep(d.nhan) && (
-                    <button type="button" class="ung-ho__chep" data-chep={d.giaTri}>
-                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
-                      <span aria-live="polite">Chép</span><span class="an-chu"> {d.nhan.toLowerCase()}</span>
-                    </button>
-                  )}
+                  <dd>
+                    <span class={chep(d.nhan) ? 'ung-ho__so' : undefined}>{d.giaTri}</span>
+                    {chep(d.nhan) && (
+                      <button type="button" class="ung-ho__chep" data-chep={d.giaTri}>
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+                        <span aria-live="polite">Chép</span><span class="an-chu"> {d.nhan.toLowerCase()}</span>
+                      </button>
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -99,8 +101,9 @@ const chep = (nhan: string) => /số tài khoản|chủ tài khoản/i.test(nhan
   .ung-ho__bang > div { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; }
   .ung-ho__bang > div + div { border-top: 1px solid var(--border); }
   .ung-ho__bang dt { width: 8rem; flex-shrink: 0; font-size: 0.875rem; color: var(--text-secondary); }
-  .ung-ho__bang dd { flex: 1; min-width: 0; margin: 0; overflow-wrap: anywhere; font-size: 0.875rem; color: var(--text-primary); }
-  .ung-ho__bang dd.ung-ho__so { font-family: var(--font-mono); font-size: 1rem; font-variant-numeric: tabular-nums; }
+  .ung-ho__bang dd { flex: 1; min-width: 0; margin: 0; display: flex; align-items: center; gap: 0.75rem; font-size: 0.875rem; color: var(--text-primary); }
+  .ung-ho__bang dd > span:first-child { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  .ung-ho__bang .ung-ho__so { font-family: var(--font-mono); font-size: 1rem; font-variant-numeric: tabular-nums; }
   .ung-ho__chep { display: inline-flex; align-items: center; gap: 0.375rem; height: 2rem; flex-shrink: 0; padding: 0 0.5rem;
     border: 0; border-radius: 0.25rem; background: transparent; color: var(--text-secondary); font: inherit; font-size: 0.875rem; cursor: pointer; }
   .ung-ho__chep:hover { background: var(--bg-subtle); color: var(--text-primary); }
