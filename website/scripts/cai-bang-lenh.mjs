@@ -58,8 +58,12 @@ const windows = [];
 // Mã winget khai trước khi Microsoft duyệt: chỉ hiện lệnh khi manifest ĐÃ có trong microsoft/winget-pkgs (đo lúc build),
 // không thì người dùng chép một lệnh báo "No package found".
 let wingetCo = false;
+// Kiểm mã winget TRƯỚC khi đưa vào URL gọi mạng: mỗi đoạn giữa dấu chấm khác rỗng (không `..`), chỉ chữ/số/gạch.
+const WINGET_ID = /^[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/;
+let duong = '';
 if (goiCauHinh.winget) {
-  const duong = `manifests/${goiCauHinh.winget[0].toLowerCase()}/${goiCauHinh.winget.split('.').join('/')}`;
+  if (typeof goiCauHinh.winget !== 'string' || !WINGET_ID.test(goiCauHinh.winget)) loi(`mã winget không hợp lệ: ${goiCauHinh.winget}`);
+  duong = ['manifests', goiCauHinh.winget[0].toLowerCase(), ...goiCauHinh.winget.split('.')].map(encodeURIComponent).join('/');
   const r = await fetch(`https://api.github.com/repos/microsoft/winget-pkgs/contents/${duong}`, {
     signal: AbortSignal.timeout(20000),
     headers: { 'User-Agent': 'tsudev-trafficmonitor-website', ...(process.env.GITHUB_TOKEN && { authorization: `Bearer ${process.env.GITHUB_TOKEN}` }) },
@@ -69,12 +73,11 @@ if (goiCauHinh.winget) {
   else loi(`winget-pkgs trả HTTP ${r.status}`);
 }
 if (wingetCo) {
-  if (!/^[A-Za-z0-9-]+\.[A-Za-z0-9.-]+$/.test(goiCauHinh.winget)) loi(`mã winget không hợp lệ: ${goiCauHinh.winget}`);
   windows.push({
     kenh: 'winget',
     ghiChu: 'bộ cài, có sẵn trên Windows 10/11',
     lenh: [`winget install --id ${goiCauHinh.winget} -e`],
-    nguon: `https://github.com/microsoft/winget-pkgs/tree/master/manifests/${goiCauHinh.winget[0].toLowerCase()}/${goiCauHinh.winget.split('.').join('/')}`,
+    nguon: `https://github.com/microsoft/winget-pkgs/tree/master/${duong}`,
   });
 }
 for (const p of scoop.goi) {
