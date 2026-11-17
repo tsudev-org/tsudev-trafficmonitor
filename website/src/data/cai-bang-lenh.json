@@ -1,0 +1,24 @@
+{
+  "nguon": {
+    "pkg": "https://pkg.tsudev.com/catalog.json",
+    "scoop": "https://raw.githubusercontent.com/tsudev-org/scoop-bucket/main/catalog.json",
+    "brew": "https://raw.githubusercontent.com/tsudev-org/homebrew-tap/main/catalog.json"
+  },
+  "nhom": [
+    {
+      "heDieuHanh": "Windows",
+      "kenh": [
+        {
+          "kenh": "Scoop",
+          "ghiChu": "không cần quyền quản trị, tự chọn bản x64/x86/ARM64",
+          "lenh": [
+            "scoop bucket add tsudev https://github.com/tsudev-org/scoop-bucket",
+            "scoop install tsudev/tsudev-trafficmonitor"
+          ],
+          "lenhTao": [],
+          "nguon": "https://github.com/tsudev-org/scoop-bucket"
+        }
+      ]
+    }
+  ]
+}

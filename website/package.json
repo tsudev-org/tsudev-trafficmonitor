@@ -5,7 +5,7 @@
   "description": "Trang sản phẩm trafficmonitor.tsudev.com (Astro, trang tĩnh, không JavaScript phía trình duyệt)",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/sync-content.mjs && astro build && node scripts/check-dist.mjs",
+    "build": "node scripts/sync-content.mjs && node scripts/cai-bang-lenh.mjs && astro build && node scripts/check-dist.mjs",
     "preview": "astro preview",
     "deploy": "npm run build && wrangler pages deploy dist --project-name tsudev-trafficmonitor --branch main --commit-dirty=true",
     "check:a11y": "node scripts/check-a11y.mjs",
