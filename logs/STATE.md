@@ -9,6 +9,7 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
+- [ ] **TC1 - tên sản phẩm riêng** (phiếu `logs/handover/20261119-TC1_yeu-cau-ten-san-pham-rieng.md`, phiếu tổng `~/projects/logs/handover/20261119-TC1_ten-goi-rieng-toan-he.md`): CHỜ chủ dự án chọn tên sản phẩm + tên miền. Agent KHÔNG tự đặt tên; có tên rồi mới viết ADR đổi tên (giữ updater bản đã cài, di trú %AppData%/Run key, tên cũ bất khả xâm phạm).
 - [ ] Theo dõi PR winget-pkgs #477193 (`tsudev.TrafficMonitor` 26.11.1001, chờ Microsoft duyệt): phiếu `logs/handover/20261112-03_nhac-theo-doi-winget.md` - kiểm mỗi phiên, gộp xong thì nộp bản mới nhất (26.11.1202) với `RelativeFilePath` tên mới.
 - Deploy website: `XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy` (12/11/2026 đã deploy 26.11.1202).
 - (trống) - việc tùy chọn (chỉ khi người dùng yêu cầu): xem phiếu `logs/handover/20261110-01_ket-phien-1001-va-xoa-repo-cu.md` mục 2
