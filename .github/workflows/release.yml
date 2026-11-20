@@ -158,3 +158,18 @@ jobs:
             --notes "Xem nhật ký thay đổi: https://github.com/$GITHUB_REPOSITORY/blob/main/UpdateLog/update_log_vi.md
 
           Kiểm tra mã băm SHA-256 trong SHA256SUMS.txt và chứng thực nguồn gốc build (gh attestation verify) trước khi sử dụng - xem SECURITY.md. Mỗi gói kèm SBOM SPDX (*.spdx.json) có chứng thực."
+
+  # DISTRIBUTION_TRUST.md mục 3: mọi gói .zip của Release được gửi lên VirusTotal, link báo cáo ghi vào Release
+  # notes; có engine gắn cờ ⇒ Release về nháp + job đỏ (mở phiếu báo nhầm, hạn 48 giờ) - bản đã cài sẽ không thấy
+  # bản mới cho tới khi gỡ cờ, đúng ý đồ. Chưa có VT_API_KEY của tổ chức ⇒ job xanh, bỏ qua. Phiếu 20261120-TR1, TR1-b.
+  virustotal:
+    needs: publish
+    permissions:
+      contents: write
+    # tsudev-org/.github @ 8a393eb (feat(ci): workflow dung chung quet VirusTotal, #4)
+    uses: tsudev-org/.github/.github/workflows/virustotal.yml@8a393ebd89349300637c8c57e89c12492b174e4d
+    with:
+      tag: ${{ github.event.inputs.tag || github.ref_name }}
+      patterns: "tsudev-trafficmonitor_*.zip"
+    secrets:
+      VT_API_KEY: ${{ secrets.VT_API_KEY }}
