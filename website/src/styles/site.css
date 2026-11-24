@@ -175,6 +175,8 @@ pre {
 .bang th, .bang td { padding: 0.55rem 0.8rem; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
 .bang th { background: var(--bg-subtle); font-weight: 600; }
 .bang tr:last-child td { border-bottom: 0; }
+.bang th[scope="row"] { background: none; }
+.bang__ghi-chu { margin: 0.3rem 0 0; font-weight: 400; font-size: 0.85rem; color: var(--text-muted); }
 .giay-phep { white-space: pre-wrap; font-size: 0.85rem; }
 
 /* Chân trang: cùng nền trang; hàng cuối "© tsudev" + bộ chọn giao diện */

@@ -1,0 +1,90 @@
+{
+  "$comment": "Nguồn dữ liệu của trang https://tramon.tsudev.com/security/ (phiếu 20261125-SEC2). Chỉ ghi số đo THẬT, mỗi mục 'bang_chung' phải có liên kết tới trang kết quả do bên thứ ba lưu trữ + ngày đo (YYYY-MM-DD). Không có liên kết kiểm chứng => đưa vào 'chua_co' kèm lý do. website/src/lib/tin-cay.ts dừng build khi thiếu trường hoặc ngày đo quá 120 ngày.",
+  "cap_nhat": "2026-11-25",
+  "bang_chung": [
+    {
+      "ma": "E5",
+      "ten": "SSL Labs (Qualys)",
+      "ket_qua": "A+ trên cả 4 địa chỉ IPv4/IPv6",
+      "lien_ket": "https://www.ssllabs.com/ssltest/analyze.html?d=tramon.tsudev.com&hideResults=on",
+      "ngay_do": "2026-11-25",
+      "ghi_chu": "Kiểm cấu hình TLS của tramon.tsudev.com; bấm liên kết để chạy lại (không công khai lên bảng xếp hạng)."
+    },
+    {
+      "ma": "E6",
+      "ten": "Mozilla HTTP Observatory",
+      "ket_qua": "A+ (140 điểm, đạt 12/12 bài kiểm tra)",
+      "lien_ket": "https://developer.mozilla.org/en-US/observatory/analyze?host=tramon.tsudev.com",
+      "ngay_do": "2026-11-24",
+      "ghi_chu": "Kiểm header bảo mật: CSP không 'unsafe-inline', HSTS, X-Content-Type-Options, Referrer-Policy, chống nhúng khung."
+    },
+    {
+      "ma": "E2",
+      "ten": "OpenSSF Scorecard",
+      "ket_qua": "7.5/10",
+      "lien_ket": "https://scorecard.dev/viewer/?uri=github.com/tsudev-org/tsutramon",
+      "ngay_do": "2026-11-25",
+      "ghi_chu": "Chấm tự động thực hành bảo mật của repo. Điểm thấp: Code-Review 0 (dự án một người bảo trì, không có người duyệt thứ hai), Contributors 0 (không có tổ chức đóng góp), Maintained 0 (repo tạo chưa đủ 90 ngày), Branch-Protection 4."
+    },
+    {
+      "ma": "E3",
+      "ten": "Bản phát hành 26.11.2401: SHA-256, chứng thực build, SBOM",
+      "ket_qua": "Mỗi gói có SHA256SUMS.txt, chứng thực nguồn gốc build của GitHub Actions và SBOM SPDX; manifest cập nhật ký ECDSA P-256",
+      "lien_ket": "https://github.com/tsudev-org/tsutramon/releases/tag/v26.11.2401",
+      "ngay_do": "2026-11-24",
+      "ghi_chu": "Cách tự kiểm ở mục \"Tự kiểm tra bản tải về\" bên dưới."
+    },
+    {
+      "ma": "E3",
+      "ten": "VirusTotal - gói x64 26.11.2401",
+      "ket_qua": "0/73 engine gắn cờ",
+      "lien_ket": "https://www.virustotal.com/gui/file/31c5d70c69a0d3e587f72212ed380beb66ab502523f93fb7a96d08785beec780",
+      "ngay_do": "2026-11-24"
+    },
+    {
+      "ma": "E3",
+      "ten": "VirusTotal - gói x86 26.11.2401",
+      "ket_qua": "0/73 engine gắn cờ",
+      "lien_ket": "https://www.virustotal.com/gui/file/372bc87bffa924175e62f343e94a795bc1ec211bab704c8e4f711904af8b5aa8",
+      "ngay_do": "2026-11-24"
+    },
+    {
+      "ma": "E3",
+      "ten": "VirusTotal - gói ARM64EC 26.11.2401",
+      "ket_qua": "1/73 engine gắn cờ (Malwarebytes, nhận diện heuristic chung Malware.Heuristic.2108)",
+      "lien_ket": "https://www.virustotal.com/gui/file/44f203c8e0a4c6161cb10aea6bcc65109473ec9e338de7304c5783c3728044aa",
+      "ngay_do": "2026-11-24",
+      "ghi_chu": "Báo nhầm, đã gửi Malwarebytes (ticket 8706403) ngày 24/11/2026. Gói x64/x86 build từ cùng mã nguồn sạch 0/73."
+    },
+    {
+      "ma": "E10",
+      "ten": "Báo lỗ hổng riêng tư trên GitHub",
+      "ket_qua": "Đang bật; có chính sách SECURITY.md",
+      "lien_ket": "https://github.com/tsudev-org/tsutramon/security",
+      "ngay_do": "2026-11-25"
+    }
+  ],
+  "chua_co": [
+    {
+      "ma": "E1",
+      "ten": "OpenSSF Best Practices",
+      "ly_do": "Không áp dụng: tiêu chí bắt buộc floss_license đòi giấy phép mã nguồn mở được OSI công nhận, còn Tsu Tramon kế thừa giấy phép Anti 996 của dự án gốc (không thuộc danh sách OSI). Khai \"đạt\" sẽ là khai sai nên không tạo hồ sơ."
+    },
+    {
+      "ma": "E8",
+      "ten": "Chữ ký số Authenticode (SignPath Foundation)",
+      "ly_do": "Không áp dụng: SignPath Foundation chỉ nhận dự án có giấy phép OSI; chứng thư thương mại tốn phí, trái nguyên tắc chi phí 0 đồng. Thay bằng SHA-256, chứng thực build, manifest ký ECDSA và build tái lập."
+    },
+    {
+      "ma": "E7",
+      "ten": "HSTS preload",
+      "ly_do": "Website đã gửi header Strict-Transport-Security có preload; tên miền gốc tsudev.com chưa nộp vào danh sách preload của trình duyệt (việc chung của hệ tsudev).",
+      "lien_ket": "https://hstspreload.org/?domain=tsudev.com"
+    },
+    {
+      "ma": "E9",
+      "ten": "Tín nhiệm mạng / Thông báo Bộ Công Thương",
+      "ly_do": "Chưa có cho tramon.tsudev.com. Website không bán hàng, không thanh toán nên không thuộc diện thông báo Bộ Công Thương."
+    }
+  ]
+}

@@ -23,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 LOCAL_FILE = ROOT / "website" / "public" / ".well-known" / "security.txt"
-LIVE_URL = "https://trafficmonitor.tsudev.com/.well-known/security.txt"
+LIVE_URL = "https://tramon.tsudev.com/.well-known/security.txt"
 
 
 def parse_expires(text: str, source: str, errors: list[str]) -> dt.datetime | None:
