@@ -1,6 +1,6 @@
 # PHIẾU YÊU CẦU SEC2 - Trang `/security` với bằng chứng tin cậy TỰ KIỂM CHỨNG ĐƯỢC
 
-- **Mã phiếu**: 20261125-SEC2 (bản sao cho repo) - **Từ**: phiên `tsudev-8d`, 25/11/2026, theo yêu cầu chủ dự án - **Trạng thái**: MỞ
+- **Mã phiếu**: 20261125-SEC2 (bản sao cho repo) - **Từ**: phiên `tsudev-8d`, 25/11/2026, theo yêu cầu chủ dự án - **Trạng thái**: ĐÓNG 25/11/2026
 - **Phiếu gốc (ĐỌC mục 0-2 TRƯỚC)**: `~/projects/logs/handover/20261125-SEC2_trang-security-bang-chung-tin-cay-toan-he.md`
 - **Website của repo**: tramon.tsudev.com
 
@@ -31,3 +31,4 @@ E4 security.txt (Contact security@tsudev.com, test Expires) · E5 SSL Labs · E6
   SSL Labs xong **A+ 4/4**. Trang `/security/` (dữ liệu `docs/security/trust.json`, kiểm lúc build `website/src/lib/tin-cay.ts`:
   liên kết https ngoài site, ngày đo ≤ 120 ngày), `security.txt` thêm `Contact: mailto:security@tsudev.com` + `Policy` → `/security/`,
   chân trang + sitemap, `check-dist.mjs` kiểm nội dung trang. E1/E8 ghi lý do (Anti-996 không phải OSI). Phiếu ĐÓNG sau khi gộp + deploy.
+- 25/11/2026 - tsudev-trafficmonitor: #92 gộp + deploy, trang live (kiểm nội dung). `trust.json` cập nhật sang bản 26.11.2501. ĐÓNG.

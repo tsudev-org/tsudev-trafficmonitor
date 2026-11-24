@@ -28,33 +28,33 @@
     },
     {
       "ma": "E3",
-      "ten": "Bản phát hành 26.11.2401: SHA-256, chứng thực build, SBOM",
+      "ten": "Bản phát hành 26.11.2501: SHA-256, chứng thực build, SBOM",
       "ket_qua": "Mỗi gói có SHA256SUMS.txt, chứng thực nguồn gốc build của GitHub Actions và SBOM SPDX; manifest cập nhật ký ECDSA P-256",
-      "lien_ket": "https://github.com/tsudev-org/tsutramon/releases/tag/v26.11.2401",
-      "ngay_do": "2026-11-24",
+      "lien_ket": "https://github.com/tsudev-org/tsutramon/releases/tag/v26.11.2501",
+      "ngay_do": "2026-11-25",
       "ghi_chu": "Cách tự kiểm ở mục \"Tự kiểm tra bản tải về\" bên dưới."
     },
     {
       "ma": "E3",
-      "ten": "VirusTotal - gói x64 26.11.2401",
-      "ket_qua": "0/73 engine gắn cờ",
-      "lien_ket": "https://www.virustotal.com/gui/file/31c5d70c69a0d3e587f72212ed380beb66ab502523f93fb7a96d08785beec780",
-      "ngay_do": "2026-11-24"
+      "ten": "VirusTotal - gói x64 26.11.2501",
+      "ket_qua": "0/74 engine gắn cờ",
+      "lien_ket": "https://www.virustotal.com/gui/file/3151df0dc8fd942e6f0321401154a7fdf22bcebf2a29498d87ba46da373af878",
+      "ngay_do": "2026-11-25"
     },
     {
       "ma": "E3",
-      "ten": "VirusTotal - gói x86 26.11.2401",
-      "ket_qua": "0/73 engine gắn cờ",
-      "lien_ket": "https://www.virustotal.com/gui/file/372bc87bffa924175e62f343e94a795bc1ec211bab704c8e4f711904af8b5aa8",
-      "ngay_do": "2026-11-24"
+      "ten": "VirusTotal - gói x86 26.11.2501",
+      "ket_qua": "0/74 engine gắn cờ",
+      "lien_ket": "https://www.virustotal.com/gui/file/8aa3237c497c0906ed456020481880e2d90024b3679b3c102f123622fe365b24",
+      "ngay_do": "2026-11-25"
     },
     {
       "ma": "E3",
-      "ten": "VirusTotal - gói ARM64EC 26.11.2401",
-      "ket_qua": "1/73 engine gắn cờ (Malwarebytes, nhận diện heuristic chung Malware.Heuristic.2108)",
-      "lien_ket": "https://www.virustotal.com/gui/file/44f203c8e0a4c6161cb10aea6bcc65109473ec9e338de7304c5783c3728044aa",
-      "ngay_do": "2026-11-24",
-      "ghi_chu": "Báo nhầm, đã gửi Malwarebytes (ticket 8706403) ngày 24/11/2026. Gói x64/x86 build từ cùng mã nguồn sạch 0/73."
+      "ten": "VirusTotal - gói ARM64EC 26.11.2501",
+      "ket_qua": "1/74 engine gắn cờ (Malwarebytes, nhận diện heuristic chung Malware.Heuristic.2108)",
+      "lien_ket": "https://www.virustotal.com/gui/file/27e3af98256374b142e37b27a695963755afe4dcefb00a3c0e9072e353a8d19c",
+      "ngay_do": "2026-11-25",
+      "ghi_chu": "Báo nhầm, đã gửi Malwarebytes (ticket 8706403) ngày 24/11/2026 (cùng nhận diện từ bản 26.11.2401). Gói x64/x86 build từ cùng mã nguồn sạch 0/74."
     },
     {
       "ma": "E10",

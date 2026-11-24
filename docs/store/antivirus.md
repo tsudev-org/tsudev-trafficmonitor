@@ -15,6 +15,10 @@ Phiếu: `logs/handover/20261122-AV1_bao-nham-antivirus.md`. Thư soạn sẵn c
 | 24/11/2026 | `v26.11.2401` | `tsutramon_26.11.2401_windows-arm64ec.zip` (+ bản sao tên cũ cùng byte) | `44f203c8e0a4c6161cb10aea6bcc65109473ec9e338de7304c5783c3728044aa` | 1+0/73 | Malwarebytes `Malware.Heuristic.2108` |
 | 24/11/2026 | `v26.11.2401` | `tsutramon_26.11.2401_windows-x64.zip` | `31c5d70c69a0d3e587f72212ed380beb66ab502523f93fb7a96d08785beec780` | 0+0/73 | - |
 | 24/11/2026 | `v26.11.2401` | `tsutramon_26.11.2401_windows-x86.zip` | `372bc87bffa924175e62f343e94a795bc1ec211bab704c8e4f711904af8b5aa8` | 0+0/73 | - |
+| 25/11/2026 | `v26.11.2401` | arm64ec (đo lại) | như trên | 1+0/73 | Malwarebytes `Malware.Heuristic.2108` |
+| 25/11/2026 | `v26.11.2501` | `tsutramon_26.11.2501_windows-arm64ec.zip` (+ bản sao tên cũ cùng byte) | `27e3af98256374b142e37b27a695963755afe4dcefb00a3c0e9072e353a8d19c` | 1+0/74 | Malwarebytes `Malware.Heuristic.2108` |
+| 25/11/2026 | `v26.11.2501` | `tsutramon_26.11.2501_windows-x64.zip` | `3151df0dc8fd942e6f0321401154a7fdf22bcebf2a29498d87ba46da373af878` | 0+0/74 | - |
+| 25/11/2026 | `v26.11.2501` | `tsutramon_26.11.2501_windows-x86.zip` | `8aa3237c497c0906ed456020481880e2d90024b3679b3c102f123622fe365b24` | 0+0/74 | - |
 
 Malwarebytes `Malware.Heuristic.2108` là nhận diện heuristic chung (không phải chữ ký mẫu mã độc cụ thể), chỉ trên
 bản ARM64EC; bản x64/x86 build từ cùng mã nguồn sạch 0/74.
