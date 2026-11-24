@@ -85,11 +85,11 @@ bool create_auto_start_task_for_this_user(bool runElevated)
     ExitOnFailure(hr, "ITaskService::Connect failed: %x", hr);
 
     // ------------------------------------------------------
-    // Get the tsudev-trafficmonitor task folder. Creates it if it doesn't exist.
+    // Get the TsuTramon task folder. Creates it if it doesn't exist.
     hr = pService->GetFolder(_bstr_t(AUTO_START_TASK_FOLDER), &pTaskFolder);
     if (FAILED(hr))
     {
-        // Folder doesn't exist. Get the Root folder and create the tsudev-trafficmonitor subfolder.
+        // Folder doesn't exist. Get the Root folder and create the TsuTramon subfolder.
         ITaskFolder* pRootFolder = NULL;
         hr = pService->GetFolder(_bstr_t(L"\\"), &pRootFolder);
         ExitOnFailure(hr, "Cannot get Root Folder pointer: %x", hr);
@@ -97,7 +97,7 @@ bool create_auto_start_task_for_this_user(bool runElevated)
         if (FAILED(hr))
         {
             pRootFolder->Release();
-            ExitOnFailure(hr, "Cannot create tsudev-trafficmonitor task folder: %x", hr);
+            ExitOnFailure(hr, "Cannot create TsuTramon task folder: %x", hr);
         }
     }
 
@@ -195,7 +195,7 @@ bool create_auto_start_task_for_this_user(bool runElevated)
         pAction->Release();
         ExitOnFailure(hr, "QueryInterface call failed for IExecAction: %x", hr);
 
-        // Set the path of the executable to tsudev-trafficmonitor (passed as CustomActionData).
+        // Set the path of the executable to TsuTramon (passed as CustomActionData).
         hr = pExecAction->put_Path(_bstr_t(wszExecutablePath));
         pExecAction->Release();
         ExitOnFailure(hr, "Cannot set path of executable: %x", hr);
@@ -227,7 +227,7 @@ bool create_auto_start_task_for_this_user(bool runElevated)
         ExitOnFailure(hr, "Cannot put principal run level: %x", hr);
     }
     // ------------------------------------------------------
-    //  Save the task in the tsudev-trafficmonitor folder.
+    //  Save the task in the TsuTramon folder.
     {
         _variant_t SDDL_FULL_ACCESS_FOR_EVERYONE = L"D:(A;;FA;;;WD)";
         hr = pTaskFolder->RegisterTaskDefinition(
@@ -296,7 +296,7 @@ bool delete_auto_start_task_for_this_user(const wchar_t* folder)
     ExitOnFailure(hr, "ITaskService::Connect failed: %x", hr);
 
     // ------------------------------------------------------
-    // Get the tsudev-trafficmonitor task folder.
+    // Get the TsuTramon task folder.
     hr = pService->GetFolder(_bstr_t(folder), &pTaskFolder);
     if (FAILED(hr))
     {
@@ -363,7 +363,7 @@ bool is_auto_start_task_active_for_this_user(std::wstring* path, const wchar_t* 
     ExitOnFailure(hr, "ITaskService::Connect failed: %x", hr);
 
     // ------------------------------------------------------
-    // Get the tsudev-trafficmonitor task folder.
+    // Get the TsuTramon task folder.
     hr = pService->GetFolder(_bstr_t(folder), &pTaskFolder);
     ExitOnFailure(hr, "ITaskFolder doesn't exist: %x", hr);
 

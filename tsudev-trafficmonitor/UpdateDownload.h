@@ -63,7 +63,7 @@ namespace UpdateDownload
 
     struct Options
     {
-        std::wstring user_agent{ L"tsudev-trafficmonitor" };
+        std::wstring user_agent{ L"TsuTramon" };
         std::wstring allowed_hosts{ FORK_UPDATE_DOWNLOAD_HOSTS };
         unsigned long long max_bytes{ UpdateSecurity::MAX_UPDATE_PACKAGE_BYTES };
         DWORD network_timeout_ms{ 30000 };

@@ -88,7 +88,7 @@ void CTest::TestCommand()
     //Hộp thoại thông điệp thử nghiệm
     CMessageDlg dlg;
     dlg.SetWindowTitle(_T("System Info"));
-    dlg.SetInfoText(_T("System Information for tsudev-trafficmonitor."));
+    dlg.SetInfoText(_T("System Information for Tsu Tramon."));
     dlg.SetMessageText(theApp.GetSystemInfoString().GetString());
     dlg.SetStandarnMessageIcon(CMessageDlg::SI_INFORMATION);
     dlg.DoModal();
