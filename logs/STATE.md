@@ -1,8 +1,6 @@
 # STATE.md - Trạng thái project
 
-> **Phiên kế tiếp:** làm phase đầu tiên chưa đánh dấu ở "Hàng đợi task". **Chủ dự án đã uỷ quyền tự động làm hết P5-P8 + gửi báo nhầm Malwarebytes (tự mở trình duyệt, điền biểu mẫu): đọc phiếu `logs/handover/20261124-UQ1_uy-quyen-tu-dong-phien-sau.md` trước.** Phiếu toàn hệ 20261117-P2: đọc `~/projects/logs/handover/20261117-P2_ke-hoach-phan-phoi-tin-cay-da-nen-tang.md` hàng 7 (`tsudev-trafficmonitor`) ở mục 3
-> + `.standards/docs/DISTRIBUTION_TRUST.md` (chuẩn v3.7.0) + `.standards/docs/VERSIONING.md` mục 2. Khuôn thẻ/tên tệp mới chỉ áp
-> cho bản phát hành KẾ TIẾP, đọc mục 2.4 (updater đã cài) trước khi đổi.
+> **Phiên kế tiếp:** đọc phiếu `logs/handover/20261125-01_ban-giao-sau-p8.md` TRƯỚC (trạng thái sau P6-P8, việc theo dõi đầu phiên, thứ tự P9 → phát hành kế tiếp → P10, bẫy). Repo nay là `tsudev-org/tsutramon`. Uỷ quyền UQ1 đã ĐÓNG - việc khó đảo ngược mới (phát hành, xoá, đổi khoá) phải hỏi chủ dự án.
 
 > Agent đọc file này ở đầu mỗi phiên và cập nhật ở cuối mỗi phiên.
 > Quy trình: `.standards/docs/AGENT_PROTOCOL.md`.
