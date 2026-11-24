@@ -21,3 +21,4 @@ vào mục 7 của kế hoạch, và ghi kết quả dưới đây.
   GitHub nhận NOASSERTION là đúng sự thật (Anti 996 không có mã SPDX/không được OSI duyệt); ghi trung thực ở hồ sơ
   Best Practices (phiếu 20261115-01).
 - P1.5 good first issue, Best Practices: xếp phase ở `logs/STATE.md`. winget #477193: còn OPEN (24/11/2026).
+- 24/11/2026 (P8): **P1.5 XONG** - 3 issue `good first issue` + `help wanted` có thật: #87 (German, 19 chuỗi), #88 (Japanese, 11), #89 (French, 15) - dịch chuỗi còn thiếu, không cần công cụ build.

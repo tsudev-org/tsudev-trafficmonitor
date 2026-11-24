@@ -26,3 +26,4 @@ Tự chứng nhận sai bị phát hiện sẽ làm hỏng hồ sơ SignPath c�
 ## Kết quả xử lý (phiên nhận điền)
 
 -
+- 24/11/2026 (P8): rà trung thực TRƯỚC khi tạo hồ sơ Best Practices: tiêu chí `floss_license` là **MUST** (không chỉ `floss_license_osi`). Anti-996 có điều kiện tuân thủ luật lao động - không được OSI duyệt, không trong danh sách FSF ⇒ ghi Met là tự chứng nhận sai; ghi Unmet ⇒ hồ sơ không thể đạt passing. Mà `LICENSE` không được đổi (nghĩa vụ upstream, AGENTS.md B.3). ⇒ KHÔNG tạo hồ sơ (tránh hồ sơ treo dưới 100% gắn vào hệ); 2.1/2.2/2.4 đóng là 'không áp dụng được', 2.3 xong (Scorecard #75; winget #477193 còn OPEN). Chủ dự án muốn vẫn tạo hồ sơ 'in progress' trung thực thì báo phiên sau.

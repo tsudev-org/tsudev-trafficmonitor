@@ -180,7 +180,9 @@ def owl_circle(face: Image.Image, ring: str) -> Image.Image:
     ss = 4
     r = Image.new("RGBA", (s * ss, s * ss), (0, 0, 0, 0))
     w = round(s * ss * 0.05)
-    ImageDraw.Draw(r).ellipse((w // 2, w // 2, s * ss - 1 - w // 2, s * ss - 1 - w // 2), outline=hex_rgb(ring) + (255,), width=w)
+    # Viền sát mép hình tròn (không lùi vào w/2): mép ngoài phải là màu nhấn, nếu không dải mặt cú xanh đậm lọt ra
+    # ngoài viền và chìm vào thanh tác vụ Tối (UI1, tools/check_tray_icons.py).
+    ImageDraw.Draw(r).ellipse((0, 0, s * ss - 1, s * ss - 1), outline=hex_rgb(ring) + (255,), width=w)
     im.alpha_composite(r.resize((s, s), Image.LANCZOS))
     return im
 
@@ -200,10 +202,27 @@ def owl_knockout(face: Image.Image, rgb: tuple[int, int, int]) -> Image.Image:
     return Image.fromarray(out, "RGBA")
 
 
+def tile_outline(im: Image.Image, s: int, radius: float, rgb: tuple[int, int, int]) -> Image.Image:
+    """Viền sáng quanh ô bo góc, vẽ ở ĐÚNG cỡ cuối (nét 1 px ở 16 px): ô nền xanh đậm của dấu hiệu gần trùng màu
+    thanh tác vụ Tối nên mất hình khối; viền màu nhấn đạt >= 3:1 trên nền tối (UI1, tools/check_tray_icons.py)."""
+    ss = 4
+    w = max(1, round(s / 16)) * ss
+    full, size = s * ss, s * ss - 1
+    ring = Image.new("L", (full, full), 0)
+    d = ImageDraw.Draw(ring)
+    d.rounded_rectangle((0, 0, size, size), radius=round(full * radius), fill=255)
+    d.rounded_rectangle((w, w, size - w, size - w), radius=max(0, round(full * radius) - w), fill=0)
+    layer = Image.new("RGBA", (s, s), rgb + (255,))
+    layer.putalpha(ring.resize((s, s), Image.LANCZOS))
+    base = im.copy()
+    base.alpha_composite(layer)
+    return base
+
+
 def make_notify_icons(out: Out, src: Image.Image, cfg: dict, mark: Image.Image, tiny: Image.Image) -> None:
     """Icon vùng thông báo (khay hệ thống). Chỉ số = m_notify_icon_selected (TsudevTrafficMonitorDlg.cpp):
 
-    0 notifyicon.ico   mặc định taskbar tối: mặt cú màu (giống icon ứng dụng ở cỡ nhỏ)
+    0 notifyicon.ico   mặc định taskbar tối: mặt cú màu (giống icon ứng dụng ở cỡ nhỏ) + viền màu nhấn (UI1)
     1 notifyicon2.ico  đơn sắc trắng (taskbar tối)       <-> 5 khi "tự thích ứng" sáng/tối
     2 notifyicon3.ico  mặt cú tròn viền xanh lơ (mặc định Windows 7/8)
     3 (tsudev-trafficmonitor.ico của ứng dụng)
@@ -224,6 +243,8 @@ def make_notify_icons(out: Out, src: Image.Image, cfg: dict, mark: Image.Image, 
     }
     for name, (normal, tight) in styles.items():
         layers = [downscale(tight if s <= TINY_MAX else normal, s) for s in NOTIFY_SIZES]
+        if name == "notifyicon.ico":
+            layers = [tile_outline(im, s, cfg["mark_radius"], hex_rgb(ring)) for im, s in zip(layers, NOTIFY_SIZES)]
         out.image(RES / name, layers[-1], sizes=[(s, s) for s in NOTIFY_SIZES], append_images=layers[:-1])
 
 

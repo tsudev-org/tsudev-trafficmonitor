@@ -42,4 +42,4 @@ Pro hết hạn: chặn đẩy, kéo/xuất 90 ngày, báo trước 30 và 7 ng�
 Làm được NGAY (không phụ thuộc PRO-B/PRO-D): kiểm kê, ADR, màn Pro/Ủng hộ, thông báo nhiều thiết bị (nguồn quyền lợi giả
 trong test), tắt mọi đường gửi dữ liệu người dùng lên mạng ở bản miễn phí. Thứ tự toàn hệ: phiếu gốc mục 9.5.
 
-
+- 24/11/2026 - phiên tsudev-trafficmonitor (P8): bước 1 kiểm kê + bước 2 ADR xong - `docs/adr/0002-tsudev-pro-ban-mien-phi-cuc-bo.md` (bản miễn phí không gửi dữ liệu người dùng nào; Pro của sản phẩm = đồng bộ cấu hình + lịch sử nhiều máy qua TsuDEV Sync; không tính năng nào chuyển sang Pro ⇒ không cần ân hạn). Bước 3-5 (JWS, gate, thông báo nhiều thiết bị, màn Pro/Ủng hộ, huy hiệu): phase đăng nhập OIDC + phase đồng bộ (ADR-0002 mục 3).

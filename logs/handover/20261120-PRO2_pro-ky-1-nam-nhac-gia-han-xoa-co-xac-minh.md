@@ -50,4 +50,4 @@
 - Không xoá dữ liệu trên thiết bị trong bất kỳ trường hợp nào.
 
 ## 5. Kết quả xử lý (mỗi phiên ghi một dòng)
-
+- 24/11/2026 - phiên tsudev-trafficmonitor (P8): mục 2.1 phần logic xong - `tsudev-trafficmonitor/ProRenewal.h` + `tests/ProRenewalTests.cpp` (6 ca bắt buộc + biên, 27 phép kiểm, ASan/UBSan; job Kiểm thử C++). Hộp thoại vi/en + nút Gia hạn nối khi có JWS (ADR-0002 mục 2.4); mục 2.2 chờ phase đồng bộ. Sync v4.0.0: đã ở v5.1.0 (P1).
