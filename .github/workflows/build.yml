@@ -31,6 +31,8 @@ jobs:
         run: python3 -I tools/check_i18n.py
       - name: Kiểm tra URL (chỉ HTTPS, danh sách cho phép, URL C++ chỉ ở ForkConfig.h)
         run: python3 -I tools/check_urls.py
+      - name: Kiểm tương phản icon khay >= 3:1 trên thanh tác vụ Sáng/Tối (UI1)
+        run: python3 -I tools/check_tray_icons.py
 
   unit-tests:
     name: Kiểm thử C++
@@ -106,6 +108,15 @@ jobs:
           LegacyNamesTests.exe || exit /b 1
           cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\LegacyNamesTests.cpp /Fe:LegacyNamesTestsAsan.exe || exit /b 1
           LegacyNamesTestsAsan.exe
+      - name: Kiểm thử nhắc gia hạn TsuDEV Pro (ProRenewal.h, PRODUCT_POLICY 7.6) - thường và ASan
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
+          call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\ProRenewalTests.cpp /Fe:ProRenewalTests.exe || exit /b 1
+          ProRenewalTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\ProRenewalTests.cpp /Fe:ProRenewalTestsAsan.exe || exit /b 1
+          ProRenewalTestsAsan.exe
       - name: Fuzzing phân tích skin.xml (libFuzzer + ASan, 120 giây; hạt giống là skin.xml thật)
         shell: cmd
         run: |
