@@ -33,7 +33,8 @@ def read_contents(info_path: Path) -> tuple[str, str]:
 
 
 def build(args: argparse.Namespace) -> int:
-    m = re.fullmatch(r"V(\d+(?:\.\d+){0,3})-vn", args.tag)
+    # Thẻ khuôn V1 (VERSIONING 2.2, từ 26.11.2401): v26.11.DDNN; thẻ cũ V<phiên bản>-vn vẫn nhận (dựng lại bản cũ)
+    m = re.fullmatch(r"v(\d{2}\.[1-9]\d?\.\d{4})", args.tag) or re.fullmatch(r"V(\d+(?:\.\d+){0,3})-vn", args.tag)
     if not m:
         print(f"Tag không hợp lệ: {args.tag}", file=sys.stderr)
         return 1
@@ -42,7 +43,11 @@ def build(args: argparse.Namespace) -> int:
     prefix = f"https://github.com/{args.repo}/releases/download/{args.tag}/"
     links, hashes = {}, {}
     for arch, suffix in ARCHES.items():
-        name = f"tsudev-trafficmonitor_{version}_{arch}_Lite.zip"  # VERSIONING.md: {ten-app}_{phiên bản}_{arch}
+        # Thẻ v*: tệp tên mới tsutramon_{v}_windows-{arch}.zip (ADR-0001 mục 3.2); thẻ V*-vn: tên cũ
+        if args.tag.startswith("v"):
+            name = f"tsutramon_{version}_windows-{arch}.zip"
+        else:
+            name = f"tsudev-trafficmonitor_{version}_{arch}_Lite.zip"
         path = dist / name
         if not path.is_file():
             print(f"Thiếu gói: {path}", file=sys.stderr)

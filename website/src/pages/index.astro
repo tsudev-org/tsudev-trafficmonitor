@@ -20,13 +20,13 @@ const baoMat = [
   { t: 'Gia cố tệp chương trình', d: 'Bật Control Flow Guard, ASLR, DEP, CET; chống nạp DLL giả mạo khi khởi động và khi nạp plugin.' },
 ];
 ---
-<Trang moTa="tsudev-trafficmonitor: phần mềm theo dõi tốc độ mạng, CPU, RAM trên Windows, giao diện tiếng Việt, gia cố bảo mật, miễn phí và mã nguồn mở." duongDan="/">
+<Trang moTa="Tsu Tramon: phần mềm theo dõi tốc độ mạng, CPU, RAM trên Windows, giao diện tiếng Việt, gia cố bảo mật, miễn phí và mã nguồn mở." duongDan="/">
   <section class="mo-dau">
     <div class="khung mo-dau__luoi">
       <div class="mo-dau__chu">
         <span class="nhan">Phiên bản {ban.phienBan} · {ban.ngay}</span>
         <h1>Theo dõi tốc độ mạng và tài nguyên máy, <span class="chu-nhan">bằng tiếng Việt</span></h1>
-        <p class="mo-dau__phu">tsudev-trafficmonitor hiện tốc độ mạng, mức dùng CPU, RAM ngay trên thanh tác vụ Windows. Nhẹ, miễn phí, mã nguồn mở và được gia cố bảo mật.</p>
+        <p class="mo-dau__phu">Tsu Tramon hiện tốc độ mạng, mức dùng CPU, RAM ngay trên thanh tác vụ Windows. Nhẹ, miễn phí, mã nguồn mở và được gia cố bảo mật.</p>
         <div class="mo-dau__nut">
           {x64 && <a class="nut nut--chinh" href={x64.url}>Tải bản 64-bit (x64)</a>}
           <a class="nut nut--phu" href="/tai-ve/">Bản khác và kiểm tra tệp</a>
@@ -41,7 +41,7 @@ const baoMat = [
           <path class="duong duong--phu" d="M0 186 L40 178 L80 182 L120 166 L160 172 L200 150 L240 160 L280 138 L320 148 L360 124 L400 136 L440 112 L480 126 L520 104 L560 116 L600 96" />
         </svg>
         <figure class="trinh-dien__chinh">
-          <img src="/anh/vi/options.png" alt="Hộp thoại Cài đặt tiếng Việt của tsudev-trafficmonitor" width="522" height="426" fetchpriority="high">
+          <img src="/anh/vi/options.png" alt="Hộp thoại Cài đặt tiếng Việt của Tsu Tramon" width="522" height="426" fetchpriority="high">
         </figure>
         <figure class="trinh-dien__noi">
           <img src="/anh/vi/main.png" alt="Cửa sổ nổi với skin mặc định: tốc độ tải lên, tải xuống, CPU và RAM" width="232" height="55">
@@ -58,7 +58,7 @@ const baoMat = [
   <section class="muc" aria-labelledby="tinh-nang">
     <div class="khung">
       <h2 id="tinh-nang">Tính năng</h2>
-      <p class="muc__dan">Giữ nguyên mọi tính năng của tsudev-trafficmonitor, thêm giao diện tiếng Việt và các lớp bảo vệ cho người dùng.</p>
+      <p class="muc__dan">Giữ nguyên mọi tính năng của TrafficMonitor gốc, thêm giao diện tiếng Việt và các lớp bảo vệ cho người dùng.</p>
       <ul class="bento">
         {tinhNang.map((x, i) => (
           <li class={`the${i === 0 ? ' the--lon' : ''}${i === tinhNang.length - 1 ? ' the--rong' : ''}`}>
@@ -105,7 +105,7 @@ const baoMat = [
   <section class="muc" aria-labelledby="nguon-goc">
     <div class="khung">
       <h2 id="nguon-goc">Mã nguồn và giấy phép</h2>
-      <p class="muc__dan">tsudev-trafficmonitor là bản phái sinh của TrafficMonitor, phát hành theo giấy phép Anti 996; giấy phép và thông báo bản quyền bắt buộc có tại trang Bản quyền. Mã nguồn công khai tại <a href={REPO_URL} target="_blank" rel="noopener noreferrer">GitHub</a>. Hạng sản phẩm C theo quy ước tsudev: chạy ngoại tuyến, không tài khoản.</p>
+      <p class="muc__dan">Tsu Tramon là bản phái sinh của TrafficMonitor, phát hành theo giấy phép Anti 996; giấy phép và thông báo bản quyền bắt buộc có tại trang Bản quyền. Mã nguồn công khai tại <a href={REPO_URL} target="_blank" rel="noopener noreferrer">GitHub</a>. Hạng sản phẩm C theo quy ước tsudev: chạy ngoại tuyến, không tài khoản.</p>
       <div class="mo-dau__nut">
         <a class="nut nut--phu" href="/huong-dan/">Đọc hướng dẫn</a>
         <a class="nut nut--phu" href="/ban-quyen/">Bản quyền</a>

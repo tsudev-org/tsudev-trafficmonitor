@@ -108,7 +108,7 @@ using std::ofstream;
 #define AUTORUN_VALUE_NAME LegacyNames::kCurrent.run_value     //Tên giá trị Run trong Registry
 #define TASKBAR_WINDOW_NAME _T("TsuTramon-TaskbarWindow")
 #define APP_CLASS_NAME _T("TsuTramon_r7XZaS4p") //Tên lớp cửa sổ chính, PHẢI trùng CLASS của IDD_TSUDEV_TRAFFICMONITOR_DIALOG trong .rc
-#define VERSION L"26.11.1202"   //Khuôn {YY}.{M}.{DD}{NN} theo VERSIONING.md của tsudev (từ 26.11.0901, trước đó 1.91)
+#define VERSION L"26.11.2401"   //Khuôn {YY}.{M}.{DD}{NN} theo VERSIONING.md của tsudev (từ 26.11.0901, trước đó 1.91)
 #define COPYRITE_YEAR L"2026"
 
 #define MAX_NOTIFY_ICON 6       //Số lượng biểu tượng vùng thông báo có thể chọn

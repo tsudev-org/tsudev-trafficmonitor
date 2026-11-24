@@ -17,9 +17,9 @@ function duyet(thuMuc) {
 function kiemTra(tep, html) {
   const ten = tep.slice(dist.length);
   const title = html.match(/<title>([^<]*)<\/title>/)?.[1] ?? '';
-  if (!/(^| - )tsudev-trafficmonitor \| tsudev$/.test(title)) loi.push(`${ten}: title sai khuôn: ${title}`);
+  if (!/(^| - )Tsu Tramon \| tsudev$/.test(title)) loi.push(`${ten}: title sai khuôn: ${title}`);
   if (!html.includes('<meta property="og:site_name" content="tsudev">')) loi.push(`${ten}: thiếu og:site_name tsudev`);
-  if (!/<link rel="canonical" href="https:\/\/trafficmonitor\.tsudev\.com\//.test(html)) loi.push(`${ten}: thiếu canonical`);
+  if (!/<link rel="canonical" href="https:\/\/tramon\.tsudev\.com\//.test(html)) loi.push(`${ten}: thiếu canonical`);
   const mota = html.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '';
   const dai = [...mota.replace(/&[a-z#0-9]+;/g, 'x')].length;
   if (dai < 120 || dai > 160) loi.push(`${ten}: description ${dai} ký tự (cần 120-160)`);

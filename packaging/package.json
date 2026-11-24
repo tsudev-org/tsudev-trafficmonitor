@@ -2,7 +2,7 @@
   "schema": 1,
   "name": "tsudev-trafficmonitor",
   "winget": "tsudev.TrafficMonitor",
-  "homepage": "https://trafficmonitor.tsudev.com",
+  "homepage": "https://tramon.tsudev.com",
   "license": "LicenseRef-Anti-996",
   "description": {
     "vi": "Theo dõi tốc độ mạng, CPU, RAM trên thanh tác vụ Windows - bản Việt hóa, gia cố bảo mật của TrafficMonitor (dự án gốc)",
@@ -10,24 +10,24 @@
   },
   "release": {
     "repo": "tsudev-org/tsudev-trafficmonitor",
-    "tagRegex": "^V(?<version>\\d+\\.\\d+\\.\\d+)-vn$",
+    "tagRegex": "^[vV](?<version>\\d+\\.\\d+\\.\\d+)(-vn)?$",
     "sums": "SHA256SUMS.txt"
   },
   "assets": {
     "windows-x64": {
-      "file": "tsudev-trafficmonitor_{version}_x64_Lite.zip",
+      "file": "tsutramon_{version}_windows-x64.zip",
       "kind": "portable",
-      "bin": "tsudev-trafficmonitor/tsudev-trafficmonitor.exe"
+      "bin": "TsuTramon/TsuTramon.exe"
     },
     "windows-x86": {
-      "file": "tsudev-trafficmonitor_{version}_x86_Lite.zip",
+      "file": "tsutramon_{version}_windows-x86.zip",
       "kind": "portable",
-      "bin": "tsudev-trafficmonitor/tsudev-trafficmonitor.exe"
+      "bin": "TsuTramon/TsuTramon.exe"
     },
     "windows-arm64": {
-      "file": "tsudev-trafficmonitor_{version}_arm64ec_Lite.zip",
+      "file": "tsutramon_{version}_windows-arm64ec.zip",
       "kind": "portable",
-      "bin": "tsudev-trafficmonitor/tsudev-trafficmonitor.exe"
+      "bin": "TsuTramon/TsuTramon.exe"
     }
   },
   "channels": [

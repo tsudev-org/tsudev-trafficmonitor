@@ -1,4 +1,4 @@
-// Giao diện của trafficmonitor.tsudev.com, cùng hợp đồng với tsudev.com (phiếu logs/handover/20261110-05 mục 3):
+// Giao diện của tramon.tsudev.com, cùng hợp đồng với tsudev.com (phiếu logs/handover/20261110-05 mục 3):
 // localStorage "tsudev-theme" = light|dark|system; giá trị cũ "warm" đọc thành "light"; không có/không đọc được -> "dark".
 // Nạp CHẶN trong <head>, sau <meta name="theme-color"> và trước stylesheet (không defer/async/module): đặt data-theme
 // và màu thanh địa chỉ trước khung hình đầu, không nháy màu. Tệp tĩnh cùng nguồn nên CSP chỉ cần script-src 'self'.

@@ -82,11 +82,12 @@ namespace UpdateSecurity
     //Liên kết tải bản cập nhật phải:
     //  1. là HTTPS hợp lệ (không khoảng trắng/ký tự điều khiển),
     //  2. bắt đầu đúng bằng một tiền tố trang Releases của repo này (FORK_RELEASE_DOWNLOAD_PREFIX hoặc
-    //     FORK_RELEASE_DOWNLOAD_PREFIX_ORG sau khi chuyển repo sang tsudev-org; danh sách ngăn cách bởi '|'),
+    //     FORK_RELEASE_DOWNLOAD_PREFIX_ORG sau khi chuyển repo sang tsudev-org, FORK_RELEASE_DOWNLOAD_PREFIX_NEW theo tên tsutramon;
+    //     danh sách ngăn cách bởi '|'),
     //  3. không chứa "..", "@", "?", "#", "\" hoặc "%" (chống vượt đường dẫn, chuyển hướng tên miền, tham số lạ),
     //  4. trỏ tới tệp .zip hoặc .exe.
     inline bool IsTrustedDownloadUrl(const std::wstring& url,
-        const std::wstring& prefixes = std::wstring(FORK_RELEASE_DOWNLOAD_PREFIX) + L"|" + FORK_RELEASE_DOWNLOAD_PREFIX_ORG)
+        const std::wstring& prefixes = std::wstring(FORK_RELEASE_DOWNLOAD_PREFIX) + L"|" + FORK_RELEASE_DOWNLOAD_PREFIX_ORG + L"|" + FORK_RELEASE_DOWNLOAD_PREFIX_NEW)
     {
         if (!IsHttpsUrl(url))
             return false;

@@ -1,8 +1,8 @@
 **[Tiếng Việt](./Help.md) | English**
 
-# tsudev-trafficmonitor - Frequently Asked Questions (FAQ)
+# Tsu Tramon - Frequently Asked Questions (FAQ)
 
-Common questions about using tsudev-trafficmonitor. Features and basic usage are described in the [README](./README_en-us.md).
+Common questions about using Tsu Tramon. Features and basic usage are described in the [README](./README_en-us.md).
 
 > Menu and button names on this page are the labels of the English UI (`language/English.ini`). If you use Vietnamese, see the [Vietnamese version](./Help.md).
 
@@ -16,7 +16,7 @@ If Widgets is not shown on the taskbar, this option is greyed out.
 
 ### On Windows 11, "Taskbar window appears to the left of the taskbar" is greyed out
 
-On Windows 11 this option is only available when the taskbar is **centered**. When the taskbar is left-aligned, there is no free space on the left for tsudev-trafficmonitor.
+On Windows 11 this option is only available when the taskbar is **centered**. When the taskbar is left-aligned, there is no free space on the left for Tsu Tramon.
 
 ### On Windows 11, the taskbar window overlaps the taskbar icons when the taskbar is full
 
@@ -48,12 +48,12 @@ Go to **Options...** → **Taskbar Window Settings** tab, check **Specify colors
 
 There are two auto-run methods, chosen in **General Settings** → **Auto-run mode**:
 
-* **Registry**: creates a `tsudev-trafficmonitor` value under `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run`. No administrator rights needed, but it does not work if the program is set to always **run as administrator**.
+* **Registry**: creates a `Tsu Tramon` value under `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run`. No administrator rights needed, but it does not work if the program is set to always **run as administrator**.
 * **Task Scheduler (requires admin)**: creates a task in Task Scheduler (open it via `Control Panel\System and Security\Administrative Tools`). The edition with temperature monitoring needs this method because the hardware library requires elevated rights.
 
 The most common cause is that you **moved the program folder** after turning on auto run. To fix it: open **General Settings**, uncheck **Auto run when Windows starts**, click **OK**, then open it again and check it again; or click **Reset autorun**.
 
-Some antivirus/security software can block auto run - allow tsudev-trafficmonitor in that software.
+Some antivirus/security software can block auto run - allow Tsu Tramon in that software.
 
 When you switch between the two methods, the program removes the auto-run entry of the old method.
 
@@ -61,10 +61,10 @@ When you switch between the two methods, the program removes the auto-run entry 
 
 The program cannot write to its own folder. To fix it:
 
-1. Move the program to a writable folder (for example `D:\Tools\tsudev-trafficmonitor`); do **not** put it under `C:\Program Files` unless it runs as administrator; or
-2. Go to **General Settings** → **Configuration and data files** → choose **Save to Appdata directory**. Settings are then saved in `C:\Users\<user name>\AppData\Roaming\tsudev-trafficmonitor`.
+1. Move the program to a writable folder (for example `D:\Tools\Tsu Tramon`); do **not** put it under `C:\Program Files` unless it runs as administrator; or
+2. Go to **General Settings** → **Configuration and data files** → choose **Save to Appdata directory**. Settings are then saved in `C:\Users\<user name>\AppData\Roaming\Tsu Tramon`.
 
-If the error persists, create (or edit) `global_cfg.ini` next to `tsudev-trafficmonitor.exe` with:
+If the error persists, create (or edit) `global_cfg.ini` next to `TsuTramon.exe` with:
 
 ```ini
 [config]
@@ -77,7 +77,7 @@ When the program folder is not writable, settings are saved to AppData automatic
 
 ### Settings are lost after restarting the computer
 
-If you never saw "Unable to save settings", settings are being saved normally. The usual cause is **several copies of tsudev-trafficmonitor** on the computer, each saving settings next to its own exe. For example, you changed settings in `D:\software\tsudev-trafficmonitor\tsudev-trafficmonitor.exe`, but at startup `D:\software1\tsudev-trafficmonitor\tsudev-trafficmonitor.exe` runs.
+If you never saw "Unable to save settings", settings are being saved normally. The usual cause is **several copies of Tsu Tramon** on the computer, each saving settings next to its own exe. For example, you changed settings in `D:\software\tsudev-trafficmonitor\TsuTramon.exe`, but at startup `D:\software1\tsudev-trafficmonitor\TsuTramon.exe` runs.
 
 To fix it:
 
@@ -100,7 +100,7 @@ Grab the floating window, drag it **against a screen edge** (left, right, top or
 
 ### How do I turn off "Mouse Penetrate"?
 
-Right-click the tsudev-trafficmonitor icon in the **notification area** (right side of the taskbar) and uncheck **Mouse Penetrate**.
+Right-click the Tsu Tramon icon in the **notification area** (right side of the taskbar) and uncheck **Mouse Penetrate**.
 
 While it is on, the floating window ignores all mouse input; the notification area icon's right-click menu is the same as the floating window's. So that you never lose the menu, the notification area icon is **shown automatically** when:
 
@@ -132,7 +132,7 @@ In the full edition it is **off by default** because it can cause problems on so
 It relies on the open-source library [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor). If temperatures are missing or wrong, try running LibreHardwareMonitor itself:
 
 * If LibreHardwareMonitor cannot show them either → the problem is in the library/hardware; report it to the LibreHardwareMonitor project.
-* If the latest LibreHardwareMonitor shows them correctly → you can replace `LibreHardwareMonitorLib.dll` in the tsudev-trafficmonitor folder with the newer file. **Only download it from LibreHardwareMonitor's official page** and check its signature/hash before replacing.
+* If the latest LibreHardwareMonitor shows them correctly → you can replace `LibreHardwareMonitorLib.dll` in the Tsu Tramon folder with the newer file. **Only download it from LibreHardwareMonitor's official page** and check its signature/hash before replacing.
 
 > **Warning:** hardware monitoring (temperature, GPU usage) can increase CPU/RAM usage; some users have seen crashes or system hangs with it turned on. Only turn it on if you accept these risks.
 
@@ -145,20 +145,20 @@ Install the latest Microsoft Visual C++ Redistributable from Microsoft:
 
 How to install plugins and troubleshoot them: [Plugins](./Plugin_en-us.md); writing your own: [Plugin development](./PluginDev_en-us.md).
 
-> **Security note:** a plugin is a DLL that runs **with the same rights as tsudev-trafficmonitor**. Only install plugins from sources you trust; plugins of unknown origin may contain malware.
+> **Security note:** a plugin is a DLL that runs **with the same rights as Tsu Tramon**. Only install plugins from sources you trust; plugins of unknown origin may contain malware.
 
 ### How do I check that a download is genuine?
 
-Download only from [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com/tai-ve/) or the repository's [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest). Compare the zip's SHA-256 with `SHA256SUMS.txt` (PowerShell: `Get-FileHash <file>.zip`); when updating from within the app (26.11.0905 and later), the app downloads the package itself and only saves it to your Downloads folder if its SHA-256 matches the signed version information; if it reports a SHA-256 mismatch, do not fetch the package another way - report it on GitHub Issues. Full steps, including build attestation: [SECURITY.md](./SECURITY.md).
+Download only from [tramon.tsudev.com](https://tramon.tsudev.com/tai-ve/) or the repository's [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest). Compare the zip's SHA-256 with `SHA256SUMS.txt` (PowerShell: `Get-FileHash <file>.zip`); when updating from within the app (26.11.0905 and later), the app downloads the package itself and only saves it to your Downloads folder if its SHA-256 matches the signed version information; if it reports a SHA-256 mismatch, do not fetch the package another way - report it on GitHub Issues. Full steps, including build attestation: [SECURITY.md](./SECURITY.md).
 
 ### The program crashes
 
 1. Restart the program and **turn off everything** in **General Settings** → **Hardware Monitoring** - most crashes are related to this feature.
-2. If it still crashes, go to **Advanced** → **Plug-in manage...**, disable all plugins and restart. (If the program won't open, delete the `.dll` files in the `plugins` folder next to `tsudev-trafficmonitor.exe`.)
+2. If it still crashes, go to **Advanced** → **Plug-in manage...**, disable all plugins and restart. (If the program won't open, delete the `.dll` files in the `plugins` folder next to `TsuTramon.exe`.)
 3. If you have ruled out both, [open an issue](https://github.com/tsudev-org/tsudev-trafficmonitor/issues/new/choose) with the text from the crash window.
 
 ### Feedback and bug reports
 
-Please use [tsudev-trafficmonitor's GitHub Issues](https://github.com/tsudev-org/tsudev-trafficmonitor/issues). Describe the problem, error messages and what you have tried, with screenshots and your configuration file (**General Settings** → **Open configuration file directory**) if possible. Do **not** attach sensitive information.
+Please use [Tsu Tramon's GitHub Issues](https://github.com/tsudev-org/tsudev-trafficmonitor/issues). Describe the problem, error messages and what you have tried, with screenshots and your configuration file (**General Settings** → **Open configuration file directory**) if possible. Do **not** attach sensitive information.
 
 Report security vulnerabilities privately as described in [SECURITY.md](./SECURITY.md), not publicly.
