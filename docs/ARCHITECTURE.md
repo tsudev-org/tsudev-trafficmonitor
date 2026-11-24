@@ -24,7 +24,7 @@
 
 | Dữ liệu | Mức | Nơi lưu | Thời hạn |
 | --- | --- | --- | --- |
-| Cấu hình (`config.ini`), lịch sử lưu lượng | D1 | Máy người dùng (thư mục chương trình hoặc `%AppData%\tsudev-trafficmonitor`) | Do người dùng xóa |
+| Cấu hình (`config.ini`), lịch sử lưu lượng | D1 | Máy người dùng (thư mục chương trình hoặc `%AppData%\tsutramon`; bản ≤ 26.11.1202: `%AppData%\tsudev-trafficmonitor`, tự chép sang ở lần chạy đầu - `LegacyNames.h`) | Do người dùng xóa |
 | Tên card mạng, IP, MAC (hiển thị) | D1 | Chỉ trong bộ nhớ, không ghi ra ngoài | Theo phiên chạy |
 
 Không có tài khoản, không thu thập, không gửi dữ liệu người dùng đi đâu.

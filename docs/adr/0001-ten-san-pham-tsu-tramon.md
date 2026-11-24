@@ -70,7 +70,7 @@ Chọn **A**, theo đúng thứ tự (mỗi bước một PR, phase P5-P7 trong 
 gấp đôi tệp.
 
 **Việc phát sinh cần làm:**
-- [ ] P5: đổi tên trong app + di trú + test; thử thật Windows bằng build CI (1202 → bản mới: tự tải, SHA, chuyển dữ liệu, Run key)
+- [x] P5 (#84): đổi tên trong app + di trú + test (`LegacyNames.h`); thử thật Windows bằng build CI: chặn song song, chuyển dữ liệu, Run key ĐẠT (tự tải + SHA thử ở P6 khi có bản phát hành)
 - [ ] P6: website tên mới + tên miền + 301; `release.yml` nhận `v*`, tên tệp mới + song song tên cũ; phát hành; kiểm SHA256SUMS/attestation/chữ ký/VirusTotal
 - [ ] P7: đổi tên repo, kiểm 4 đường chuyển hướng; báo điều phối ghi tên cũ vào `~/.claude/CLAUDE.md`; phiếu scoop-bucket, linux-packages, tsudev.com; winget sau khi #477193 gộp
 

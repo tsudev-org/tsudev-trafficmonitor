@@ -58,7 +58,7 @@ Phạm vi được làm KHÔNG cần hỏi lại:
 
 - [ ] P5 → P8 theo `logs/STATE.md` (P5 có ghi chú khảo sát mã sẵn).
 - [ ] Mục 2 ở trên (Malwarebytes).
-- [ ] PR dependabot #70 (website): kiểm và gộp nếu CI xanh.
+- [ ] PR dependabot #70 (website): kiểm và gộp nếu CI xanh. (#70 đã ĐÓNG, thay bằng #79)
 
 ## 3. File liên quan / đang khóa
 
@@ -68,4 +68,4 @@ Phạm vi được làm KHÔNG cần hỏi lại:
 
 ## 4. Kết quả xử lý (mỗi phiên ghi một dòng)
 
--
+- 24/11/2026 (SES-20261124-2010-27e7): P5 xong (#84), thử thật Windows ĐẠT và đã khôi phục máy chủ dự án về 1202. #70 đã đóng, thay bằng dependabot #79 (CI xanh).
