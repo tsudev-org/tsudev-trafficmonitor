@@ -67,6 +67,35 @@ static void TestVersion()
     CHECK(CompareVersion(L"", L"") == 0);
 }
 
+// Phiếu 20261117-V1 + 20261119-TC1: bản ĐÃ CÀI (26.11.0904 -> 26.11.1202) phải nhận bản kế tiếp theo khuôn mới -
+// thẻ v thường (v26.11.DDNN), tệp {gói}_{phiên bản}_windows-{arch}.zip, tên sản phẩm mới (tsutramon). Tiền tố tải
+// ghi CỨNG đúng như trong ForkConfig.h của các bản đó (không đọc ForkConfig.h hiện tại) để test còn đúng sau đổi tên.
+static void TestKhuonV1()
+{
+    const std::wstring da_cai =
+        L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/|"
+        L"https://github.com/tsudev-org/tsudev-trafficmonitor/releases/download/";
+    const std::wstring cu = L"https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/";
+
+    // Chuỗi <version> trong manifest: khuôn YY.M.DDNN không đổi, chỉ thẻ git đổi -> so sánh số như cũ
+    CHECK(IsValidVersionString(L"26.11.2501"));
+    CHECK(IsValidVersionString(L"26.12.0101"));
+    CHECK(CompareVersion(L"26.11.2501", L"26.11.1202") == 1);
+    CHECK(CompareVersion(L"26.12.0101", L"26.11.3199") == 1);
+    CHECK(CompareVersion(L"27.1.0101", L"26.12.3199") == 1);
+    CHECK(CompareVersion(L"26.11.2501", L"1.86") == 1);
+    CHECK(!IsValidVersionString(L"v26.11.2501"));     // manifest KHÔNG được ghi tiền tố v (thẻ có v, phiên bản không)
+
+    // Link tải theo thẻ + tên tệp mới, dưới tiền tố bản đã cài (repo đổi tên vẫn ghi theo tên cũ - GitHub chuyển hướng)
+    CHECK(IsTrustedDownloadUrl(cu + L"v26.11.2501/tsutramon_26.11.2501_windows-x64.zip", da_cai));
+    CHECK(IsTrustedDownloadUrl(cu + L"v26.11.2501/tsutramon_26.11.2501_windows-x86.zip", da_cai));
+    CHECK(IsTrustedDownloadUrl(cu + L"v26.11.2501/tsutramon_26.11.2501_windows-arm64ec.zip", da_cai));
+    CHECK(IsTrustedDownloadUrl(cu + L"v26.11.2501/tsudev-trafficmonitor_26.11.2501_x64_Lite.zip", da_cai));  // tên tệp cũ song song
+    CHECK(IsTrustedDownloadUrl(cu + L"v26.11.2501-beta.1/tsutramon_26.11.2501_windows-x64.zip", da_cai));
+    // Link theo tên repo MỚI thì bản đã cài từ chối -> manifest phải giữ tiền tố cũ (ADR-0001 mục 3)
+    CHECK(!IsTrustedDownloadUrl(L"https://github.com/tsudev-org/tsutramon/releases/download/v26.11.2501/tsutramon_26.11.2501_windows-x64.zip", da_cai));
+}
+
 static void TestUrls()
 {
     // IsHttpsUrl
@@ -265,6 +294,7 @@ int main(int argc, char* argv[])
 {
     std::string fixtures = (argc > 1) ? argv[1] : "tests\\fixtures";
     TestVersion();
+    TestKhuonV1();
     TestUrls();
     TestSignature(fixtures);
     TestDownloadHelpers();
