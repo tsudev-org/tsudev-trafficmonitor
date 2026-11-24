@@ -59,3 +59,11 @@ mâu thuẫn nội dung hoặc thiếu chuyên nghiệp; sửa để giao diện
 - Công cụ ở mục 2.1 in `OK` cho mọi trang × khổ × chế độ trên PRODUCTION (mã thoát 0), hoặc ghi rõ ngoại lệ có lý do.
 - Ảnh 390px + 1280px trước/sau của trang chủ và một trang con, đính kèm PR.
 - Ghi vào cuối bản sao phiếu này: "Đã đọc" + danh sách lỗi tìm thấy + PR + trạng thái production.
+
+## 6. Kết quả của tsudev-trafficmonitor
+
+- 24/11/2026 - **Đã đọc.** Quét production trước khi sửa (8 trang × 390/1280 × Sáng/Tối): lỗi thật duy nhất là trùng
+  `id` tiêu đề ở `/nhat-ky/` (Sửa lỗi, Bảo mật... lặp mỗi phiên bản). Soi bằng mắt thêm: ngày `2026-11-12` (phải
+  DD/MM/YYYY), logo hero lệch trái so với chữ căn giữa, quầng sáng logo mã màu cứng. Đã sửa trong PR
+  `feat/bo-cuc-trinh-dien`; quét lại 13 trang (gồm 6 trang hướng dẫn) ra OK. Ngoại lệ: `/khong-ton-tai` trả 404 đúng
+  chủ đích (có 1 `h1`). Site không có đăng nhập ⇒ mục 3.1, 3.2 không áp dụng. Trạng thái production: xem STATE.
