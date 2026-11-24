@@ -247,9 +247,43 @@ def make_about(out: Out, logo: Image.Image, c: dict) -> None:
     out.image(RES / "about_background_hd.bmp", im)
 
 
+def product_colors() -> dict:
+    """Màu bản sắc chế độ Tối của sản phẩm (tsudev-standards v5.0.0) - nguồn duy nhất, không chép mã màu."""
+    p = ROOT / ".standards" / "tokens" / "products" / "trafficmonitor.json"
+    return json.loads(p.read_text(encoding="utf-8"))["colors"]["dark"]
+
+
+def draw_motif(og: Image.Image, box: tuple[int, int, int, int], pc: dict) -> None:
+    """Hoạ tiết duong-bieu-do (DESIGN_SYSTEM 1.2): hai đường lưu lượng tĩnh + vùng mờ, phủ <= 15% ảnh."""
+    x0, y0, x1, y1 = box
+    chinh = [170, 150, 158, 120, 132, 96, 110, 70, 88, 54, 76, 40, 62, 30, 48, 22]
+    phu = [186, 178, 182, 166, 172, 150, 160, 138, 148, 124, 136, 112, 126, 104, 116, 96]
+
+    def pts(ys: list[int]) -> list[tuple[float, float]]:
+        n = len(ys) - 1
+        return [(x0 + (x1 - x0) * i / n, y0 + (y1 - y0) * y / 200) for i, y in enumerate(ys)]
+
+    layer = Image.new("RGBA", og.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    d.polygon(pts(chinh) + [(x1, y1), (x0, y1)], fill=hex_rgb(pc["primary"]) + (34,))
+    d.line(pts(phu), fill=hex_rgb(pc["primary"]) + (110,), width=3, joint="curve")
+    d.line(pts(chinh), fill=hex_rgb(pc["accent"]) + (170,), width=3, joint="curve")
+    # mờ dần hai bên để hoạ tiết không có mép cắt
+    mask = Image.new("L", og.size, 0)
+    md = ImageDraw.Draw(mask)
+    w = x1 - x0
+    for i in range(w):
+        t = i / w
+        md.line([(x0 + i, y0), (x0 + i, y1)], fill=round(255 * min(1.0, t / 0.25, (1 - t) / 0.25)))
+    layer.putalpha(Image.composite(layer.getchannel("A"), Image.new("L", og.size, 0), mask))
+    og.alpha_composite(layer)
+
+
 def make_og(out: Out, logo: Image.Image, c: dict) -> None:
     W, H = 1200, 630
+    pc = product_colors()
     og = Image.new("RGBA", (W, H), hex_rgb(c["bg"]) + (255,))
+    draw_motif(og, (520, 470, 1200, 630), pc)
     # quầng sáng xanh lơ sau logo (màu của chính logo)
     glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     ImageDraw.Draw(glow).ellipse((70, 95, 510, 535), fill=hex_rgb(c["logo_accent"]) + (70,))
@@ -266,8 +300,8 @@ def make_og(out: Out, logo: Image.Image, c: dict) -> None:
     url = "trafficmonitor.tsudev.com"
     uf = font("SemiBold", 24)
     pw = round(d.textlength(url, font=uf)) + 56
-    d.rounded_rectangle((x, 392, x + pw, 452), radius=30, fill=hex_rgb(c["primary"]))
-    d.text((x + pw / 2, 422), url, font=uf, fill=hex_rgb(c["on_primary"]), anchor="mm")
+    d.rounded_rectangle((x, 392, x + pw, 452), radius=30, fill=hex_rgb(pc["primary"]))
+    d.text((x + pw / 2, 422), url, font=uf, fill=hex_rgb(pc["on-primary"]), anchor="mm")
     d.text((W - 64, H - 56), "tsudev.com", font=font("SemiBold", 24), fill=hex_rgb(c["text2"]), anchor="rs")
     out.image(WEB / "og-image.png", og.convert("RGB"))
 

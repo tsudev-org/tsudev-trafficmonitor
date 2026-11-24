@@ -1,6 +1,5 @@
 ---
 import Trang from '../layouts/Trang.astro';
-import AnhThuongHieu from '../components/AnhThuongHieu.astro';
 import { banMoiNhat, REPO_URL } from '../lib/noi-dung';
 
 const ban = await banMoiNhat();
@@ -24,10 +23,9 @@ const baoMat = [
 <Trang moTa="tsudev-trafficmonitor: phần mềm theo dõi tốc độ mạng, CPU, RAM trên Windows, giao diện tiếng Việt, gia cố bảo mật, miễn phí và mã nguồn mở." duongDan="/">
   <section class="mo-dau">
     <div class="khung mo-dau__luoi">
-      <div>
-        <AnhThuongHieu loai="logo" co={512} class="mo-dau__logo" uuTien />
+      <div class="mo-dau__chu">
         <span class="nhan">Phiên bản {ban.phienBan} · {ban.ngay}</span>
-        <h1>Theo dõi tốc độ mạng và tài nguyên máy, <span class="chu-tim">bằng tiếng Việt</span></h1>
+        <h1>Theo dõi tốc độ mạng và tài nguyên máy, <span class="chu-nhan">bằng tiếng Việt</span></h1>
         <p class="mo-dau__phu">tsudev-trafficmonitor hiện tốc độ mạng, mức dùng CPU, RAM ngay trên thanh tác vụ Windows. Nhẹ, miễn phí, mã nguồn mở và được gia cố bảo mật.</p>
         <div class="mo-dau__nut">
           {x64 && <a class="nut nut--chinh" href={x64.url}>Tải bản 64-bit (x64)</a>}
@@ -35,14 +33,23 @@ const baoMat = [
         </div>
         <p class="mo-dau__ghi-chu">Windows 10 và 11 · bản Lite, không cần quyền Quản trị viên · giải nén là chạy</p>
       </div>
-      <div class="minh-hoa">
-        <figure>
-          <img class="anh-nho" src="/anh/vi/main.png" alt="Cửa sổ nổi với skin mặc định 0_tsudev_Cu: tốc độ tải lên, tải xuống, CPU và RAM" width="464" height="110">
+      <div class="trinh-dien">
+        {/* Hoạ tiết duong-bieu-do (DESIGN_SYSTEM 1.2): đường lưu lượng TĨNH, chỉ dùng --accent/--glow, phủ <= 15% hero */}
+        <svg class="trinh-dien__hoa-tiet" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path class="vung" d="M0 170 L40 150 L80 158 L120 120 L160 132 L200 96 L240 110 L280 70 L320 88 L360 54 L400 76 L440 40 L480 62 L520 30 L560 48 L600 22 L600 200 L0 200 Z" />
+          <path class="duong" d="M0 170 L40 150 L80 158 L120 120 L160 132 L200 96 L240 110 L280 70 L320 88 L360 54 L400 76 L440 40 L480 62 L520 30 L560 48 L600 22" />
+          <path class="duong duong--phu" d="M0 186 L40 178 L80 182 L120 166 L160 172 L200 150 L240 160 L280 138 L320 148 L360 124 L400 136 L440 112 L480 126 L520 104 L560 116 L600 96" />
+        </svg>
+        <figure class="trinh-dien__chinh">
+          <img src="/anh/vi/options.png" alt="Hộp thoại Cài đặt tiếng Việt của tsudev-trafficmonitor" width="522" height="426" fetchpriority="high">
+        </figure>
+        <figure class="trinh-dien__noi">
+          <img src="/anh/vi/main.png" alt="Cửa sổ nổi với skin mặc định: tốc độ tải lên, tải xuống, CPU và RAM" width="232" height="55">
           <figcaption>Cửa sổ nổi</figcaption>
         </figure>
-        <figure>
-          <img src="/anh/vi/taskbar.png" alt="Tốc độ mạng hiện trên thanh tác vụ Windows" width="182" height="88">
-          <figcaption>Trên thanh tác vụ</figcaption>
+        <figure class="trinh-dien__khay">
+          <img src="/anh/vi/taskbar.png" alt="Tốc độ mạng hiện trên thanh tác vụ Windows" width="91" height="44">
+          <figcaption>Thanh tác vụ</figcaption>
         </figure>
       </div>
     </div>
@@ -52,8 +59,18 @@ const baoMat = [
     <div class="khung">
       <h2 id="tinh-nang">Tính năng</h2>
       <p class="muc__dan">Giữ nguyên mọi tính năng của tsudev-trafficmonitor, thêm giao diện tiếng Việt và các lớp bảo vệ cho người dùng.</p>
-      <ul class="the-luoi">
-        {tinhNang.map((x) => <li class="the"><h3>{x.t}</h3><p>{x.d}</p></li>)}
+      <ul class="bento">
+        {tinhNang.map((x, i) => (
+          <li class={`the${i === 0 ? ' the--lon' : ''}${i === tinhNang.length - 1 ? ' the--rong' : ''}`}>
+            {i === 0 && (
+              <svg class="bento__bieu-do" viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path class="duong" d="M0 62 L25 55 L50 60 L75 40 L100 46 L125 30 L150 38 L175 20 L200 28 L225 14 L250 24 L275 8 L300 16" />
+                <path class="duong duong--phu" d="M0 74 L25 70 L50 72 L75 64 L100 67 L125 58 L150 62 L175 52 L200 56 L225 46 L250 52 L275 42 L300 46" />
+              </svg>
+            )}
+            <h3>{x.t}</h3><p>{x.d}</p>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
@@ -64,8 +81,8 @@ const baoMat = [
       <p class="muc__dan">Giao diện tiếng Việt trên Windows 11.</p>
       <div class="anh-luoi">
         <figure>
-          <img src="/anh/vi/options.png" alt="Hộp thoại Cài đặt, tab Cửa sổ Chính" width="522" height="426" loading="lazy">
-          <figcaption>Cài đặt</figcaption>
+          <img src="/anh/skins/tsudev_DoThi_Toi.png" alt="Skin tsudev đồ thị mạng, nền tối" width="348" height="120" loading="lazy">
+          <figcaption>Skin đồ thị mạng (13 skin có sẵn)</figcaption>
         </figure>
         <figure>
           <img src="/anh/vi/network_info.png" alt="Hộp thoại Chi tiết mạng" width="436" height="300" loading="lazy">
