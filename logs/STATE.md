@@ -16,13 +16,17 @@
 - [x] **P2** - website bản sắc màu + hình (STD50 PR 1: `data-product="trafficmonitor"`, `tokens.css` + `products.css`, gỡ `palette.css`, JetBrains Mono tự host, `--radius-control`) + rà quét giao diện 13-07 (`~/projects/logs/tools/quet-giao-dien.cjs`, 390/1280 × Sáng/Tối, có 404). Deploy + quét production.
 - [x] **P3** - website bố cục `trinh-dien` + hoạ tiết `duong-bieu-do` tĩnh ở hero + sinh lại `og-image.png` (STD50 PR 2). Deploy.
 - [x] **P4** - TC1 bước 1: ADR `docs/adr/0001-ten-san-pham-tsu-tramon.md` (updater đã cài, tên tệp cũ song song, winget id, Plugin API) + V1: test chứng minh updater bản đã cài (26.11.0901-1202) coi `v26.11.DDNN`/tên tệp mới là MỚI HƠN.
-- [ ] **P5** - TC1 bước 2: đổi tên trong app (Tsu Tramon, `TsuTramon.exe`, `%AppData%\tsutramon`, Run key, di trú + test C++); thử thật Windows bằng build CI (memory `thu-giao-dien-tren-windows`).
+- [ ] **P5** - TC1 bước 2 (khảo sát sẵn 24/11/2026 - đọc trước khi làm):
+  - Định danh tên cũ đang rải ở `stdafx.h` (`APP_NAME`, `APP_CLASS_NAME`, `TASKBAR_WINDOW_NAME`, `LEGACY_*`), mutex trong `TsudevTrafficMonitor.cpp` (~dòng 1150), `MigrateLegacyAutoRun` + `IsLegacyAutoRunTarget` (~dòng 830-900, chỉ nhận MỘT thế hệ tên cũ), `CCommon::GetAppDataConfigDir` (`Common.cpp` ~699, chép một thư mục cũ), `auto_start_helper.h` (`LEGACY_AUTO_START_TASK_FOLDER`).
+  - Cách làm: header logic thuần mới (vd `LegacyNames.h`: danh sách thế hệ `{TrafficMonitor, tsudev-trafficmonitor}` gồm tên Run, thư mục %AppData%, thư mục tác vụ, mutex, lớp cửa sổ, ProductName; hàm chọn nguồn di trú) + test `tests/LegacyNamesTests.cpp` thêm vào job "Kiểm thử C++"; rồi vòng lặp qua danh sách ở 4 chỗ trên.
+  - Đổi: exe `TsuTramon.exe` (TargetName trong `.vcxproj`, `release.yml`, `build.yml`, `tools/make_zip.py`, `tools/make_sbom.py`), ProductName/FileDescription trong `.rc` (UTF-16 LE BOM), chuỗi "tsudev-trafficmonitor" trong 20 tệp `language/*.ini`, `ReadMe.txt`, mẫu issue. GIỮ: thư mục mã, tên lớp C++, `ITsudevTrafficMonitor` (ADR-0001 mục 3.5), `ForkConfig.h` tiền tố tải cũ.
+  - Việc gốc: đổi tên trong app (Tsu Tramon, `TsuTramon.exe`, `%AppData%\tsutramon`, Run key, di trú + test C++); thử thật Windows bằng build CI (memory `thu-giao-dien-tren-windows`).
 - [ ] **P6** - TC1 bước 3-4: website tên mới + `tramon.tsudev.com` (301 từ tên miền cũ), phát hành bản đầu theo khuôn V1 (`v26.11.DDNN`), kiểm SHA256SUMS/attestation/chữ ký/VirusTotal.
 - [ ] **P7** - TC1 bước 5-6: đổi tên repo → `tsutramon` (sau phát hành), báo điều phối ghi tên cũ vào danh sách bất khả xâm phạm; phiếu scoop-bucket/linux-packages/tsudev.com; winget (sau khi #477193 gộp).
 - [ ] **P8** - PRO1/PRO2: kiểm kê + ADR Pro (bản miễn phí không gửi dữ liệu); nhắc gia hạn 7 ngày (logic thuần + 6 test bắt buộc, hộp thoại vi/en) khi có JWS quyền lợi; QR1: UI1 icon khay ≥ 3:1 + test, màn Ủng hộ 13.2; 13-03/15-01: good first issue + hồ sơ Best Practices trung thực (`floss_license_osi` Unmet).
 - [ ] Theo dõi PR winget-pkgs #477193 (`tsudev.TrafficMonitor` 26.11.1001, chờ Microsoft duyệt): phiếu `logs/handover/20261112-03_nhac-theo-doi-winget.md` - kiểm mỗi phiên.
 - 👤 Chủ dự án: thay khoá VirusTotal đã lộ (phiếu SEC1 mục 4); gửi báo nhầm Malwarebytes (phiếu AV1, sổ `docs/store/antivirus.md`).
-- Deploy website: `XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy` (12/11/2026 đã deploy 26.11.1202).
+- Deploy website: `XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy` (24/11/2026 đã deploy #80; nếu báo "Cannot find native binding" thì chạy lại `npm ci`).
 
 ## Đang thực hiện
 
