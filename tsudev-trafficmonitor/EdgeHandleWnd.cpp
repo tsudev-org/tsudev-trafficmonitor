@@ -56,7 +56,7 @@ bool CEdgeHandleWnd::Create(HWND notify_wnd)
     m_notify_wnd = notify_wnd;
     LPCTSTR cls = AfxRegisterWndClass(0, ::LoadCursor(nullptr, IDC_HAND), nullptr, nullptr);
     // Không có cửa sổ cha/chủ: cửa sổ nổi bị ẩn thì tay nắm vẫn phải hiện.
-    if (!CreateEx(WS_EX_LAYERED | WS_EX_TOOLWINDOW | WS_EX_TOPMOST | WS_EX_NOACTIVATE, cls, _T("tsudev-trafficmonitor edge handle"),
+    if (!CreateEx(WS_EX_LAYERED | WS_EX_TOOLWINDOW | WS_EX_TOPMOST | WS_EX_NOACTIVATE, cls, _T("Tsu Tramon edge handle"),
         WS_POPUP, 0, 0, 1, 1, nullptr, nullptr))
         return false;
     if (m_tool_tip.Create(this, TTS_ALWAYSTIP | TTS_NOPREFIX))

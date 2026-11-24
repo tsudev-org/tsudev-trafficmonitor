@@ -1,10 +1,10 @@
 ﻿================================================================================
-    THƯ VIỆN LỚP NỀN TẢNG MICROSOFT (MFC): Tổng quan dự án tsudev-trafficmonitor
+    THƯ VIỆN LỚP NỀN TẢNG MICROSOFT (MFC): Tổng quan dự án Tsu Tramon (mã ở thư mục tsudev-trafficmonitor)
 ===============================================================================
 
-Trình hướng dẫn ứng dụng (Application Wizard) đã tạo ứng dụng tsudev-trafficmonitor này. Ứng dụng không chỉ minh họa cách dùng cơ bản các lớp MFC mà còn là điểm khởi đầu để viết ứng dụng của bạn.
+Trình hướng dẫn ứng dụng (Application Wizard) đã tạo ứng dụng này (nay là Tsu Tramon, exe TsuTramon.exe). Ứng dụng không chỉ minh họa cách dùng cơ bản các lớp MFC mà còn là điểm khởi đầu để viết ứng dụng của bạn.
 
-Tệp này tóm tắt nội dung của từng tệp tạo nên ứng dụng tsudev-trafficmonitor.
+Tệp này tóm tắt nội dung của từng tệp tạo nên ứng dụng Tsu Tramon.
 
 tsudev-trafficmonitor.vcxproj
     Tệp dự án chính của VC++ được tạo bằng trình hướng dẫn, chứa thông tin phiên bản Visual C++ đã tạo tệp, cùng thông tin về nền tảng, cấu hình và tính năng dự án đã chọn.

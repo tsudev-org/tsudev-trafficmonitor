@@ -1,6 +1,6 @@
 # STATE.md - Trạng thái project
 
-> **Phiên kế tiếp:** làm phase đầu tiên chưa đánh dấu ở "Hàng đợi task". Phiếu toàn hệ 20261117-P2: đọc `~/projects/logs/handover/20261117-P2_ke-hoach-phan-phoi-tin-cay-da-nen-tang.md` hàng 7 (`tsudev-trafficmonitor`) ở mục 3
+> **Phiên kế tiếp:** làm phase đầu tiên chưa đánh dấu ở "Hàng đợi task". **Chủ dự án đã uỷ quyền tự động làm hết P5-P8 + gửi báo nhầm Malwarebytes (tự mở trình duyệt, điền biểu mẫu): đọc phiếu `logs/handover/20261124-UQ1_uy-quyen-tu-dong-phien-sau.md` trước.** Phiếu toàn hệ 20261117-P2: đọc `~/projects/logs/handover/20261117-P2_ke-hoach-phan-phoi-tin-cay-da-nen-tang.md` hàng 7 (`tsudev-trafficmonitor`) ở mục 3
 > + `.standards/docs/DISTRIBUTION_TRUST.md` (chuẩn v3.7.0) + `.standards/docs/VERSIONING.md` mục 2. Khuôn thẻ/tên tệp mới chỉ áp
 > cho bản phát hành KẾ TIẾP, đọc mục 2.4 (updater đã cài) trước khi đổi.
 
@@ -13,16 +13,19 @@
 > Gom cổng kiểm/CI một lần mỗi PR; website deploy sau khi gộp P2 và P3.
 
 - [x] **P1** - đồng bộ quy ước v5.1.0, cổng Clean Codebase (knip/ruff/vulture), SEC1 ĐÓNG, AV1 sổ `docs/store/antivirus.md`, đối soát phiếu tồn (14-01 mục 2).
-- [ ] **P2** - website bản sắc màu + hình (STD50 PR 1: `data-product="trafficmonitor"`, `tokens.css` + `products.css`, gỡ `palette.css`, JetBrains Mono tự host, `--radius-control`) + rà quét giao diện 13-07 (`~/projects/logs/tools/quet-giao-dien.cjs`, 390/1280 × Sáng/Tối, có 404). Deploy + quét production.
-- [ ] **P3** - website bố cục `trinh-dien` + hoạ tiết `duong-bieu-do` tĩnh ở hero + sinh lại `og-image.png` (STD50 PR 2). Deploy.
-- [ ] **P4** - TC1 bước 1: ADR `docs/adr/0001-ten-san-pham-tsu-tramon.md` (updater đã cài, tên tệp cũ song song, winget id, Plugin API) + V1: test chứng minh updater bản đã cài (26.11.0901-1202) coi `v26.11.DDNN`/tên tệp mới là MỚI HƠN.
-- [ ] **P5** - TC1 bước 2: đổi tên trong app (Tsu Tramon, `TsuTramon.exe`, `%AppData%\tsutramon`, Run key, di trú + test C++); thử thật Windows bằng build CI (memory `thu-giao-dien-tren-windows`).
+- [x] **P2** - website bản sắc màu + hình (STD50 PR 1: `data-product="trafficmonitor"`, `tokens.css` + `products.css`, gỡ `palette.css`, JetBrains Mono tự host, `--radius-control`) + rà quét giao diện 13-07 (`~/projects/logs/tools/quet-giao-dien.cjs`, 390/1280 × Sáng/Tối, có 404). Deploy + quét production.
+- [x] **P3** - website bố cục `trinh-dien` + hoạ tiết `duong-bieu-do` tĩnh ở hero + sinh lại `og-image.png` (STD50 PR 2). Deploy.
+- [x] **P4** - TC1 bước 1: ADR `docs/adr/0001-ten-san-pham-tsu-tramon.md` (updater đã cài, tên tệp cũ song song, winget id, Plugin API) + V1: test chứng minh updater bản đã cài (26.11.0901-1202) coi `v26.11.DDNN`/tên tệp mới là MỚI HƠN.
+- [x] **P5** - TC1 bước 2 (#84): đổi tên trong app thành Tsu Tramon - `LegacyNames.h` + `tests/LegacyNamesTests.cpp` (61 phép kiểm), exe `TsuTramon.exe`, `%AppData%\tsutramon`, Run `TsuTramon`, tác vụ `\TsuTramon`, lớp `TsuTramon_r7XZaS4p`; di trú/chặn song song MỌI thế hệ tên cũ. Thử thật Windows (build CI): ĐẠT.
 - [ ] **P6** - TC1 bước 3-4: website tên mới + `tramon.tsudev.com` (301 từ tên miền cũ), phát hành bản đầu theo khuôn V1 (`v26.11.DDNN`), kiểm SHA256SUMS/attestation/chữ ký/VirusTotal.
+  - Còn lại từ P5 (cố ý để tới lúc phát hành, vì mô tả bản ĐÃ phát hành 1202): `packaging/package.json` (`bin` → `TsuTramon.exe`, tên tệp V1, `tagRegex` nhận `v`), thư mục gốc trong zip (`tools/make_package.ps1` `$stage`/`--entry`, hiện vẫn `tsudev-trafficmonitor/`), `release.yml` (tên tệp V1 + song song tên cũ, `--title`), `make_sbom.py` (tên gói/purl), README/README_en-us/Help/Help_en-us + `website/src/pages/tai-ve.astro` (`tsudev-trafficmonitor.exe`), CHANGELOG + UpdateLog, `VERSION` trong `stdafx.h`/`.rc`/`version_utf8.info`.
+  - ⚠ Scoop: manifest scoop-bucket đang có `shortcut` trỏ `tsudev-trafficmonitor.exe` + `extract_dir`; excavator tự lên bản mới sẽ GÃY lối tắt ⇒ gửi phiếu scoop-bucket TRƯỚC khi đẩy thẻ (đừng đợi P7).
 - [ ] **P7** - TC1 bước 5-6: đổi tên repo → `tsutramon` (sau phát hành), báo điều phối ghi tên cũ vào danh sách bất khả xâm phạm; phiếu scoop-bucket/linux-packages/tsudev.com; winget (sau khi #477193 gộp).
 - [ ] **P8** - PRO1/PRO2: kiểm kê + ADR Pro (bản miễn phí không gửi dữ liệu); nhắc gia hạn 7 ngày (logic thuần + 6 test bắt buộc, hộp thoại vi/en) khi có JWS quyền lợi; QR1: UI1 icon khay ≥ 3:1 + test, màn Ủng hộ 13.2; 13-03/15-01: good first issue + hồ sơ Best Practices trung thực (`floss_license_osi` Unmet).
 - [ ] Theo dõi PR winget-pkgs #477193 (`tsudev.TrafficMonitor` 26.11.1001, chờ Microsoft duyệt): phiếu `logs/handover/20261112-03_nhac-theo-doi-winget.md` - kiểm mỗi phiên.
-- 👤 Chủ dự án: thay khoá VirusTotal đã lộ (phiếu SEC1 mục 4); gửi báo nhầm Malwarebytes (phiếu AV1, sổ `docs/store/antivirus.md`).
-- Deploy website: `XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy` (12/11/2026 đã deploy 26.11.1202).
+- 👤 Chủ dự án: thay khoá VirusTotal đã lộ (phiếu SEC1 mục 4).
+- [ ] Gửi báo nhầm Malwarebytes bản arm64ec - agent làm theo uỷ quyền (phiếu UQ1 mục 2; chủ dự án chỉ tự gõ mật khẩu nếu trình duyệt chưa đăng nhập).
+- Deploy website: `XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy` (24/11/2026 đã deploy #80; nếu báo "Cannot find native binding" thì chạy lại `npm ci`).
 
 ## Đang thực hiện
 
@@ -31,6 +34,9 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 24/11/2026 - **P5** (TC1 bước 2, #84): đổi tên trong app thành Tsu Tramon + di trú mọi thế hệ tên cũ (`LegacyNames.h`, 61 phép kiểm có ASan); sửa lỗi cũ `GetAutoRun` (gán thay vì so sánh, cắt ký tự cuối đường dẫn). Thử thật trên máy chủ dự án bằng build CI `5f1e748`: 1202 đang chạy ⇒ TsuTramon báo "đang chạy sẵn" (không song song); nâng cấp ⇒ Run `tsudev-trafficmonitor` → `TsuTramon` trỏ exe mới, `%AppData%` chép 4/4 tệp (SHA lịch sử khớp, tổng 2.39 GB giữ nguyên), lớp `TsuTramon_r7XZaS4p`; đã khôi phục 1202 + Run key + xoá `%AppData%\tsutramon` (sao lưu `%TEMP%\tsudev-tm-thu\p5\saoluu`).
+- 24/11/2026 - **P4** (TC1 bước 1 + V1): ADR-0001 đổi tên Tsu Tramon (khảo sát updater bản đã cài: so `<version>`, link giữ tiền tố repo cũ mãi mãi, tệp tên cũ song song một bản); test `TestKhuonV1`.
+- 24/11/2026 - **P2 + P3** (STD50 + 13-07): website bản sắc vàng chanh/JetBrains Mono/bo góc mem từ token chuẩn, bố cục trinh-dien + hoạ tiết duong-bieu-do, og-image mới; sửa trùng id `/nhat-ky/`, ngày DD/MM/YYYY.
 - 24/11/2026 - **P1**: đồng bộ quy ước v4.2.0 → v5.1.0; cổng Clean Codebase (knip trong website.yml, job "Clean Codebase (Python)" ruff F401/F841 + vulture, phụ thuộc ghim băm `tools/requirements-lint.txt`); bỏ 7 export/2 kiểu thừa ở website, 1 import thừa; `check_i18n.py` bỏ qua `.venv`. Đưa 11 phiếu 13-24/11 vào repo, ĐÓNG 20261111-01, SEC1; sổ antivirus.
 - 12/11/2026 - **Phát hành 26.11.1202** (#64, #65; tag ký V26.11.1202-vn, tự duyệt environment bằng `gh api ... pending_deployments`): **thu cửa sổ nổi vào mép màn hình** (`EdgeDock.h` logic thuần + `tests/EdgeDockTests.cpp` 99 phép kiểm có ASan; tay nắm mũi tên `EdgeHandleWnd` GDI+ layered; hoạt ảnh trượt/mờ theo QPC; kéo tay nắm dọc mép; nhớ `edge_dock`/`edge_auto_hide`; bật/tắt trong Cài đặt > Cửa sổ chính và menu Chức năng khác) và **icon khay theo logo mới** (`notifyicon*.ico` sinh bằng `tools/brand/build_brand.py`; 1201 vẫn còn icon sóng cũ). SHA256SUMS, attestation 3 gói, chữ ký manifest ĐẠT; legacy URL chuyển hướng đúng. Thử Windows bằng build CI: mép trái/phải/trên, gợi ý khi kéo, hover + chú thích, bấm trượt lại, kéo dọc mép, khởi động lại nhớ trạng thái ĐẠT (kịch bản `%TEMP%\tsudev-tm-thu\thu_edge.ps1`, `top.ps1`). Máy chủ dự án đã nâng lên 1202 (Run key trỏ thư mục 1202; sao lưu `%TEMP%\tsudev-tm-thu\truoc-nang-cap-1202-*`). Website + Scoop (excavator) lên 1202.
 - 12/11/2026 - **Phát hành 26.11.1201** (tag ký V26.11.1201-vn, chủ dự án đẩy tag và duyệt environment): SHA256SUMS, `gh attestation verify` 3 gói, chữ ký ECDSA `version_signed.xml` đều ĐẠT; liên kết owner cũ chuyển hướng đúng. Thử thật trên máy chủ dự án: bản 1001 tự thấy 1201, tự tải, SHA khớp, có MotW; nâng cấp máy lên 1201 - chuyển %AppData%, Run key, lịch sử 5 ngày ĐẠT; hộp Giới thiệu đúng logo/tên/"Ủng hộ tsudev". Scoop: scoop-bucket#1 (extract_dir/shortcut tên mới, CI cài thử thật đạt). Website đã deploy 1201.
@@ -51,6 +57,8 @@
 
 ## Quyết định quan trọng
 
+> - 24/11/2026 - [ADR-0001](../docs/adr/0001-ten-san-pham-tsu-tramon.md): đổi tên Tsu Tramon; link trong manifest giữ tiền tố `tsudev-tsudev/tsudev-trafficmonitor` mãi mãi.
+>
 > Quyết định kiến trúc lớn thì viết ADR riêng theo `docs/templates/ADR.md` và chỉ
 > ghi một dòng tham chiếu ở đây.
 

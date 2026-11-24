@@ -97,6 +97,15 @@ jobs:
           EdgeDockTests.exe || exit /b 1
           cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\EdgeDockTests.cpp /Fe:EdgeDockTestsAsan.exe || exit /b 1
           EdgeDockTestsAsan.exe
+      - name: Kiểm thử di trú tên sản phẩm Tsu Tramon (LegacyNames.h) - thường và ASan
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
+          call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\LegacyNamesTests.cpp /Fe:LegacyNamesTests.exe || exit /b 1
+          LegacyNamesTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\LegacyNamesTests.cpp /Fe:LegacyNamesTestsAsan.exe || exit /b 1
+          LegacyNamesTestsAsan.exe
       - name: Fuzzing phân tích skin.xml (libFuzzer + ASan, 120 giây; hạt giống là skin.xml thật)
         shell: cmd
         run: |
@@ -150,7 +159,7 @@ jobs:
       - name: Kiểm tra cờ bảo mật của tệp thực thi
         shell: pwsh
         run: |
-          $exe = Join-Path "${{ matrix.outdir }}" "tsudev-trafficmonitor.exe"
+          $exe = Join-Path "${{ matrix.outdir }}" "TsuTramon.exe"
           $dumpbin = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -find "VC\Tools\MSVC\**\bin\Hostx64\x64\dumpbin.exe" | Select-Object -First 1
           $headers = & $dumpbin /headers /loadconfig $exe | Out-String
           $required = @("Dynamic base", "NX compatible", "Guard")
@@ -166,7 +175,7 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           $out = "${{ matrix.outdir }}"
-          $exe = Join-Path $out "tsudev-trafficmonitor.exe"
+          $exe = Join-Path $out "TsuTramon.exe"
           $epoch = [long](git log -1 --format=%ct)
           $name = "tsudev-trafficmonitor_0.0_${{ matrix.platform }}_Lite"
           $dumpbin = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -find "VC\Tools\MSVC\**\bin\Hostx64\x64\dumpbin.exe" | Select-Object -First 1
@@ -186,7 +195,7 @@ jobs:
           "PE timestamp 1: $stamp1"; "PE timestamp 2: $stamp2"
           "exe: $exe1 / $exe2"; "zip: $zip1 / $zip2"
           if ($stamp1 -ne $stamp2) { Write-Error "PE timestamp khác nhau giữa hai lần build (/Brepro không có tác dụng?)" }
-          if ($exe1 -ne $exe2) { Write-Error "tsudev-trafficmonitor.exe KHÔNG tái lập được (SHA-256 khác giữa hai lần build)" }
+          if ($exe1 -ne $exe2) { Write-Error "TsuTramon.exe KHÔNG tái lập được (SHA-256 khác giữa hai lần build)" }
           if ($zip1 -ne $zip2) { Write-Error "Gói zip KHÔNG tái lập được" }
           if ($stamp1 -ne $stamp2 -or $exe1 -ne $exe2 -or $zip1 -ne $zip2) { exit 1 }
           "Build tái lập: exe và zip giống nhau từng byte"
@@ -196,7 +205,7 @@ jobs:
         with:
           name: tsudev-trafficmonitor_${{ matrix.platform }}_Lite_${{ github.sha }}
           path: |
-            ${{ matrix.outdir }}/tsudev-trafficmonitor.exe
+            ${{ matrix.outdir }}/TsuTramon.exe
             ${{ matrix.outdir }}/*.dll
             ${{ matrix.outdir }}/*.pdb
           if-no-files-found: error

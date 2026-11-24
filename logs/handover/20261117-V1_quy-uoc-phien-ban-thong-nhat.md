@@ -83,3 +83,7 @@ Tám kiểu đặt thẻ cùng tồn tại, khó so sánh/đối chiếu phiên 
 ## 6. Kết quả xử lý (mỗi repo điền vào bản sao của mình)
 
 -
+- 24/11/2026 - tsudev-trafficmonitor: **Đã đọc.** Khảo sát updater bản đã cài (0904-1202): so chuỗi `<version>` trong
+  manifest ký, không đọc thẻ git; link tải chỉ cần tiền tố repo cũ + đuôi `.zip/.exe` ⇒ khuôn `v26.11.DDNN` và tên tệp
+  `{gói}_{ver}_windows-{arch}.zip` an toàn. Chứng minh: `tests/UpdateSecurityTests.cpp` `TestKhuonV1`; quyết định ở
+  `docs/adr/0001-ten-san-pham-tsu-tramon.md`. Thẻ đầu tiên theo khuôn mới = bản đầu tiên tên Tsu Tramon (phase P6).

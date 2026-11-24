@@ -3,8 +3,10 @@ import AnhThuongHieu from '../components/AnhThuongHieu.astro';
 // Khung chung: <head> theo ECOSYSTEM_IDENTITY mục 2.2, đầu trang, chân trang nối về tsudev.com (mục 4).
 import '../styles/fonts.css';
 import '../styles/fonts-mono.css';
-import '../styles/tokens.css';
-import '../styles/palette.css';
+import '../styles/fonts-display.css';
+// Token chuẩn: lớp nền chung rồi lớp bản sắc sản phẩm, nạp thẳng từ bản sao chỉ-đọc .standards/ (DESIGN_SYSTEM mục 1.2)
+import '../../../.standards/tokens/tokens.css';
+import '../../../.standards/tokens/products.css';
 import '../styles/site.css';
 import { REPO_URL, SITE } from '../lib/noi-dung';
 
@@ -34,7 +36,7 @@ const cheDo = [
 const dangO = (href: string) => duongDan.startsWith(href);
 ---
 <!doctype html>
-<html lang="vi" data-theme="dark">
+<html lang="vi" data-theme="dark" data-product="trafficmonitor">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

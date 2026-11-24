@@ -1861,7 +1861,7 @@ void CTsudevTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
             {
                 if (last_value < setting_data.tip_value && value >= setting_data.tip_value && (m_timer_cnt - notify_time > static_cast<unsigned int>(theApp.m_notify_interval)))
                 {
-                    ShowNotifyTip(CCommon::LoadText(_T("tsudev-trafficmonitor "), IDS_NOTIFY, _T("")), tip_str);
+                    ShowNotifyTip(CCommon::LoadText(_T("Tsu Tramon "), IDS_NOTIFY, _T("")), tip_str);
                     notify_time = m_timer_cnt;
                 }
                 last_value = value;
@@ -1914,7 +1914,7 @@ void CTsudevTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
             if (last_today_traffic < traffic_tip_value && today_traffic >= traffic_tip_value)
             {
                 CString info = CCommon::LoadText(IDS_TODAY_TRAFFIC_EXCEED, CCommon::DataSizeToString(today_traffic));
-                ShowNotifyTip(CCommon::LoadText(_T("tsudev-trafficmonitor "), IDS_NOTIFY, _T("")), info.GetString());
+                ShowNotifyTip(CCommon::LoadText(_T("Tsu Tramon "), IDS_NOTIFY, _T("")), info.GetString());
             }
             last_today_traffic = today_traffic;
         }
@@ -2325,7 +2325,7 @@ BOOL CTsudevTrafficMonitorDlg::OnCommand(WPARAM wParam, LPARAM lParam)
     if (uMsg == ID_CMD_TEST)
     {
         CTest::TestCommand();
-        //ShowNotifyTip(CCommon::LoadText(_T("tsudev-trafficmonitor "), IDS_NOTIFY, _T("")), _T("Thông báo thử nghiệm"));
+        //ShowNotifyTip(CCommon::LoadText(_T("Tsu Tramon "), IDS_NOTIFY, _T("")), _T("Thông báo thử nghiệm"));
 
     }
 #endif // DEBUG
@@ -2918,7 +2918,7 @@ BOOL CTsudevTrafficMonitorDlg::OnQueryEndSession()
 
     if (theApp.m_debug_log)
     {
-        CCommon::WriteLog(_T("Tiến trình tsudev-trafficmonitor đã bị kết thúc, thiết lập đã được lưu."), (theApp.m_config_dir + L".\\debug.log").c_str());
+        CCommon::WriteLog(_T("Tiến trình Tsu Tramon đã bị kết thúc, thiết lập đã được lưu."), (theApp.m_config_dir + L".\\debug.log").c_str());
     }
 
     return TRUE;

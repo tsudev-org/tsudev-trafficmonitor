@@ -556,7 +556,7 @@ void CTsudevTrafficMonitorApp::LoadGlobalConfig()
 {
     bool portable_mode_default{ false };
     wstring global_cfg_path{ m_module_dir + L"global_cfg.ini" };
-    if (!CCommon::FileExist(global_cfg_path.c_str()))       //Nếu global_cfg.ini không tồn tại thì dựa vào việc thư mục AppData/Roaming/tsudev-trafficmonitor có config.ini hay không để xác định vị trí lưu tệp cấu hình
+    if (!CCommon::FileExist(global_cfg_path.c_str()))       //Nếu global_cfg.ini không tồn tại thì dựa vào việc thư mục AppData/Roaming/tsutramon có config.ini hay không để xác định vị trí lưu tệp cấu hình
     {
         portable_mode_default = !CCommon::FileExist((m_appdata_dir + L"config.ini").c_str());
     }
@@ -769,23 +769,20 @@ bool CTsudevTrafficMonitorApp::GetAutoRun(wstring* auto_run_path, bool task_sche
         }
         wchar_t buff[256];
         ULONG size{ 256 };
-        if (key.QueryStringValue(APP_NAME, buff, &size) == ERROR_SUCCESS)       //Nếu tìm thấy khóa “tsudev-trafficmonitor”
+        if (key.QueryStringValue(AUTORUN_VALUE_NAME, buff, &size) == ERROR_SUCCESS)       //Nếu tìm thấy giá trị “TsuTramon”
         {
             if (auto_run_path != nullptr)
             {
                 //Đường dẫn lưu
                 *auto_run_path = buff;
                 //Bỏ dấu ngoặc kép ở đầu và cuối
-                if (auto_run_path->front() == L'\"')
-                    *auto_run_path = auto_run_path->substr(1);
-                if (auto_run_path->back() = L'\"')
-                    auto_run_path->pop_back();
+                *auto_run_path = LegacyNames::ExtractExePath(buff);
             }
-            return (m_module_path_reg == buff); //Nếu giá trị của “tsudev-trafficmonitor” là đường dẫn chương trình hiện tại thì trả về true, ngược lại trả về false
+            return (m_module_path_reg == buff); //Nếu giá trị “TsuTramon” là đường dẫn chương trình hiện tại thì trả về true, ngược lại trả về false
         }
         else
         {
-            return false;       //Không tìm thấy khóa “tsudev-trafficmonitor”, trả về false
+            return false;       //Không tìm thấy giá trị “TsuTramon”, trả về false
         }
     }
 }
@@ -804,7 +801,7 @@ bool CTsudevTrafficMonitorApp::SetAutoRunByRegistry(bool auto_run)
         //Khi thiết lập tự khởi động qua Registry thì xóa mục tự khởi động trong Task Scheduler
         SetAutoRunByTaskScheduler(false);
 
-        if (key.SetStringValue(APP_NAME, m_module_path_reg.c_str()) != ERROR_SUCCESS)
+        if (key.SetStringValue(AUTORUN_VALUE_NAME, m_module_path_reg.c_str()) != ERROR_SUCCESS)
         {
             AfxMessageBox(CCommon::LoadText(IDS_AUTORUN_FAILED_NO_ACCESS), MB_OK | MB_ICONWARNING);
             return false;
@@ -815,9 +812,9 @@ bool CTsudevTrafficMonitorApp::SetAutoRunByRegistry(bool auto_run)
         //Trước khi xóa, kiểm tra khóa Registry có tồn tại không; nếu không tồn tại thì trả về ngay
         wchar_t buff[256];
         ULONG size{ 256 };
-        if (key.QueryStringValue(APP_NAME, buff, &size) != ERROR_SUCCESS)
+        if (key.QueryStringValue(AUTORUN_VALUE_NAME, buff, &size) != ERROR_SUCCESS)
             return false;
-        if (key.DeleteValue(APP_NAME) != ERROR_SUCCESS)
+        if (key.DeleteValue(AUTORUN_VALUE_NAME) != ERROR_SUCCESS)
         {
             AfxMessageBox(CCommon::LoadText(IDS_AUTORUN_DELETE_FAILED), MB_OK | MB_ICONWARNING);
             return false;
@@ -826,72 +823,72 @@ bool CTsudevTrafficMonitorApp::SetAutoRunByRegistry(bool auto_run)
     return true;
 }
 
-bool CTsudevTrafficMonitorApp::IsLegacyAutoRunTarget(const wstring& target_path) const
+//ProductName trong thông tin phiên bản của exe (rỗng nếu không đọc được)
+static wstring ReadProductName(const wstring& path)
 {
-    //Mục tự khởi động mang tên cũ "TrafficMonitor" có thể thuộc bản trước 26.11 của chính phần mềm này (tên cũ
-    //TrafficMonitor-VN) hoặc thuộc dự án gốc TrafficMonitor do người dùng cài riêng. Chỉ nhận là của mình khi:
-    //tệp đích không còn, nằm cùng thư mục với exe hiện tại, hoặc ProductName trong thông tin phiên bản là tên cũ.
-    wstring path{ target_path };
-    if (!path.empty() && path.front() == L'\"')
-        path.erase(0, 1);
-    if (!path.empty() && path.back() == L'\"')
-        path.pop_back();
-    if (path.empty())
-        return false;
-    if (!CCommon::FileExist(path.c_str()))
-        return true;
-    size_t index = path.find_last_of(L"\\/");
-    if (index != wstring::npos && _wcsicmp(path.substr(0, index + 1).c_str(), m_module_dir.c_str()) == 0)
-        return true;
-
     DWORD handle{};
     DWORD size = GetFileVersionInfoSizeW(path.c_str(), &handle);
     if (size == 0)
-        return false;
+        return wstring();
     std::vector<BYTE> data(size);
     if (!GetFileVersionInfoW(path.c_str(), 0, size, data.data()))
-        return false;
+        return wstring();
     struct LangCodePage { WORD lang; WORD code_page; } *translate{};
     UINT len{};
     if (!VerQueryValueW(data.data(), L"\\VarFileInfo\\Translation", reinterpret_cast<LPVOID*>(&translate), &len) || len < sizeof(LangCodePage))
-        return false;
+        return wstring();
     wchar_t key[64];
     swprintf_s(key, L"\\StringFileInfo\\%04x%04x\\ProductName", translate[0].lang, translate[0].code_page);
     LPWSTR product{};
     if (!VerQueryValueW(data.data(), key, reinterpret_cast<LPVOID*>(&product), &len) || product == nullptr)
-        return false;
-    return wcscmp(product, LEGACY_PRODUCT_NAME) == 0;
+        return wstring();
+    return product;
+}
+
+bool CTsudevTrafficMonitorApp::IsLegacyAutoRunTarget(const wstring& target_path) const
+{
+    //Mục tự khởi động mang tên cũ có thể thuộc bản cũ của chính phần mềm này hoặc thuộc dự án gốc TrafficMonitor do
+    //người dùng cài riêng. Quy tắc nhận (có test): LegacyNames::IsOwnAutoRunTarget.
+    return LegacyNames::IsOwnAutoRunTarget(target_path, m_module_dir,
+        [](const wstring& path) { return CCommon::FileExist(path.c_str()); },
+        [](const wstring& path) { return ReadProductName(path); });
 }
 
 void CTsudevTrafficMonitorApp::MigrateLegacyAutoRun()
 {
-    //1. Khóa Registry Run tên cũ "TrafficMonitor"
+    //Chuyển tự khởi động của mọi thế hệ tên cũ (LegacyNames::kLegacyGenerations) sang tên hiện tại.
+    //1. Giá trị Registry Run tên cũ
     CRegKey key;
     if (key.Open(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Windows\\CurrentVersion\\Run")) == ERROR_SUCCESS)
     {
-        wchar_t buff[MAX_PATH + 3]{};
-        ULONG size{ MAX_PATH + 3 };
-        if (key.QueryStringValue(LEGACY_APP_NAME, buff, &size) == ERROR_SUCCESS && IsLegacyAutoRunTarget(buff))
+        for (const auto& gen : LegacyNames::kLegacyGenerations)
         {
-            key.DeleteValue(LEGACY_APP_NAME);
-            wchar_t cur[MAX_PATH + 3]{};
-            ULONG cur_size{ MAX_PATH + 3 };
-            if (key.QueryStringValue(APP_NAME, cur, &cur_size) != ERROR_SUCCESS)
-                key.SetStringValue(APP_NAME, m_module_path_reg.c_str());
+            wchar_t buff[MAX_PATH + 3]{};
+            ULONG size{ MAX_PATH + 3 };
+            if (key.QueryStringValue(gen.run_value, buff, &size) == ERROR_SUCCESS && IsLegacyAutoRunTarget(buff))
+            {
+                key.DeleteValue(gen.run_value);
+                wchar_t cur[MAX_PATH + 3]{};
+                ULONG cur_size{ MAX_PATH + 3 };
+                if (key.QueryStringValue(AUTORUN_VALUE_NAME, cur, &cur_size) != ERROR_SUCCESS)
+                    key.SetStringValue(AUTORUN_VALUE_NAME, m_module_path_reg.c_str());
+            }
         }
     }
 
-    //2. Tác vụ Task Scheduler trong thư mục cũ "\\TrafficMonitor"
-    wstring legacy_task_path;
-    bool legacy_task_enabled = is_auto_start_task_active_for_this_user(&legacy_task_path, LEGACY_AUTO_START_TASK_FOLDER);
-    (void)legacy_task_enabled;
-    if (!legacy_task_path.empty() && IsLegacyAutoRunTarget(legacy_task_path))
+    //2. Tác vụ Task Scheduler trong thư mục tên cũ
+    for (const auto& gen : LegacyNames::kLegacyGenerations)
     {
-        delete_auto_start_task_for_this_user(LEGACY_AUTO_START_TASK_FOLDER);
-        wstring cur_task_path;
-        is_auto_start_task_active_for_this_user(&cur_task_path);
-        if (cur_task_path.empty())
-            create_auto_start_task_for_this_user(true);
+        wstring legacy_task_path;
+        is_auto_start_task_active_for_this_user(&legacy_task_path, gen.task_folder);
+        if (!legacy_task_path.empty() && IsLegacyAutoRunTarget(legacy_task_path))
+        {
+            delete_auto_start_task_for_this_user(gen.task_folder);
+            wstring cur_task_path;
+            is_auto_start_task_active_for_this_user(&cur_task_path);
+            if (cur_task_path.empty())
+                create_auto_start_task_for_this_user(true);
+        }
     }
 }
 
@@ -1156,20 +1153,19 @@ BOOL CTsudevTrafficMonitorApp::InitInstance()
     //Kiểm tra đã có thực thể nào đang chạy chưa
     CIniHelper ini{ m_config_path };
     m_no_multistart_warning = ini.GetBool(_T("other"), _T("no_multistart_warning"), false);
-    LPCTSTR mutex_name{};
-    LPCTSTR legacy_mutex_name{};    //mutex của bản trước 26.11 (tên cũ): không cho bản cũ và bản mới chạy cùng lúc
+    //Mutex tên hiện tại; mutex của mọi thế hệ tên cũ chỉ để nhận ra bản cũ đang chạy (không cho chạy song song)
 #ifdef _DEBUG
-    mutex_name = _T("tsudev-trafficmonitor-e8Ahk24HP6JC8hDy");
-    legacy_mutex_name = _T("TrafficMonitor-e8Ahk24HP6JC8hDy");
+    const wchar_t* LegacyNames::Generation::* mutex_field = &LegacyNames::Generation::mutex_debug;
 #else
-    mutex_name = _T("tsudev-trafficmonitor-1419J3XLKL1w8OZc");
-    legacy_mutex_name = _T("TrafficMonitor-1419J3XLKL1w8OZc");
+    const wchar_t* LegacyNames::Generation::* mutex_field = &LegacyNames::Generation::mutex_release;
 #endif
-    HANDLE hMutex = ::CreateMutex(NULL, TRUE, mutex_name);
+    HANDLE hMutex = ::CreateMutex(NULL, TRUE, LegacyNames::kCurrent.*mutex_field);
     bool already_running = (hMutex != NULL && GetLastError() == ERROR_ALREADY_EXISTS);
-    if (!already_running)
+    for (const auto& gen : LegacyNames::kLegacyGenerations)
     {
-        HANDLE hLegacy = ::OpenMutex(SYNCHRONIZE, FALSE, legacy_mutex_name);
+        if (already_running)
+            break;
+        HANDLE hLegacy = ::OpenMutex(SYNCHRONIZE, FALSE, gen.*mutex_field);
         if (hLegacy != NULL)
         {
             already_running = true;
@@ -1186,13 +1182,17 @@ BOOL CTsudevTrafficMonitorApp::InitInstance()
             //CCommon::WriteLog(buff, _T(".\\start.log"));
             if (!m_no_multistart_warning)
             {
-                //Tìm handle cửa sổ chính của tiến trình tsudev-trafficmonitor đang tồn tại
+                //Tìm handle cửa sổ chính của thực thể đang chạy (tên hiện tại hoặc một thế hệ tên cũ)
                 HWND exist_handel = ::FindWindow(APP_CLASS_NAME, NULL);
-                if (exist_handel == NULL)
-                    exist_handel = ::FindWindow(LEGACY_APP_CLASS_NAME, NULL);
+                for (const auto& gen : LegacyNames::kLegacyGenerations)
+                {
+                    if (exist_handel != NULL)
+                        break;
+                    exist_handel = ::FindWindow(gen.window_class, NULL);
+                }
                 if (exist_handel != NULL)
                 {
-                    //Hiện hộp thoại “tsudev-trafficmonitor đang chạy”
+                    //Hiện hộp thoại “Tsu Tramon đang chạy”
                     CAppAlreadyRuningDlg dlg(exist_handel);
                     dlg.DoModal();
                 }
@@ -1205,7 +1205,7 @@ BOOL CTsudevTrafficMonitorApp::InitInstance()
         }
     }
 
-    //Chuyển tự khởi động cùng Windows của bản trước 26.11 (tên cũ) sang tên mới
+    //Chuyển tự khởi động cùng Windows của các thế hệ tên cũ sang tên mới
     MigrateLegacyAutoRun();
 
     //Khởi tạo GDI+
