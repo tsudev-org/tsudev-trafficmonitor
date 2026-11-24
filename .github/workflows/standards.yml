@@ -29,6 +29,20 @@ jobs:
             test -f "$f" || { echo "Thiếu tài sản bắt buộc: $f (BRAND_ASSETS.md mục 12)"; exit 1; }
           done
 
+  clean-codebase:
+    name: Clean Codebase (Python)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      # PROJECT_STRUCTURE.md mục 3.1: import/biến thừa (ruff F401, F841) + mã chết (vulture) trong script tools/, tests/.
+      # Website (TS/JS) chạy knip trong website.yml.
+      - name: Cài ruff + vulture (ghim kèm băm)
+        run: python3 -m pip install --user --require-hashes -r tools/requirements-lint.txt
+      - name: ruff F401, F841
+        run: python3 -m ruff check --select F401,F841 tools tests
+      - name: vulture
+        run: python3 -m vulture tools --min-confidence 80
+
   gitleaks:
     name: Quét secret (gitleaks)
     runs-on: ubuntu-latest

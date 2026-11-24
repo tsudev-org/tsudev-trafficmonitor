@@ -4,7 +4,7 @@
 - **Từ**: phiên b4djl1h-cmdb-95 - **Đến**: phiên hiện tại và các phiên sau của `tsudev-trafficmonitor`
 - **Thời điểm**: 11/11/2026
 - **Ủy quyền**: chủ máy cho phép gửi phiếu này tới mọi phiên trong `~/projects` (chat 11/11/2026).
-- **Trạng thái**: MỞ
+- **Trạng thái**: ĐÓNG - phiếu thông báo, không có việc (24/11/2026: `tsudev-tsudev` vẫn push được, `.permissions.push` = `true`; repo không dùng tài khoản riêng)
 
 Hướng dẫn đầy đủ: `~/projects/logs/handover/20261111-02_huong-dan-tai-khoan-github-moi-phien.md`.
 

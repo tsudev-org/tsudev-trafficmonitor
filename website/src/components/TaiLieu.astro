@@ -5,7 +5,7 @@ import { REPO_URL } from '../lib/noi-dung';
 
 interface Props { tieuDe: string; moTa: string; duongDan: string; html: string; nguon?: string }
 const { tieuDe, moTa, duongDan, html, nguon } = Astro.props;
-export const MENU = [
+const MENU = [
   { href: '/huong-dan/', ten: 'Tổng quan' },
   { href: '/huong-dan/hoi-dap/', ten: 'Hỏi đáp' },
   { href: '/huong-dan/kho-giao-dien/', ten: 'Kho giao diện' },

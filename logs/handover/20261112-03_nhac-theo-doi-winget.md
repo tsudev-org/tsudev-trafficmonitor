@@ -43,3 +43,4 @@ Trang Tải về (`website/src/pages/tai-ve.astro`) đang ghi "Gói winget đang
 - 12/11/2026 - OPEN, REVIEW_REQUIRED; nhãn Azure-Pipeline-Passed, New-Package, Validation-No-Executables; chưa có bình luận của người duyệt.
 - 12/11/2026 (phiên sau) - Không đổi: OPEN, REVIEW_REQUIRED; cùng 3 nhãn; chỉ có bình luận của bot policy-service.
 - 12/11/2026 (phiên 1202) - Không đổi: OPEN, REVIEW_REQUIRED; cùng 3 nhãn. Bản mới nhất để nộp khi gộp: 26.11.1202.
+- 24/11/2026 - OPEN, REVIEW_REQUIRED, nhãn Azure-Pipeline-Passed, Validation-No-Executables, New-Package; không có bình luận mới từ người duyệt.
