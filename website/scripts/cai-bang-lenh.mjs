@@ -14,7 +14,9 @@ import { fileURLToPath } from 'node:url';
 const WEB = join(dirname(fileURLToPath(import.meta.url)), '..');
 const GOC = join(WEB, '..');
 const OUT = join(WEB, 'src', 'data', 'cai-bang-lenh.json');
-const SITE = 'https://trafficmonitor.tsudev.com';
+const SITE = 'https://tramon.tsudev.com';
+// Tên miền cũ (301 sang SITE, ADR-0001 mục 3.6): catalog kho gói ghi homepage cũ cho tới khi kho cập nhật - vẫn nhận.
+const SITE_CU = 'https://trafficmonitor.tsudev.com';
 // Khớp FINGERPRINT trong tsudev/scripts/pkg-catalog-sync.js - không tin vân tay tải về.
 const VAN_TAY_PKG = '388310F47FA8224D76C0A9C79745B6AF3EA33C74';
 const NGUON = {
@@ -45,7 +47,7 @@ async function tai(kho, url) {
   for (const p of cat.packages) {
     if (!/^[a-z][a-z0-9-]+$/.test(p.name || '')) loi(`catalog ${kho}: tên gói không hợp lệ "${p.name}"`);
   }
-  return { cat, goi: cat.packages.filter((p) => chuan(p.homepage) === SITE && !p.replacedBy) };
+  return { cat, goi: cat.packages.filter((p) => [SITE, SITE_CU].includes(chuan(p.homepage)) && !p.replacedBy) };
 }
 
 const goiCauHinh = JSON.parse(readFileSync(join(GOC, 'packaging', 'package.json'), 'utf8'));

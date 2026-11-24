@@ -1,9 +1,9 @@
 {
-  "ghiChu": "Nguồn DUY NHẤT của kênh ủng hộ tsudev-trafficmonitor, hiển thị ở https://trafficmonitor.tsudev.com/ung-ho/ (ứng dụng, README, nút Sponsor GitHub chỉ trỏ tới trang đó). Dữ liệu và ảnh QR chép nguyên văn từ bản tham chiếu tsudev-files (phiếu ~/projects/logs/handover/20261112-01); build kiểm CRC VietQR, NAPAS, BIN, số tài khoản và SHA-256 ảnh QR (src/lib/ung-ho.ts). Chỉ chủ dự án sửa (CODEOWNERS).",
+  "ghiChu": "Nguồn DUY NHẤT của kênh ủng hộ Tsu Tramon, hiển thị ở https://tramon.tsudev.com/ung-ho/ (ứng dụng, README, nút Sponsor GitHub chỉ trỏ tới trang đó). Dữ liệu và ảnh QR chép nguyên văn từ bản tham chiếu tsudev-files (phiếu ~/projects/logs/handover/20261112-01); build kiểm CRC VietQR, NAPAS, BIN, số tài khoản và SHA-256 ảnh QR (src/lib/ung-ho.ts). Chỉ chủ dự án sửa (CODEOWNERS).",
   "kenh": [
     {
       "ten": "Chuyển khoản ngân hàng (VietQR)",
-      "moTa": "Quét mã bằng ứng dụng ngân hàng hoặc ví điện tử hỗ trợ VietQR/NAPAS 247, hoặc chuyển khoản theo thông tin bên dưới. Nội dung chuyển khoản gợi ý: Ung ho tsudev-trafficmonitor.",
+      "moTa": "Quét mã bằng ứng dụng ngân hàng hoặc ví điện tử hỗ trợ VietQR/NAPAS 247, hoặc chuyển khoản theo thông tin bên dưới. Nội dung chuyển khoản gợi ý: Ung ho Tsu Tramon.",
       "chiTiet": [
         "Ngân hàng: VIB (Ngân hàng TMCP Quốc Tế Việt Nam)",
         "Số tài khoản: 056485506",

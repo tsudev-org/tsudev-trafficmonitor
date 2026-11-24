@@ -177,7 +177,7 @@ jobs:
           $out = "${{ matrix.outdir }}"
           $exe = Join-Path $out "TsuTramon.exe"
           $epoch = [long](git log -1 --format=%ct)
-          $name = "tsudev-trafficmonitor_0.0_${{ matrix.platform }}_Lite"
+          $name = "tsutramon_0.0_windows-${{ matrix.platform }}"
           $dumpbin = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -find "VC\Tools\MSVC\**\bin\Hostx64\x64\dumpbin.exe" | Select-Object -First 1
           $stamp1 = (& $dumpbin /headers $exe | Select-String "time date stamp").Line.Trim()
           $exe1 = (Get-FileHash $exe -Algorithm SHA256).Hash

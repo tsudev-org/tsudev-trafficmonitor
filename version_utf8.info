@@ -1,17 +1,17 @@
 ﻿<root>
-	<version>26.11.1202</version>
+	<version>26.11.2401</version>
 	<GitHub>
-		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1202-vn/tsudev-trafficmonitor_26.11.1202_x86_Lite.zip</link>
-		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1202-vn/tsudev-trafficmonitor_26.11.1202_x64_Lite.zip</link_x64>
-		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1202-vn/tsudev-trafficmonitor_26.11.1202_arm64ec_Lite.zip</link_arm64ec>
-		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1202-vn/tsudev-trafficmonitor_26.11.1202_x86_Lite.zip</link_without_temperature>
-		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1202-vn/tsudev-trafficmonitor_26.11.1202_x64_Lite.zip</link_without_temperature_x64>
-		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/V26.11.1202-vn/tsudev-trafficmonitor_26.11.1202_arm64ec_Lite.zip</link_without_temperature_arm64ec>
+		<link>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/v26.11.2401/tsutramon_26.11.2401_windows-x86.zip</link>
+		<link_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/v26.11.2401/tsutramon_26.11.2401_windows-x64.zip</link_x64>
+		<link_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/v26.11.2401/tsutramon_26.11.2401_windows-arm64ec.zip</link_arm64ec>
+		<link_without_temperature>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/v26.11.2401/tsutramon_26.11.2401_windows-x86.zip</link_without_temperature>
+		<link_without_temperature_x64>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/v26.11.2401/tsutramon_26.11.2401_windows-x64.zip</link_without_temperature_x64>
+		<link_without_temperature_arm64ec>https://github.com/tsudev-tsudev/tsudev-trafficmonitor/releases/download/v26.11.2401/tsutramon_26.11.2401_windows-arm64ec.zip</link_without_temperature_arm64ec>
 	</GitHub>
 	<update_contents>
-		<contents_vi>Bản 26.11.1202: kéo cửa sổ nổi sát mép màn hình để thu gọn - cửa sổ trượt khuất, ở mép còn mũi tên nhỏ; bấm mũi tên để cửa sổ trượt trở lại (kéo mũi tên dọc mép để dời chỗ). Chuyển động mượt khi ẩn/hiện và khi kéo lố ra ngoài màn hình.
-Icon khay hệ thống đổi sang logo mới (bản trước vẫn là icon cũ).</contents_vi>
-		<contents_en>Release 26.11.1202: drag the floating window against a screen edge to tuck it away - it slides out of view, leaving a small arrow at the edge; click the arrow to slide it back (drag the arrow along the edge to move it). Smooth animations when hiding/showing and when the window is dragged past the screen.
-The notification area icon now uses the new logo (the previous release still showed the old icon).</contents_en>
+		<contents_vi>Bản 26.11.2401: phần mềm đổi tên thành Tsu Tramon (tệp chạy TsuTramon.exe). Lần chạy đầu tự chép cấu hình và lịch sử lưu lượng sang %AppData%\tsutramon, chuyển tự khởi động cùng Windows sang tên mới và không chạy song song với bản cũ (thư mục cũ được giữ nguyên). Website mới: tramon.tsudev.com.
+Sửa lỗi tự khởi động qua Registry có thể đọc sai đường dẫn chương trình.</contents_vi>
+		<contents_en>Release 26.11.2401: the app is renamed to Tsu Tramon (executable TsuTramon.exe). On first run it copies your settings and traffic history to %AppData%\tsutramon, moves the start-with-Windows entry to the new name and refuses to run alongside an older copy (the old folder is kept). New website: tramon.tsudev.com.
+Fixed start-with-Windows via the Registry possibly misreading the program path.</contents_en>
 	</update_contents>
 </root>

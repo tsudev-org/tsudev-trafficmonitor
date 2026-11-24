@@ -1,17 +1,17 @@
 **Tiếng Việt | [English](./SkinGallery_en-us.md)** · [Trang chủ](./README.md) · [Hỏi đáp](./Help.md) · [Tự làm skin](./HuongDanTaoSkin.md)
 
-# Kho giao diện (skin) - tsudev-trafficmonitor
+# Kho giao diện (skin) - Tsu Tramon
 
 Trang này được mở từ liên kết **Tải thêm mẫu mạng** trong hộp thoại **Kho Giao diện (Skin)**.
 
 ## Skin có sẵn trong bản phát hành
 
-Mọi bản phát hành của tsudev-trafficmonitor kèm sẵn các skin dưới đây trong thư mục `skins` cạnh `tsudev-trafficmonitor.exe`. Ảnh dưới đây là ảnh nền chế độ hiện thêm thông số (`background_l`); chữ và số do chương trình vẽ lên khi chạy.
+Mọi bản phát hành của Tsu Tramon kèm sẵn các skin dưới đây trong thư mục `skins` cạnh `TsuTramon.exe`. Ảnh dưới đây là ảnh nền chế độ hiện thêm thông số (`background_l`); chữ và số do chương trình vẽ lên khi chạy.
 
 | Tên thư mục | Ảnh nền | Ghi chú |
 |---|---|---|
 | `0_tsudev_Cu` | ![](./Screenshots/skins/0_tsudev_Cu.png) | **Skin mặc định** - chú cú tsudev, nền sáng |
-| `tsudev_Logo` | ![](./Screenshots/skins/tsudev_Logo.png) | Logo tsudev-trafficmonitor, nền đen |
+| `tsudev_Logo` | ![](./Screenshots/skins/tsudev_Logo.png) | Logo Tsu Tramon, nền đen |
 | `tsudev_VongMang` | ![](./Screenshots/skins/tsudev_VongMang.png) | Biểu tượng tsudev, nền tối |
 | `tsudev_DoThi_Sang` | ![](./Screenshots/skins/tsudev_DoThi_Sang.png) | Đồ thị mạng, nền sáng; hiện thêm GPU và ổ cứng (`skin.xml`) |
 | `tsudev_DoThi_Toi` | ![](./Screenshots/skins/tsudev_DoThi_Toi.png) | Đồ thị mạng, nền tối; hiện thêm GPU và ổ cứng (`skin.xml`) |
@@ -29,7 +29,7 @@ Các skin `0_tsudev_Cu`, `tsudev_Logo`, `tsudev_VongMang`, `tsudev_DoThi_Sang`, 
 ## Cài thêm skin
 
 1. Mỗi skin là **một thư mục** gồm `skin.xml` hoặc `skin.ini` và ảnh nền `background.bmp`/`background.png` (cửa sổ thường) và `background_l.bmp`/`background_l.png` (khi hiện thêm thông số).
-2. Chép cả thư mục skin vào thư mục `skins` cạnh `tsudev-trafficmonitor.exe`.
+2. Chép cả thư mục skin vào thư mục `skins` cạnh `TsuTramon.exe`.
 3. Mở menu chuột phải → **Chức năng khác** → **Đổi giao diện...**, chọn skin vừa chép rồi bấm **OK**.
 
 > ⚠️ Skin chỉ chứa ảnh và tệp cấu hình văn bản, không chứa mã chạy được. Dù vậy, chỉ tải skin từ nguồn bạn tin cậy và không chạy tệp `.exe`/`.bat` đi kèm gói skin.

@@ -5,15 +5,15 @@
 [![Release](https://img.shields.io/github/v/release/tsudev-org/tsudev-trafficmonitor?style=flat-square)](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest)
 [![License](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
 
-<img src="./assets/brand/logo-tsudev-trafficmonitor.png" alt="Logo tsudev-trafficmonitor" height="120">
+<img src="./assets/brand/logo-tsudev-trafficmonitor.png" alt="Logo Tsu Tramon" height="120">
 
-# tsudev-trafficmonitor
+# Tsu Tramon
 
 Theo dõi tốc độ mạng, CPU, RAM trên Windows - bản Việt hóa và gia cố bảo mật của TrafficMonitor.
 
-Một sản phẩm của [tsudev](https://tsudev.com). Trang sản phẩm: [trafficmonitor.tsudev.com](https://trafficmonitor.tsudev.com). Hạng sản phẩm **C** (chạy ngoại tuyến, không tài khoản; mạng chỉ dùng để kiểm tra bản cập nhật và tra IP công cộng khi người dùng bấm).
+Một sản phẩm của [tsudev](https://tsudev.com). Trang sản phẩm: [tramon.tsudev.com](https://tramon.tsudev.com). Hạng sản phẩm **C** (chạy ngoại tuyến, không tài khoản; mạng chỉ dùng để kiểm tra bản cập nhật và tra IP công cộng khi người dùng bấm).
 
-**tsudev-trafficmonitor** là bản Việt hóa và gia cố bảo mật của TrafficMonitor - phần mềm giám sát tốc độ mạng, mức sử dụng CPU/RAM/GPU/ổ cứng trên Windows với cửa sổ nổi và hiển thị trực tiếp trên thanh tác vụ (Taskbar).
+**Tsu Tramon** là bản Việt hóa và gia cố bảo mật của TrafficMonitor - phần mềm giám sát tốc độ mạng, mức sử dụng CPU/RAM/GPU/ổ cứng trên Windows với cửa sổ nổi và hiển thị trực tiếp trên thanh tác vụ (Taskbar).
 
 ## Điểm khác biệt so với bản gốc
 
@@ -24,9 +24,9 @@ Một sản phẩm của [tsudev](https://tsudev.com). Trang sản phẩm: [traf
 * Toàn bộ chú thích mã nguồn (≈2.800 đoạn trong 186 tệp) được dịch sang tiếng Việt, thuận tiện cho lập trình viên Việt Nam phát triển tiếp.
 
 ### Bảo mật
-| Hạng mục | Bản gốc | tsudev-trafficmonitor |
+| Hạng mục | Bản gốc | Tsu Tramon |
 |---|---|---|
-| Nguồn cập nhật | Nhiều máy chủ, có thể chọn | Chỉ repo tsudev-trafficmonitor trên GitHub |
+| Nguồn cập nhật | Nhiều máy chủ, có thể chọn | Chỉ repo Tsu Tramon trên GitHub |
 | Kiểm tra liên kết tải bản cập nhật | Chấp nhận mọi đường dẫn trên máy chủ mã nguồn | Chỉ chấp nhận trang Releases của repo này, chặn `..`, `@`, `?`, `#`, `%`, chỉ `.zip`/`.exe` |
 | Tải bản cập nhật | Mở trình duyệt, không kiểm tệp tải về | Thông tin phiên bản có **chữ ký số** (ECDSA P-256); ứng dụng tự tải gói và chỉ lưu khi **SHA-256 khớp** giá trị đã ký |
 | So sánh phiên bản | So sánh chuỗi (sai khi `1.100` vs `1.86`) | So sánh theo số |
@@ -40,18 +40,18 @@ Chi tiết xem [SECURITY.md](./SECURITY.md).
 
 ## Tải về
 
-* Bản phát hành: [trang Tải về](https://trafficmonitor.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest). Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` và chứng thực nguồn gốc build - hãy đối chiếu mã băm trước khi chạy (xem [SECURITY.md](./SECURITY.md#kiểm-tra-tính-toàn-vẹn-tệp-tải-về)).
-* Gói phát hành là tệp `.zip` giải nén là chạy (`tsudev-trafficmonitor_<phiên bản>_<kiến trúc>_Lite.zip`), không có bộ cài `-setup.exe` như mẫu tên trong chuẩn VERSIONING của tsudev; kiến trúc là `x64`, `x86` hoặc `arm64ec` (ghi đúng kiểu build ARM64EC thay cho `arm64`).
+* Bản phát hành: [trang Tải về](https://tramon.tsudev.com/tai-ve/) hoặc [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest). Mỗi bản phát hành kèm tệp `SHA256SUMS.txt` và chứng thực nguồn gốc build - hãy đối chiếu mã băm trước khi chạy (xem [SECURITY.md](./SECURITY.md#kiểm-tra-tính-toàn-vẹn-tệp-tải-về)).
+* Gói phát hành là tệp `.zip` giải nén là chạy (`tsutramon_<phiên bản>_windows-<kiến trúc>.zip`; bản ≤ 26.11.1202: `tsudev-trafficmonitor_<phiên bản>_<kiến trúc>_Lite.zip`), không có bộ cài `-setup.exe` như mẫu tên trong chuẩn VERSIONING của tsudev; kiến trúc là `x64`, `x86` hoặc `arm64ec` (ghi đúng kiểu build ARM64EC thay cho `arm64`).
 * Kiểm tra cập nhật trong ứng dụng chỉ tin thông tin phiên bản có **chữ ký số** (ECDSA P-256). Từ 26.11.0905, khi bạn bấm **Có**, ứng dụng tự tải gói, kiểm SHA-256 với giá trị đã ký, lưu vào thư mục Tải về (không ghi đè tệp có sẵn) và mở thư mục chọn sẵn tệp; SHA-256 lệch thì xóa tệp và báo lỗi. Ứng dụng không tự giải nén hay tự chạy gói.
 * Bản build thử nghiệm: tab [Actions](https://github.com/tsudev-org/tsudev-trafficmonitor/actions/workflows/build.yml) (cần đăng nhập GitHub).
 
-tsudev-trafficmonitor **chỉ** được phát hành qua repo GitHub trên. Mọi trang web khác tự xưng là “trang chính thức” đều không liên quan.
+Tsu Tramon **chỉ** được phát hành qua repo GitHub trên. Mọi trang web khác tự xưng là “trang chính thức” đều không liên quan.
 
 Chương trình cần **Microsoft Visual C++ Redistributable**. Nếu khi chạy báo thiếu `MSVC*.dll`/`mfc*.dll`, hãy cài từ trang của Microsoft: [Latest supported Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist).
 
 ## Phiên bản
 
-tsudev-trafficmonitor phát hành bản **Lite** (không cần quyền Quản trị viên). Bản Lite có giám sát GPU và ổ cứng, nhưng **không đo nhiệt độ**.
+Tsu Tramon phát hành bản **Lite** (không cần quyền Quản trị viên). Bản Lite có giám sát GPU và ổ cứng, nhưng **không đo nhiệt độ**.
 
 | Tính năng | Bản đầy đủ (tự build) | Bản Lite |
 |---|---|---|
@@ -105,12 +105,12 @@ Chi tiết mạng (nhấp đúp vào cửa sổ nổi; địa chỉ MAC, IP và 
 
 ## Plugin
 
-Plugin là tệp `.dll` đặt trong thư mục `plugins` cạnh `tsudev-trafficmonitor.exe`, được nạp khi chương trình khởi động; quản lý tại **Cài đặt Chung** → **Nâng cao** → **Quản lý Plugin...**.
+Plugin là tệp `.dll` đặt trong thư mục `plugins` cạnh `TsuTramon.exe`, được nạp khi chương trình khởi động; quản lý tại **Cài đặt Chung** → **Nâng cao** → **Quản lý Plugin...**.
 
 * Cài plugin: [Plugin](./Plugin.md).
 * Phát triển plugin: [Phát triển plugin](./PhatTrienPlugin.md); giao diện lập trình (đã chú thích tiếng Việt) ở [`include/PluginInterface.h`](./include/PluginInterface.h), ví dụ ở [`PluginDemo`](./PluginDemo).
 
-> ⚠️ Plugin chạy **cùng quyền với tsudev-trafficmonitor**. Chỉ cài plugin từ nguồn tin cậy.
+> ⚠️ Plugin chạy **cùng quyền với Tsu Tramon**. Chỉ cài plugin từ nguồn tin cậy.
 
 ## Giám sát phần cứng
 
@@ -146,7 +146,7 @@ Khi đổi khóa ký: thay `FORK_UPDATE_PUBLIC_KEY_HEX` (ForkConfig.h), `tools/k
 
 ### Lịch sử mã nguồn
 
-Repo này bắt đầu bằng một commit nhập mã nguồn từ bản V1.87-vn; đây là nơi duy nhất chứa mã nguồn, bản phát hành và kênh cập nhật của tsudev-trafficmonitor. Các thay đổi trước đó (V1.86-vn, V1.87-vn) tóm tắt trong [CHANGELOG.md](./CHANGELOG.md); nguồn gốc mã và giấy phép xem [NOTICE.md](./NOTICE.md). Repo cũ `tsudev-tsudev/tsudev-trafficmonitor` đã được gỡ (11/2026).
+Repo này bắt đầu bằng một commit nhập mã nguồn từ bản V1.87-vn; đây là nơi duy nhất chứa mã nguồn, bản phát hành và kênh cập nhật của Tsu Tramon. Các thay đổi trước đó (V1.86-vn, V1.87-vn) tóm tắt trong [CHANGELOG.md](./CHANGELOG.md); nguồn gốc mã và giấy phép xem [NOTICE.md](./NOTICE.md). Repo cũ `tsudev-tsudev/Tsu Tramon` đã được gỡ (11/2026).
 
 ## Đóng góp
 

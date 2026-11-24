@@ -1,5 +1,5 @@
 // Máy chủ tĩnh tối thiểu cho dist/ (chỉ 127.0.0.1, chặn vượt thư mục), gửi ĐÚNG các header của production
-// (dist/_headers, khối "/*") để kiểm tra trong trình duyệt gặp cùng CSP như trafficmonitor.tsudev.com.
+// (dist/_headers, khối "/*") để kiểm tra trong trình duyệt gặp cùng CSP như tramon.tsudev.com.
 import { createServer } from 'node:http';
 import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, extname, join, normalize, relative, sep } from 'node:path';

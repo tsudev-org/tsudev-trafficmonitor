@@ -1,9 +1,19 @@
 **Tiếng Việt | [English](./update_log_en-us.md)**
 
-# Nhật ký cập nhật - tsudev-trafficmonitor
+# Nhật ký cập nhật - Tsu Tramon
 
-Thay đổi của từng bản phát hành tsudev-trafficmonitor do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
-Các bản trước khi đổi tên mang tên **TrafficMonitor-VN**; nội dung của chúng bên dưới giữ nguyên như lúc phát hành.
+Thay đổi của từng bản phát hành Tsu Tramon do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
+Bản 26.11.1201-1202 mang tên **tsudev-trafficmonitor**, các bản trước đó mang tên **TrafficMonitor-VN**; nội dung của chúng bên dưới giữ nguyên như lúc phát hành.
+
+## 26.11.2401 (24/11/2026)
+
+### Tên mới: Tsu Tramon
+* Phần mềm đổi tên thành **Tsu Tramon**; tệp chạy là **TsuTramon.exe**, gói tải về có dạng `tsutramon_26.11.2401_windows-x64.zip`. Website mới: [tramon.tsudev.com](https://tramon.tsudev.com) (địa chỉ cũ tự chuyển sang).
+* Lần chạy đầu, Tsu Tramon **tự chép cấu hình và lịch sử lưu lượng** từ `%AppData%\tsudev-trafficmonitor` (hoặc `%AppData%\TrafficMonitor` của bản rất cũ) sang `%AppData%\tsutramon`. Thư mục cũ được giữ nguyên để quay lại bản cũ vẫn dùng được.
+* **Tự khởi động cùng Windows** (Registry hoặc Task Scheduler) của bản cũ được chuyển sang Tsu Tramon. Nếu bản cũ đang chạy, Tsu Tramon báo "đang chạy sẵn" thay vì chạy song song - hãy thoát bản cũ trước.
+
+### Sửa lỗi
+* Kiểm tra tự khởi động qua Registry có thể đọc sai đường dẫn chương trình (mất ký tự cuối) và báo nhầm là chưa bật.
 
 ## 26.11.1202 (12/11/2026)
 

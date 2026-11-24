@@ -1,6 +1,6 @@
-# Báo cáo lỗ hổng bảo mật của tsudev-trafficmonitor (RFC 9116)
+# Báo cáo lỗ hổng bảo mật của Tsu Tramon (RFC 9116)
 Contact: https://github.com/tsudev-org/tsudev-trafficmonitor/security/advisories/new
 Expires: 2027-11-01T00:00:00.000Z
 Preferred-Languages: vi, en
-Canonical: https://trafficmonitor.tsudev.com/.well-known/security.txt
-Policy: https://trafficmonitor.tsudev.com/bao-mat/
+Canonical: https://tramon.tsudev.com/.well-known/security.txt
+Policy: https://tramon.tsudev.com/bao-mat/
