@@ -1,6 +1,6 @@
 # STATE.md - Trạng thái project
 
-> **Phiên kế tiếp (phiếu toàn hệ 20261117-P2):** đọc `~/projects/logs/handover/20261117-P2_ke-hoach-phan-phoi-tin-cay-da-nen-tang.md` hàng 7 (`tsudev-trafficmonitor`) ở mục 3
+> **Phiên kế tiếp:** làm phase đầu tiên chưa đánh dấu ở "Hàng đợi task". Phiếu toàn hệ 20261117-P2: đọc `~/projects/logs/handover/20261117-P2_ke-hoach-phan-phoi-tin-cay-da-nen-tang.md` hàng 7 (`tsudev-trafficmonitor`) ở mục 3
 > + `.standards/docs/DISTRIBUTION_TRUST.md` (chuẩn v3.7.0) + `.standards/docs/VERSIONING.md` mục 2. Khuôn thẻ/tên tệp mới chỉ áp
 > cho bản phát hành KẾ TIẾP, đọc mục 2.4 (updater đã cài) trước khi đổi.
 
@@ -9,10 +9,20 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] **TC1 - tên sản phẩm riêng** (phiếu `logs/handover/20261119-TC1_yeu-cau-ten-san-pham-rieng.md`, phiếu tổng `~/projects/logs/handover/20261119-TC1_ten-goi-rieng-toan-he.md`): CHỜ chủ dự án chọn tên sản phẩm + tên miền. Agent KHÔNG tự đặt tên; có tên rồi mới viết ADR đổi tên (giữ updater bản đã cài, di trú %AppData%/Run key, tên cũ bất khả xâm phạm).
-- [ ] Theo dõi PR winget-pkgs #477193 (`tsudev.TrafficMonitor` 26.11.1001, chờ Microsoft duyệt): phiếu `logs/handover/20261112-03_nhac-theo-doi-winget.md` - kiểm mỗi phiên, gộp xong thì nộp bản mới nhất (26.11.1202) với `RelativeFilePath` tên mới.
+> **Kế hoạch phase 24/11/2026** (mỗi phase = một PR, một phiên agent nếu ngữ cảnh đầy). Phiếu nguồn ở `logs/handover/`.
+> Gom cổng kiểm/CI một lần mỗi PR; website deploy sau khi gộp P2 và P3.
+
+- [x] **P1** - đồng bộ quy ước v5.1.0, cổng Clean Codebase (knip/ruff/vulture), SEC1 ĐÓNG, AV1 sổ `docs/store/antivirus.md`, đối soát phiếu tồn (14-01 mục 2).
+- [ ] **P2** - website bản sắc màu + hình (STD50 PR 1: `data-product="trafficmonitor"`, `tokens.css` + `products.css`, gỡ `palette.css`, JetBrains Mono tự host, `--radius-control`) + rà quét giao diện 13-07 (`~/projects/logs/tools/quet-giao-dien.cjs`, 390/1280 × Sáng/Tối, có 404). Deploy + quét production.
+- [ ] **P3** - website bố cục `trinh-dien` + hoạ tiết `duong-bieu-do` tĩnh ở hero + sinh lại `og-image.png` (STD50 PR 2). Deploy.
+- [ ] **P4** - TC1 bước 1: ADR `docs/adr/0001-ten-san-pham-tsu-tramon.md` (updater đã cài, tên tệp cũ song song, winget id, Plugin API) + V1: test chứng minh updater bản đã cài (26.11.0901-1202) coi `v26.11.DDNN`/tên tệp mới là MỚI HƠN.
+- [ ] **P5** - TC1 bước 2: đổi tên trong app (Tsu Tramon, `TsuTramon.exe`, `%AppData%\tsutramon`, Run key, di trú + test C++); thử thật Windows bằng build CI (memory `thu-giao-dien-tren-windows`).
+- [ ] **P6** - TC1 bước 3-4: website tên mới + `tramon.tsudev.com` (301 từ tên miền cũ), phát hành bản đầu theo khuôn V1 (`v26.11.DDNN`), kiểm SHA256SUMS/attestation/chữ ký/VirusTotal.
+- [ ] **P7** - TC1 bước 5-6: đổi tên repo → `tsutramon` (sau phát hành), báo điều phối ghi tên cũ vào danh sách bất khả xâm phạm; phiếu scoop-bucket/linux-packages/tsudev.com; winget (sau khi #477193 gộp).
+- [ ] **P8** - PRO1/PRO2: kiểm kê + ADR Pro (bản miễn phí không gửi dữ liệu); nhắc gia hạn 7 ngày (logic thuần + 6 test bắt buộc, hộp thoại vi/en) khi có JWS quyền lợi; QR1: UI1 icon khay ≥ 3:1 + test, màn Ủng hộ 13.2; 13-03/15-01: good first issue + hồ sơ Best Practices trung thực (`floss_license_osi` Unmet).
+- [ ] Theo dõi PR winget-pkgs #477193 (`tsudev.TrafficMonitor` 26.11.1001, chờ Microsoft duyệt): phiếu `logs/handover/20261112-03_nhac-theo-doi-winget.md` - kiểm mỗi phiên.
+- 👤 Chủ dự án: thay khoá VirusTotal đã lộ (phiếu SEC1 mục 4); gửi báo nhầm Malwarebytes (phiếu AV1, sổ `docs/store/antivirus.md`).
 - Deploy website: `XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy` (12/11/2026 đã deploy 26.11.1202).
-- (trống) - việc tùy chọn (chỉ khi người dùng yêu cầu): xem phiếu `logs/handover/20261110-01_ket-phien-1001-va-xoa-repo-cu.md` mục 2
 
 ## Đang thực hiện
 
@@ -21,6 +31,7 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 24/11/2026 - **P1**: đồng bộ quy ước v4.2.0 → v5.1.0; cổng Clean Codebase (knip trong website.yml, job "Clean Codebase (Python)" ruff F401/F841 + vulture, phụ thuộc ghim băm `tools/requirements-lint.txt`); bỏ 7 export/2 kiểu thừa ở website, 1 import thừa; `check_i18n.py` bỏ qua `.venv`. Đưa 11 phiếu 13-24/11 vào repo, ĐÓNG 20261111-01, SEC1; sổ antivirus.
 - 12/11/2026 - **Phát hành 26.11.1202** (#64, #65; tag ký V26.11.1202-vn, tự duyệt environment bằng `gh api ... pending_deployments`): **thu cửa sổ nổi vào mép màn hình** (`EdgeDock.h` logic thuần + `tests/EdgeDockTests.cpp` 99 phép kiểm có ASan; tay nắm mũi tên `EdgeHandleWnd` GDI+ layered; hoạt ảnh trượt/mờ theo QPC; kéo tay nắm dọc mép; nhớ `edge_dock`/`edge_auto_hide`; bật/tắt trong Cài đặt > Cửa sổ chính và menu Chức năng khác) và **icon khay theo logo mới** (`notifyicon*.ico` sinh bằng `tools/brand/build_brand.py`; 1201 vẫn còn icon sóng cũ). SHA256SUMS, attestation 3 gói, chữ ký manifest ĐẠT; legacy URL chuyển hướng đúng. Thử Windows bằng build CI: mép trái/phải/trên, gợi ý khi kéo, hover + chú thích, bấm trượt lại, kéo dọc mép, khởi động lại nhớ trạng thái ĐẠT (kịch bản `%TEMP%\tsudev-tm-thu\thu_edge.ps1`, `top.ps1`). Máy chủ dự án đã nâng lên 1202 (Run key trỏ thư mục 1202; sao lưu `%TEMP%\tsudev-tm-thu\truoc-nang-cap-1202-*`). Website + Scoop (excavator) lên 1202.
 - 12/11/2026 - **Phát hành 26.11.1201** (tag ký V26.11.1201-vn, chủ dự án đẩy tag và duyệt environment): SHA256SUMS, `gh attestation verify` 3 gói, chữ ký ECDSA `version_signed.xml` đều ĐẠT; liên kết owner cũ chuyển hướng đúng. Thử thật trên máy chủ dự án: bản 1001 tự thấy 1201, tự tải, SHA khớp, có MotW; nâng cấp máy lên 1201 - chuyển %AppData%, Run key, lịch sử 5 ngày ĐẠT; hộp Giới thiệu đúng logo/tên/"Ủng hộ tsudev". Scoop: scoop-bucket#1 (extract_dir/shortcut tên mới, CI cài thử thật đạt). Website đã deploy 1201.
 - 12/11/2026 - Chuẩn bị 26.11.1201: logo sản phẩm (#57), đổi tên toàn bộ thành tsudev-trafficmonitor + chuyển dữ liệu/tự khởi động bản cũ (#58), gỡ Gitee + ủng hộ cũ (#59), trang `/ung-ho/` riêng (bản tham chiếu tsudev-files, kiểm VietQR + SHA-256) và **sửa lỗi mất bản ghi ngày hôm trước sau nửa đêm** (#61). Thử Windows bằng build CI: chặn chạy song song với bản cũ, chép %AppData%, chuyển Run key đều ĐẠT; lỗi lịch sử tái hiện trên 1001 và hết trên 1201; khôi phục ngày 11/11 bị mất trong dữ liệu thật của chủ máy (sao lưu ở %TEMP%\tsudev-tm-thu\).

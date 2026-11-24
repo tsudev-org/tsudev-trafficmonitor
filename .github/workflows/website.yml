@@ -31,6 +31,8 @@ jobs:
           cache: npm
           cache-dependency-path: website/package-lock.json
       - run: npm ci --no-audit --no-fund
+      - name: Clean Codebase - mã chết, export và phụ thuộc thừa (knip, PROJECT_STRUCTURE mục 3.1)
+        run: npm run check:knip
       - run: npm run build
       - name: Cài Chromium cho kiểm tra khả năng truy cập
         run: npx playwright install --with-deps chromium

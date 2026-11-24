@@ -11,7 +11,7 @@ export const SITE = 'https://trafficmonitor.tsudev.com';
 const GOC = normalize(join(process.cwd(), '..'));
 
 /** Tệp .md của repo -> đường dẫn trên website. Tệp khác của repo trỏ về GitHub. */
-export const TRANG_MD: Record<string, string> = {
+const TRANG_MD: Record<string, string> = {
   'Help.md': '/huong-dan/hoi-dap/',
   'KhoGiaoDien.md': '/huong-dan/kho-giao-dien/',
   'HuongDanTaoSkin.md': '/huong-dan/tu-lam-giao-dien/',
@@ -30,7 +30,7 @@ export function docTep(duongDan: string): string {
 }
 
 /** Slug kiểu GitHub: chữ thường, bỏ dấu câu, khoảng trắng -> "-" (giữ chữ có dấu tiếng Việt). */
-export function slug(text: string): string {
+function slug(text: string): string {
   // Bỏ thẻ HTML lặp tới khi hết (một lượt có thể để lại thẻ ghép lồng như "<scr<b>ipt>")
   let s = text.toLowerCase().trim();
   for (let truoc = ''; truoc !== s; ) {
@@ -93,7 +93,7 @@ export function renderMd(tepMd: string, opts: { boTieuDeDau?: boolean; boDongNgo
   return { html, tieuDe };
 }
 
-export interface GoiTai { kienTruc: string; ten: string; url: string; sha256: string; kichThuoc: number }
+interface GoiTai { kienTruc: string; ten: string; url: string; sha256: string; kichThuoc: number }
 export interface BanPhatHanh { tag: string; phienBan: string; ngay: string; url: string; goi: GoiTai[] }
 
 let boNho: Promise<BanPhatHanh> | undefined;

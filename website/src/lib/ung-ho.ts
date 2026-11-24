@@ -5,11 +5,11 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import duLieu from '../data/ung-ho.json';
 
-export interface VietQr { bin: string; soTaiKhoan: string; payload: string }
+interface VietQr { bin: string; soTaiKhoan: string; payload: string }
 export interface KenhUngHo { ten: string; moTa: string; url?: string; chiTiet: string[]; anhQr?: string; vietqr?: VietQr }
 
 /** CRC-16/CCITT-FALSE của VietQR (EMVCo), 4 chữ số hex in hoa. */
-export function crc16(s: string): string {
+function crc16(s: string): string {
   let c = 0xffff;
   for (const b of Buffer.from(s, 'ascii')) {
     c ^= b << 8;
@@ -31,7 +31,7 @@ function tlv(s: string): Map<string, string> {
 }
 
 /** VietQR hợp lệ (CRC đúng) và chuyển tiền tới đúng BIN + số tài khoản đã khai. */
-export function kiemVietQr(q: VietQr): void {
+function kiemVietQr(q: VietQr): void {
   const { payload, bin, soTaiKhoan } = q;
   if (!payload.endsWith(crc16(payload.slice(0, -4))) || payload.slice(-8, -4) !== '6304') throw new Error('VietQR sai CRC');
   const goc = tlv(payload);
@@ -47,7 +47,7 @@ const CAM = /zhongyang|alipay|wechat|weixin|paypal\.me|ko-fi|patreon|afdian|gith
 const THU_MUC_QR = join(process.cwd(), 'public');
 
 /** Kênh hợp lệ: có tên, mô tả và ít nhất một trong url/chiTiet/anhQr. Sai thì dừng build (không lặng lẽ bỏ qua). */
-export function kiemKenh(kenh: unknown[]): KenhUngHo[] {
+function kiemKenh(kenh: unknown[]): KenhUngHo[] {
   return kenh.map((k, i) => {
     const { ten, moTa, url, chiTiet, anhQr, anhQrSha256, vietqr } = (k ?? {}) as Record<string, unknown>;
     const loi = (m: string) => new Error(`ung-ho.json, kênh #${i + 1}${typeof ten === 'string' ? ` (${ten})` : ''}: ${m}`);
