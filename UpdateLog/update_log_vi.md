@@ -5,6 +5,14 @@
 Thay đổi của từng bản phát hành Tsu Tramon do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 Bản 26.11.1201-1202 mang tên **tsudev-trafficmonitor**, các bản trước đó mang tên **TrafficMonitor-VN**; nội dung của chúng bên dưới giữ nguyên như lúc phát hành.
 
+## 26.11.2501 (25/11/2026)
+
+### Icon khay hệ thống
+* Icon khay **dễ nhìn hơn trên thanh tác vụ nền tối**: thêm viền màu nhấn, độ tương phản với nền đạt tối thiểu 3:1 (WCAG). Icon khay kiểu viền sát mép cũng rõ hơn.
+
+### Khác
+* Liên kết trong ứng dụng (mã nguồn, tài liệu tiếng Anh, kiểm tra cập nhật) trỏ tên kho mã mới **tsudev-org/tsutramon**. Bản cũ đã cài vẫn cập nhật bình thường.
+
 ## 26.11.2401 (24/11/2026)
 
 ### Tên mới: Tsu Tramon

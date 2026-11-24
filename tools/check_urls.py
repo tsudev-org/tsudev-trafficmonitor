@@ -39,6 +39,7 @@ ALLOWED_PREFIXES = [
     "https://trafficmonitor.tsudev.com",
     # Tên repo sau khi đổi (P7): tiền tố tải bản mới tin thêm (FORK_RELEASE_DOWNLOAD_PREFIX_NEW)
     "https://github.com/tsudev-org/tsutramon",   # tên repo từ 24/11/2026 (P7); tiền tố tải bản mới tin thêm
+    "https://raw.githubusercontent.com/tsudev-org/tsutramon/",
     "https://tsudev.com",
     # Kênh cài bằng lệnh (tsudev-standards PACKAGING.md): bucket Scoop do dự án duy trì + trang Scoop
     "https://github.com/tsudev-org/scoop-bucket",

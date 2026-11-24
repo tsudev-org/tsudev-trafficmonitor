@@ -138,7 +138,7 @@ Cấu hình riêng của bản Việt hóa (repo, URL cập nhật, ngôn ngữ 
 
 1. Cập nhật số phiên bản `{YY}.{M}.{DD}{NN}` ở `VERSION` (`tsudev-trafficmonitor/stdafx.h`), VERSIONINFO trong `tsudev-trafficmonitor/tsudev-trafficmonitor.rc` và `version_utf8.info`.
 2. Thêm một dòng vào [CHANGELOG.md](./CHANGELOG.md) và phần chi tiết vào `UpdateLog/update_log_vi.md` + `UpdateLog/update_log_en-us.md`.
-3. PR → CI đạt → gộp; gắn tag có chữ ký `V<phiên bản>-vn`; duyệt environment `release`; kiểm SHA-256, chứng thực build và chữ ký `version_signed.xml`; deploy website.
+3. PR → CI đạt → gộp; gắn thẻ có chữ ký `v<phiên bản>` (thẻ cũ `V*-vn` giữ nguyên, ADR-0001 mục 3.3); duyệt environment `release`; kiểm SHA-256, chứng thực build và chữ ký `version_signed.xml`; deploy website.
 
 Khóa bí mật ký thông tin cập nhật chỉ nằm trong secret `UPDATE_SIGNING_KEY` của environment `release` (chủ repo tsudev giữ; người bảo trì khác xin quyền duyệt environment qua chủ repo). Khóa công khai: `tools/keys/update_signing_pub.pem`.
 

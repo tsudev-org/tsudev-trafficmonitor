@@ -5,6 +5,14 @@
 Changes in each Tsu Tramon release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 Releases 26.11.1201-1202 were called **tsudev-trafficmonitor** and earlier ones **TrafficMonitor-VN**; their entries below are kept as released.
 
+## 26.11.2501 (25/11/2026)
+
+### Tray icon
+* The tray icon is **easier to see on a dark taskbar**: it gains an accent outline with a contrast of at least 3:1 against the background (WCAG). The edge-outline tray icon style is clearer too.
+
+### Other
+* Links in the app (source code, English docs, update check) point to the new repository name **tsudev-org/tsutramon**. Installed older releases keep updating as usual.
+
 ## 26.11.2401 (24/11/2026)
 
 ### New name: Tsu Tramon
