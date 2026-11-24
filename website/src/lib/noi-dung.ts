@@ -3,8 +3,13 @@ import { readFileSync } from 'node:fs';
 import { dirname, join, normalize } from 'node:path';
 import { Marked } from 'marked';
 
-export const REPO = 'tsudev-org/tsudev-trafficmonitor';
+const REPO = 'tsudev-org/tsutramon';
 export const REPO_URL = `https://github.com/${REPO}`;
+// Chứng thực build ghi tên repo LÚC build: bản đến hết 26.11.2401 build trước khi đổi tên repo (24/11/2026).
+export const repoChungThuc = (phienBan: string): string => {
+  const [y, m, d] = phienBan.split('.').map(Number);
+  return y * 1e6 + m * 1e4 + d <= 26 * 1e6 + 11 * 1e4 + 2401 ? 'tsudev-org/tsudev-trafficmonitor' : REPO;
+};
 export const SITE = 'https://tramon.tsudev.com';
 
 // Gốc repo: build chạy trong thư mục website/ (npm run build), nên gốc là thư mục cha.

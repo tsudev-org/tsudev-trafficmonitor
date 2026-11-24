@@ -38,7 +38,7 @@ ALLOWED_PREFIXES = [
     # Tên miền cũ (301 sang tramon.tsudev.com, ADR-0001 mục 3.6): danh sách máy chủ tin cậy của app, nhật ký lịch sử
     "https://trafficmonitor.tsudev.com",
     # Tên repo sau khi đổi (P7): tiền tố tải bản mới tin thêm (FORK_RELEASE_DOWNLOAD_PREFIX_NEW)
-    "https://github.com/tsudev-org/tsutramon/",
+    "https://github.com/tsudev-org/tsutramon",   # tên repo từ 24/11/2026 (P7); tiền tố tải bản mới tin thêm
     "https://tsudev.com",
     # Kênh cài bằng lệnh (tsudev-standards PACKAGING.md): bucket Scoop do dự án duy trì + trang Scoop
     "https://github.com/tsudev-org/scoop-bucket",
@@ -74,6 +74,7 @@ ALLOWED_PREFIXES = [
     "https://github.com/tsudev-org/tsudev-standards",
     # Sổ báo nhầm antivirus (docs/store/antivirus.md, phiếu 20261122-AV1)
     "https://forums.malwarebytes.com/",
+    "https://help.malwarebytes.com/",
     "https://www.virustotal.com/",
 ]
 

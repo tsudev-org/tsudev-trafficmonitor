@@ -149,16 +149,16 @@ How to install plugins and troubleshoot them: [Plugins](./Plugin_en-us.md); writ
 
 ### How do I check that a download is genuine?
 
-Download only from [tramon.tsudev.com](https://tramon.tsudev.com/tai-ve/) or the repository's [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest). Compare the zip's SHA-256 with `SHA256SUMS.txt` (PowerShell: `Get-FileHash <file>.zip`); when updating from within the app (26.11.0905 and later), the app downloads the package itself and only saves it to your Downloads folder if its SHA-256 matches the signed version information; if it reports a SHA-256 mismatch, do not fetch the package another way - report it on GitHub Issues. Full steps, including build attestation: [SECURITY.md](./SECURITY.md).
+Download only from [tramon.tsudev.com](https://tramon.tsudev.com/tai-ve/) or the repository's [Releases](https://github.com/tsudev-org/tsutramon/releases/latest). Compare the zip's SHA-256 with `SHA256SUMS.txt` (PowerShell: `Get-FileHash <file>.zip`); when updating from within the app (26.11.0905 and later), the app downloads the package itself and only saves it to your Downloads folder if its SHA-256 matches the signed version information; if it reports a SHA-256 mismatch, do not fetch the package another way - report it on GitHub Issues. Full steps, including build attestation: [SECURITY.md](./SECURITY.md).
 
 ### The program crashes
 
 1. Restart the program and **turn off everything** in **General Settings** → **Hardware Monitoring** - most crashes are related to this feature.
 2. If it still crashes, go to **Advanced** → **Plug-in manage...**, disable all plugins and restart. (If the program won't open, delete the `.dll` files in the `plugins` folder next to `TsuTramon.exe`.)
-3. If you have ruled out both, [open an issue](https://github.com/tsudev-org/tsudev-trafficmonitor/issues/new/choose) with the text from the crash window.
+3. If you have ruled out both, [open an issue](https://github.com/tsudev-org/tsutramon/issues/new/choose) with the text from the crash window.
 
 ### Feedback and bug reports
 
-Please use [Tsu Tramon's GitHub Issues](https://github.com/tsudev-org/tsudev-trafficmonitor/issues). Describe the problem, error messages and what you have tried, with screenshots and your configuration file (**General Settings** → **Open configuration file directory**) if possible. Do **not** attach sensitive information.
+Please use [Tsu Tramon's GitHub Issues](https://github.com/tsudev-org/tsutramon/issues). Describe the problem, error messages and what you have tried, with screenshots and your configuration file (**General Settings** → **Open configuration file directory**) if possible. Do **not** attach sensitive information.
 
 Report security vulnerabilities privately as described in [SECURITY.md](./SECURITY.md), not publicly.

@@ -1,8 +1,8 @@
 **[Tiếng Việt](./README.md) | English**
 
-[![Build](https://img.shields.io/github/actions/workflow/status/tsudev-org/tsudev-trafficmonitor/build.yml?branch=main&label=Build&logo=github&style=flat-square)](https://github.com/tsudev-org/tsudev-trafficmonitor/actions/workflows/build.yml)
-[![CodeQL](https://img.shields.io/github/actions/workflow/status/tsudev-org/tsudev-trafficmonitor/codeql.yml?branch=main&label=CodeQL&logo=github&style=flat-square)](https://github.com/tsudev-org/tsudev-trafficmonitor/actions/workflows/codeql.yml)
-[![Release](https://img.shields.io/github/v/release/tsudev-org/tsudev-trafficmonitor?style=flat-square)](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest)
+[![Build](https://img.shields.io/github/actions/workflow/status/tsudev-org/tsutramon/build.yml?branch=main&label=Build&logo=github&style=flat-square)](https://github.com/tsudev-org/tsutramon/actions/workflows/build.yml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/tsudev-org/tsutramon/codeql.yml?branch=main&label=CodeQL&logo=github&style=flat-square)](https://github.com/tsudev-org/tsutramon/actions/workflows/codeql.yml)
+[![Release](https://img.shields.io/github/v/release/tsudev-org/tsutramon?style=flat-square)](https://github.com/tsudev-org/tsutramon/releases/latest)
 [![License](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
 
 <img src="./assets/brand/logo-tsudev-trafficmonitor.png" alt="Logo Tsu Tramon" height="120">
@@ -39,10 +39,10 @@ Details: [SECURITY.md](./SECURITY.md) (Vietnamese).
 
 ## Download
 
-* Releases: [Download page](https://tramon.tsudev.com/tai-ve/) or [GitHub Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest). Each release includes `SHA256SUMS.txt` and a GitHub build provenance attestation - check the hash before running.
+* Releases: [Download page](https://tramon.tsudev.com/tai-ve/) or [GitHub Releases](https://github.com/tsudev-org/tsutramon/releases/latest). Each release includes `SHA256SUMS.txt` and a GitHub build provenance attestation - check the hash before running.
 * Packages are ready-to-run `.zip` files (`tsutramon_<version>_windows-<arch>.zip`; up to 26.11.1202: `tsudev-trafficmonitor_<version>_<arch>_Lite.zip`); there is no `-setup.exe` installer as in tsudev's VERSIONING naming template, and the architecture is `x64`, `x86` or `arm64ec` (named after the actual ARM64EC build instead of `arm64`).
 * The in-app update check only trusts **signed** version information. From 26.11.0905, when you click **Yes**, the app downloads the package, checks its SHA-256 against the signed value, saves it to your Downloads folder (never overwriting an existing file) and opens the folder with the file selected; on a SHA-256 mismatch the file is deleted and an error is shown. The app never extracts or runs the package.
-* CI test builds: [Actions](https://github.com/tsudev-org/tsudev-trafficmonitor/actions/workflows/build.yml) (GitHub sign-in required).
+* CI test builds: [Actions](https://github.com/tsudev-org/tsutramon/actions/workflows/build.yml) (GitHub sign-in required).
 
 Tsu Tramon is published **only** through the GitHub repository above and tramon.tsudev.com. Any other site claiming to be "official" is unrelated.
 
@@ -146,7 +146,7 @@ This repository starts with a source import commit from V1.87-vn and is the only
 
 ## Contributing
 
-* Bugs / suggestions: [Issues](https://github.com/tsudev-org/tsudev-trafficmonitor/issues/new/choose).
+* Bugs / suggestions: [Issues](https://github.com/tsudev-org/tsutramon/issues/new/choose).
 * Security vulnerabilities: do **not** post publicly; see [SECURITY.md](./SECURITY.md).
 * Changes: [CHANGELOG.md](./CHANGELOG.md) (one line per release), details in the [update log](./UpdateLog/update_log_en-us.md).
 

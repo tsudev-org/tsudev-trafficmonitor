@@ -71,8 +71,9 @@ gấp đôi tệp.
 
 **Việc phát sinh cần làm:**
 - [x] P5 (#84): đổi tên trong app + di trú + test (`LegacyNames.h`); thử thật Windows bằng build CI: chặn song song, chuyển dữ liệu, Run key ĐẠT (tự tải + SHA thử ở P6 khi có bản phát hành)
-- [ ] P6: website tên mới + tên miền + 301; `release.yml` nhận `v*`, tên tệp mới + song song tên cũ; phát hành; kiểm SHA256SUMS/attestation/chữ ký/VirusTotal
-- [ ] P7: đổi tên repo, kiểm 4 đường chuyển hướng; báo điều phối ghi tên cũ vào `~/.claude/CLAUDE.md`; phiếu scoop-bucket, linux-packages, tsudev.com; winget sau khi #477193 gộp
+- [x] P6 (#85): website tên mới + tên miền + 301; `release.yml` nhận `v*`, tên tệp mới + song song tên cũ; phát hành `v26.11.2401` 24/11/2026; SHA256SUMS/attestation 6 gói/chữ ký ĐẠT; VirusTotal: arm64ec 1/73 Malwarebytes (chủ dự án chấp nhận, ticket báo nhầm 8706403)
+- [x] P7 (24/11/2026): đổi tên repo → `tsudev-org/tsutramon`, 4 đường chuyển hướng ĐẠT; phiếu TM1 cho điều phối (`~/.claude/CLAUDE.md`, tsudev.com, tsudev-standards) và scoop-bucket; linux-packages không đóng gói sản phẩm này. Chứng thực build ghi tên repo lúc build ⇒ bản ≤ 26.11.2401 kiểm bằng `-R tsudev-org/tsudev-trafficmonitor`
+- [ ] winget: đổi `PackageName` "Tsu Tramon" sau khi #477193 gộp
 
 ## 5. Đường lùi
 
