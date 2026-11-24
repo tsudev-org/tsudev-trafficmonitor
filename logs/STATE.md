@@ -15,7 +15,7 @@
 - [x] **P1** - đồng bộ quy ước v5.1.0, cổng Clean Codebase (knip/ruff/vulture), SEC1 ĐÓNG, AV1 sổ `docs/store/antivirus.md`, đối soát phiếu tồn (14-01 mục 2).
 - [x] **P2** - website bản sắc màu + hình (STD50 PR 1: `data-product="trafficmonitor"`, `tokens.css` + `products.css`, gỡ `palette.css`, JetBrains Mono tự host, `--radius-control`) + rà quét giao diện 13-07 (`~/projects/logs/tools/quet-giao-dien.cjs`, 390/1280 × Sáng/Tối, có 404). Deploy + quét production.
 - [x] **P3** - website bố cục `trinh-dien` + hoạ tiết `duong-bieu-do` tĩnh ở hero + sinh lại `og-image.png` (STD50 PR 2). Deploy.
-- [ ] **P4** - TC1 bước 1: ADR `docs/adr/0001-ten-san-pham-tsu-tramon.md` (updater đã cài, tên tệp cũ song song, winget id, Plugin API) + V1: test chứng minh updater bản đã cài (26.11.0901-1202) coi `v26.11.DDNN`/tên tệp mới là MỚI HƠN.
+- [x] **P4** - TC1 bước 1: ADR `docs/adr/0001-ten-san-pham-tsu-tramon.md` (updater đã cài, tên tệp cũ song song, winget id, Plugin API) + V1: test chứng minh updater bản đã cài (26.11.0901-1202) coi `v26.11.DDNN`/tên tệp mới là MỚI HƠN.
 - [ ] **P5** - TC1 bước 2: đổi tên trong app (Tsu Tramon, `TsuTramon.exe`, `%AppData%\tsutramon`, Run key, di trú + test C++); thử thật Windows bằng build CI (memory `thu-giao-dien-tren-windows`).
 - [ ] **P6** - TC1 bước 3-4: website tên mới + `tramon.tsudev.com` (301 từ tên miền cũ), phát hành bản đầu theo khuôn V1 (`v26.11.DDNN`), kiểm SHA256SUMS/attestation/chữ ký/VirusTotal.
 - [ ] **P7** - TC1 bước 5-6: đổi tên repo → `tsutramon` (sau phát hành), báo điều phối ghi tên cũ vào danh sách bất khả xâm phạm; phiếu scoop-bucket/linux-packages/tsudev.com; winget (sau khi #477193 gộp).
@@ -31,6 +31,7 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 24/11/2026 - **P4** (TC1 bước 1 + V1): ADR-0001 đổi tên Tsu Tramon (khảo sát updater bản đã cài: so `<version>`, link giữ tiền tố repo cũ mãi mãi, tệp tên cũ song song một bản); test `TestKhuonV1`.
 - 24/11/2026 - **P2 + P3** (STD50 + 13-07): website bản sắc vàng chanh/JetBrains Mono/bo góc mem từ token chuẩn, bố cục trinh-dien + hoạ tiết duong-bieu-do, og-image mới; sửa trùng id `/nhat-ky/`, ngày DD/MM/YYYY.
 - 24/11/2026 - **P1**: đồng bộ quy ước v4.2.0 → v5.1.0; cổng Clean Codebase (knip trong website.yml, job "Clean Codebase (Python)" ruff F401/F841 + vulture, phụ thuộc ghim băm `tools/requirements-lint.txt`); bỏ 7 export/2 kiểu thừa ở website, 1 import thừa; `check_i18n.py` bỏ qua `.venv`. Đưa 11 phiếu 13-24/11 vào repo, ĐÓNG 20261111-01, SEC1; sổ antivirus.
 - 12/11/2026 - **Phát hành 26.11.1202** (#64, #65; tag ký V26.11.1202-vn, tự duyệt environment bằng `gh api ... pending_deployments`): **thu cửa sổ nổi vào mép màn hình** (`EdgeDock.h` logic thuần + `tests/EdgeDockTests.cpp` 99 phép kiểm có ASan; tay nắm mũi tên `EdgeHandleWnd` GDI+ layered; hoạt ảnh trượt/mờ theo QPC; kéo tay nắm dọc mép; nhớ `edge_dock`/`edge_auto_hide`; bật/tắt trong Cài đặt > Cửa sổ chính và menu Chức năng khác) và **icon khay theo logo mới** (`notifyicon*.ico` sinh bằng `tools/brand/build_brand.py`; 1201 vẫn còn icon sóng cũ). SHA256SUMS, attestation 3 gói, chữ ký manifest ĐẠT; legacy URL chuyển hướng đúng. Thử Windows bằng build CI: mép trái/phải/trên, gợi ý khi kéo, hover + chú thích, bấm trượt lại, kéo dọc mép, khởi động lại nhớ trạng thái ĐẠT (kịch bản `%TEMP%\tsudev-tm-thu\thu_edge.ps1`, `top.ps1`). Máy chủ dự án đã nâng lên 1202 (Run key trỏ thư mục 1202; sao lưu `%TEMP%\tsudev-tm-thu\truoc-nang-cap-1202-*`). Website + Scoop (excavator) lên 1202.
@@ -52,6 +53,8 @@
 
 ## Quyết định quan trọng
 
+> - 24/11/2026 - [ADR-0001](../docs/adr/0001-ten-san-pham-tsu-tramon.md): đổi tên Tsu Tramon; link trong manifest giữ tiền tố `tsudev-tsudev/tsudev-trafficmonitor` mãi mãi.
+>
 > Quyết định kiến trúc lớn thì viết ADR riêng theo `docs/templates/ADR.md` và chỉ
 > ghi một dòng tham chiếu ở đây.
 
