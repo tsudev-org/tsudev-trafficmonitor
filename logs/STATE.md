@@ -1,6 +1,6 @@
 # STATE.md - Trạng thái project
 
-> **Phiên kế tiếp:** làm phase đầu tiên chưa đánh dấu ở "Hàng đợi task". Phiếu toàn hệ 20261117-P2: đọc `~/projects/logs/handover/20261117-P2_ke-hoach-phan-phoi-tin-cay-da-nen-tang.md` hàng 7 (`tsudev-trafficmonitor`) ở mục 3
+> **Phiên kế tiếp:** làm phase đầu tiên chưa đánh dấu ở "Hàng đợi task". **Chủ dự án đã uỷ quyền tự động làm hết P5-P8 + gửi báo nhầm Malwarebytes (tự mở trình duyệt, điền biểu mẫu): đọc phiếu `logs/handover/20261124-UQ1_uy-quyen-tu-dong-phien-sau.md` trước.** Phiếu toàn hệ 20261117-P2: đọc `~/projects/logs/handover/20261117-P2_ke-hoach-phan-phoi-tin-cay-da-nen-tang.md` hàng 7 (`tsudev-trafficmonitor`) ở mục 3
 > + `.standards/docs/DISTRIBUTION_TRUST.md` (chuẩn v3.7.0) + `.standards/docs/VERSIONING.md` mục 2. Khuôn thẻ/tên tệp mới chỉ áp
 > cho bản phát hành KẾ TIẾP, đọc mục 2.4 (updater đã cài) trước khi đổi.
 
@@ -25,7 +25,8 @@
 - [ ] **P7** - TC1 bước 5-6: đổi tên repo → `tsutramon` (sau phát hành), báo điều phối ghi tên cũ vào danh sách bất khả xâm phạm; phiếu scoop-bucket/linux-packages/tsudev.com; winget (sau khi #477193 gộp).
 - [ ] **P8** - PRO1/PRO2: kiểm kê + ADR Pro (bản miễn phí không gửi dữ liệu); nhắc gia hạn 7 ngày (logic thuần + 6 test bắt buộc, hộp thoại vi/en) khi có JWS quyền lợi; QR1: UI1 icon khay ≥ 3:1 + test, màn Ủng hộ 13.2; 13-03/15-01: good first issue + hồ sơ Best Practices trung thực (`floss_license_osi` Unmet).
 - [ ] Theo dõi PR winget-pkgs #477193 (`tsudev.TrafficMonitor` 26.11.1001, chờ Microsoft duyệt): phiếu `logs/handover/20261112-03_nhac-theo-doi-winget.md` - kiểm mỗi phiên.
-- 👤 Chủ dự án: thay khoá VirusTotal đã lộ (phiếu SEC1 mục 4); gửi báo nhầm Malwarebytes (phiếu AV1, sổ `docs/store/antivirus.md`).
+- 👤 Chủ dự án: thay khoá VirusTotal đã lộ (phiếu SEC1 mục 4).
+- [ ] Gửi báo nhầm Malwarebytes bản arm64ec - agent làm theo uỷ quyền (phiếu UQ1 mục 2; chủ dự án chỉ tự gõ mật khẩu nếu trình duyệt chưa đăng nhập).
 - Deploy website: `XDG_CONFIG_HOME=$HOME/.config/wrangler-tsudev npm run deploy` (24/11/2026 đã deploy #80; nếu báo "Cannot find native binding" thì chạy lại `npm ci`).
 
 ## Đang thực hiện
