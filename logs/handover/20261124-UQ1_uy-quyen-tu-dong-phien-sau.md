@@ -3,7 +3,7 @@
 - **Mã phiếu**: 20261124-UQ1
 - **Từ**: phiên tsudev-trafficmonitor SES-20261124-1215-6a21 (ghi theo lời chủ dự án trong chat 24/11/2026) - **Đến**: các phiên sau của `tsudev-trafficmonitor`
 - **Thời điểm**: 24/11/2026
-- **Trạng thái**: MỞ - còn hiệu lực tới khi P5-P8 trong `logs/STATE.md` xong hết và phiếu AV1 đã gửi Malwarebytes
+- **Trạng thái**: ĐÓNG 25/11/2026 - P5-P8 xong (#84, #85, #86, #90), Malwarebytes đã gửi (ticket 8706403). Việc còn lại: phiếu `20261125-01`
 - **Nhánh git**: không có nhánh dang dở (`main` = `9eeab05`, #82)
 
 ## 0. Uỷ quyền của chủ dự án (nguyên ý, 24/11/2026)
