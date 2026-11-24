@@ -9,7 +9,7 @@
     "en": "Network speed, CPU and RAM monitor in the Windows taskbar - Vietnamese, security-hardened edition of the original TrafficMonitor"
   },
   "release": {
-    "repo": "tsudev-org/tsudev-trafficmonitor",
+    "repo": "tsudev-org/tsutramon",
     "tagRegex": "^[vV](?<version>\\d+\\.\\d+\\.\\d+)(-vn)?$",
     "sums": "SHA256SUMS.txt"
   },

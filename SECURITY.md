@@ -2,13 +2,13 @@
 
 ## Phiên bản được hỗ trợ
 
-Chỉ **bản phát hành mới nhất** trên trang [Releases](https://github.com/tsudev-org/tsudev-trafficmonitor/releases/latest) nhận bản vá bảo mật.
+Chỉ **bản phát hành mới nhất** trên trang [Releases](https://github.com/tsudev-org/tsutramon/releases/latest) nhận bản vá bảo mật.
 
 ## Báo cáo lỗ hổng
 
 **Không** báo lỗ hổng bảo mật qua Issues công khai.
 
-Hãy dùng tính năng **[Private vulnerability reporting](https://github.com/tsudev-org/tsudev-trafficmonitor/security/advisories/new)** của GitHub (tab *Security* → *Report a vulnerability*). Vui lòng cung cấp:
+Hãy dùng tính năng **[Private vulnerability reporting](https://github.com/tsudev-org/tsutramon/security/advisories/new)** của GitHub (tab *Security* → *Report a vulnerability*). Vui lòng cung cấp:
 
 * Phiên bản, kiến trúc (x86/x64/ARM64EC), phiên bản Windows.
 * Mô tả lỗ hổng, mức ảnh hưởng và các bước tái hiện (PoC tối thiểu nếu có).
@@ -28,14 +28,17 @@ So sánh kết quả với dòng tương ứng trong `SHA256SUMS.txt`. Nếu kh�
 Bản phát hành còn kèm **chứng thực nguồn gốc build** (build provenance attestation) của GitHub. Có thể xác minh bằng GitHub CLI:
 
 ```bash
-gh attestation verify tsudev-trafficmonitor_26.11.0901_x64_Lite.zip --repo tsudev-org/tsudev-trafficmonitor
+gh attestation verify tsutramon_26.11.2401_windows-x64.zip --repo tsudev-org/tsudev-trafficmonitor
 ```
+
+Repo đổi tên thành `tsudev-org/tsutramon` ngày 24/11/2026. Chứng thực ghi tên repo tại thời điểm build, nên các bản
+**đến hết 26.11.2401** kiểm bằng `--repo tsudev-org/tsudev-trafficmonitor`; các bản sau dùng `--repo tsudev-org/tsutramon`.
 
 ## Chuỗi tin cậy của bản cập nhật
 
 1. **Chữ ký thông tin phiên bản** - ứng dụng chỉ tin `version_signed.xml` có chữ ký hợp lệ (xem mục 1 bên dưới).
 2. **SHA-256** - từ 26.11.0905, khi bạn đồng ý cập nhật, ứng dụng **tự tải gói** đúng kiến trúc, tính SHA-256 trong lúc tải và so với SHA-256 trong thông tin phiên bản có chữ ký; chỉ khi khớp mới lưu gói vào thư mục Tải về (Downloads) và mở thư mục chọn sẵn tệp. Lệch thì xóa tệp và báo lỗi. Mã băm này cũng có trong `SHA256SUMS.txt` của bản phát hành; nếu tải bằng trình duyệt (bản cũ hơn, hoặc khi tự tải thất bại), đối chiếu bằng `Get-FileHash <tệp.zip> -Algorithm SHA256` (PowerShell).
-3. **Chứng thực nguồn gốc build** - mỗi gói được GitHub Actions chứng thực (`gh attestation verify <tệp.zip> -R tsudev-org/tsudev-trafficmonitor`), chứng minh gói được build từ mã nguồn của repo này tại đúng tag phát hành.
+3. **Chứng thực nguồn gốc build** - mỗi gói được GitHub Actions chứng thực (`gh attestation verify <tệp.zip> -R tsudev-org/tsutramon`; bản đến 26.11.2401: `-R tsudev-org/tsudev-trafficmonitor`), chứng minh gói được build từ mã nguồn của repo này tại đúng tag phát hành.
 
 Tự kiểm tra chữ ký thông tin phiên bản (cần OpenSSL và Python):
 
@@ -56,7 +59,7 @@ Từ 26.11.1001, cùng mã nguồn (cùng commit) build bằng cùng bộ công 
 Tự kiểm một bản phát hành (Windows, Visual Studio 2022 có MFC v143):
 
 ```powershell
-git clone https://github.com/tsudev-org/tsudev-trafficmonitor; cd tsudev-trafficmonitor
+git clone https://github.com/tsudev-org/tsutramon; cd tsutramon
 git checkout v26.11.2401
 msbuild tsudev-trafficmonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=x64 -p:PlatformToolset=v143
 Get-FileHash "Bin\x64\Release (lite)\TsuTramon.exe"   # so với TsuTramon.exe trong gói zip của bản phát hành

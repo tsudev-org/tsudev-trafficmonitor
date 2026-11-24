@@ -69,3 +69,7 @@ Phạm vi được làm KHÔNG cần hỏi lại:
 ## 4. Kết quả xử lý (mỗi phiên ghi một dòng)
 
 - 24/11/2026 (SES-20261124-2010-27e7): P5 xong (#84), thử thật Windows ĐẠT và đã khôi phục máy chủ dự án về 1202. #70 đã đóng, thay bằng dependabot #79 (CI xanh).
+- 24/11/2026 (SES-20261124-2244-e109): P6 xong - Release `v26.11.2401` công bố (chủ dự án chấp nhận cờ Malwarebytes arm64ec),
+  website tramon.tsudev.com + 301 deploy. P7 phần repo xong - đổi tên `tsudev-org/tsutramon`, 4 đường chuyển hướng ĐẠT; phiếu
+  TM1 gửi tsudev (đã nhắn tsudev-8d) và scoop-bucket. Malwarebytes: ticket 8706403 (diễn đàn chặn ISP). Còn: winget (chờ
+  #477193), P8.

@@ -34,3 +34,7 @@
   3.8: tên tệp/SHA/link/mô tả đúng; 2 câu cần sửa khi gửi cho sản phẩm này (SignPath - repo đã bỏ Authenticode; PRIVACY -
   repo chưa có `PRIVACY.md`), ghi ở sổ mục 2. Đo VT 24/11: kết quả lưu vẫn là 22/11 (arm64ec 1/74 Malwarebytes, x64/x86
   0/74); đã yêu cầu VT phân tích lại. Job VirusTotal trong `release.yml` đã có (#76). Còn 👤: gửi Malwarebytes.
+- 24/11/2026 (SES-20261124-2244-e109): bản `v26.11.2401` arm64ec cũng bị Malwarebytes `Malware.Heuristic.2108` (1/73) ⇒ job
+  VirusTotal đưa Release về nháp; chủ dự án chấp nhận, đã công bố. Diễn đàn báo nhầm Malwarebytes chặn nhà mạng của máy
+  (403) ⇒ theo lựa chọn của chủ dự án, gửi qua chatbot hỗ trợ: **ticket 8706403** (cả SHA-256 1202 và 2401). Còn: đo lại VT
+  sau 3-7 ngày (≈ 27/11-01/12); hết cờ ⇒ ghi ngày gỡ vào sổ, ĐÓNG phiếu.
