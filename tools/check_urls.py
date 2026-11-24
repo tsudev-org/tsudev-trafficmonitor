@@ -66,6 +66,11 @@ ALLOWED_PREFIXES = [
     "https://spdx.dev/",                  # định danh kiểu chứng thực SBOM (predicate type), không phải liên kết tải
     "https://astro.build",
     "https://api.github.com/repos/tsudev-org/tsudev-trafficmonitor/",
+    # Bộ quy ước trung tâm (phiếu bàn giao trỏ tới bản phát hành)
+    "https://github.com/tsudev-org/tsudev-standards",
+    # Sổ báo nhầm antivirus (docs/store/antivirus.md, phiếu 20261122-AV1)
+    "https://forums.malwarebytes.com/",
+    "https://www.virustotal.com/",
 ]
 
 # http:// duy nhất được chấp nhận: namespace XML (không phải liên kết tải)
