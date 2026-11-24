@@ -38,24 +38,29 @@ def main() -> int:
     ap.add_argument("--zip", required=True)
     ap.add_argument("--version", required=True)
     ap.add_argument("--commit", required=True)
+    ap.add_argument("--tag", help="thẻ phát hành; mặc định V<phiên bản>-vn (khuôn cũ), khuôn V1 là v<phiên bản>")
     args = ap.parse_args()
 
     if not re.fullmatch(r"\d+(\.\d+){0,3}", args.version) or not re.fullmatch(r"[0-9a-f]{40}", args.commit):
         print("Phiên bản hoặc commit không hợp lệ", file=sys.stderr)
+        return 1
+    tag = args.tag or f"V{args.version}-vn"
+    if tag not in (f"v{args.version}", f"V{args.version}-vn"):
+        print("Thẻ không khớp phiên bản", file=sys.stderr)
         return 1
     zip_path = Path(args.zip)
     digest = hashlib.sha256(zip_path.read_bytes()).hexdigest()
     created = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     app = {
-        "SPDXID": "SPDXRef-Package-tsudev-trafficmonitor",
-        "name": "tsudev-trafficmonitor",
+        "SPDXID": "SPDXRef-Package-tsutramon",
+        "name": "tsutramon",
         "versionInfo": args.version,
         "packageFileName": zip_path.name,
         "supplier": "Organization: tsudev (https://tsudev.com)",
         "originator": "Organization: tsudev",
-        "downloadLocation": f"{REPO_URL}/releases/download/V{args.version}-vn/{zip_path.name}",
-        "homepage": "https://trafficmonitor.tsudev.com",
+        "downloadLocation": f"{REPO_URL}/releases/download/{tag}/{zip_path.name}",
+        "homepage": "https://tramon.tsudev.com",
         "sourceInfo": f"git+{REPO_URL}@{args.commit}",
         "checksums": [{"algorithm": "SHA256", "checksumValue": digest}],
         "filesAnalyzed": False,
@@ -65,7 +70,7 @@ def main() -> int:
         "attributionTexts": ["Xem LICENSE, LICENSE_CN, NOTICE.md trong gói phát hành (giấy phép Anti 996 điều 1)."],
         "primaryPackagePurpose": "APPLICATION",
         "externalRefs": [{"referenceCategory": "PACKAGE-MANAGER", "referenceType": "purl",
-                          "referenceLocator": f"pkg:github/tsudev-org/tsudev-trafficmonitor@V{args.version}-vn"}],
+                          "referenceLocator": f"pkg:github/tsudev-org/tsudev-trafficmonitor@{tag}"}],
     }
     tinyxml2 = {
         "SPDXID": "SPDXRef-Package-tinyxml2",
@@ -99,7 +104,7 @@ def main() -> int:
         "spdxVersion": "SPDX-2.3",
         "dataLicense": "CC0-1.0",
         "SPDXID": "SPDXRef-DOCUMENT",
-        "name": f"tsudev-trafficmonitor-{args.version}-{zip_path.stem}",
+        "name": f"tsutramon-{args.version}-{zip_path.stem}",
         "documentNamespace": f"{REPO_URL}/spdx/{zip_path.stem}-{uuid.uuid4()}",
         "creationInfo": {"created": created, "creators": ["Tool: tools/make_sbom.py", "Organization: tsudev"]},
         "packages": [app, tinyxml2, mfc],

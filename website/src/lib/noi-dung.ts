@@ -5,7 +5,7 @@ import { Marked } from 'marked';
 
 export const REPO = 'tsudev-org/tsudev-trafficmonitor';
 export const REPO_URL = `https://github.com/${REPO}`;
-export const SITE = 'https://trafficmonitor.tsudev.com';
+export const SITE = 'https://tramon.tsudev.com';
 
 // Gốc repo: build chạy trong thư mục website/ (npm run build), nên gốc là thư mục cha.
 const GOC = normalize(join(process.cwd(), '..'));
@@ -51,7 +51,7 @@ function viTriLienKet(href: string, tepMd: string): string {
   return `${REPO_URL}/${loai}/main/${encodeURI(tuyetDoi)}${neo ? '#' + neo : ''}`;
 }
 
-/** Liên kết ngoài = http(s) tới host khác trang này (so hostname, không so chuỗi đầu: "trafficmonitor.tsudev.com.evil.example" là ngoài). */
+/** Liên kết ngoài = http(s) tới host khác trang này (so hostname, không so chuỗi đầu: "tramon.tsudev.com.evil.example" là ngoài). */
 function laNgoai(href: string): boolean {
   if (!/^https?:/i.test(href)) return false;
   try {
@@ -122,16 +122,19 @@ export function banMoiNhat(): Promise<BanPhatHanh> {
       }
     }
     const thuTu = ['x64', 'x86', 'arm64ec'];
-    const goi = r.assets
-      .filter((a) => a.name.endsWith('.zip'))
-      .map((a) => ({
-        kienTruc: a.name.match(/_(x64|x86|arm64ec)_/)?.[1] ?? '',
-        ten: a.name,
-        url: a.browser_download_url,
-        sha256: bang.get(a.name) ?? '',
-        kichThuoc: a.size,
-      }))
-      .sort((a, b) => thuTu.indexOf(a.kienTruc) - thuTu.indexOf(b.kienTruc));
+    // Tên tệp V1 (VERSIONING 2.2): tsutramon_{v}_windows-{arch}.zip; tên cũ {..}_{arch}_Lite.zip phát hành song song
+    // một bản cho Scoop/liên kết cũ (ADR-0001 mục 3.2) - mỗi kiến trúc chỉ hiện MỘT gói, ưu tiên tên mới.
+    const kienTrucCua = (ten: string) =>
+      ten.match(/_windows-(x64|x86|arm64ec)\.zip$/)?.[1] ?? ten.match(/_(x64|x86|arm64ec)_Lite\.zip$/)?.[1] ?? '';
+    const theoKienTruc = new Map<string, GoiTai>();
+    for (const a of r.assets.filter((x) => x.name.endsWith('.zip'))) {
+      const kienTruc = kienTrucCua(a.name);
+      const moi = /_windows-/.test(a.name);
+      const cu = theoKienTruc.get(kienTruc);
+      if (cu && (/_windows-/.test(cu.ten) || !moi)) continue;
+      theoKienTruc.set(kienTruc, { kienTruc, ten: a.name, url: a.browser_download_url, sha256: bang.get(a.name) ?? '', kichThuoc: a.size });
+    }
+    const goi = [...theoKienTruc.values()].sort((a, b) => thuTu.indexOf(a.kienTruc) - thuTu.indexOf(b.kienTruc));
     return {
       tag: r.tag_name,
       phienBan: r.tag_name.replace(/^[Vv]/, '').replace(/-vn$/, ''),   // V26.11.1202-vn (cũ) và v26.11.DDNN (VERSIONING 2.2)

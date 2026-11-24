@@ -1,10 +1,11 @@
-# CHANGELOG - tsudev-trafficmonitor
+# CHANGELOG - Tsu Tramon
 
-Trước khi đổi tên, phần mềm mang tên TrafficMonitor-VN (các dòng cũ giữ nguyên).
+Từ 26.11.2401 phần mềm mang tên Tsu Tramon; trước đó là tsudev-trafficmonitor (26.11.1201-1202) và TrafficMonitor-VN (các dòng cũ giữ nguyên).
 
 Mỗi bản phát hành một dòng, mới nhất trên cùng. Chi tiết: [UpdateLog/update_log_vi.md](./UpdateLog/update_log_vi.md) ([English](./UpdateLog/update_log_en-us.md)).
 
 ```
+26.11.2401 - 24/11/2026 - Đổi tên thành Tsu Tramon (TsuTramon.exe, website tramon.tsudev.com); tự chuyển cấu hình, lịch sử, tự khởi động từ mọi tên cũ; sửa lỗi đọc sai đường dẫn tự khởi động
 26.11.1202 - 12/11/2026 - Kéo cửa sổ nổi sát mép màn hình để thu gọn (mũi tên ở mép để hiện lại, chuyển động mượt); icon khay hệ thống đổi sang logo mới
 26.11.1201 - 12/11/2026 - Sửa lỗi mất lưu lượng ngày hôm trước sau nửa đêm; đổi tên thành tsudev-trafficmonitor (tự chuyển cấu hình, lịch sử, tự khởi động); logo mới; thêm skin tsudev_Logo; gỡ lựa chọn Gitee và mục ủng hộ cũ, thêm liên kết Ủng hộ tsudev
 26.11.1001 - 10/11/2026 - Mở đúng thư mục Tải về sau khi tải bản cập nhật; đọc tệp skin an toàn hơn; bản phát hành build tái lập được

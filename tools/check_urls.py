@@ -34,7 +34,11 @@ ALLOWED_PREFIXES = [
     # version_utf8.info), dữ liệu kiểm thử và nhật ký lịch sử. Liên kết mới dùng tsudev-org.
     "https://github.com/tsudev-tsudev/tsudev-trafficmonitor",
     "https://raw.githubusercontent.com/tsudev-org/tsudev-trafficmonitor/",
+    "https://tramon.tsudev.com",
+    # Tên miền cũ (301 sang tramon.tsudev.com, ADR-0001 mục 3.6): danh sách máy chủ tin cậy của app, nhật ký lịch sử
     "https://trafficmonitor.tsudev.com",
+    # Tên repo sau khi đổi (P7): tiền tố tải bản mới tin thêm (FORK_RELEASE_DOWNLOAD_PREFIX_NEW)
+    "https://github.com/tsudev-org/tsutramon/",
     "https://tsudev.com",
     # Kênh cài bằng lệnh (tsudev-standards PACKAGING.md): bucket Scoop do dự án duy trì + trang Scoop
     "https://github.com/tsudev-org/scoop-bucket",

@@ -1,9 +1,19 @@
 **[Tiếng Việt](./update_log_vi.md) | English**
 
-# Update log - tsudev-trafficmonitor
+# Update log - Tsu Tramon
 
-Changes in each tsudev-trafficmonitor release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
-Releases before the rename were called **TrafficMonitor-VN**; their entries below are kept as released.
+Changes in each Tsu Tramon release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
+Releases 26.11.1201-1202 were called **tsudev-trafficmonitor** and earlier ones **TrafficMonitor-VN**; their entries below are kept as released.
+
+## 26.11.2401 (24/11/2026)
+
+### New name: Tsu Tramon
+* The app is renamed to **Tsu Tramon**; the executable is **TsuTramon.exe** and downloads look like `tsutramon_26.11.2401_windows-x64.zip`. New website: [tramon.tsudev.com](https://tramon.tsudev.com) (the old address redirects).
+* On first run Tsu Tramon **copies your settings and traffic history** from `%AppData%\tsudev-trafficmonitor` (or `%AppData%\TrafficMonitor` from very old releases) to `%AppData%\tsutramon`. The old folder is kept so an older copy still works.
+* The old **start-with-Windows** entry (Registry or Task Scheduler) is moved to Tsu Tramon. If an older copy is running, Tsu Tramon says it is already running instead of starting a second copy - exit the old one first.
+
+### Fixes
+* Checking start-with-Windows via the Registry could misread the program path (dropping its last character) and report it as off.
 
 ## 26.11.1202 (12/11/2026)
 

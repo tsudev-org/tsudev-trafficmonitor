@@ -1,6 +1,6 @@
 {
-  "name": "tsudev-trafficmonitor | tsudev",
-  "short_name": "tsudev-trafficmonitor",
+  "name": "Tsu Tramon | tsudev",
+  "short_name": "Tsu Tramon",
   "description": "Theo dõi tốc độ mạng, CPU, RAM trên Windows, giao diện tiếng Việt.",
   "lang": "vi",
   "start_url": "/",

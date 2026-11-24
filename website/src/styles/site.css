@@ -1,4 +1,4 @@
-/* Giao diện trafficmonitor.tsudev.com - token chuẩn (.standards/tokens/tokens.css) + bản sắc sản phẩm
+/* Giao diện tramon.tsudev.com - token chuẩn (.standards/tokens/tokens.css) + bản sắc sản phẩm
    (.standards/tokens/products.css, data-product="trafficmonitor": vàng chanh đèn LED, bo góc mem, tiêu đề JetBrains Mono). Ngôn ngữ thiết kế kiểu Supabase theo phiếu logs/handover/20261110-05 mục 4: MỘT nền liền mạch từ
    header tới footer (không dải nền khác màu, không viền ngang cắt trang), màu nhấn chỉ ở điểm nhấn, không chuyển động nền.
    Chế độ màu do public/theme.js đặt vào data-theme; CSS không hỏi hệ điều hành. */

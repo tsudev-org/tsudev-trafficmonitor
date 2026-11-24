@@ -1,5 +1,5 @@
 ---
-// Trang Ủng hộ: nơi DUY NHẤT liệt kê cách ủng hộ tsudev-trafficmonitor (ứng dụng, README, nút Sponsor GitHub trỏ về đây).
+// Trang Ủng hộ: nơi DUY NHẤT liệt kê cách ủng hộ Tsu Tramon (ứng dụng, README, nút Sponsor GitHub trỏ về đây).
 // Dữ liệu: src/data/ung-ho.json, kiểm lúc build ở src/lib/ung-ho.ts. Theo bản tham chiếu tsudev-files (phiếu 20261112-01);
 // trình bày cùng khuôn với tsudev.com/ung-ho qua components/KhoiUngHo.astro (16/11/2026).
 import Trang from '../layouts/Trang.astro';
@@ -7,7 +7,7 @@ import { REPO_URL } from '../lib/noi-dung';
 import { KENH } from '../lib/ung-ho';
 import KhoiUngHo from '../components/KhoiUngHo.astro';
 ---
-<Trang tieuDe="Ủng hộ" moTa="Cách ủng hộ tsudev-trafficmonitor, phần mềm theo dõi tốc độ mạng miễn phí của hệ sinh thái tsudev: kênh chuyển khoản chính thức và cách đóng góp không tốn tiền." duongDan="/ung-ho/">
+<Trang tieuDe="Ủng hộ" moTa="Cách ủng hộ Tsu Tramon, phần mềm theo dõi tốc độ mạng miễn phí của hệ sinh thái tsudev: kênh chuyển khoản chính thức và cách đóng góp không tốn tiền." duongDan="/ung-ho/">
   <div class="khung tai-lieu">
     <nav class="tai-lieu__menu" aria-label="Ủng hộ">
       <p>Ủng hộ</p>
@@ -17,18 +17,18 @@ import KhoiUngHo from '../components/KhoiUngHo.astro';
       </ul>
     </nav>
     <article class="van-ban">
-      <h1>Ủng hộ tsudev-trafficmonitor</h1>
-      <p>tsudev-trafficmonitor miễn phí và sẽ luôn miễn phí, không quảng cáo, không thu thập dữ liệu. Mọi đóng góp đều dành cho việc phát triển tsudev-trafficmonitor và hệ sinh thái <a href="https://tsudev.com" target="_blank" rel="noopener noreferrer">tsudev</a>.</p>
+      <h1>Ủng hộ Tsu Tramon</h1>
+      <p>Tsu Tramon miễn phí và sẽ luôn miễn phí, không quảng cáo, không thu thập dữ liệu. Mọi đóng góp đều dành cho việc phát triển Tsu Tramon và hệ sinh thái <a href="https://tsudev.com" target="_blank" rel="noopener noreferrer">tsudev</a>.</p>
 
       <h2 id="kenh-ung-ho">Kênh ủng hộ</h2>
-      <KhoiUngHo kenh={KENH} ten="tsudev-trafficmonitor" />
+      <KhoiUngHo kenh={KENH} ten="Tsu Tramon" />
 
       <h2 id="khong-ton-tien">Ủng hộ không tốn tiền</h2>
       <ul>
         <li>Gắn ⭐ cho <a href={REPO_URL} target="_blank" rel="noopener noreferrer">mã nguồn trên GitHub</a> để nhiều người tìm thấy dự án hơn.</li>
         <li><a href={`${REPO_URL}/issues`} target="_blank" rel="noopener noreferrer">Báo lỗi hoặc góp ý</a>: kèm phiên bản và ảnh chụp giúp sửa lỗi nhanh hơn nhiều.</li>
         <li>Góp bản dịch giao diện, skin hoặc plugin theo <a href="/huong-dan/">hướng dẫn</a>.</li>
-        <li>Giới thiệu tsudev-trafficmonitor với bạn bè, đồng nghiệp dùng Windows.</li>
+        <li>Giới thiệu Tsu Tramon với bạn bè, đồng nghiệp dùng Windows.</li>
       </ul>
     </article>
   </div>

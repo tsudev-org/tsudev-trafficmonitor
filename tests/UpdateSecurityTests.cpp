@@ -94,6 +94,10 @@ static void TestKhuonV1()
     CHECK(IsTrustedDownloadUrl(cu + L"v26.11.2501-beta.1/tsutramon_26.11.2501_windows-x64.zip", da_cai));
     // Link theo tên repo MỚI thì bản đã cài từ chối -> manifest phải giữ tiền tố cũ (ADR-0001 mục 3)
     CHECK(!IsTrustedDownloadUrl(L"https://github.com/tsudev-org/tsutramon/releases/download/v26.11.2501/tsutramon_26.11.2501_windows-x64.zip", da_cai));
+    // Bản từ 26.11.2401 (danh sách mặc định của chính nó) nhận cả tiền tố cũ lẫn tên repo mới
+    CHECK(IsTrustedDownloadUrl(cu + L"v26.11.2501/tsutramon_26.11.2501_windows-x64.zip"));
+    CHECK(IsTrustedDownloadUrl(L"https://github.com/tsudev-org/tsutramon/releases/download/v26.11.2501/tsutramon_26.11.2501_windows-x64.zip"));
+    CHECK(!IsTrustedDownloadUrl(L"https://github.com/tsudev-org/tsutramon-gia/releases/download/v1/x.zip"));
 }
 
 static void TestUrls()

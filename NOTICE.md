@@ -1,6 +1,6 @@
-# Thông báo bản quyền - tsudev-trafficmonitor
+# Thông báo bản quyền - Tsu Tramon
 
-## tsudev-trafficmonitor
+## Tsu Tramon
 
 ```
 Copyright (c) 2026 tsudev
@@ -10,7 +10,7 @@ Phát hành theo giấy phép **"Anti 996" License 1.0** ([LICENSE](./LICENSE)).
 
 ## Dự án gốc
 
-tsudev-trafficmonitor (trước đây tên TrafficMonitor-VN) là bản phái sinh của dự án TrafficMonitor, phát hành theo giấy phép "Anti 996" License 1.0 ([LICENSE](./LICENSE), [LICENSE_CN](./LICENSE_CN)):
+Tsu Tramon (trước đây tên TrafficMonitor-VN) là bản phái sinh của dự án TrafficMonitor, phát hành theo giấy phép "Anti 996" License 1.0 ([LICENSE](./LICENSE), [LICENSE_CN](./LICENSE_CN)):
 
 ```
 Copyright (c) <2019> <copyright zhongyang219>

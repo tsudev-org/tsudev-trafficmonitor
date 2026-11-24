@@ -26,6 +26,9 @@
 // để các bản đã cài (chỉ tin tiền tố cũ) vẫn cập nhật được. KHÔNG tạo lại repo tsudev-tsudev/tsudev-trafficmonitor:
 // GitHub sẽ bỏ chuyển hướng và mọi bản đã cài mất kênh cập nhật.
 #define FORK_RELEASE_DOWNLOAD_PREFIX_ORG L"https://github.com/tsudev-org/tsudev-trafficmonitor/releases/download/"
+//Tên repo sau khi đổi thành tsutramon (ADR-0001 mục 3.1, 3.8): bản từ 26.11.2401 tin thêm tiền tố này để manifest sau
+//này có thể trỏ thẳng tên mới. Manifest vẫn PHẢI ghi tiền tố tsudev-tsudev/tsudev-trafficmonitor cho bản <= 26.11.1202.
+#define FORK_RELEASE_DOWNLOAD_PREFIX_NEW L"https://github.com/tsudev-org/tsutramon/releases/download/"
 
 // Thông tin phiên bản CÓ CHỮ KÝ (từ V1.88-vn): release.yml tạo version_signed.xml (phiên bản, liên kết tải,
 // SHA-256 từng gói) và ký bằng ECDSA P-256/SHA-256; khóa bí mật chỉ nằm trong secret UPDATE_SIGNING_KEY
@@ -38,7 +41,7 @@
 
 // Máy chủ được phép trả dữ liệu cho GetURL sau khi theo chuyển hướng (redirect).
 // URL cuối cùng phải là HTTPS và có host nằm trong danh sách này, phân tách bằng dấu "|".
-#define FORK_TRUSTED_HOSTS          L"github.com|objects.githubusercontent.com|release-assets.githubusercontent.com|raw.githubusercontent.com|trafficmonitor.tsudev.com|api.ipify.org|api6.ipify.org"
+#define FORK_TRUSTED_HOSTS          L"github.com|objects.githubusercontent.com|release-assets.githubusercontent.com|raw.githubusercontent.com|tramon.tsudev.com|trafficmonitor.tsudev.com|api.ipify.org|api6.ipify.org"
 // Máy chủ được phép ở MỌI bước chuyển hướng khi ứng dụng tự tải gói cập nhật (CUpdateHelper::DownloadPackage).
 // Hẹp hơn FORK_TRUSTED_HOSTS: chỉ trang Releases của GitHub và máy chủ lưu tệp đính kèm của GitHub.
 #define FORK_UPDATE_DOWNLOAD_HOSTS  L"github.com|objects.githubusercontent.com|release-assets.githubusercontent.com"
@@ -46,27 +49,27 @@
 // Các trang tài liệu (website trafficmonitor.tsudev.com, sinh từ các tệp .md trong repo;
 // bản .md trên GitHub vẫn giữ làm dự phòng). Ngôn ngữ khác tiếng Việt dùng tài liệu tiếng Anh (*_EN_URL) trên GitHub,
 // chọn qua CTsudevTrafficMonitorApp::DocUrl().
-#define FORK_HELP_URL               L"https://trafficmonitor.tsudev.com/huong-dan/hoi-dap/"
+#define FORK_HELP_URL               L"https://tramon.tsudev.com/huong-dan/hoi-dap/"
 #define FORK_HELP_EN_URL            L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/Help_en-us.md"
-#define FORK_UPDATE_LOG_URL         L"https://trafficmonitor.tsudev.com/nhat-ky/"
+#define FORK_UPDATE_LOG_URL         L"https://tramon.tsudev.com/nhat-ky/"
 #define FORK_UPDATE_LOG_EN_URL      L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/UpdateLog/update_log_en-us.md"
-#define FORK_WIKI_URL               L"https://trafficmonitor.tsudev.com/huong-dan/"
+#define FORK_WIKI_URL               L"https://tramon.tsudev.com/huong-dan/"
 #define FORK_WIKI_EN_URL            L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/README_en-us.md"
-#define FORK_SKIN_TUTORIAL_URL      L"https://trafficmonitor.tsudev.com/huong-dan/tu-lam-giao-dien/"
+#define FORK_SKIN_TUTORIAL_URL      L"https://tramon.tsudev.com/huong-dan/tu-lam-giao-dien/"
 #define FORK_SKIN_TUTORIAL_EN_URL   L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/SkinTutorial_en-us.md"
-#define FORK_SKIN_DOWNLOAD_URL      L"https://trafficmonitor.tsudev.com/huong-dan/kho-giao-dien/"
+#define FORK_SKIN_DOWNLOAD_URL      L"https://tramon.tsudev.com/huong-dan/kho-giao-dien/"
 #define FORK_SKIN_DOWNLOAD_EN_URL   L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/SkinGallery_en-us.md"
-#define FORK_PLUGIN_DOWNLOAD_URL    L"https://trafficmonitor.tsudev.com/huong-dan/plugin/"
+#define FORK_PLUGIN_DOWNLOAD_URL    L"https://tramon.tsudev.com/huong-dan/plugin/"
 #define FORK_PLUGIN_DOWNLOAD_EN_URL L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/Plugin_en-us.md"
-#define FORK_PLUGIN_DEV_GUIDE_URL   L"https://trafficmonitor.tsudev.com/huong-dan/phat-trien-plugin/"
+#define FORK_PLUGIN_DEV_GUIDE_URL   L"https://tramon.tsudev.com/huong-dan/phat-trien-plugin/"
 #define FORK_PLUGIN_DEV_GUIDE_EN_URL L"https://github.com/tsudev-org/tsudev-trafficmonitor/blob/main/PluginDev_en-us.md"
 
 // Hệ sinh thái tsudev (ECOSYSTEM_IDENTITY mục 2.3: hộp thoại Giới thiệu có liên kết tới tsudev.com)
 #define TSUDEV_HOME_URL             L"https://tsudev.com"
 // Trang Ủng hộ của sản phẩm (phiếu 20261112-01; dữ liệu website/src/data/ung-ho.json): ứng dụng chỉ mở trang,
 // không nhúng thông tin chuyển khoản - đổi kênh không cần phát hành lại ứng dụng.
-#define TSUDEV_DONATE_URL           L"https://trafficmonitor.tsudev.com/ung-ho/"
-#define FORK_PRODUCT_URL            L"https://trafficmonitor.tsudev.com"
+#define TSUDEV_DONATE_URL           L"https://tramon.tsudev.com/ung-ho/"
+#define FORK_PRODUCT_URL            L"https://tramon.tsudev.com"
 
 // Ghi công thư viện bên thứ ba (hộp thoại Giới thiệu)
 #define THIRD_PARTY_LIBREHARDWAREMONITOR_URL L"https://github.com/LibreHardwareMonitor/LibreHardwareMonitor"

@@ -16,7 +16,7 @@ interface Props {
   duongDan: string;    // ví dụ "/tai-ve/"
 }
 const { tieuDe, moTa, duongDan } = Astro.props;
-const SAN_PHAM = 'tsudev-trafficmonitor';
+const SAN_PHAM = 'Tsu Tramon';
 const title = tieuDe ? `${tieuDe} - ${SAN_PHAM} | tsudev` : `${SAN_PHAM} | tsudev`;
 const ogTitle = tieuDe ? `${tieuDe} - ${SAN_PHAM}` : SAN_PHAM;
 const url = `${SITE}${duongDan}`;
@@ -66,9 +66,9 @@ const dangO = (href: string) => duongDan.startsWith(href);
     <a class="bo-qua" href="#noi-dung">Bỏ qua tới nội dung</a>
     <header class="dau-trang">
       <div class="khung dau-trang__trong">
-        <a class="thuong-hieu" href="/" aria-label="tsudev-trafficmonitor - Trang chủ">
+        <a class="thuong-hieu" href="/" aria-label="Tsu Tramon - Trang chủ">
           <AnhThuongHieu loai="mark" co={36} uuTien />
-          <span>tsudev-trafficmonitor</span>
+          <span>Tsu Tramon</span>
         </a>
         <nav aria-label="Chính">
           <ul class="menu">
@@ -95,7 +95,7 @@ const dangO = (href: string) => duongDan.startsWith(href);
               <picture><source srcset="/brand/logo-tsudev-48.avif 1x, /brand/logo-tsudev-96.avif 2x" type="image/avif"><source srcset="/brand/logo-tsudev-48.webp 1x, /brand/logo-tsudev-96.webp 2x" type="image/webp"><img src="/brand/logo-tsudev-256.png" alt="" width="28" height="28" loading="lazy" decoding="async"></picture>
               <span>tsudev</span>
             </a>
-            <p>tsudev-trafficmonitor là bản Việt hóa và gia cố bảo mật của TrafficMonitor,
+            <p>Tsu Tramon là bản Việt hóa và gia cố bảo mật của TrafficMonitor,
               phát hành theo giấy phép <a href="/ban-quyen/">Anti 996</a>.</p>
           </div>
           <nav aria-label="Hệ sinh thái tsudev">

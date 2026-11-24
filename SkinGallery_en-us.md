@@ -1,17 +1,17 @@
 **[Tiếng Việt](./KhoGiaoDien.md) | English** · [Home](./README_en-us.md) · [FAQ](./Help_en-us.md) · [Skin making-up tutorial](./SkinTutorial_en-us.md)
 
-# Skin gallery - tsudev-trafficmonitor
+# Skin gallery - Tsu Tramon
 
 This page opens from the **Download more skins** link in the **Change Skin** dialog (when the interface language is not Vietnamese).
 
 ## Skins included in every release
 
-Every tsudev-trafficmonitor release ships the skins below in the `skins` folder next to `tsudev-trafficmonitor.exe`. The images are the backgrounds used when **Show More Info** is on (`background_l`); text and numbers are drawn by the program at run time.
+Every Tsu Tramon release ships the skins below in the `skins` folder next to `TsuTramon.exe`. The images are the backgrounds used when **Show More Info** is on (`background_l`); text and numbers are drawn by the program at run time.
 
 | Folder name | Background | Notes |
 |---|---|---|
 | `0_tsudev_Cu` | ![](./Screenshots/skins/0_tsudev_Cu.png) | **Default skin** - tsudev owl, light background |
-| `tsudev_Logo` | ![](./Screenshots/skins/tsudev_Logo.png) | tsudev-trafficmonitor logo, black background |
+| `tsudev_Logo` | ![](./Screenshots/skins/tsudev_Logo.png) | Tsu Tramon logo, black background |
 | `tsudev_VongMang` | ![](./Screenshots/skins/tsudev_VongMang.png) | tsudev logo, dark background |
 | `tsudev_DoThi_Sang` | ![](./Screenshots/skins/tsudev_DoThi_Sang.png) | Network graph, light background; also shows GPU and disk (`skin.xml`) |
 | `tsudev_DoThi_Toi` | ![](./Screenshots/skins/tsudev_DoThi_Toi.png) | Network graph, dark background; also shows GPU and disk (`skin.xml`) |
@@ -29,7 +29,7 @@ Every tsudev-trafficmonitor release ships the skins below in the `skins` folder 
 ## Installing more skins
 
 1. Each skin is **a folder** containing `skin.xml` or `skin.ini` plus the background images `background.bmp`/`background.png` (normal window) and `background_l.bmp`/`background_l.png` (when **Show More Info** is on).
-2. Copy the whole skin folder into the `skins` folder next to `tsudev-trafficmonitor.exe`.
+2. Copy the whole skin folder into the `skins` folder next to `TsuTramon.exe`.
 3. Right-click menu → **Other Functions** → **Change Skin...**, select the new skin and click **OK**.
 
 > ⚠️ A skin contains only images and plain-text configuration files, never executable code. Still, only download skins from sources you trust, and never run `.exe`/`.bat` files bundled with a skin package.
