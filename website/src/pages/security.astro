@@ -53,9 +53,9 @@ const ngoai = { target: '_blank', rel: 'noopener noreferrer' };
       <p>Mỗi bản phát hành trên <a href={`${REPO_URL}/releases/latest`} {...ngoai}>GitHub Releases</a> kèm
         <code>SHA256SUMS.txt</code>. So mã băm của tệp đã tải với dòng tương ứng trong tệp đó; lệch thì đừng chạy.</p>
       <pre><code>{`# Windows (PowerShell)
-Get-FileHash .\\tsutramon_26.11.2401_windows-x64.zip -Algorithm SHA256
+Get-FileHash .\\tsutramon_26.11.2501_windows-x64.zip -Algorithm SHA256
 # Linux, macOS
-sha256sum tsutramon_26.11.2401_windows-x64.zip`}</code></pre>
+sha256sum tsutramon_26.11.2501_windows-x64.zip`}</code></pre>
       <p>Kiểm gói được build từ mã nguồn của repo tại đúng thẻ phát hành (chứng thực nguồn gốc build của GitHub Actions):</p>
       <pre><code>{`gh attestation verify tsutramon_<phiên bản>_windows-x64.zip -R tsudev-org/tsutramon
 # Bản đến 26.11.2401 (build trước khi đổi tên repo):
