@@ -76,6 +76,11 @@ ALLOWED_PREFIXES = [
     "https://forums.malwarebytes.com/",
     "https://help.malwarebytes.com/",
     "https://www.virustotal.com/",
+    # Trang kết quả bên thứ ba của /security/ (docs/security/trust.json, phiếu 20261125-SEC2)
+    "https://www.ssllabs.com/ssltest/",
+    "https://developer.mozilla.org/en-US/observatory/",
+    "https://scorecard.dev/viewer/",
+    "https://hstspreload.org/",
 ]
 
 # http:// duy nhất được chấp nhận: namespace XML (không phải liên kết tải)
