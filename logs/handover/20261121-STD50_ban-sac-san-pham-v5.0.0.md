@@ -46,4 +46,11 @@ kiểm chống trùng phải xanh. KHÔNG ghi đè tại repo này.
 
 ## Kết quả xử lý
 
-- 
+- 24/11/2026 - phiên tsudev-trafficmonitor: PR 1 + PR 2 gộp một PR (`feat/bo-cuc-trinh-dien`) để chạy CI một lần.
+  Web: token nạp thẳng từ `.standards/tokens/{tokens,products}.css`, `data-product="trafficmonitor"`, gỡ `palette.css` +
+  `tokens.css` v2.0.0 tự chép; nút `--radius-control`, bo góc `mem`; h1-h3 JetBrains Mono 600 tự host (latin,
+  latin-ext, vietnamese). Lệch có lý do: chữ số 0 trong `--font-display` lấy từ Chivo Mono (chủ dự án yêu cầu số 0
+  trơn 16/11/2026; JetBrains Mono có chấm giữa và bản subset không có tính năng `zero`), `--font-mono` giữ Chivo Mono.
+  Bố cục `trinh-dien` (hero hai cột + bento), hoạ tiết `duong-bieu-do` tĩnh ở hero, og-image sinh lại từ
+  `products/trafficmonitor.json`. Kiểm: a11y 13 trang × 2 chế độ 0 lỗi, theme 0 lỗi, quét giao diện OK.
+  Còn lại (app desktop): huy hiệu góc tô `primary` cho icon khay - gộp với UI1 (phase P8).

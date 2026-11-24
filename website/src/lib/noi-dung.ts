@@ -68,11 +68,17 @@ export function renderMd(tepMd: string, opts: { boTieuDeDau?: boolean; boDongNgo
   const tieuDe = md.match(/^#\s+(.+)$/m)?.[1]?.trim() ?? '';
   if (opts.boTieuDeDau) md = md.replace(/^#\s+.+\n/m, '');
   const marked = new Marked({ gfm: true });
+  const daDung = new Map<string, number>();   // id tiêu đề phải duy nhất trong trang (nhật ký lặp "Sửa lỗi", "Bảo mật"... mỗi bản)
+  const idDuyNhat = (goc: string): string => {
+    const n = (daDung.get(goc) ?? 0) + 1;
+    daDung.set(goc, n);
+    return n === 1 ? goc : `${goc}-${n}`;
+  };
   marked.use({
     renderer: {
       heading({ tokens, depth }) {
         const text = this.parser.parseInline(tokens);
-        return `<h${depth} id="${slug(text)}">${text}</h${depth}>\n`;
+        return `<h${depth} id="${idDuyNhat(slug(text))}">${text}</h${depth}>\n`;
       },
       link({ href, title, tokens }) {
         const text = this.parser.parseInline(tokens);
@@ -128,8 +134,8 @@ export function banMoiNhat(): Promise<BanPhatHanh> {
       .sort((a, b) => thuTu.indexOf(a.kienTruc) - thuTu.indexOf(b.kienTruc));
     return {
       tag: r.tag_name,
-      phienBan: r.tag_name.replace(/^V/, '').replace(/-vn$/, ''),
-      ngay: r.published_at.slice(0, 10),
+      phienBan: r.tag_name.replace(/^[Vv]/, '').replace(/-vn$/, ''),   // V26.11.1202-vn (cũ) và v26.11.DDNN (VERSIONING 2.2)
+      ngay: new Date(r.published_at).toLocaleDateString('en-GB', { timeZone: 'Asia/Ho_Chi_Minh' }),   // DD/MM/YYYY giờ VN (DESIGN_SYSTEM mục 4)
       url: r.html_url,
       goi,
     };
