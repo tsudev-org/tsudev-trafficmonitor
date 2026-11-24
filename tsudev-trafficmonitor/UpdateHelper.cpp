@@ -56,7 +56,7 @@ UpdateDownload::Result CUpdateHelper::DownloadPackage(const std::wstring& url, c
     if (!IsTrustedDownloadUrl(url))
         return UpdateDownload::Result::Unsupported;
     UpdateDownload::Options options;
-    options.user_agent = std::wstring(L"tsudev-trafficmonitor/") + VERSION;
+    options.user_agent = std::wstring(L"TsuTramon/") + VERSION;
     options.progress = progress;
     options.context = context;
     std::wstring log;

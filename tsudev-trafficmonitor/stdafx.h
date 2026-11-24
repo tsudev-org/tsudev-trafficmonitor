@@ -102,16 +102,12 @@ using std::ofstream;
 #define MAX_INSERT_TO_TASKBAR_CNT 200     //Số lần tối đa thử nhúng vào thanh tác vụ
 #define WARN_INSERT_TO_TASKBAR_CNT 20     //Số lần thử nhúng vào thanh tác vụ thì cảnh báo
 
-#define APP_NAME _T("tsudev-trafficmonitor")
-#define TASKBAR_WINDOW_NAME _T("tsudev-trafficmonitor-TaskbarWindow")
-#define APP_CLASS_NAME _T("tsudev-trafficmonitor_r7XZaS4p") //Tên lớp cửa sổ chính của chương trình
-
-//Định danh của bản trước 26.11 (tên cũ TrafficMonitor-VN, kế thừa từ dự án gốc TrafficMonitor). CHỈ dùng để nhận ra
-//bản cũ đang chạy và chuyển dữ liệu/tự khởi động cũ sang tên mới (xem CTsudevTrafficMonitorApp::MigrateLegacyAutoRun,
-//CCommon::GetAppDataConfigDir). Không dùng cho việc gì khác.
-#define LEGACY_APP_NAME _T("TrafficMonitor")
-#define LEGACY_APP_CLASS_NAME _T("TrafficMonitor_r7XZaS4p")
-#define LEGACY_PRODUCT_NAME L"TrafficMonitor-VN"
+//Định danh theo thế hệ tên (Tsu Tramon và các tên cũ) nằm ở LegacyNames.h - nguồn duy nhất, có test.
+#include "LegacyNames.h"
+#define APP_NAME _T("Tsu Tramon")      //Tên hiển thị (tiêu đề cửa sổ, hộp thoại)
+#define AUTORUN_VALUE_NAME LegacyNames::kCurrent.run_value     //Tên giá trị Run trong Registry
+#define TASKBAR_WINDOW_NAME _T("TsuTramon-TaskbarWindow")
+#define APP_CLASS_NAME _T("TsuTramon_r7XZaS4p") //Tên lớp cửa sổ chính, PHẢI trùng CLASS của IDD_TSUDEV_TRAFFICMONITOR_DIALOG trong .rc
 #define VERSION L"26.11.1202"   //Khuôn {YY}.{M}.{DD}{NN} theo VERSIONING.md của tsudev (từ 26.11.0901, trước đó 1.91)
 #define COPYRITE_YEAR L"2026"
 

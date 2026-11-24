@@ -267,7 +267,18 @@ BOOL CGeneralSettingsDlg::OnInitDialog()
 
     //Kiểm tra trong thư mục “Startup” của menu Start có lối tắt của chương trình không; nếu có thì thiết lập tự khởi động rồi xóa lối tắt
     wstring start_up_path = CCommon::GetStartUpPath();
-    bool shortcut_exist = CCommon::FileExist((start_up_path + L"\\tsudev-trafficmonitor.lnk").c_str());
+    //Lối tắt tên hiện tại hoặc tên thế hệ 26.11.1201-1202 (tên "TrafficMonitor.lnk" có thể của dự án gốc: không đụng)
+    wstring shortcut_path;
+    for (const wchar_t* name : { LegacyNames::kCurrent.run_value, LegacyNames::kLegacyGenerations[0].run_value })
+    {
+        wstring path{ start_up_path + L"\\" + name + L".lnk" };
+        if (CCommon::FileExist(path.c_str()))
+        {
+            shortcut_path = path;
+            break;
+        }
+    }
+    bool shortcut_exist = !shortcut_path.empty();
     m_data.auto_run = false;
 #ifdef WITHOUT_TEMPERATURE
     m_data.auto_run_by_task_scheduler = false;
@@ -279,7 +290,7 @@ BOOL CGeneralSettingsDlg::OnInitDialog()
     {
         theApp.SetAutoRun(true, false);
         m_data.auto_run = true;
-        DeleteFile((start_up_path + L"\\tsudev-trafficmonitor.lnk").c_str());
+        DeleteFile(shortcut_path.c_str());
         CheckDlgButton(IDC_AUTO_RUN_METHOD_REGESTRY_RADIO, TRUE);
     }
     //Kiểm tra thiết lập tự khởi động được thực hiện qua Registry hay Task Scheduler và chọn tùy chọn tương ứng

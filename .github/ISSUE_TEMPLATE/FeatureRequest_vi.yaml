@@ -1,5 +1,5 @@
 name: Đề xuất tính năng
-description: Đề xuất một tính năng mới cho tsudev-trafficmonitor
+description: Đề xuất một tính năng mới cho Tsu Tramon
 labels: ["enhancement"]
 body:
   - type: checkboxes
@@ -12,8 +12,8 @@ body:
           required: true
   - type: input
     attributes:
-      label: Phiên bản tsudev-trafficmonitor đang dùng
-      description: Nhấp chuột phải vào biểu tượng tsudev-trafficmonitor ở khay hệ thống, chọn `Trợ giúp` → `Giới thiệu`.
+      label: Phiên bản Tsu Tramon đang dùng
+      description: Nhấp chuột phải vào biểu tượng Tsu Tramon ở khay hệ thống, chọn `Trợ giúp` → `Giới thiệu`.
     validations:
       required: true
   - type: textarea

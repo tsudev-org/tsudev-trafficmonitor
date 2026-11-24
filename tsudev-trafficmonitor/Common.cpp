@@ -707,16 +707,20 @@ wstring CCommon::GetAppDataConfigDir()
     }
     wstring app_data_path{ pszAppDataPath };        //Lấy đường dẫn C:/User/<tên người dùng>/AppData/Roaming
     CreateDirectory(app_data_path.c_str(), NULL);       //Nếu Roaming chưa tồn tại thì tạo mới
-    wstring legacy_path{ app_data_path + L"\\TrafficMonitor\\" };   //thư mục của bản trước 26.11 (tên cũ)
-    app_data_path += L"\\tsudev-trafficmonitor\\";
-    CreateDirectory(app_data_path.c_str(), NULL);       //Nếu C:/User/<tên người dùng>/AppData/Roaming/tsudev-trafficmonitor chưa tồn tại thì tạo mới
+    const wstring roaming{ app_data_path + L"\\" };
+    app_data_path = roaming + LegacyNames::kCurrent.appdata_dir + L"\\";
+    CreateDirectory(app_data_path.c_str(), NULL);       //Nếu C:/User/<tên người dùng>/AppData/Roaming/tsutramon chưa tồn tại thì tạo mới
 
-    //Lần đầu chạy sau khi đổi tên: chép cấu hình, lịch sử lưu lượng, cấu hình plugin từ thư mục cũ (giữ nguyên thư mục cũ
-    //để quay lại bản cũ vẫn dùng được). Không ghi đè tệp đã có ở thư mục mới.
-    if (!FileExist((app_data_path + L"config.ini").c_str()) && FileExist((legacy_path + L"config.ini").c_str()))
+    //Lần đầu chạy sau khi đổi tên: chép cấu hình, lịch sử lưu lượng, cấu hình plugin từ thư mục của thế hệ tên cũ gần nhất
+    //(LegacyNames::ChooseAppDataMigrationSource, có test). Giữ nguyên thư mục cũ để quay lại bản cũ vẫn dùng được;
+    //không ghi đè tệp đã có ở thư mục mới.
+    int source = LegacyNames::ChooseAppDataMigrationSource([&](const wstring& dir) {
+        return FileExist((roaming + dir + L"\\config.ini").c_str());
+    });
+    if (source >= 0)
     {
         std::error_code ec;
-        std::filesystem::copy(legacy_path, app_data_path,
+        std::filesystem::copy(roaming + LegacyNames::kLegacyGenerations[source].appdata_dir + L"\\", app_data_path,
             std::filesystem::copy_options::recursive | std::filesystem::copy_options::skip_existing, ec);
     }
 
@@ -1055,7 +1059,7 @@ CCommon::PublicIpResult CCommon::GetInternetIp2(wstring& ip_address, wstring& ip
         return PublicIpResult::NO_CONNECTION;
 
     wstring raw_string;
-    wstring user_agent{ L"tsudev-trafficmonitor/" };
+    wstring user_agent{ L"TsuTramon/" };
     user_agent += VERSION;
     //Lưu ý: phải có "/" trước "?". Với "https://api.ipify.org?format=json", WinINet làm mất phần query
     //nên ipify trả về văn bản thuần thay vì JSON.

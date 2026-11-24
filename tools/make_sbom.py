@@ -2,7 +2,7 @@
 """Sinh SBOM (SPDX 2.3, JSON) cho một gói phát hành tsudev-trafficmonitor_<ver>_<arch>_Lite.zip.
 
 Ứng dụng là C++/MFC, thư viện bên thứ ba đi kèm dạng mã nguồn nên dependency graph của GitHub
-không thấy được; script liệt kê đúng các thành phần thật được biên dịch vào tsudev-trafficmonitor.exe
+không thấy được; script liệt kê đúng các thành phần thật được biên dịch vào TsuTramon.exe
 và mã băm SHA-256 của gói. release.yml chứng thực SBOM này bằng actions/attest-sbom:
 
     gh attestation verify <tệp.zip> -R tsudev-org/tsudev-trafficmonitor \
@@ -78,7 +78,7 @@ def main() -> int:
         "licenseDeclared": "Zlib",
         "copyrightText": "NOASSERTION",
         "primaryPackagePurpose": "LIBRARY",
-        "comment": "Mã nguồn đi kèm trong tsudev-trafficmonitor/tinyxml2, biên dịch tĩnh vào tsudev-trafficmonitor.exe",
+        "comment": "Mã nguồn đi kèm trong tsudev-trafficmonitor/tinyxml2, biên dịch tĩnh vào TsuTramon.exe",
         "externalRefs": [{"referenceCategory": "PACKAGE-MANAGER", "referenceType": "purl",
                           "referenceLocator": f"pkg:github/leethomason/tinyxml2@{tinyxml2_version()}"}],
     }

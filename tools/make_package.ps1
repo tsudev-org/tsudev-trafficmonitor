@@ -4,7 +4,7 @@
 # Giấy phép Anti 996 yêu cầu kèm nguyên văn giấy phép trong mọi bản phân phối.
 param(
     [Parameter(Mandatory)] [string]$Name,       # vd tsudev-trafficmonitor_26.11.0905_x64_Lite
-    [Parameter(Mandatory)] [string]$BinDir,     # thư mục chứa tsudev-trafficmonitor.exe
+    [Parameter(Mandatory)] [string]$BinDir,     # thư mục chứa TsuTramon.exe
     [Parameter(Mandatory)] [string]$WorkDir,    # thư mục tạm để dựng cấu trúc gói
     [Parameter(Mandatory)] [string]$OutZip,
     [Parameter(Mandatory)] [long]$Epoch
@@ -14,7 +14,7 @@ $root = Join-Path $WorkDir $Name
 $stage = Join-Path $root 'tsudev-trafficmonitor'
 if (Test-Path $root) { Remove-Item $root -Recurse -Force }
 New-Item -ItemType Directory -Force -Path $stage | Out-Null
-Copy-Item (Join-Path $BinDir 'tsudev-trafficmonitor.exe') $stage
+Copy-Item (Join-Path $BinDir 'TsuTramon.exe') $stage
 Get-ChildItem (Join-Path $BinDir '*.dll') -ErrorAction SilentlyContinue | Copy-Item -Destination $stage
 Copy-Item 'tsudev-trafficmonitor\skins' $stage -Recurse
 Copy-Item LICENSE, LICENSE_CN, LICENSE_VI.md, NOTICE.md, README.md, SECURITY.md $stage

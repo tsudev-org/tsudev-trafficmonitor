@@ -189,6 +189,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <!-- Tên exe theo tên sản phẩm Tsu Tramon (ADR-0001 mục 3.4); tên dự án/thư mục mã giữ nguyên -->
+    <TargetName>TsuTramon</TargetName>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <ExcludePath />
@@ -863,6 +867,7 @@
     <ClInclude Include="TsudevTrafficMonitorDlg.h" />
     <ClInclude Include="UpdateDownload.h" />
     <ClInclude Include="EdgeDock.h" />
+    <ClInclude Include="LegacyNames.h" />
     <ClInclude Include="EdgeHandleWnd.h" />
     <ClInclude Include="UpdateHelper.h" />
     <ClInclude Include="UpdateSecurity.h" />
