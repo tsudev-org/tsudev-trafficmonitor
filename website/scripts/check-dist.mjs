@@ -40,6 +40,13 @@ function kiemTra(tep, html) {
   }
 }
 duyet(dist);
+// Trang /security/ (phiếu SEC2): kiểm bằng NỘI DUNG, mọi liên kết "Kiểm chứng" trỏ ra ngoài; security.txt trỏ Policy về trang này
+const sec = existsSync(join(dist, 'security/index.html')) ? readFileSync(join(dist, 'security/index.html'), 'utf8') : '';
+if (!sec.includes('id="bao-lo-hong"') || !sec.includes('mailto:security@tsudev.com')) loi.push('/security/: thiếu mục Báo lỗ hổng hoặc security@tsudev.com');
+const kiemChung = [...sec.matchAll(/<a href="([^"]+)"[^>]*>Kiểm chứng ↗<\/a>/g)].map((m) => m[1]);
+if (kiemChung.length < 3 || kiemChung.some((u) => !u.startsWith('https://') || new URL(u.replaceAll('&amp;', '&')).hostname === 'tramon.tsudev.com')) loi.push(`/security/: liên kết Kiểm chứng sai: ${kiemChung.join(' ')}`);
+const stxt = readFileSync(join(dist, '.well-known/security.txt'), 'utf8');
+if (!stxt.includes('Contact: mailto:security@tsudev.com') || !stxt.includes('Policy: https://tramon.tsudev.com/security/')) loi.push('security.txt: thiếu Contact security@tsudev.com hoặc Policy /security/');
 // CSP của production (public/_headers -> dist/_headers): cho phép script cùng nguồn, không 'unsafe-inline'/'unsafe-eval'
 const csp = readFileSync(join(dist, '_headers'), 'utf8').match(/Content-Security-Policy:\s*(.+)/)?.[1] ?? '';
 const scriptSrc = csp.split(';').map((x) => x.trim()).find((x) => x.startsWith('script-src ')) ?? '';

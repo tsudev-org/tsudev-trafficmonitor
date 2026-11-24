@@ -1,0 +1,74 @@
+---
+// Trang /security/: bằng chứng tin cậy tự kiểm chứng được (phiếu 20261125-SEC2, mẫu thống nhất mục 2 phiếu gốc).
+// Mỗi mục có liên kết tới trang kết quả của bên thứ ba + ngày đo; dữ liệu: docs/security/trust.json (src/lib/tin-cay.ts).
+// Chính sách đầy đủ (chuỗi tin cậy của bản cập nhật, build tái lập) vẫn ở /bao-mat/ (SECURITY.md).
+import Trang from '../layouts/Trang.astro';
+import { REPO_URL } from '../lib/noi-dung';
+import { BANG_CHUNG, CAP_NHAT, CHUA_CO, ngayVn } from '../lib/tin-cay';
+const ngoai = { target: '_blank', rel: 'noopener noreferrer' };
+---
+<Trang tieuDe="Bảo mật và tin cậy" moTa="Bằng chứng tin cậy của Tsu Tramon mà bạn tự kiểm được: điểm SSL Labs, Observatory, Scorecard, VirusTotal, chứng thực build và cách báo lỗ hổng." duongDan="/security/">
+  <div class="khung tai-lieu">
+    <nav class="tai-lieu__menu" aria-label="Bảo mật và tin cậy">
+      <p>Bảo mật</p>
+      <ul>
+        <li><a href="#bao-lo-hong">Báo lỗ hổng</a></li>
+        <li><a href="#bang-chung">Bằng chứng</a></li>
+        <li><a href="#tu-kiem">Tự kiểm bản tải về</a></li>
+        <li><a href="#chua-co">Chưa có, không áp dụng</a></li>
+      </ul>
+    </nav>
+    <article class="van-ban">
+      <h1>Bảo mật và tin cậy</h1>
+      <p>Trang này chỉ liệt kê những gì bạn tự kiểm được: mỗi mục có liên kết tới trang kết quả do bên thứ ba lưu trữ
+        và ngày đo. Điểm chưa cao vẫn ghi đúng số. Số liệu cập nhật ngày {ngayVn(CAP_NHAT)}; chính sách đầy đủ ở
+        <a href="/bao-mat/">Chính sách bảo mật</a>.</p>
+
+      <h2 id="bao-lo-hong">Báo lỗ hổng</h2>
+      <ul>
+        <li>Thư: <a href="mailto:security@tsudev.com">security@tsudev.com</a></li>
+        <li>Báo riêng tư trên GitHub: <a href={`${REPO_URL}/security/advisories/new`} {...ngoai}>tạo báo cáo lỗ hổng ↗</a></li>
+        <li>Phản hồi trong vòng 7 ngày. Xin đừng công khai lỗ hổng trước khi có bản sửa.</li>
+        <li>Thông tin máy đọc: <a href="/.well-known/security.txt">security.txt</a> (RFC 9116).</li>
+      </ul>
+
+      <h2 id="bang-chung">Bằng chứng</h2>
+      <div class="bang">
+        <table>
+          <thead><tr><th scope="col">Bằng chứng</th><th scope="col">Kết quả</th><th scope="col">Ngày đo</th><th scope="col">Kiểm chứng</th></tr></thead>
+          <tbody>
+            {BANG_CHUNG.map((b) => (
+              <tr>
+                <th scope="row">{b.ten}{b.ghi_chu && <p class="bang__ghi-chu">{b.ghi_chu}</p>}</th>
+                <td>{b.ket_qua}</td>
+                <td>{ngayVn(b.ngay_do)}</td>
+                <td><a href={b.lien_ket} {...ngoai} aria-label={`Kiểm chứng ${b.ten} (mở trang bên thứ ba)`}>Kiểm chứng ↗</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="tu-kiem">Tự kiểm bản tải về</h2>
+      <p>Mỗi bản phát hành trên <a href={`${REPO_URL}/releases/latest`} {...ngoai}>GitHub Releases</a> kèm
+        <code>SHA256SUMS.txt</code>. So mã băm của tệp đã tải với dòng tương ứng trong tệp đó; lệch thì đừng chạy.</p>
+      <pre><code>{`# Windows (PowerShell)
+Get-FileHash .\\tsutramon_26.11.2401_windows-x64.zip -Algorithm SHA256
+# Linux, macOS
+sha256sum tsutramon_26.11.2401_windows-x64.zip`}</code></pre>
+      <p>Kiểm gói được build từ mã nguồn của repo tại đúng thẻ phát hành (chứng thực nguồn gốc build của GitHub Actions):</p>
+      <pre><code>{`gh attestation verify tsutramon_<phiên bản>_windows-x64.zip -R tsudev-org/tsutramon
+# Bản đến 26.11.2401 (build trước khi đổi tên repo):
+gh attestation verify tsutramon_26.11.2401_windows-x64.zip -R tsudev-org/tsudev-trafficmonitor`}</code></pre>
+      <p>Ứng dụng tự kiểm chữ ký ECDSA của thông tin phiên bản và SHA-256 của gói trước khi cập nhật; cách kiểm tay và
+        build tái lập ở <a href="/bao-mat/">Chính sách bảo mật</a>.</p>
+
+      <h2 id="chua-co">Chưa có, không áp dụng</h2>
+      <ul>
+        {CHUA_CO.map((c) => (
+          <li><strong>{c.ten}</strong>: {c.ly_do}{c.lien_ket && <> (<a href={c.lien_ket} {...ngoai}>xem trạng thái ↗</a>)</>}</li>
+        ))}
+      </ul>
+    </article>
+  </div>
+</Trang>
