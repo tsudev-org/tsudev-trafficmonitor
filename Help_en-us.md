@@ -71,13 +71,13 @@ If the error persists, create (or edit) `global_cfg.ini` next to `TsuTramon.exe`
 portable_mode = false
 ```
 
-If you cannot create the file in place, create it on the Desktop and copy it into the program folder. As a last resort, delete `C:\Users\<user name>\AppData\Roaming\tsudev-trafficmonitor\config.ini` (it will be recreated).
+If you cannot create the file in place, create it on the Desktop and copy it into the program folder. As a last resort, delete `C:\Users\<user name>\AppData\Roaming\tsutramon\config.ini` (it will be recreated).
 
 When the program folder is not writable, settings are saved to AppData automatically and **Save to the program directory** is disabled.
 
 ### Settings are lost after restarting the computer
 
-If you never saw "Unable to save settings", settings are being saved normally. The usual cause is **several copies of Tsu Tramon** on the computer, each saving settings next to its own exe. For example, you changed settings in `D:\software\tsudev-trafficmonitor\TsuTramon.exe`, but at startup `D:\software1\tsudev-trafficmonitor\TsuTramon.exe` runs.
+If you never saw "Unable to save settings", settings are being saved normally. The usual cause is **several copies of Tsu Tramon** on the computer, each saving settings next to its own exe. For example, you changed settings in `D:\software\tsutramon\TsuTramon.exe`, but at startup `D:\software1\tsutramon\TsuTramon.exe` runs.
 
 To fix it:
 

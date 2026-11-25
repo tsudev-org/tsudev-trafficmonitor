@@ -16,7 +16,7 @@ Plugin là tệp `.dll` bổ sung mục hiển thị mới (ngày giờ, thời 
 4. Mở lại Tsu Tramon. Plugin được nạp khi khởi động.
 5. Bật mục hiển thị của plugin: menu chuột phải → **Hiện thêm thông số**, hoặc **Cài đặt** → **Cửa sổ Taskbar** → **Sắp xếp các mục...**.
 
-Quản lý plugin tại **Cài đặt** → **Cài đặt Chung** → **Nâng cao** → **Quản lý Plugin...**: xem thông tin, tùy chỉnh, tắt plugin, mở thư mục plugin. Tệp cấu hình của plugin nằm trong thư mục `plugins` của thư mục cấu hình (mặc định `%AppData%\tsudev-trafficmonitor\plugins`).
+Quản lý plugin tại **Cài đặt** → **Cài đặt Chung** → **Nâng cao** → **Quản lý Plugin...**: xem thông tin, tùy chỉnh, tắt plugin, mở thư mục plugin. Tệp cấu hình của plugin nằm trong thư mục `plugins` của thư mục cấu hình (mặc định `%AppData%\tsutramon\plugins`).
 
 ## Nguồn plugin
 

@@ -82,7 +82,7 @@ def main() -> int:
         check(local, "repo", now, args.min_days, errors)
 
     if args.live:
-        req = urllib.request.Request(LIVE_URL, headers={"User-Agent": "tsudev-trafficmonitor-security-txt-check"})
+        req = urllib.request.Request(LIVE_URL, headers={"User-Agent": "tsutramon-security-txt-check"})
         try:
             with urllib.request.urlopen(req, timeout=20) as resp:
                 live_text = resp.read(64 * 1024).decode("utf-8", errors="replace")

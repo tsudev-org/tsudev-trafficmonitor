@@ -1,7 +1,7 @@
-// Kiểm thử logic nhắc gia hạn TsuDEV Pro (tsudev-trafficmonitor/ProRenewal.h, PRODUCT_POLICY mục 7.6 - 6 ca bắt buộc
+// Kiểm thử logic nhắc gia hạn TsuDEV Pro (tsutramon/ProRenewal.h, PRODUCT_POLICY mục 7.6 - 6 ca bắt buộc
 // + ca biên). Build và chạy trong CI (build.yml, job "Kiểm thử C++"); chạy tay:
-//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\ProRenewalTests.cpp /Fe:ProRenewalTests.exe
-//   g++ -std=c++17 -Wall -Wextra -Werror -fsanitize=address,undefined -I tsudev-trafficmonitor tests/ProRenewalTests.cpp
+//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\ProRenewalTests.cpp /Fe:ProRenewalTests.exe
+//   g++ -std=c++17 -Wall -Wextra -Werror -fsanitize=address,undefined -I tsutramon tests/ProRenewalTests.cpp
 
 #include "ProRenewal.h"
 #include <iostream>

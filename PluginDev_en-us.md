@@ -38,7 +38,7 @@ To draw the item yourself, override `IsCustomDraw()` to return `true` and draw i
 | `DataRequired()` | Called on every refresh cycle; fetch your data here and store it |
 | `GetInfo(PluginInfoIndex)` | Name, description, author, copyright, version (`TMI_VERSION`, such as `1.2.3`), home page |
 
-Do not override `GetAPIVersion()` - the header defines it. Other optional functions: `ShowOptionsDialog`, `OnMonitorInfo` (receives the program's network/CPU/RAM/temperature readings), `GetTooltipInfo`, menu commands (`GetCommandCount`/`GetCommandName`/`OnPluginCommand`), `OnInitialize` (receives an `ITsudevTrafficMonitor` pointer for DPI, theme colour, configuration folder, language strings and notifications).
+Do not override `GetAPIVersion()` - the header defines it. Other optional functions: `ShowOptionsDialog`, `OnMonitorInfo` (receives the program's network/CPU/RAM/temperature readings), `GetTooltipInfo`, menu commands (`GetCommandCount`/`GetCommandName`/`OnPluginCommand`), `OnInitialize` (receives an `ITsuTramon` pointer for DPI, theme colour, configuration folder, language strings and notifications).
 
 ### Exported function - `TMPluginGetInstance`
 
@@ -124,7 +124,7 @@ extern "C" __declspec(dllexport) ITMPlugin* TMPluginGetInstance() { return &g_pl
 
 * **Threads:** `DataRequired` and `OnMonitorInfo` are called on Tsu Tramon's **monitoring thread**; `GetItemValueText`, `DrawItem`/`DrawItemEx`, dialogs and menu commands are called on the **UI thread**. Data written by the first group and read by the second must be protected (a lock, or write to a copy and swap it under a lock).
 * **Performance:** `DataRequired` blocks the program's monitoring loop (network speed, CPU and RAM only update after it returns). Do slow work (network, disk) on your plugin's own thread and only copy the result in `DataRequired`.
-* **Language:** use `ITsudevTrafficMonitor::GetLanguageId()` or `GetStringRes()` to follow the language the user selected.
+* **Language:** use `ITsuTramon::GetLanguageId()` or `GetStringRes()` to follow the language the user selected.
 * **DPI:** scale sizes by `GetDPI()/96` when drawing yourself.
 * **Safety:** a plugin runs with the same privileges as Tsu Tramon. Do not download and run code from the network, and do not write outside the configuration folder (`GetPluginConfigDir()`) unless needed.
 * The plugin interface change history (versions 1-8) is at the end of [`include/PluginInterface.h`](./include/PluginInterface.h).

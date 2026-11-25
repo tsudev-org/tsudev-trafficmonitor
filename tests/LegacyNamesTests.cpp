@@ -1,7 +1,7 @@
-// Kiểm thử tự động cho logic thuần di trú tên sản phẩm (tsudev-trafficmonitor/LegacyNames.h, ADR-0001 mục 3.4).
+// Kiểm thử tự động cho logic thuần di trú tên sản phẩm (tsutramon/LegacyNames.h, ADR-0001 mục 3.4).
 // Build và chạy trong CI (build.yml, job "Kiểm thử C++"); chạy tay:
 //   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\LegacyNamesTests.cpp /Fe:LegacyNamesTests.exe
-//   g++ -std=c++17 -Wall -Wextra -Werror -fsanitize=address,undefined -I tsudev-trafficmonitor tests/LegacyNamesTests.cpp
+//   g++ -std=c++17 -Wall -Wextra -Werror -fsanitize=address,undefined -I tsutramon tests/LegacyNamesTests.cpp
 
 #include "LegacyNames.h"
 #include <iostream>

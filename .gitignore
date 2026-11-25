@@ -573,13 +573,13 @@ __pycache__/
 !skin.ini
 *.dat
 *.bak
-/tsudev-trafficmonitor/skins/test*
+/tsutramon/skins/test*
 [Dd]ebug (without temperature)/
 [Rr]elease (without temperature)/
 [Dd]ebug (lite)/
 [Rr]elease (lite)/
-/tsudev-trafficmonitor/compile_time.txt
-!/tsudev-trafficmonitor/language/*.ini
+/tsutramon/compile_time.txt
+!/tsutramon/language/*.ini
 *.diagsession
 enc_temp*
 

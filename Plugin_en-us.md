@@ -16,7 +16,7 @@ A plugin is a `.dll` file that adds new display items (date and time, weather, b
 4. Start Tsu Tramon again. Plugins are loaded at startup.
 5. Turn on the plugin's display items: right-click menu → **Show More Info**, or **Options** → **Taskbar window** → **Display settings...**.
 
-Manage plugins from **Options** → **General Settings** → **Advanced** → **Plug-in manage...**: view details, open plugin options, disable a plugin, open the plugin folder. Plugin configuration files are stored in the `plugins` folder of the configuration directory (default `%AppData%\tsudev-trafficmonitor\plugins`).
+Manage plugins from **Options** → **General Settings** → **Advanced** → **Plug-in manage...**: view details, open plugin options, disable a plugin, open the plugin folder. Plugin configuration files are stored in the `plugins` folder of the configuration directory (default `%AppData%\tsutramon\plugins`).
 
 ## Where to get plugins
 

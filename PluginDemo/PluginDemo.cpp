@@ -30,7 +30,7 @@ HICON CPluginDemo::GetIcon(UINT id)
     }
 }
 
-int CPluginDemo::DPI(int x, ITsudevTrafficMonitor::DPIType type)
+int CPluginDemo::DPI(int x, ITsuTramon::DPIType type)
 {
     int dpi = m_app->GetDPI(type);
     return x * dpi / 96;
@@ -89,7 +89,7 @@ const wchar_t* CPluginDemo::GetInfo(PluginInfoIndex index)
     case TMI_VERSION:
         return L"1.0";
     case ITMPlugin::TMI_URL:
-        return L"https://trafficmonitor.tsudev.com";
+        return L"https://tramon.tsudev.com";
         break;
     default:
         break;
@@ -125,7 +125,7 @@ void CPluginDemo::OnExtenedInfo(ExtendedInfoIndex index, const wchar_t* data)
     }
 }
 
-void CPluginDemo::OnInitialize(ITsudevTrafficMonitor* pApp)
+void CPluginDemo::OnInitialize(ITsuTramon* pApp)
 {
     m_app = pApp;
     std::wstring str = m_app->GetStringRes(L"IDS_MEMORY_USAGE", L"text");

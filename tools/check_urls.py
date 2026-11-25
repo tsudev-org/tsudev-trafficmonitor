@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Kiểm tra URL trong repo tsudev-trafficmonitor.
+"""Kiểm tra URL trong repo tsutramon.
 
 Chế độ mặc định (chạy trong CI, chặn PR):
   * Lỗi nếu gặp `http://` (trừ namespace XML của MSBuild và mã bên thứ ba được loại trừ).
   * Lỗi nếu URL không thuộc danh sách cho phép (ALLOWED_PREFIXES).
-  * Lỗi nếu chuỗi URL trong mã C++ (string literal) nằm ngoài tsudev-trafficmonitor/ForkConfig.h -
+  * Lỗi nếu chuỗi URL trong mã C++ (string literal) nằm ngoài tsutramon/ForkConfig.h -
     mọi URL ứng dụng dùng phải khai báo một chỗ duy nhất. Chú thích C++ (tài liệu tham khảo) không bị kiểm tra.
 
 Chế độ --live (chạy theo lịch hằng tuần, không chặn PR):
@@ -95,7 +95,7 @@ ALLOWED_HTTP = ["http://schemas.microsoft.com/developer/msbuild/2003", "http://w
 EXCLUDE = [
     re.compile(r"^LICENSE"),
     re.compile(r"^\.standards/"),          # bản sao chỉ-đọc của bộ quy ước tsudev (không sửa)
-    re.compile(r"^tsudev-trafficmonitor/tinyxml2/"),
+    re.compile(r"^tsutramon/tinyxml2/"),
     re.compile(r"^OpenHardwareMonitorApi/LibreHardwareMonitorLib\.xml$"),
     re.compile(r"^tools/check_urls\.py$"),
     re.compile(r"^tests/"),                # kiểm thử cố ý chứa URL giả mạo/không tin cậy để thử bộ lọc
@@ -108,7 +108,7 @@ TEXT_EXT = {".cpp", ".h", ".hpp", ".c", ".rc", ".rc2", ".ini", ".md", ".info", "
             ".xml", ".py", ".ps1", ".props", ".vcxproj", ".filters", ".user", ".txt", ".json",
             ".gitignore", ".editorconfig", ".gitattributes", ".astro", ".ts", ".mjs", ".css", ".webmanifest"}
 CPP_EXT = {".cpp", ".h", ".hpp", ".c"}
-FORK_CONFIG = "tsudev-trafficmonitor/ForkConfig.h"
+FORK_CONFIG = "tsutramon/ForkConfig.h"
 
 URL_RE = re.compile(r"\bhttps?://[^\s\"'<>()\[\]`|\\]+")
 # Chuỗi C/C++ (kể cả tiền tố L/u8/_T(...)) - đủ dùng để tìm URL trong literal
@@ -190,7 +190,7 @@ def scan() -> tuple[list[str], set[str]]:
                 else:
                     urls.add(url)
             # Chỉ áp cho ứng dụng chính; PluginDemo là plugin mẫu độc lập, không dùng ForkConfig.h
-            if is_cpp and rel.startswith("tsudev-trafficmonitor/") and rel != FORK_CONFIG:
+            if is_cpp and rel.startswith("tsutramon/") and rel != FORK_CONFIG:
                 for s in CPP_STRING_RE.finditer(line):
                     if URL_RE.search(s.group(1)):
                         errors.append(f"{rel}:{lineno}: URL trong mã C++ phải khai báo ở {FORK_CONFIG}: {s.group(0)}")
@@ -205,7 +205,7 @@ def check_live(urls: set[str]) -> list[str]:
                 or any(url.startswith(p) for p in NOT_PAGES):
             continue  # huy hiệu, API trả nội dung động, tiền tố tải, định danh (không phải trang)
         target = url.split("#", 1)[0]
-        req = urllib.request.Request(target, method="GET", headers={"User-Agent": "tsudev-trafficmonitor-link-check"})
+        req = urllib.request.Request(target, method="GET", headers={"User-Agent": "tsutramon-link-check"})
         try:
             with urllib.request.urlopen(req, timeout=20) as resp:
                 if resp.status >= 400:

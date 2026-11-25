@@ -72,13 +72,13 @@ Nếu vẫn báo lỗi, tạo (hoặc sửa) tệp `global_cfg.ini` cạnh `TsuT
 portable_mode = false
 ```
 
-Nếu không tạo được tệp tại chỗ, hãy tạo ở Desktop rồi chép vào thư mục chương trình. Trường hợp cuối cùng, xóa tệp `C:\Users\<tên người dùng>\AppData\Roaming\tsudev-trafficmonitor\config.ini` (tệp sẽ được tạo lại).
+Nếu không tạo được tệp tại chỗ, hãy tạo ở Desktop rồi chép vào thư mục chương trình. Trường hợp cuối cùng, xóa tệp `C:\Users\<tên người dùng>\AppData\Roaming\tsutramon\config.ini` (tệp sẽ được tạo lại).
 
 Khi thư mục chương trình không ghi được, chương trình tự động lưu cấu hình vào AppData và tùy chọn **Lưu ngay trong thư mục phần mềm** sẽ bị vô hiệu hóa.
 
 ### Cấu hình bị mất sau khi khởi động lại máy
 
-Nếu không thấy thông báo “Không thể lưu cài đặt” thì cấu hình vẫn được lưu bình thường. Nguyên nhân thường là trên máy có **nhiều bản Tsu Tramon** và cấu hình được lưu cạnh từng tệp exe. Ví dụ bạn chỉnh cấu hình ở `D:\software\tsudev-trafficmonitor\TsuTramon.exe` nhưng lúc khởi động máy lại chạy `D:\software1\tsudev-trafficmonitor\TsuTramon.exe`.
+Nếu không thấy thông báo “Không thể lưu cài đặt” thì cấu hình vẫn được lưu bình thường. Nguyên nhân thường là trên máy có **nhiều bản Tsu Tramon** và cấu hình được lưu cạnh từng tệp exe. Ví dụ bạn chỉnh cấu hình ở `D:\software\tsutramon\TsuTramon.exe` nhưng lúc khởi động máy lại chạy `D:\software1\tsutramon\TsuTramon.exe`.
 
 Cách xử lý:
 

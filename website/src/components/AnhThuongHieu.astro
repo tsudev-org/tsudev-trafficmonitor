@@ -6,7 +6,7 @@
 // Đi kèm chữ dựng bằng text thì để alt="" (BRAND_ASSETS mục 8).
 interface Props { loai: 'mark' | 'logo'; co: number; alt?: string; class?: string; uuTien?: boolean }
 const { loai, co, alt = '', class: lop, uuTien = false } = Astro.props;
-const goc = `/brand/${loai}-tsudev-trafficmonitor`;
+const goc = `/brand/${loai}-tsutramon`;
 ---
 <picture class={lop}>
   <source srcset={`${goc}.avif`} type="image/avif">

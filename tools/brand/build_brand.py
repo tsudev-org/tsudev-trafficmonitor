@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Dây chuyền thương hiệu của tsudev-trafficmonitor: MỘT ảnh gốc -> MỌI logo, icon, favicon, ảnh chia sẻ.
+"""Dây chuyền thương hiệu của tsutramon: MỘT ảnh gốc -> MỌI logo, icon, favicon, ảnh chia sẻ.
 
-Nguồn duy nhất: assets/brand/source/logo-tsudev-trafficmonitor.png (cấu hình: assets/brand/brand.json).
+Nguồn duy nhất: assets/brand/source/logo-tsutramon.png (cấu hình: assets/brand/brand.json).
 Không sửa tay bất kỳ sản phẩm sinh ra nào; muốn đổi logo thì thay ảnh gốc (và ô cắt trong brand.json) rồi chạy lại:
 
   python3 -m venv .venv && .venv/bin/pip install "pillow>=11.3" numpy scipy
@@ -9,15 +9,15 @@ Không sửa tay bất kỳ sản phẩm sinh ra nào; muốn đổi logo thì t
   .venv/bin/python tools/brand/build_brand.py --check   # chỉ kiểm: sản phẩm trên đĩa khớp ảnh gốc hiện tại
 
 Sinh ra (xem assets/brand/README.md):
-  assets/brand/logo-tsudev-trafficmonitor.{png,webp,avif}  logo đầy đủ, nền trong suốt, 1024x1024
-  assets/brand/mark-tsudev-trafficmonitor.{png,webp,avif}  dấu hiệu thu gọn (mặt cú, không chữ), 512x512
-  tsudev-trafficmonitor/res/tsudev-trafficmonitor.ico                    icon exe/cửa sổ/khay kiểu 4: 16..256 (16-40 dùng dấu hiệu thu gọn)
-  tsudev-trafficmonitor/res/about_background_hd.bmp               ảnh đầu hộp thoại Giới thiệu 479x92, 24-bit
-  tsudev-trafficmonitor/res/notifyicon{,2,3,4,5}.ico              icon vùng thông báo (khay) 16..64, các kiểu chọn trong
+  assets/brand/logo-tsutramon.{png,webp,avif}  logo đầy đủ, nền trong suốt, 1024x1024
+  assets/brand/mark-tsutramon.{png,webp,avif}  dấu hiệu thu gọn (mặt cú, không chữ), 512x512
+  tsutramon/res/tsutramon.ico                    icon exe/cửa sổ/khay kiểu 4: 16..256 (16-40 dùng dấu hiệu thu gọn)
+  tsutramon/res/about_background_hd.bmp               ảnh đầu hộp thoại Giới thiệu 479x92, 24-bit
+  tsutramon/res/notifyicon{,2,3,4,5}.ico              icon vùng thông báo (khay) 16..64, các kiểu chọn trong
                                                                   "Đổi biểu tượng vùng thông báo" (xem make_notify_icons)
   website/public/favicon.ico, favicon-{16,32,96}.png, apple-touch-icon.png, android-chrome[-maskable]-{192,512}.png
   website/public/og-image.png                              ảnh chia sẻ 1200x630
-  website/public/brand/{logo,mark}-tsudev-trafficmonitor.{png,webp,avif}
+  website/public/brand/{logo,mark}-tsutramon.{png,webp,avif}
 
 Tách nền: ảnh gốc có nền đen đặc. Vùng tối nối với mép ảnh là nền (lan vùng + phép mở hình thái để cắt khe hẹp
 lọt vào trong hình); dải sát mép hình lấy alpha theo độ sáng và gỡ nhân trước với nền đen, nên quầng sáng giữ độ
@@ -39,7 +39,7 @@ from scipy import ndimage
 ROOT = Path(__file__).resolve().parent.parent.parent
 BRAND = ROOT / "assets/brand"
 FONTS = BRAND / "fonts"
-RES = ROOT / "tsudev-trafficmonitor/res"
+RES = ROOT / "tsutramon/res"
 WEB = ROOT / "website/public"
 ICO_SIZES = [16, 20, 24, 28, 32, 40, 48, 64, 128, 256]
 FAVICON_SIZES = [16, 24, 32, 48, 64, 128, 256]
@@ -220,12 +220,12 @@ def tile_outline(im: Image.Image, s: int, radius: float, rgb: tuple[int, int, in
 
 
 def make_notify_icons(out: Out, src: Image.Image, cfg: dict, mark: Image.Image, tiny: Image.Image) -> None:
-    """Icon vùng thông báo (khay hệ thống). Chỉ số = m_notify_icon_selected (TsudevTrafficMonitorDlg.cpp):
+    """Icon vùng thông báo (khay hệ thống). Chỉ số = m_notify_icon_selected (TsuTramonDlg.cpp):
 
     0 notifyicon.ico   mặc định taskbar tối: mặt cú màu (giống icon ứng dụng ở cỡ nhỏ) + viền màu nhấn (UI1)
     1 notifyicon2.ico  đơn sắc trắng (taskbar tối)       <-> 5 khi "tự thích ứng" sáng/tối
     2 notifyicon3.ico  mặt cú tròn viền xanh lơ (mặc định Windows 7/8)
-    3 (tsudev-trafficmonitor.ico của ứng dụng)
+    3 (tsutramon.ico của ứng dụng)
     4 notifyicon4.ico  mặc định taskbar sáng: mặt cú màu  <-> 0
     5 notifyicon5.ico  đơn sắc đen (taskbar sáng)        <-> 1
     """
@@ -257,7 +257,7 @@ def make_about(out: Out, logo: Image.Image, c: dict) -> None:
     im.paste(m, (x0, (h - mh) // 2), m)
     d = ImageDraw.Draw(im)
     tx = x0 + mh + 16
-    d.text((tx, 42), "tsudev-trafficmonitor", font=font("Bold", 27), fill=hex_rgb(c["about_text"]), anchor="ls")
+    d.text((tx, 42), "Tsu Tramon", font=font("Bold", 27), fill=hex_rgb(c["about_text"]), anchor="ls")
     small = font("Regular", 15)
     by = "một sản phẩm của hệ sinh thái "
     d.text((tx, 70), by, font=small, fill=hex_rgb(c["about_text"]), anchor="ls")
@@ -313,12 +313,12 @@ def make_og(out: Out, logo: Image.Image, c: dict) -> None:
     og.alpha_composite(downscale(logo, ls), (80, (H - ls) // 2))
     d = ImageDraw.Draw(og)
     x = 560
-    d.text((x, 205), "tsudev-trafficmonitor", font=font("Bold", 50), fill=hex_rgb(c["text"]), anchor="ls")
+    d.text((x, 205), "Tsu Tramon", font=font("Bold", 50), fill=hex_rgb(c["text"]), anchor="ls")
     reg = font("Regular", 28)
     d.text((x, 262), "Theo dõi tốc độ mạng, CPU, RAM", font=reg, fill=hex_rgb(c["text2"]), anchor="ls")
     d.text((x, 302), "trên thanh tác vụ Windows - tiếng Việt,", font=reg, fill=hex_rgb(c["text2"]), anchor="ls")
     d.text((x, 342), "gia cố bảo mật, miễn phí.", font=reg, fill=hex_rgb(c["text2"]), anchor="ls")
-    url = "trafficmonitor.tsudev.com"
+    url = "tramon.tsudev.com"
     uf = font("SemiBold", 24)
     pw = round(d.textlength(url, font=uf)) + 56
     d.rounded_rectangle((x, 392, x + pw, 452), radius=30, fill=hex_rgb(pc["primary"]))
@@ -345,11 +345,11 @@ def main() -> int:
     tiny = mark_tile(src, cfg["mark_small_box"], cfg["mark_radius"], 512)
 
     # bản gốc đã xử lý (dùng cho mọi nơi khác: skin, tài liệu, ảnh đại diện)
-    out.triple(BRAND / "logo-tsudev-trafficmonitor.png", logo)
-    out.triple(BRAND / "mark-tsudev-trafficmonitor.png", mark)
+    out.triple(BRAND / "logo-tsutramon.png", logo)
+    out.triple(BRAND / "mark-tsutramon.png", mark)
 
     # ứng dụng Windows
-    make_ico(out, RES / "tsudev-trafficmonitor.ico", logo, mark, tiny, ICO_SIZES)
+    make_ico(out, RES / "tsutramon.ico", logo, mark, tiny, ICO_SIZES)
     make_notify_icons(out, src, cfg, mark, tiny)
     make_about(out, logo, c)
 
@@ -362,8 +362,8 @@ def main() -> int:
     for s in (192, 512):
         out.image(WEB / f"android-chrome-{s}x{s}.png", downscale(logo, s))
         out.image(WEB / f"android-chrome-maskable-{s}x{s}.png", on_solid(logo, s, c["bg"], 0.78))  # vùng an toàn 80%
-    out.triple(WEB / "brand/logo-tsudev-trafficmonitor.png", downscale(logo, 512))
-    out.triple(WEB / "brand/mark-tsudev-trafficmonitor.png", downscale(mark, 128))
+    out.triple(WEB / "brand/logo-tsutramon.png", downscale(logo, 512))
+    out.triple(WEB / "brand/mark-tsutramon.png", downscale(mark, 128))
     make_og(out, logo, c)
 
     if a.check:

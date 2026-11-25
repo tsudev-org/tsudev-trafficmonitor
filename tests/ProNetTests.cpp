@@ -1,6 +1,6 @@
-// Kiểm thử tầng nền tảng của đăng nhập tsudev (tsudev-trafficmonitor/ProNet.h, P9 phần 2). CHỈ Windows.
+// Kiểm thử tầng nền tảng của đăng nhập tsudev (tsutramon/ProNet.h, P9 phần 2). CHỈ Windows.
 // KHÔNG gọi mạng ra ngoài: chỉ 127.0.0.1 và Credential Manager của tài khoản chạy test (mục thử tự xoá).
-//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\ProNetTests.cpp /Fe:ProNetTests.exe
+//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\ProNetTests.cpp /Fe:ProNetTests.exe
 
 #include "ProNet.h"
 #include <iostream>

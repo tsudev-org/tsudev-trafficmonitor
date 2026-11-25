@@ -46,14 +46,14 @@ jobs:
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTests.exe || exit /b 1
           UpdateSecurityTests.exe tests\fixtures
       - name: Kiểm thử tích hợp tự tải gói cập nhật + kiểm SHA-256 (gói 26.11.0904 thật, có ASan)
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /Zi /fsanitize=address /I tsudev-trafficmonitor tests\UpdateDownloadTests.cpp /Fe:UpdateDownloadTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /Zi /fsanitize=address /I tsutramon tests\UpdateDownloadTests.cpp /Fe:UpdateDownloadTests.exe || exit /b 1
           UpdateDownloadTests.exe
       - name: Thử sinh SBOM trên Windows (như release.yml)
         shell: bash
@@ -67,14 +67,14 @@ jobs:
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTestsAsan.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsutramon tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTestsAsan.exe || exit /b 1
           UpdateSecurityTestsAsan.exe tests\fixtures
       - name: Fuzzing logic cập nhật (libFuzzer + ASan, 120 giây)
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsudev-trafficmonitor tests\fuzz\UpdateSecurityFuzz.cpp /Fe:UpdateSecurityFuzz.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsutramon tests\fuzz\UpdateSecurityFuzz.cpp /Fe:UpdateSecurityFuzz.exe || exit /b 1
           mkdir fuzz-corpus
           xcopy /q /y tests\fuzz\corpus\* fuzz-corpus\ >nul
           UpdateSecurityFuzz.exe -max_total_time=120 -timeout=10 -rss_limit_mb=2048 -print_final_stats=1 fuzz-corpus
@@ -84,72 +84,72 @@ jobs:
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
           mkdir xml-thuong xml-asan
-          cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 /Foxml-thuong\ tsudev-trafficmonitor\tinyxml2\tinyxml2.cpp || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\XmlParsingTests.cpp xml-thuong\tinyxml2.obj /Fe:XmlParsingTests.exe || exit /b 1
-          XmlParsingTests.exe tsudev-trafficmonitor\skins || exit /b 1
-          cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 /Zi /fsanitize=address /Foxml-asan\ tsudev-trafficmonitor\tinyxml2\tinyxml2.cpp || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\XmlParsingTests.cpp xml-asan\tinyxml2.obj /Fe:XmlParsingTestsAsan.exe || exit /b 1
-          XmlParsingTestsAsan.exe tsudev-trafficmonitor\skins
+          cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 /Foxml-thuong\ tsutramon\tinyxml2\tinyxml2.cpp || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\XmlParsingTests.cpp xml-thuong\tinyxml2.obj /Fe:XmlParsingTests.exe || exit /b 1
+          XmlParsingTests.exe tsutramon\skins || exit /b 1
+          cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 /Zi /fsanitize=address /Foxml-asan\ tsutramon\tinyxml2\tinyxml2.cpp || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsutramon tests\XmlParsingTests.cpp xml-asan\tinyxml2.obj /Fe:XmlParsingTestsAsan.exe || exit /b 1
+          XmlParsingTestsAsan.exe tsutramon\skins
       - name: Kiểm thử thu cửa sổ nổi vào mép màn hình (EdgeDock.h) - thường và ASan
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\EdgeDockTests.cpp /Fe:EdgeDockTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\EdgeDockTests.cpp /Fe:EdgeDockTests.exe || exit /b 1
           EdgeDockTests.exe || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\EdgeDockTests.cpp /Fe:EdgeDockTestsAsan.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsutramon tests\EdgeDockTests.cpp /Fe:EdgeDockTestsAsan.exe || exit /b 1
           EdgeDockTestsAsan.exe
       - name: Kiểm thử di trú tên sản phẩm Tsu Tramon (LegacyNames.h) - thường và ASan
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\LegacyNamesTests.cpp /Fe:LegacyNamesTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\LegacyNamesTests.cpp /Fe:LegacyNamesTests.exe || exit /b 1
           LegacyNamesTests.exe || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\LegacyNamesTests.cpp /Fe:LegacyNamesTestsAsan.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsutramon tests\LegacyNamesTests.cpp /Fe:LegacyNamesTestsAsan.exe || exit /b 1
           LegacyNamesTestsAsan.exe
       - name: Kiểm thử nhắc gia hạn TsuDEV Pro (ProRenewal.h, PRODUCT_POLICY 7.6) - thường và ASan
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\ProRenewalTests.cpp /Fe:ProRenewalTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\ProRenewalTests.cpp /Fe:ProRenewalTests.exe || exit /b 1
           ProRenewalTests.exe || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\ProRenewalTests.cpp /Fe:ProRenewalTestsAsan.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsutramon tests\ProRenewalTests.cpp /Fe:ProRenewalTestsAsan.exe || exit /b 1
           ProRenewalTestsAsan.exe
       - name: Kiểm thử đăng nhập tsudev + JWS quyền lợi Pro (ProAuth.h, P9) - thường và ASan, ES256 thật bằng BCrypt
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\ProAuthTests.cpp /Fe:ProAuthTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\ProAuthTests.cpp /Fe:ProAuthTests.exe || exit /b 1
           ProAuthTests.exe || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\ProAuthTests.cpp /Fe:ProAuthTestsAsan.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsutramon tests\ProAuthTests.cpp /Fe:ProAuthTestsAsan.exe || exit /b 1
           ProAuthTestsAsan.exe
       - name: Kiểm thử tầng Windows của đăng nhập (ProNet.h - cổng loopback, Credential Manager, chặn URL lạ; không gọi mạng ngoài)
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\ProNetTests.cpp /Fe:ProNetTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\ProNetTests.cpp /Fe:ProNetTests.exe || exit /b 1
           ProNetTests.exe || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\ProNetTests.cpp /Fe:ProNetTestsAsan.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsutramon tests\ProNetTests.cpp /Fe:ProNetTestsAsan.exe || exit /b 1
           ProNetTestsAsan.exe
       - name: Kiểm thử luồng tài khoản tsudev (ProAccount.cpp - máy chủ giả, loopback thật; không gọi mạng ngoài) - thường và ASan
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /DUNICODE /D_UNICODE /I tsudev-trafficmonitor tests\ProAccountTests.cpp tsudev-trafficmonitor\ProAccount.cpp /Fe:ProAccountTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /DUNICODE /D_UNICODE /I tsutramon tests\ProAccountTests.cpp tsutramon\ProAccount.cpp /Fe:ProAccountTests.exe || exit /b 1
           ProAccountTests.exe || exit /b 1
-          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /DUNICODE /D_UNICODE /I tsudev-trafficmonitor tests\ProAccountTests.cpp tsudev-trafficmonitor\ProAccount.cpp /Fe:ProAccountTestsAsan.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /DUNICODE /D_UNICODE /I tsutramon tests\ProAccountTests.cpp tsutramon\ProAccount.cpp /Fe:ProAccountTestsAsan.exe || exit /b 1
           ProAccountTestsAsan.exe
       - name: Fuzzing đầu vào đăng nhập (JSON/JWS/callback loopback, libFuzzer + ASan, 120 giây)
         shell: cmd
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
-          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsudev-trafficmonitor tests\fuzz\ProAuthFuzz.cpp /Fe:ProAuthFuzz.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsutramon tests\fuzz\ProAuthFuzz.cpp /Fe:ProAuthFuzz.exe || exit /b 1
           mkdir proauth-corpus
           xcopy /q /y tests\fuzz\corpus-proauth\* proauth-corpus\ >nul
           ProAuthFuzz.exe -max_total_time=120 -timeout=10 -rss_limit_mb=2048 -max_len=65536 -print_final_stats=1 proauth-corpus
@@ -159,9 +159,9 @@ jobs:
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
           call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
           mkdir xml-fuzz skin-corpus
-          cl /nologo /c /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /Foxml-fuzz\ tsudev-trafficmonitor\tinyxml2\tinyxml2.cpp || exit /b 1
-          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsudev-trafficmonitor tests\fuzz\SkinXmlFuzz.cpp xml-fuzz\tinyxml2.obj /Fe:SkinXmlFuzz.exe || exit /b 1
-          for /d %%d in (tsudev-trafficmonitor\skins\*) do if exist "%%d\skin.xml" copy /y "%%d\skin.xml" "skin-corpus\%%~nxd.xml" >nul
+          cl /nologo /c /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /Foxml-fuzz\ tsutramon\tinyxml2\tinyxml2.cpp || exit /b 1
+          cl /nologo /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsutramon tests\fuzz\SkinXmlFuzz.cpp xml-fuzz\tinyxml2.obj /Fe:SkinXmlFuzz.exe || exit /b 1
+          for /d %%d in (tsutramon\skins\*) do if exist "%%d\skin.xml" copy /y "%%d\skin.xml" "skin-corpus\%%~nxd.xml" >nul
           copy /y tests\fixtures\version_signed.xml skin-corpus\version_signed.xml >nul
           SkinXmlFuzz.exe -max_total_time=120 -timeout=10 -rss_limit_mb=2048 -max_len=65536 -print_final_stats=1 skin-corpus
       - name: Lưu đầu vào gây lỗi của fuzzer
@@ -197,11 +197,11 @@ jobs:
       - name: Thêm MSBuild vào PATH
         uses: microsoft/setup-msbuild@30375c66a4eea26614e0d39710365f22f8b0af57  # v3.0.0
 
-      - name: Build tsudev-trafficmonitor (Lite)
+      - name: Build tsutramon (Lite)
         env:
           # Coi các cảnh báo ép kiểu số / cắt con trỏ / ký tự ngoài code page là lỗi để không phát sinh lại
           CL: /we4244 /we4267 /we4018 /we4302 /we4311 /we4566
-        run: msbuild tsudev-trafficmonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143
+        run: msbuild tsutramon_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143
 
       - name: Kiểm tra cờ bảo mật của tệp thực thi
         shell: pwsh
@@ -232,7 +232,7 @@ jobs:
           $zip1 = (Get-FileHash goi1.zip -Algorithm SHA256).Hash
 
           # Build lại từ đầu (Rebuild) và đóng gói ở thư mục tạm khác
-          msbuild tsudev-trafficmonitor_Lite.sln -m -t:Rebuild -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143 -v:minimal -nologo
+          msbuild tsutramon_Lite.sln -m -t:Rebuild -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143 -v:minimal -nologo
           if ($LASTEXITCODE -ne 0) { throw "Build lại thất bại" }
           $stamp2 = (& $dumpbin /headers $exe | Select-String "time date stamp").Line.Trim()
           $exe2 = (Get-FileHash $exe -Algorithm SHA256).Hash
@@ -250,7 +250,7 @@ jobs:
       - name: Tải lên artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
-          name: tsudev-trafficmonitor_${{ matrix.platform }}_Lite_${{ github.sha }}
+          name: tsutramon_${{ matrix.platform }}_Lite_${{ github.sha }}
           path: |
             ${{ matrix.outdir }}/TsuTramon.exe
             ${{ matrix.outdir }}/*.dll
@@ -272,7 +272,7 @@ jobs:
       - name: Thêm MSBuild vào PATH
         uses: microsoft/setup-msbuild@30375c66a4eea26614e0d39710365f22f8b0af57  # v3.0.0
 
-      - name: Build tsudev-trafficmonitor (bản đầy đủ)
+      - name: Build tsutramon (bản đầy đủ)
         env:
           CL: /we4244 /we4267 /we4018 /we4302 /we4311 /we4566
-        run: msbuild tsudev-trafficmonitor.sln -m -restore -p:Configuration=Release -p:Platform=x64 -p:PlatformToolset=v143
+        run: msbuild tsutramon.sln -m -restore -p:Configuration=Release -p:Platform=x64 -p:PlatformToolset=v143

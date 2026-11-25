@@ -1,4 +1,4 @@
-# Build website (trafficmonitor.tsudev.com) và kiểm tra nhận diện/CSP cho mỗi PR có thay đổi liên quan.
+# Build website (tramon.tsudev.com) và kiểm tra nhận diện/CSP cho mỗi PR có thay đổi liên quan.
 # Deploy lên Cloudflare Pages do chủ repo chạy: cd website && npm ci && npm run deploy (xem website/README.md).
 name: Website
 

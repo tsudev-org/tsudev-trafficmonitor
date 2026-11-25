@@ -3,7 +3,7 @@
 
   tsudev-cu.png        chú cú mascot tsudev (nền trong suốt)  -> skin mặc định  0_tsudev_Cu   (nền sáng)
   tsudev-vong-mang.png avatar "tsudev_" với vòng mạng          -> skin           tsudev_VongMang (nền tối)
-  assets/brand/logo-tsudev-trafficmonitor.png (logo sản phẩm, sinh bởi tools/brand/build_brand.py)
+  assets/brand/logo-tsutramon.png (logo sản phẩm, sinh bởi tools/brand/build_brand.py)
                                                                -> skin           tsudev_Logo     (nền đen)
 
 Ảnh nền vẽ ở tỉ lệ 1,5 so với kích thước cửa sổ trong skin.ini (giống các skin có sẵn): cửa sổ lớn 232x55 -> 348x82,
@@ -21,7 +21,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
-SKINS = ROOT / "tsudev-trafficmonitor/skins"
+SKINS = ROOT / "tsutramon/skins"
 SHOTS = ROOT / "Screenshots/skins"
 SCALE = 1.5
 
@@ -185,7 +185,7 @@ def main() -> None:
     # Nền đen (bảng màu Tối của website: bg-surface #111111 -> bg-base #0A0A0A), viền và quầng sáng lấy màu xanh lơ
     # của logo, chữ text-primary #EDEDED (tương phản 17:1 trên nền)
     if want("tsudev_Logo"):
-        logo = Image.open(ROOT / "assets/brand/logo-tsudev-trafficmonitor.png").convert("RGBA")
+        logo = Image.open(ROOT / "assets/brand/logo-tsutramon.png").convert("RGBA")
         build("tsudev_Logo", logo.crop(logo.getbbox()), "#111111", "#0A0A0A", "#1F5F8F", "#EDEDED", "#3FB6F5", a.font,
               art_scale=1.0)
 

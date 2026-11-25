@@ -1,7 +1,7 @@
-// Kiểm thử logic đăng nhập tsudev (OIDC + PKCE) và JWS quyền lợi TsuDEV Pro (tsudev-trafficmonitor/ProAuth.h, P9).
+// Kiểm thử logic đăng nhập tsudev (OIDC + PKCE) và JWS quyền lợi TsuDEV Pro (tsutramon/ProAuth.h, P9).
 // Bộ test KHÔNG gọi mạng, không gọi tsudev.com. Build và chạy trong CI (build.yml, job "Kiểm thử C++"); chạy tay:
-//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\ProAuthTests.cpp /Fe:ProAuthTests.exe
-//   g++ -std=c++17 -Wall -Wextra -Werror -fsanitize=address,undefined -I tsudev-trafficmonitor tests/ProAuthTests.cpp
+//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\ProAuthTests.cpp /Fe:ProAuthTests.exe
+//   g++ -std=c++17 -Wall -Wextra -Werror -fsanitize=address,undefined -I tsutramon tests/ProAuthTests.cpp
 // Phần mật mã thật (PKCE RFC 7636, ES256 ký bằng khoá BCrypt sinh trong test) chỉ chạy trên Windows.
 
 #include "ProAuth.h"

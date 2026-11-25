@@ -40,7 +40,7 @@ See the [Skin making-up tutorial](./SkinTutorial_en-us.md): layout, item coordin
 
 ## Contributing a skin
 
-Have a skin to share? Open an [issue](https://github.com/tsudev-org/tsudev-trafficmonitor/issues) or a pull request adding the skin folder to `tsudev-trafficmonitor/skins`, with:
+Have a skin to share? Open an [issue](https://github.com/tsudev-org/tsudev-trafficmonitor/issues) or a pull request adding the skin folder to `tsutramon/skins`, with:
 
 * background images you designed yourself or have the right to redistribute (no third-party logos, characters or copyrighted artwork);
 * your name in `skin_author` of the configuration file;

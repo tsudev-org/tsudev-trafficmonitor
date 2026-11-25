@@ -5,7 +5,7 @@
 [![Release](https://img.shields.io/github/v/release/tsudev-org/tsutramon?style=flat-square)](https://github.com/tsudev-org/tsutramon/releases/latest)
 [![License](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
 
-<img src="./assets/brand/logo-tsudev-trafficmonitor.png" alt="Logo Tsu Tramon" height="120">
+<img src="./assets/brand/logo-tsutramon.png" alt="Logo Tsu Tramon" height="120">
 
 # Tsu Tramon
 
@@ -132,15 +132,15 @@ Requirements: Windows 10/11, **Visual Studio 2022** with the *Desktop developmen
 
 ```bat
 :: Lite edition (recommended)
-msbuild tsudev-trafficmonitor_Lite.sln -p:Configuration="Release (lite)" -p:Platform=x64
+msbuild tsutramon_Lite.sln -p:Configuration="Release (lite)" -p:Platform=x64
 
 :: Full edition (temperature monitoring)
-msbuild tsudev-trafficmonitor.sln -p:Configuration=Release -p:Platform=x64
+msbuild tsutramon.sln -p:Configuration=Release -p:Platform=x64
 ```
 
 Output goes to `Bin\x64\Release (lite)\` (or `Bin\x64\Release\`).
 
-Fork-specific settings (repository, update URLs, default language) are in [`tsudev-trafficmonitor/ForkConfig.h`](./tsudev-trafficmonitor/ForkConfig.h). Security compiler flags are in [`Directory.Build.props`](./Directory.Build.props).
+Fork-specific settings (repository, update URLs, default language) are in [`tsutramon/ForkConfig.h`](./tsutramon/ForkConfig.h). Security compiler flags are in [`Directory.Build.props`](./Directory.Build.props).
 
 This repository starts with a source import commit from V1.87-vn and is the only home of Tsu Tramon's source, releases and update channel. Earlier changes (V1.86-vn, V1.87-vn) are summarized in [CHANGELOG.md](./CHANGELOG.md); code origin and licensing are in [NOTICE.md](./NOTICE.md). The former repository `tsudev-tsudev/Tsu Tramon` has been removed (11/2026).
 

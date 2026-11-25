@@ -5,7 +5,7 @@
 [![Release](https://img.shields.io/github/v/release/tsudev-org/tsutramon?style=flat-square)](https://github.com/tsudev-org/tsutramon/releases/latest)
 [![License](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](./LICENSE)
 
-<img src="./assets/brand/logo-tsudev-trafficmonitor.png" alt="Logo Tsu Tramon" height="120">
+<img src="./assets/brand/logo-tsutramon.png" alt="Logo Tsu Tramon" height="120">
 
 # Tsu Tramon
 
@@ -124,19 +124,19 @@ Yêu cầu: Windows 10/11, **Visual Studio 2022** với workload *Desktop develo
 
 ```bat
 :: Bản Lite (khuyến nghị)
-msbuild tsudev-trafficmonitor_Lite.sln -p:Configuration="Release (lite)" -p:Platform=x64
+msbuild tsutramon_Lite.sln -p:Configuration="Release (lite)" -p:Platform=x64
 
 :: Bản đầy đủ (có đo nhiệt độ)
-msbuild tsudev-trafficmonitor.sln -p:Configuration=Release -p:Platform=x64
+msbuild tsutramon.sln -p:Configuration=Release -p:Platform=x64
 ```
 
 Tệp kết quả nằm trong `Bin\x64\Release (lite)\` (hoặc `Bin\x64\Release\`).
 
-Cấu hình riêng của bản Việt hóa (repo, URL cập nhật, ngôn ngữ mặc định) tập trung tại [`tsudev-trafficmonitor/ForkConfig.h`](./tsudev-trafficmonitor/ForkConfig.h). Cờ biên dịch bảo mật nằm ở [`Directory.Build.props`](./Directory.Build.props).
+Cấu hình riêng của bản Việt hóa (repo, URL cập nhật, ngôn ngữ mặc định) tập trung tại [`tsutramon/ForkConfig.h`](./tsutramon/ForkConfig.h). Cờ biên dịch bảo mật nằm ở [`Directory.Build.props`](./Directory.Build.props).
 
 ### Phát hành (người bảo trì)
 
-1. Cập nhật số phiên bản `{YY}.{M}.{DD}{NN}` ở `VERSION` (`tsudev-trafficmonitor/stdafx.h`), VERSIONINFO trong `tsudev-trafficmonitor/tsudev-trafficmonitor.rc` và `version_utf8.info`.
+1. Cập nhật số phiên bản `{YY}.{M}.{DD}{NN}` ở `VERSION` (`tsutramon/stdafx.h`), VERSIONINFO trong `tsutramon/tsutramon.rc` và `version_utf8.info`.
 2. Thêm một dòng vào [CHANGELOG.md](./CHANGELOG.md) và phần chi tiết vào `UpdateLog/update_log_vi.md` + `UpdateLog/update_log_en-us.md`.
 3. PR → CI đạt → gộp; gắn thẻ có chữ ký `v<phiên bản>` (thẻ cũ `V*-vn` giữ nguyên, ADR-0001 mục 3.3); duyệt environment `release`; kiểm SHA-256, chứng thực build và chữ ký `version_signed.xml`; deploy website.
 

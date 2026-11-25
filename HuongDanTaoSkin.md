@@ -4,7 +4,7 @@
 
 Skin quyết định hình nền, phông chữ, màu chữ và vị trí các mục trên **cửa sổ nổi** (cửa sổ chính) của Tsu Tramon. Cửa sổ Taskbar không dùng skin.
 
-> Tài liệu này được viết dựa trên mã nguồn đọc skin (`tsudev-trafficmonitor/SkinFile.cpp`).
+> Tài liệu này được viết dựa trên mã nguồn đọc skin (`tsutramon/SkinFile.cpp`).
 
 ## 1. Cấu trúc thư mục
 

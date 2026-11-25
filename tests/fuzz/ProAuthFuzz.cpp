@@ -1,7 +1,7 @@
 // Fuzz bộ phân tích đầu vào không tin cậy của đăng nhập tsudev (ProAuth.h): JSON (phản hồi token/JWKS/JWS),
 // JWS compact, dòng đầu HTTP từ cổng loopback. Build (CI, build.yml):
-//   cl /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsudev-trafficmonitor tests\fuzz\ProAuthFuzz.cpp
-//   clang++ -std=c++17 -g -fsanitize=address,undefined,fuzzer -I tsudev-trafficmonitor tests/fuzz/ProAuthFuzz.cpp
+//   cl /std:c++17 /EHsc /utf-8 /Zi /fsanitize=address /fsanitize=fuzzer /I tsutramon tests\fuzz\ProAuthFuzz.cpp
+//   clang++ -std=c++17 -g -fsanitize=address,undefined,fuzzer -I tsutramon tests/fuzz/ProAuthFuzz.cpp
 #include "ProAuth.h"
 
 static bool AlwaysTrue(const ProAuth::Jwk&, const std::string&, const std::string&) { return true; }

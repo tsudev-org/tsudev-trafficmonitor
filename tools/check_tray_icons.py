@@ -16,7 +16,7 @@ import zlib
 from pathlib import Path
 
 GOC = Path(__file__).resolve().parent.parent
-RES = GOC / "tsudev-trafficmonitor" / "res"
+RES = GOC / "tsutramon" / "res"
 
 # Nền thanh tác vụ thật (sRGB): Windows 11 Tối/Sáng (Mica tắt), Windows 10 Tối/Sáng.
 NEN_TOI = {"win11-toi": (0x20, 0x20, 0x20), "win10-toi": (0x10, 0x10, 0x10)}
