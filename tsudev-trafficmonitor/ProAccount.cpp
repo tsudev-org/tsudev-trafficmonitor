@@ -16,6 +16,7 @@
 
 #pragma comment(lib, "shell32.lib")
 #pragma comment(lib, "ole32.lib")
+#pragma comment(lib, "user32.lib")     // PostMessageW
 
 namespace
 {
