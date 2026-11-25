@@ -1,4 +1,4 @@
-# ĐĂNG NHẬP CHÉO THIẾT BỊ BẰNG MÃ QR - mọi sản phẩm tsudev hạng A, B (v1.0.0)
+# ĐĂNG NHẬP CHÉO THIẾT BỊ BẰNG MÃ QR - mọi sản phẩm tsudev hạng A, B (v1.1.0)
 
 > Chuẩn bắt buộc cho tính năng "Quét để đăng nhập": dùng một thiết bị **đã đăng nhập** để đăng nhập thiết bị **mới**,
 > bằng mã QR cộng một **mã khớp** gõ tay. Áp dụng cho web, desktop và app di động có tài khoản tsudev
@@ -39,18 +39,23 @@ Quy tắc chung của cả hai luồng, `MUST`:
 - Mã khớp **luôn hiện trên thiết bị xác nhận** và **luôn gõ trên thiết bị mới**. Người cầm thiết bị mới phải
   nhìn thấy màn hình của thiết bị đã đăng nhập - đây là bằng chứng "cùng một người, ngồi cùng một chỗ".
 - Thiết bị xác nhận **phải bấm Cho phép** sau khi xem thông tin thiết bị mới (mục 6.3), TRƯỚC khi mã khớp hiện ra.
-- Kết quả của luồng là một **mã uỷ quyền OIDC** cấp cho đúng `client_id` + `code_challenge` của thiết bị mới. Thiết bị
-  mới đổi mã ở token endpoint như mọi luồng OIDC khác ([`AUTH_AND_ACCOUNT.md`](AUTH_AND_ACCOUNT.md) mục 4). QR
-  **không bao giờ** chở token, mật khẩu, khoá E2EE hay dữ liệu tài khoản.
+- Kết quả của luồng là một **vé dùng một lần (60 giây)** mà IdP đổi thành **phiên đăng nhập tsudev.com** trên thiết bị
+  mới (NextAuth, provider `qr`, như passkey). Từ phiên đó mọi app đi tiếp luồng OIDC Authorization Code + PKCE như cũ
+  ([`AUTH_AND_ACCOUNT.md`](AUTH_AND_ACCOUNT.md) mục 4) - SSO có sẵn, IdP KHÔNG tự đúc authorization code ngoài luồng
+  chuẩn (v1.1.0, bản cài đặt tsudev). QR **không bao giờ** chở token, mật khẩu, khoá E2EE hay dữ liệu tài khoản.
+- App native (QR3): bộ quét trong app kiểm tiền tố rồi **mở chính URL đã quét trong trình duyệt hệ thống** (Custom
+  Tab / ASWebAuthenticationSession) - trang `/x/<id>` làm phần còn lại; sau đó app gọi `/authorize` trong cùng trình
+  duyệt hệ thống và nhận mã ngay nhờ phiên vừa có. Vai xác nhận trong app (Đ2) gọi `/api/xd/scan|approve` bằng access
+  token OIDC sau khi mở khoá cục bộ.
 
 ## 2. Kiến trúc: chỉ IdP làm
 
 ```
- Thiết bị mới (RP: app/desktop/web)          tsudev.com (IdP)                 Thiết bị xác nhận
- ---------------------------------          ----------------                 -----------------
- PKCE + khoá DPoP tạm  ----- tạo/nhận ----> bảng xd_sessions (chỉ băm) <---- phiên tsudev + DPoP
-                       <---- thăm dò ------  trạng thái, mã khớp (băm)  ---- quét / Cho phép
- gõ mã khớp ---------- verify -----------> cấp authorization code  ----> /token như OIDC thường
+ Thiết bị mới (trình duyệt / app)         tsudev.com (IdP)                    Thiết bị xác nhận
+ --------------------------------         ----------------                    -----------------
+ cookie HttpOnly `poll` <-- tạo/nhận ---- OidcPayload XdSession (chỉ băm) <---- phiên tsudev / access token
+ thăm dò status ---------------------->   trạng thái, mã khớp (HMAC)   <---- quét / Cho phép ⇒ hiện mã
+ gõ mã ⇒ cookie vé ⇒ NextAuth `qr` ---->  phiên tsudev.com ⇒ OIDC /authorize + PKCE như cũ cho mọi app
 ```
 
 - `MUST` chỉ một nơi cài đặt: IdP `tsudev.com`. RP `MUST NOT` tự dựng phiên QR, bảng phiên, hay mã khớp riêng; RP chỉ
@@ -59,8 +64,9 @@ Quy tắc chung của cả hai luồng, `MUST`:
   hệ thống, vì phiên đăng nhập PC đáng tin nằm ở IdP.
 - Màn đăng nhập web/desktop của RP hiện QR (Đ2) `MUST` là trang IdP (`/dang-nhap`, khung "Mã QR") trong chính luồng
   `/authorize` - RP không phải sửa gì ngoài việc bật tham số `prompt=login` như cũ.
-- Lưu trạng thái: một bảng Postgres (Neon) `xd_sessions` + cron dọn mỗi 10 phút. Thăm dò bằng HTTP (`interval` như
-  RFC 8628); `MUST NOT` dùng dịch vụ đẩy trả phí - 0 đồng theo [`FREE_TIER_STACK.md`](FREE_TIER_STACK.md).
+- Lưu trạng thái: bảng trạng thái tạm sẵn có của IdP `OidcPayload` (`type = 'XdSession'`, có `expiresAt`) - không cần
+  migration; mỗi lần tạo phiên dọn bản ghi hết hạn. Thăm dò bằng HTTP (2 giây, như `interval`
+  của RFC 8628); `MUST NOT` dùng dịch vụ đẩy trả phí - 0 đồng theo [`FREE_TIER_STACK.md`](FREE_TIER_STACK.md).
 
 ## 3. Mô hình đe doạ
 
@@ -70,8 +76,8 @@ Quy tắc chung của cả hai luồng, `MUST`:
 | T2 | Nhìn trộm/chụp QR trên màn hình | Người đứng sau chụp QR Đ1 trên PC | QR chỉ là lời mời; vẫn cần Cho phép trên PC + mã khớp hiện trên PC sau khi quét. QR đổi mỗi 30 giây, sống tối đa 120 giây |
 | T3 | **Nhầm tài khoản** (login CSRF) | Kẻ tấn công cho nạn nhân quét QR Đ1 từ PC của kẻ tấn công ⇒ app nạn nhân vào tài khoản kẻ tấn công, nhập dữ liệu thật vào đó | Thiết bị mới hiện email che (`ng***@gmail.com`) + ảnh đại diện của tài khoản sắp vào, nút "Đúng tài khoản của tôi" TRƯỚC khi nhận phiên |
 | T4 | Đoán mã khớp | Script thử mã | 40 bit, sai **3 lần** ⇒ huỷ phiên; giới hạn theo IP + tài khoản (mục 5) |
-| T5 | Chặn/ăn cắp kết quả | Bên thứ ba thăm dò thay thiết bị mới | `poll_token` 256 bit chỉ thiết bị mới có; mọi lệnh của thiết bị mới ký **DPoP** bằng khoá tạm sinh lúc tạo phiên; mã uỷ quyền gắn PKCE của chính nó |
-| T6 | Phát lại | Dùng lại QR/mã cũ | Mỗi bí mật dùng một lần; trạng thái chỉ đi một chiều (mục 4.3); `jti` DPoP không lặp lại trong 5 phút |
+| T5 | Chặn/ăn cắp kết quả | Bên thứ ba thăm dò thay thiết bị mới; XSS đọc bí mật | `poll` 256 bit chỉ thiết bị mới có, giữ trong cookie **HttpOnly `SameSite=Strict` `Path=/api/xd`**; vé giữ trong cookie HttpOnly `Path=/api/auth` 60 giây - JavaScript của trang KHÔNG BAO GIỜ thấy hai bí mật này (ràng buộc thiết bị cho trình duyệt; thay DPoP ở v1.0.0) |
+| T6 | Phát lại | Dùng lại QR/mã/vé cũ | Mỗi bí mật dùng một lần; trạng thái chỉ đi một chiều (mục 4.3); vé đổi xong bản ghi bị xoá |
 | T7 | Rò cơ sở dữ liệu | Lộ bảng `xd_sessions` | Chỉ lưu **SHA-256** của bí mật QR, `poll_token`, mã khớp (bí mật ≥ 128 bit nên băm nhanh là đủ; mã khớp 40 bit băm **HMAC-SHA-256 với khoá máy chủ** để chặn dò ngược); bản ghi xoá sau 10 phút |
 | T8 | Thiết bị xác nhận bị chiếm | Điện thoại mất | Cho phép QR đòi **mở khoá cục bộ** (sinh trắc/PIN của app) và phiên IdP còn mới (≤ 30 ngày, không bị hạn chế mục 9 AUTH); trang Phiên đăng nhập cho đăng xuất từ xa |
 | T9 | QR độc giả mạo tên miền | QR trỏ `tsudev.com.evil.io` | Bộ quét trong app `MUST` so khớp **tuyệt đối** tiền tố `https://tsudev.com/x/`; sai ⇒ "Mã QR này không phải của tsudev", không mở liên kết |
@@ -83,24 +89,23 @@ báo trên màn hiện mã (mục 6.3) và email sau đăng nhập; giống chu�
 
 ### 4.1. Đ2 - Kéo (thiết bị mới hiện QR)
 
-1. Thiết bị mới (đang ở `/authorize` của IdP) sinh khoá DPoP tạm, gọi `POST /api/xd/sessions` `{flow:"pull", client_id,
-   redirect_uri, code_challenge, device}` ⇒ nhận `{id, qr, poll_token, interval, expires_in}`.
-2. Hiện QR chứa `https://tsudev.com/x/<id>#<k>` (`k` = bí mật QR; nằm sau `#` để không vào log máy chủ/proxy khi lỡ mở
-   bằng camera thường).
-3. Thiết bị xác nhận quét, gọi `POST /api/xd/sessions/<id>/scan` `{k}` (có access token + DPoP) ⇒ nhận thông tin thiết
-   bị mới (mục 6.3).
-4. Người dùng bấm **Cho phép** (sau mở khoá cục bộ) ⇒ `POST .../approve` ⇒ IdP sinh mã khớp, trả **chỉ cho** thiết bị
-   xác nhận; thiết bị xác nhận hiện mã.
-5. Thiết bị mới thăm dò `GET .../status` thấy `awaiting_code` ⇒ hiện ô "Nhập mã hiện trên điện thoại".
-6. Người dùng gõ mã ⇒ `POST .../verify` `{code}` (DPoP) ⇒ IdP trả `authorization_code` + `state` như redirect OIDC.
+1. Thiết bị mới (trang `/login` của IdP, mục "Đăng nhập bằng mã QR") gọi `create-pull` ⇒ nhận `{id, k}`, BFF đặt cookie
+   `poll`. Hiện QR `https://tsudev.com/x/<id>?f=k#<k>` (`k` sau `#` - không vào log máy chủ/proxy). Chưa ai quét sau
+   30 giây ⇒ tạo phiên mới (QR đổi).
+2. Thiết bị xác nhận quét (camera điện thoại mở `/x/<id>` bằng trình duyệt đã đăng nhập, hoặc nút "Quét QR" trong app)
+   ⇒ `scan {id, k}` ⇒ thấy thông tin thiết bị mới (mục 6.3).
+3. Bấm **Cho phép** ⇒ `approve` ⇒ IdP sinh mã khớp, trả **chỉ cho** thiết bị xác nhận.
+4. Thiết bị mới thăm dò `status` thấy `awaiting_code` ⇒ hiện ô "Nhập mã hiện trên điện thoại".
+5. Gõ mã ⇒ `verify` ⇒ BFF đặt cookie vé ⇒ `signIn('qr')` ⇒ phiên tsudev.com ⇒ chuyển về `callbackUrl` (kể cả
+   interaction OIDC của app đang chờ).
 
 ### 4.2. Đ1 - Đẩy (thiết bị đã đăng nhập hiện QR)
 
-1. Thiết bị xác nhận (trang IdP trên PC) gọi `POST /api/xd/sessions` `{flow:"push"}` ⇒ hiện QR.
-2. Thiết bị mới (app điện thoại, màn đăng nhập ⇒ "Quét để đăng nhập") sinh PKCE + khoá DPoP tạm, quét, gọi
-   `POST .../claim` `{k, client_id, redirect_uri, code_challenge, device}` ⇒ nhận `poll_token`.
-3. PC hiện thông tin thiết bị mới (mục 6.3), người dùng bấm **Cho phép** ⇒ PC hiện mã khớp.
-4. Thiết bị mới hiện tài khoản sắp vào (che email, T3) + ô nhập mã ⇒ `POST .../verify` ⇒ nhận `authorization_code`.
+1. Thiết bị xác nhận (`/settings/security#qr` trên PC) gọi `create-push` ⇒ hiện QR `/x/<id>?f=d#<k>`.
+2. Thiết bị mới quét (camera ⇒ trình duyệt chưa đăng nhập; app ⇒ mở URL trong trình duyệt hệ thống) ⇒ `claim {id, k}`
+   ⇒ BFF đặt cookie `poll`.
+3. PC thăm dò `peek`, hiện thông tin thiết bị mới (mục 6.3), người dùng bấm **Cho phép** ⇒ PC hiện mã khớp.
+4. Thiết bị mới thấy tài khoản sắp vào (email che, T3), bấm "Đúng tài khoản của tôi", gõ mã ⇒ như 4.1 bước 5.
 
 ### 4.3. Máy trạng thái (một chiều)
 
@@ -122,8 +127,8 @@ cùng quét một QR ⇒ chỉ thiết bị đầu thắng, thiết bị sau nh�
 | Sống | QR: xoay mỗi 30 giây, phiên tối đa **120 giây** tới `awaiting_code`; mã khớp **60 giây**; bản ghi xoá sau 10 phút |
 | Sai mã | tối đa **3 lần** ⇒ `dead` |
 | Giới hạn tốc độ | tạo phiên: 10/phút/IP; quét/claim: 20/phút/tài khoản; verify: 5/phút/IP; thăm dò không nhanh hơn `interval` (mặc định 2 giây, vượt ⇒ `slow_down`) |
-| DPoP | ES256, khoá tạm sinh trên thiết bị mới, `htm`/`htu`/`iat` ±60 giây, `jti` không lặp lại 5 phút; mã uỷ quyền và refresh token gắn `jkt` |
-| `amr` trong `id_token` | `["qr", "mfa"]` - QR + mã khớp + mở khoá cục bộ trên thiết bị đã xác thực tính là hai yếu tố |
+| Ràng buộc thiết bị | Trình duyệt: cookie HttpOnly (mục 3 T5). Khoá HMAC mã khớp dẫn xuất HKDF từ `INTERNAL_IDENTITY_SECRET` (nhãn `tsudev-xd-code-v1`) - không thêm secret |
+| Nhật ký đăng nhập | phương thức `qr` (nhật ký bảo mật + cảnh báo thiết bị lạ qua email như mọi lối vào) |
 | Nhật ký | ghi `xd.created/scanned/approved/denied/verified/failed` vào nhật ký bảo mật của tài khoản (không ghi bí mật) |
 
 ## 6. Giao diện bắt buộc
@@ -136,7 +141,7 @@ cùng quét một QR ⇒ chỉ thiết bị đầu thắng, thiết bị sau nh�
 
 ### 6.2. Thiết bị mới - web/desktop (Đ2)
 
-- Trang `/dang-nhap` của IdP: màn ≥ 960px hiện QR ở cột phải; màn hẹp hiện thẻ "Mã QR" cạnh "Email".
+- Trang `/login` của IdP: nút "Đăng nhập bằng mã QR" trong nhóm "Thêm tuỳ chọn đăng nhập" mở khung QR.
 - Dưới QR: *"Mở app tsudev bất kỳ trên điện thoại đã đăng nhập ⇒ Quét QR."* + đồng hồ đếm ngược + nút làm mới.
 - Sau khi được Cho phép: thay QR bằng ô nhập 8 ký tự (tự nhảy ô, dán được, `autocomplete="one-time-code"`).
 
@@ -166,23 +171,25 @@ Hai nút cùng cỡ: **Từ chối** (mặc định focus) và **Cho phép**. M�
 
 ## 7. API của IdP
 
-Tiền tố `/api/xd`, JSON, lỗi theo [`AUTH_AND_ACCOUNT.md`](AUTH_AND_ACCOUNT.md) mục 15. Công bố trong
-`/.well-known/openid-configuration` khoá `tsudev_cross_device_endpoint`; RP `MUST` đọc từ đó.
+Trình duyệt gọi BFF `POST /api/xd/<hành động>`; BFF chuyển tới auth-service `/api/identity/xd/<hành động>` (thiết bị
+mới: công khai; thiết bị xác nhận: bắt buộc phiên). `redeem` CHỈ NextAuth phía máy chủ gọi. Mã QR:
+`https://tsudev.com/x/<id>?f=k#<bí mật>` (Đ2 kéo) hoặc `?f=d` (Đ1 đẩy). Màn Đ1 trên PC: `/settings/security#qr`.
 
-| Phương thức | Đường dẫn | Ai gọi | Xác thực |
-| --- | --- | --- | --- |
-| `POST` | `/sessions` | Đ2: thiết bị mới; Đ1: thiết bị xác nhận | Đ2: DPoP tạm; Đ1: phiên IdP |
-| `POST` | `/sessions/{id}/scan` | Đ2: thiết bị xác nhận | access token + DPoP |
-| `POST` | `/sessions/{id}/claim` | Đ1: thiết bị mới | DPoP tạm |
-| `GET` | `/sessions/{id}/status` | cả hai | `poll_token` (thiết bị mới) hoặc phiên (thiết bị xác nhận) |
-| `POST` | `/sessions/{id}/approve` \| `/deny` | thiết bị xác nhận | access token/phiên + mở khoá cục bộ vừa xong (`auth_time` ≤ 60 giây với app) |
-| `POST` | `/sessions/{id}/verify` | thiết bị mới | `poll_token` + DPoP |
+| Hành động | Ai gọi | Xác thực |
+| --- | --- | --- |
+| `create-pull` | Đ2: thiết bị mới | không (đặt cookie `poll`) |
+| `claim` | Đ1: thiết bị mới | bí mật QR (đặt cookie `poll`) |
+| `status`, `verify` | thiết bị mới | cookie `poll`; `verify` đúng ⇒ cookie vé |
+| `create-push`, `peek` | Đ1: thiết bị xác nhận | phiên |
+| `scan` | Đ2: thiết bị xác nhận | phiên + bí mật QR |
+| `approve`, `deny` | thiết bị xác nhận | phiên (app: + mở khoá cục bộ) |
+| `redeem` | NextAuth phía máy chủ | token nội bộ |
 
 ## 8. Kiểm thử bắt buộc
 
 - Đơn vị: máy trạng thái (mọi cặp chuyển sai bị từ chối), hết hạn, sai 3 lần, so thời gian hằng, xoay QR.
 - Tranh chấp: 2 thiết bị cùng `scan`/`claim`, 2 lệnh `verify` song song ⇒ đúng một thành công.
-- Bảo mật: thiếu/sai DPoP, `poll_token` sai, mã của phiên khác, QR khác tên miền, khác quốc gia, phát lại `jti`.
+- Bảo mật: `poll` sai, bí mật QR sai, người khác cho phép hộ, khác quốc gia, vé dùng lại, CSDL không chứa bí mật rõ.
 - E2E (Playwright + trình giả lập/adb): Đ1 và Đ2 trọn vẹn, cả Sáng và Tối, tiếng Việt và tiếng Anh.
 - Đo: thời gian QR ⇒ đăng nhập xong ≤ 15 giây ở người dùng thật; thăm dò không vượt hạn mức miễn phí (ước tính trong PR).
 
@@ -192,6 +199,6 @@ Tiền tố `/api/xd`, JSON, lỗi theo [`AUTH_AND_ACCOUNT.md`](AUTH_AND_ACCOUNT
 - [ ] Mã khớp hiện trên thiết bị đã đăng nhập, gõ trên thiết bị mới - ở cả Đ1 và Đ2.
 - [ ] Màn Cho phép có đủ thông tin + câu cảnh báo mục 6.3; Từ chối là nút mặc định.
 - [ ] Thiết bị mới thấy tài khoản sắp vào (email che) trước khi nhận phiên (T3).
-- [ ] DPoP + PKCE; `amr` có `qr`; email/thông báo sau đăng nhập; trang Phiên đăng nhập ghi "bằng mã QR".
+- [ ] Bí mật thiết bị mới chỉ ở cookie HttpOnly; nhật ký đăng nhập ghi phương thức `qr` + cảnh báo thiết bị lạ.
 - [ ] Mọi giới hạn mục 5 có test; mục 8 xanh trong CI.
 - [ ] RP chỉ dùng gói dùng chung, không có bảng/mã QR riêng.

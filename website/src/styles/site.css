@@ -129,7 +129,8 @@ pre {
 /* Khối tính năng dạng bento: thẻ đầu lớn (2x2), thẻ cuối trải ngang */
 .bento { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; list-style: none; padding: 0; margin: 0; }
 .bento .the--lon { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; gap: 1.25rem; min-height: 13rem;
-  background: radial-gradient(28rem 14rem at 100% 0%, var(--glow), transparent 70%), var(--bg-surface); }
+  /* Nền phẳng pha <= 5% sắc nhấn (DESIGN_SYSTEM v6.0.0 mục 5) thay quầng loang; giấy kẻ ô ở ::before */
+  background: color-mix(in srgb, var(--primary) 4%, var(--bg-surface)); }
 .bento .the--lon h3 { font-size: 1.45rem; }
 .bento__bieu-do { width: 100%; height: 5.5rem; margin-bottom: auto; }
 .bento__bieu-do .duong { fill: none; stroke: var(--accent); stroke-width: 2; vector-effect: non-scaling-stroke; opacity: 0.7; }
@@ -143,8 +144,25 @@ pre {
 
 /* Thẻ: nền bề mặt + viền hairline, bo 8px; hover chỉ đổi viền và nền một bậc */
 .the-luoi { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr)); gap: 1rem; list-style: none; padding: 0; margin: 0; }
-.the { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.2rem 1.25rem; transition: border-color 0.15s ease, background-color 0.15s ease; }
-.the:hover { border-color: var(--border-strong); background: var(--bg-subtle); }
+.the { position: relative; isolation: isolate; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.2rem 1.25rem; transition: border-color 0.15s ease, background-color 0.15s ease; }
+.the:hover { border-color: color-mix(in srgb, var(--primary) 55%, var(--border-strong)); background: var(--bg-subtle); }
+/* Hoạ tiết hình học tĩnh thuần CSS (DESIGN_SYSTEM v6.0.0 mục 5 "Màn đầu & thẻ"): lưới chấm pha sắc nhấn, mờ dần về
+   phía chữ (góc trên-trái) - thay quầng loang, không dải màu đầu thẻ. Thẻ lớn dùng giấy kẻ ô như nền đồ thị. */
+.the::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background-image: radial-gradient(color-mix(in srgb, var(--primary) 30%, transparent) 1px, transparent 1.4px);
+  background-size: 14px 14px;
+  -webkit-mask-image: linear-gradient(135deg, transparent 45%, #000 100%);
+  mask-image: linear-gradient(135deg, transparent 45%, #000 100%);
+}
+.bento .the--lon::before {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--primary) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--primary) 14%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: linear-gradient(160deg, transparent 35%, #000 100%);
+  mask-image: linear-gradient(160deg, transparent 35%, #000 100%);
+}
 .the h3 { margin: 0 0 0.4rem; font-size: 1.05rem; }
 .the p { margin: 0; color: var(--text-secondary); font-size: 0.96rem; }
 .anh-luoi { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr)); gap: 1.25rem; }
@@ -188,7 +206,15 @@ pre {
 .giay-phep { white-space: pre-wrap; font-size: 0.85rem; }
 
 /* Chân trang: cùng nền trang; hàng cuối "© tsudev" + bộ chọn giao diện */
-.chan-trang { padding: 3rem 0 2rem; margin-top: 2rem; }
+.chan-trang { position: relative; isolation: isolate; padding: 3rem 0 2rem; margin-top: 2rem; }
+/* Hoạ tiết tĩnh chân trang: lưới chấm sắc nhấn rất nhạt (<= 15%), đậm dần xuống đáy, cùng một nền liền mạch */
+.chan-trang::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(color-mix(in srgb, var(--primary) 15%, transparent) 1px, transparent 1.4px);
+  background-size: 18px 18px;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 85%);
+  mask-image: linear-gradient(180deg, transparent, #000 85%);
+}
 .chan-trang__trong { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
 .chan-trang__cot { max-width: 34rem; }
 .chan-trang__cot p { color: var(--text-muted); font-size: 0.9rem; margin: 0.75rem 0 0; }

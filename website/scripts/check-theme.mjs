@@ -10,7 +10,7 @@ const { base, dong } = await moMayChu();
 const browser = await chromium.launch();
 const loi = [];
 const ky = (dk, mo) => { if (!dk) loi.push(mo); };
-const NEN = { light: '#fafafa', dark: '#0a0a0a' };
+const NEN = { light: '#eef1f5', dark: '#0a0a0a' };
 const NEN_RGB = { light: 'rgb(250, 250, 250)', dark: 'rgb(10, 10, 10)' };
 const NUT = (c) => `#giao-dien [data-chon-giao-dien="${c}"]`;
 
