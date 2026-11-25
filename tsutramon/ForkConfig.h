@@ -98,3 +98,7 @@
 // Cổng quay về loopback của app desktop (AUTH mục 4): http://127.0.0.1:<cổng ngẫu nhiên>/callback
 #define FORK_TSUDEV_LOOPBACK_PREFIX     "http://127.0.0.1:"
 #define FORK_TSUDEV_HTTPS_ORIGIN        "https://tsudev.com/"   // ProNet.h chỉ gọi HTTPS tới gốc này
+// Điều khoản dịch vụ và Chính sách quyền riêng tư chung của tsudev (AUTH 13.4: liên kết trên màn đăng nhập).
+// Chuỗi rộng vì hiện trên giao diện; /dieu-khoan và /quyen-rieng-tu của tsudev.com chuyển hướng 308 về đây.
+#define FORK_TSUDEV_TERMS_URL           L"https://tsudev.com/terms"
+#define FORK_TSUDEV_PRIVACY_URL         L"https://tsudev.com/privacy"

@@ -22,6 +22,7 @@
 #define IDR_HISTORY_TRAFFIC_MENU        154
 #define IDD_GENERAL_SETTINGS_DIALOG     155
 #define IDD_ACCOUNT_SETTINGS_DIALOG     349
+#define IDD_SIGN_IN_DIALOG              350
 #define IDB_ABOUT_BACKGROUND_HD         157
 #define IDI_NOFITY_ICON2                158
 #define IDI_NOFITY_ICON3                159
@@ -352,6 +353,23 @@
 #define IDC_OFFLINE_MODE_CHECK          1230
 #define IDC_ACCOUNT_PRO_STATIC          1231
 #define IDC_OFFLINE_MODE_STATIC         1232
+#define IDC_SIGNIN_LOGO_STATIC         1233
+#define IDC_SIGNIN_TITLE_STATIC        1234
+#define IDC_SIGNIN_VALUE_STATIC        1235
+#define IDC_SIGNIN_STATUS_STATIC       1236
+#define IDC_SIGNIN_BUTTON1             1237
+#define IDC_SIGNIN_BUTTON2             1238
+#define IDC_SIGNIN_BUTTON3             1239
+#define IDC_SIGNIN_LAST_STATIC         1240
+#define IDC_SIGNIN_TERMS_CHECK         1241
+#define IDC_SIGNIN_TERMS_LINK          1242
+#define IDC_SIGNIN_PRIVACY_LINK        1243
+#define IDC_SIGNIN_MORE_STATIC         1244
+#define IDC_SIGNIN_PASSKEY_BUTTON      1245
+#define IDC_SIGNIN_QR_BUTTON           1246
+#define IDC_SIGNIN_OR_STATIC           1247
+#define IDC_SIGNIN_GUEST_BUTTON        1248
+#define IDC_SIGNIN_GUEST_NOTE_STATIC   1249
 #define ID_32771                        32771
 #define ID_NETWORK_INFO                 32772
 #define ID_32773                        32773
@@ -473,9 +491,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        350
+#define _APS_NEXT_RESOURCE_VALUE        351
 #define _APS_NEXT_COMMAND_VALUE         33667
-#define _APS_NEXT_CONTROL_VALUE         1233
+#define _APS_NEXT_CONTROL_VALUE         1250
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

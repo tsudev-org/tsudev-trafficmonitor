@@ -873,6 +873,7 @@
     <ClInclude Include="ProRenewal.h" />
     <ClInclude Include="ProAccount.h" />
     <ClInclude Include="AccountSettingsDlg.h" />
+    <ClInclude Include="SignInDlg.h" />
     <ClInclude Include="EdgeHandleWnd.h" />
     <ClInclude Include="UpdateHelper.h" />
     <ClInclude Include="UpdateSecurity.h" />
@@ -888,6 +889,7 @@
   <ItemGroup>
     <ClCompile Include="AboutDlg.cpp" />
     <ClCompile Include="AccountSettingsDlg.cpp" />
+    <ClCompile Include="SignInDlg.cpp" />
     <ClCompile Include="ProAccount.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>

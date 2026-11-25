@@ -178,6 +178,7 @@ void CTsuTramonApp::LoadConfig()
         }
         m_installation_id = id;
         m_pro_notified_until = _wtoi64(ini.GetString(L"tsudev_account", L"tsu.pro_expired.notified_until", L"0").c_str());
+        m_last_sign_in_method = ini.GetString(L"tsudev_account", L"last_sign_in_method", L"");
     }
     //m_general_data.allow_skin_cover_font = ini.GetBool(_T("general"), _T("allow_skin_cover_font"), true);
     //m_general_data.allow_skin_cover_text = ini.GetBool(_T("general"), _T("allow_skin_cover_text"), true);
@@ -407,6 +408,7 @@ void CTsuTramonApp::SaveConfig()
     ini.WriteBool(L"general", L"offline_mode", m_general_data.offline_mode);
     ini.WriteString(L"tsudev_account", L"installation_id", std::wstring(m_installation_id.begin(), m_installation_id.end()));
     ini.WriteString(L"tsudev_account", L"tsu.pro_expired.notified_until", std::to_wstring(m_pro_notified_until));
+    ini.WriteString(L"tsudev_account", L"last_sign_in_method", m_last_sign_in_method);
     //ini.WriteBool(_T("general"), _T("allow_skin_cover_font"), m_general_data.allow_skin_cover_font);
     //ini.WriteBool(_T("general"), _T("allow_skin_cover_text"), m_general_data.allow_skin_cover_text);
     ini.WriteString(_T("general"), _T("language"), m_general_data.language.toConfigString());
@@ -1722,6 +1724,7 @@ void CTsuTramonApp::SignOutTsudevAccount()
     m_installation_id = ProAuth::NewInstallationId();
     m_pro_account.SetInstallationId(m_installation_id);
     m_pro_notified_until = 0;
+    m_last_sign_in_method.clear();
     SaveConfig();
 }
 

@@ -133,6 +133,17 @@ static void TestAuthorizationUrl()
           "&client_id=tsutramon&code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk");
     CHECK(RefreshRequestBody("r t") == "grant_type=refresh_token&refresh_token=r%20t&client_id=tsutramon");
     CHECK(ProPageUrl() == "https://tsudev.com/pro?app=tsutramon");
+    // idp_hint (AUTH 13.2): chỉ google/github được nối vào cuối; giá trị lạ hoặc có ký tự đặc biệt bị bỏ hẳn
+    CHECK(IsKnownIdpHint("google") && IsKnownIdpHint("github"));
+    CHECK(!IsKnownIdpHint("") && !IsKnownIdpHint("apple") && !IsKnownIdpHint("Google") && !IsKnownIdpHint("google&prompt=none"));
+    r.idp_hint = "github";
+    CHECK(r.Url() == url + "&idp_hint=github");
+    r.idp_hint = "google";
+    CHECK(r.Url() == url + "&idp_hint=google");
+    r.idp_hint = "google&prompt=none";
+    CHECK(r.Url() == url);
+    r.idp_hint = "apple";
+    CHECK(r.Url() == url);
 }
 
 static void TestCallback()
@@ -322,6 +333,9 @@ static void TestPkceRfc7636()
     CHECK(r.state != r.nonce && r.nonce != r.verifier);
     CHECK(r.challenge == PkceChallenge(r.verifier));
     CHECK(r.redirect_uri == "http://127.0.0.1:50000/callback");
+    CHECK(r.idp_hint.empty());
+    CHECK(NewAuthorizationRequest(50000, "github").idp_hint == "github");
+    CHECK(NewAuthorizationRequest(50000, "khong-ro").idp_hint.empty());
     const std::string id1 = NewInstallationId(), id2 = NewInstallationId();
     CHECK(IsValidInstallationId(id1) && IsValidInstallationId(id2) && id1 != id2);
 }

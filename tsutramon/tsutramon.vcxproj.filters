@@ -397,6 +397,9 @@
     <ClInclude Include="AccountSettingsDlg.h">
       <Filter>Mã nguồn và header\Lớp hộp thoại\Hộp thoại Tùy chọn</Filter>
     </ClInclude>
+    <ClInclude Include="SignInDlg.h">
+      <Filter>Mã nguồn và header\Lớp hộp thoại\Hộp thoại Tùy chọn</Filter>
+    </ClInclude>
     <ClInclude Include="LegacyNames.h">
       <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
     </ClInclude>
@@ -682,6 +685,9 @@
       <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
     </ClCompile>
     <ClCompile Include="AccountSettingsDlg.cpp">
+      <Filter>Mã nguồn và header\Lớp hộp thoại\Hộp thoại Tùy chọn</Filter>
+    </ClCompile>
+    <ClCompile Include="SignInDlg.cpp">
       <Filter>Mã nguồn và header\Lớp hộp thoại\Hộp thoại Tùy chọn</Filter>
     </ClCompile>
     <ClCompile Include="AboutDlg.cpp">

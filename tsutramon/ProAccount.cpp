@@ -115,6 +115,7 @@ struct CProAccount::Impl
     uint64_t epoch = 0;                // tăng khi đăng xuất: kết quả của lượt cũ bị bỏ
     std::string installation_id;
     std::string pending_revoke;        // refresh token chờ thu hồi phía máy chủ sau khi đã xoá cục bộ
+    std::string sign_in_hint;          // idp_hint của lượt đăng nhập kế tiếp (đặt ở StartSignIn, lấy ra ở DoSignIn)
     std::wstring dir;
     HWND notify_wnd = nullptr;
     UINT notify_msg = 0;
@@ -246,7 +247,12 @@ struct CProAccount::Impl
         if (!HttpAllowed()) { SetError(e, Error::Offline); return; }
         ProNet::LoopbackReceiver rx;
         if (!rx.IsListening()) { SetError(e, Error::Listener); return; }
-        ProAuth::AuthorizationRequest req = ProAuth::NewAuthorizationRequest(rx.Port());
+        std::string hint;
+        {
+            std::lock_guard<std::mutex> lk(mu);
+            hint.swap(sign_in_hint);
+        }
+        ProAuth::AuthorizationRequest req = ProAuth::NewAuthorizationRequest(rx.Port(), hint);
         if (req.state.empty()) { SetError(e, Error::Listener); return; }
         if (!deps.open_browser(req.Url())) { SetError(e, Error::Browser); return; }
         ProAuth::CallbackResult cb = rx.Wait(deps.login_timeout_ms, &cancel_login);
@@ -480,12 +486,16 @@ void CProAccount::SetInstallationId(const std::string& installation_id)
     m_impl->installation_id = installation_id;
 }
 
-void CProAccount::StartSignIn()
+void CProAccount::StartSignIn(const std::string& idp_hint)
 {
     if (m_impl->offline.load())
     {
         m_impl->Update([](Status& s) { s.last_error = Error::Offline; });
         return;
+    }
+    {
+        std::lock_guard<std::mutex> lk(m_impl->mu);
+        m_impl->sign_in_hint = ProAuth::IsKnownIdpHint(idp_hint) ? idp_hint : std::string();
     }
     m_impl->Push(Op::SigningIn);
 }
@@ -517,6 +527,7 @@ void CProAccount::SignOutAndClear()
         d.epoch++;
         d.cancel_login = true;
         d.queue.clear();
+        d.sign_in_hint.clear();
         d.st.signed_in = false;
         d.st.has_entitlement = false;
         d.st.entitlement = ProAuth::Entitlement();
