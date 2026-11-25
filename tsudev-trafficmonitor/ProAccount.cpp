@@ -1,4 +1,4 @@
-// Tài khoản tsudev (P9 phần 3) - xem ProAccount.h. Tệp này KHÔNG dùng stdafx.h (PrecompiledHeader = NotUsing):
+﻿// Tài khoản tsudev (P9 phần 3) - xem ProAccount.h. Tệp này KHÔNG dùng stdafx.h (PrecompiledHeader = NotUsing):
 // ProNet.h phải kéo winsock2.h trước windows.h, còn stdafx.h của MFC đã kéo windows.h (kèm winsock.h cũ).
 
 #include "ProNet.h"

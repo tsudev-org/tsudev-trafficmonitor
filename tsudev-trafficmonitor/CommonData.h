@@ -352,6 +352,7 @@ struct TaskBarSettingData : public PublicSettingData
 struct GeneralSettingData
 {
     bool check_update_when_start{ true };
+    bool offline_mode{ false };     //Chế độ ngoại tuyến hoàn toàn: chặn mọi kết nối ra của ứng dụng, kể cả kiểm tra cập nhật (AUTH_AND_ACCOUNT 14.1)
     bool auto_run{ false };
     bool auto_run_by_task_scheduler{ false };   //Có tự khởi động cùng hệ thống qua Task Scheduler hay không
     bool show_notify_icon{ true };    //Hiển thị biểu tượng ở vùng thông báo

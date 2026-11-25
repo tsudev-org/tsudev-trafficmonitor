@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 // Logic thuần đăng nhập tài khoản tsudev (OIDC + PKCE) và kiểm JWS quyền lợi TsuDEV Pro cho Tsu Tramon
 // (P9; tsudev-standards AUTH_AND_ACCOUNT mục 4, 14.2-14.3; PRODUCT_POLICY mục 7.4; ADR-0002 mục 2.4-2.5).
 // Chuyển từ bản C# đã chạy của Tsu Swico (src/Tsudev.Audit.Core/Pro) - cùng hợp đồng, cùng mã lỗi.

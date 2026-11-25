@@ -8,6 +8,7 @@
 #include "afxdialogex.h"
 #include "Test.h"
 #include "PluginManagerDlg.h"
+#pragma comment(lib, "comctl32.lib")     //TaskDialogIndirect (hộp thoại nhắc gia hạn TsuDEV Pro)
 #include "SetItemOrderDlg.h"
 #include "WindowsSettingHelper.h"
 #include "PluginInfoDlg.h"
@@ -133,6 +134,7 @@ BEGIN_MESSAGE_MAP(CTsudevTrafficMonitorDlg, CDialog)
     ON_COMMAND(ID_OPEN_TASK_MANAGER, &CTsudevTrafficMonitorDlg::OnOpenTaskManager)
     ON_MESSAGE(WM_SETTINGS_APPLIED, &CTsudevTrafficMonitorDlg::OnSettingsApplied)
     ON_MESSAGE(WM_REINIT_CONNECTION, &CTsudevTrafficMonitorDlg::OnReinitConnection)
+    ON_MESSAGE(WM_PRO_ACCOUNT_CHANGED, &CTsudevTrafficMonitorDlg::OnProAccountChanged)
     ON_COMMAND(ID_DISPLAY_SETTINGS, &CTsudevTrafficMonitorDlg::OnDisplaySettings)
     ON_WM_LBUTTONUP()
     ON_COMMAND(ID_REFRESH_CONNECTION_LIST, &CTsudevTrafficMonitorDlg::OnRefreshConnectionList)
@@ -802,6 +804,7 @@ void CTsudevTrafficMonitorDlg::_OnOptions(int tab, CWnd* pParent)
         optionsDlg.m_tab1_dlg.m_data = theApp.m_main_wnd_data;
         optionsDlg.m_tab2_dlg.m_data = theApp.m_taskbar_data;
         optionsDlg.m_tab3_dlg.m_data = theApp.m_general_data;
+        optionsDlg.m_tab4_dlg.m_offline_mode = theApp.m_general_data.offline_mode;
         optionsDlg.m_tab1_dlg.m_text_disable = m_skin.GetLayoutInfo().no_label;
     }
 
@@ -831,7 +834,12 @@ void CTsudevTrafficMonitorDlg::ApplySettings(COptionsDlg& optionsDlg)
 
     theApp.m_main_wnd_data = optionsDlg.m_tab1_dlg.m_data;
     theApp.m_taskbar_data = optionsDlg.m_tab2_dlg.m_data;
+    const bool was_offline = theApp.m_general_data.offline_mode;
     theApp.m_general_data = optionsDlg.m_tab3_dlg.m_data;
+    theApp.m_general_data.offline_mode = optionsDlg.m_tab4_dlg.m_offline_mode;
+    theApp.m_pro_account.SetOffline(theApp.m_general_data.offline_mode);
+    if (was_offline && !theApp.m_general_data.offline_mode)
+        theApp.m_pro_account.RefreshNow();      //Chỉ gọi mạng nếu đã đăng nhập
     theApp.SendSettingsToPlugin();
 
     CGeneralSettingsDlg::CheckTaskbarDisplayItem();
@@ -1226,6 +1234,12 @@ BOOL CTsudevTrafficMonitorDlg::OnInitDialog()
         SetTransparency(0);
 
     SetTimer(TASKBAR_TIMER, 100, NULL);
+
+    //Tài khoản tsudev (P9): nạp trạng thái cục bộ; luồng nền chỉ gọi mạng khi đã đăng nhập và không ngoại tuyến
+    theApp.m_pro_account.Init(theApp.m_config_dir, theApp.m_installation_id, theApp.m_general_data.offline_mode, m_hWnd, WM_PRO_ACCOUNT_CHANGED);
+    m_pro_tracker = ProRenewal::Tracker(theApp.m_pro_notified_until);
+    m_pro_tracker.OnStart(static_cast<int64_t>(_time64(nullptr)));
+    m_pro_renewal_pending = true;
 
     return TRUE;  // Trả về TRUE trừ khi đặt tiêu điểm vào điều khiển
 }
@@ -1694,6 +1708,8 @@ void CTsudevTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
     if (nIDEvent == MAIN_TIMER)
     {
         m_timer_cnt++;
+        if (m_pro_renewal_pending)
+            CheckProRenewal();
         if (m_first_start)      //Câu lệnh if này chạy 1 giây sau khi chương trình khởi động
         {
             //Đặt xử lý ghim cửa sổ trên cùng ở đây là để giải quyết
@@ -3598,6 +3614,15 @@ void CTsudevTrafficMonitorDlg::OnPluginDetailTaksbar()
 
 UINT CTsudevTrafficMonitorDlg::OnPowerBroadcast(UINT nPowerEvent, LPARAM nEventData)
 {
+    //Ngủ/thức: quay lại sau >= 30 phút tính là một lần mở mới cho nhắc gia hạn Pro (PRODUCT_POLICY 7.6)
+    if (nPowerEvent == PBT_APMSUSPEND)
+        m_pro_tracker.OnBackground(static_cast<int64_t>(_time64(nullptr)));
+    if (nPowerEvent == PBT_APMRESUMESUSPEND || nPowerEvent == PBT_APMRESUMEAUTOMATIC)
+    {
+        m_pro_tracker.OnForeground(static_cast<int64_t>(_time64(nullptr)));
+        m_pro_renewal_pending = true;
+    }
+
     // Hệ thống tiếp tục từ chế độ ngủ đông
     if (nPowerEvent == PBT_APMRESUMESUSPEND)
     {
@@ -3649,4 +3674,64 @@ void CTsudevTrafficMonitorDlg::OnColorizationColorChanged(DWORD dwColorizationCo
         theApp.SetThemeColor(theme_color);
     }
     CDialog::OnColorizationColorChanged(dwColorizationColor, bOpacity);
+}
+
+LRESULT CTsudevTrafficMonitorDlg::OnProAccountChanged(WPARAM wParam, LPARAM lParam)
+{
+    //Có JWS mới / đăng xuất...: đánh giá lại nhắc gia hạn ở nhịp MAIN_TIMER kế tiếp khi rảnh
+    m_pro_renewal_pending = true;
+    return 0;
+}
+
+void CTsudevTrafficMonitorDlg::CheckProRenewal()
+{
+    //Không hiện giữa lúc người dùng đang thao tác trong hộp thoại (PRODUCT_POLICY 7.6: không hiện giữa lúc nhập liệu)
+    if (m_pro_notice_showing || !CBaseDialog::IsAllDialogClosed())
+        return;
+    m_pro_renewal_pending = false;
+    ProRenewal::Entitlement e;
+    e.present = theApp.m_pro_account.RenewalInput(e.exp, e.pro_until);
+    const ProRenewal::Decision d = m_pro_tracker.Evaluate(e, static_cast<int64_t>(_time64(nullptr)));
+    if (d.kind == ProRenewal::Kind::None)
+        return;
+    if (d.kind == ProRenewal::Kind::Expired)
+    {
+        theApp.m_pro_notified_until = m_pro_tracker.NotifiedUntil();   //Báo hết kỳ đúng một lần cho mỗi pro_until
+        theApp.SaveConfig();
+    }
+    ShowProRenewalNotice(d);
+}
+
+void CTsudevTrafficMonitorDlg::ShowProRenewalNotice(const ProRenewal::Decision& d)
+{
+    CFlagLocker showing(m_pro_notice_showing);
+    const bool renew = (d.kind == ProRenewal::Kind::Renew);
+    //Nội dung nguyên văn PRODUCT_POLICY 7.6; sản phẩm chưa có bản sao đám mây nên bỏ câu cuối của "hết kỳ"
+    const CString title = CCommon::LoadText(renew ? IDS_PRO_RENEW_TITLE : IDS_PRO_EXPIRED_TITLE);
+    const CString body = renew ? CCommon::LoadTextFormat(IDS_PRO_RENEW_BODY, { static_cast<int>(d.days_left), theApp.FormatProDate(d.until) })
+                               : CCommon::LoadText(IDS_PRO_EXPIRED_BODY);
+    const CString primary = CCommon::LoadText(IDS_PRO_RENEW_BUTTON);
+    const CString secondary = CCommon::LoadText(renew ? IDS_PRO_LATER_BUTTON : IDS_PRO_CLOSE_BUTTON);
+    const int ID_RENEW = 100, ID_LATER = 101;
+    TASKDIALOG_BUTTON buttons[] = { { ID_RENEW, primary.GetString() }, { ID_LATER, secondary.GetString() } };
+    TASKDIALOGCONFIG cfg{};
+    cfg.cbSize = sizeof(cfg);
+    cfg.hInstance = AfxGetInstanceHandle();
+    cfg.dwFlags = TDF_ALLOW_DIALOG_CANCELLATION;
+    cfg.pszWindowTitle = APP_NAME;
+    cfg.pszMainIcon = TD_INFORMATION_ICON;
+    cfg.pszMainInstruction = title.GetString();
+    cfg.pszContent = body.GetString();
+    cfg.pButtons = buttons;
+    cfg.cButtons = ARRAYSIZE(buttons);
+    cfg.nDefaultButton = ID_RENEW;
+    int pressed = 0;
+    if (FAILED(TaskDialogIndirect(&cfg, &pressed, nullptr, nullptr)))
+        pressed = (AfxMessageBox(title + _T("\r\n\r\n") + body, MB_OKCANCEL | MB_ICONINFORMATION) == IDOK) ? ID_RENEW : ID_LATER;
+    if (pressed == ID_RENEW)
+    {
+        //Bản ngoài cửa hàng: trang Pro trên web (PRODUCT_POLICY 7.6 "Kênh nút Gia hạn", ADR-0002 mục 2.3)
+        const std::string url = ProAuth::ProPageUrl();
+        ShellExecuteW(NULL, L"open", std::wstring(url.begin(), url.end()).c_str(), NULL, NULL, SW_SHOWNORMAL);
+    }
 }

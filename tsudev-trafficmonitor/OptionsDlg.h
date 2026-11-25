@@ -2,6 +2,7 @@
 #include "MainWndSettingsDlg.h"
 #include "TaskBarSettingsDlg.h"
 #include "GeneralSettingsDlg.h"
+#include "AccountSettingsDlg.h"
 #include "afxcmn.h"
 #include "CTabCtrlEx.h"
 #include "BaseDialog.h"
@@ -26,6 +27,7 @@ public:
     CMainWndSettingsDlg m_tab1_dlg{ this };
     CTaskBarSettingsDlg m_tab2_dlg{ this };
     CGeneralSettingsDlg m_tab3_dlg{ this };
+    CAccountSettingsDlg m_tab4_dlg{ this };
 
 protected:
     CTabCtrlEx m_tab;

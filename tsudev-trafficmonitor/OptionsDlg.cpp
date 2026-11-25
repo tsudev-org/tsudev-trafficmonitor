@@ -53,11 +53,13 @@ BOOL COptionsDlg::OnInitDialog()
     m_tab1_dlg.Create(IDD_MAIN_WND_SETTINGS_DIALOG, &m_tab);
     m_tab2_dlg.Create(IDD_TASKBAR_SETTINGS_DIALOG, &m_tab);
     m_tab3_dlg.Create(IDD_GENERAL_SETTINGS_DIALOG, &m_tab);
+    m_tab4_dlg.Create(IDD_ACCOUNT_SETTINGS_DIALOG, &m_tab);
 
     //Lưu hộp thoại con
     m_tab_vect.push_back(&m_tab1_dlg);
     m_tab_vect.push_back(&m_tab2_dlg);
     m_tab_vect.push_back(&m_tab3_dlg);
+    m_tab_vect.push_back(&m_tab4_dlg);
 
     //Lấy chiều cao ban đầu của hộp thoại con
     for (const auto* pDlg : m_tab_vect)
@@ -71,6 +73,7 @@ BOOL COptionsDlg::OnInitDialog()
     m_tab.AddWindow(&m_tab1_dlg, CCommon::LoadText(IDS_MAIN_WINDOW_SETTINGS));
     m_tab.AddWindow(&m_tab2_dlg, CCommon::LoadText(IDS_TASKBAR_WINDOW_SETTINGS));
     m_tab.AddWindow(&m_tab3_dlg, CCommon::LoadText(IDS_GENERAL_SETTINGS));
+    m_tab.AddWindow(&m_tab4_dlg, CCommon::LoadText(IDS_TSUDEV_ACCOUNT));
 
     //Thêm biểu tượng cho từng thẻ
     CImageList ImageList;
@@ -78,6 +81,7 @@ BOOL COptionsDlg::OnInitDialog()
     ImageList.Add(theApp.GetMenuIcon(IDI_MAIN_WINDOW));
     ImageList.Add(theApp.GetMenuIcon(IDI_TASKBAR_WINDOW));
     ImageList.Add(theApp.GetMenuIcon(IDI_SETTINGS));
+    ImageList.Add(theApp.GetMenuIcon(IDI_LOCK));
     m_tab.SetImageList(&ImageList);
     ImageList.Detach();
 
@@ -106,6 +110,7 @@ void COptionsDlg::OnOK()
     m_tab1_dlg.OnOK();
     m_tab2_dlg.OnOK();
     m_tab3_dlg.OnOK();
+    m_tab4_dlg.OnOK();
 
     CBaseDialog::OnOK();
 }

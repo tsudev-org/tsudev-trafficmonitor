@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 // Logic thuần nhắc gia hạn TsuDEV Pro và báo hết kỳ (tsudev-standards PRODUCT_POLICY mục 7.6, phiếu 20261120-PRO2,
 // ADR-0002). KHÔNG phụ thuộc MFC/Win32 để kiểm thử được trên mọi nền tảng (tests/ProRenewalTests.cpp).
 //

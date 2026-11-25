@@ -494,7 +494,13 @@ void CNetworkInfoDlg::OnNMDblclkInfoList1(NMHDR* pNMHDR, LRESULT* pResult)
 {
     LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
     // TODO: Thêm mã xử lý thông báo của điều khiển tại đây
-    if (!m_ip_acquiring && (pNMItemActivate->iItem == 14 || pNMItemActivate->iItem == 15))		//Khi nhấp đúp vào dòng địa chỉ IP
+    if (!m_ip_acquiring && (pNMItemActivate->iItem == 14 || pNMItemActivate->iItem == 15) && theApp.m_general_data.offline_mode)
+    {
+        //Chế độ ngoại tuyến hoàn toàn: không hỏi ipify (AUTH_AND_ACCOUNT 14.1)
+        m_info_list.SetItemText(14, 1, CCommon::LoadText(IDS_OFFLINE_MODE_BLOCKED));
+        m_info_list.SetItemText(15, 1, CCommon::LoadText(IDS_OFFLINE_MODE_BLOCKED));
+    }
+    else if (!m_ip_acquiring && (pNMItemActivate->iItem == 14 || pNMItemActivate->iItem == 15))		//Khi nhấp đúp vào dòng địa chỉ IP
     {
         m_ip_state = std::make_shared<PublicIpState>();
         auto* param = new GetIpThreadParam{ GetSafeHwnd(), m_ip_state };

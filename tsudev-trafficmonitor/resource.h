@@ -21,6 +21,7 @@
 #define IDR_MENU2                       154
 #define IDR_HISTORY_TRAFFIC_MENU        154
 #define IDD_GENERAL_SETTINGS_DIALOG     155
+#define IDD_ACCOUNT_SETTINGS_DIALOG     349
 #define IDB_ABOUT_BACKGROUND_HD         157
 #define IDI_NOFITY_ICON2                158
 #define IDI_NOFITY_ICON3                159
@@ -342,6 +343,15 @@
 #define IDC_AUTO_RUN_METHOD_TASK_SCHEDULE_RADIO 1221
 #define IDC_STATIC_TSUDEV               1222
 #define IDC_EDGE_AUTO_HIDE_CHECK        1223
+#define IDC_ACCOUNT_STATUS_STATIC       1224
+#define IDC_ACCOUNT_SIGN_IN_BUTTON      1225
+#define IDC_ACCOUNT_CANCEL_BUTTON       1226
+#define IDC_ACCOUNT_REFRESH_BUTTON      1227
+#define IDC_ACCOUNT_PRO_BUTTON          1228
+#define IDC_ACCOUNT_SIGN_OUT_BUTTON     1229
+#define IDC_OFFLINE_MODE_CHECK          1230
+#define IDC_ACCOUNT_PRO_STATIC          1231
+#define IDC_OFFLINE_MODE_STATIC         1232
 #define ID_32771                        32771
 #define ID_NETWORK_INFO                 32772
 #define ID_32773                        32773
@@ -463,9 +473,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        349
+#define _APS_NEXT_RESOURCE_VALUE        350
 #define _APS_NEXT_COMMAND_VALUE         33667
-#define _APS_NEXT_CONTROL_VALUE         1224
+#define _APS_NEXT_CONTROL_VALUE         1233
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

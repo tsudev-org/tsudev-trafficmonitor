@@ -21,6 +21,7 @@
 #include "DllFunctions.h"
 #include "StrTable.h"
 #include "PluginInterface.h"
+#include "ProAccount.h"
 
 // CTsudevTrafficMonitorApp:
 // Về phần triển khai của lớp này, xem TsudevTrafficMonitor.cpp
@@ -89,6 +90,11 @@ public:
     CDllFunctions m_dll_functions;
     CStrTable m_str_table;
 
+    //Tài khoản tsudev / TsuDEV Pro (P9; ADR-0002). Luồng nền chỉ gọi mạng khi đã đăng nhập và không ngoại tuyến.
+    CProAccount m_pro_account;
+    std::string m_installation_id;          //Mã cài đặt 128 bit (AUTH_AND_ACCOUNT 14.3), chỉ gửi đi khi đã đăng nhập
+    int64_t m_pro_notified_until{};         //Khoá tsu.pro_expired.notified_until (PRODUCT_POLICY 7.6)
+
     CMenu m_main_menu;          //Menu chuột phải của cửa sổ chính
     CMenu m_main_menu_plugin;   //Menu chuột phải khi nhấp vào vùng plugin của cửa sổ chính
     CMenu m_main_menu_plugin_sub_menu;
@@ -115,6 +121,11 @@ public:
 
     void LoadGlobalConfig();
     void SaveGlobalConfig();
+
+    //Đăng xuất và xóa dữ liệu cục bộ của tài khoản tsudev (AUTH_AND_ACCOUNT 14.2-14.3): bỏ cả mã cài đặt cũ
+    void SignOutTsudevAccount();
+    //Ngày theo ngôn ngữ giao diện: DD/MM/YYYY (vi), "November 25, 2026" (ngôn ngữ khác - chuỗi Pro dự phòng tiếng Anh)
+    CString FormatProDate(int64_t unix_time) const;
 
     int DPI(int pixel);
     void DPI(CRect& rect);
