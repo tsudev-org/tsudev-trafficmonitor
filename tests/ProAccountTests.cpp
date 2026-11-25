@@ -1,7 +1,7 @@
-// Kiểm thử luồng tài khoản tsudev của Tsu Tramon (tsudev-trafficmonitor/ProAccount.cpp, P9 phần 3). CHỈ Windows.
+// Kiểm thử luồng tài khoản tsudev của Tsu Tramon (tsutramon/ProAccount.cpp, P9 phần 3). CHỈ Windows.
 // Máy chủ tsudev.com GIẢ (tiêm qua ProAccountDeps.http) + "trình duyệt" giả gọi cổng loopback 127.0.0.1 thật;
 // kho bí mật trong bộ nhớ; chữ ký giả (64 byte 'S'). KHÔNG gọi mạng ra ngoài, KHÔNG đụng Credential Manager.
-//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\ProAccountTests.cpp tsudev-trafficmonitor\ProAccount.cpp /Fe:ProAccountTests.exe
+//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\ProAccountTests.cpp tsutramon\ProAccount.cpp /Fe:ProAccountTests.exe
 //
 // Phủ: AUTH 14.1 (chưa đăng nhập / ngoại tuyến => 0 lượt gọi mạng), 14.2 (refresh token chỉ trong kho bí mật, đăng xuất
 // xoá sạch, thu hồi), 14.3 (X-Tsu-Installation chỉ khi đã đăng nhập), state/iss/nonce, xoay vòng refresh token,

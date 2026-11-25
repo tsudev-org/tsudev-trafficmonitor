@@ -14,7 +14,7 @@ private:
 public:
     static CPluginDemo& Instance();
     HICON GetIcon(UINT id);
-    int DPI(int x, ITsudevTrafficMonitor::DPIType type = ITsudevTrafficMonitor::DPI_MAIN_WND);
+    int DPI(int x, ITsuTramon::DPIType type = ITsuTramon::DPI_MAIN_WND);
 
     // Kế thừa qua ITMPlugin
     virtual IPluginItem* GetItem(int index) override;
@@ -22,14 +22,14 @@ public:
     virtual const wchar_t* GetInfo(PluginInfoIndex index) override;
     virtual OptionReturn ShowOptionsDialog(void* hParent) override;
     virtual void OnExtenedInfo(ExtendedInfoIndex index, const wchar_t* data) override;
-    virtual void OnInitialize(ITsudevTrafficMonitor* pApp) override;
+    virtual void OnInitialize(ITsuTramon* pApp) override;
 
 private:
     CPluginSystemDate m_system_date;
     CPluginSystemTime m_system_time;
     CCustomDrawItem m_custom_draw_item;
     CCustomDrawItem2 m_custom_draw_item2;
-    ITsudevTrafficMonitor* m_app{};
+    ITsuTramon* m_app{};
 
     static CPluginDemo m_instance;
     std::map<UINT, HICON> m_icon_map;

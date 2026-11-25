@@ -35,7 +35,7 @@ const chuan = (u) => String(u || '').replace(/\/+$/, '');
 async function tai(kho, url) {
   let res;
   try {
-    res = await fetch(url, { signal: AbortSignal.timeout(20000), headers: { 'User-Agent': 'tsudev-trafficmonitor-website' } });
+    res = await fetch(url, { signal: AbortSignal.timeout(20000), headers: { 'User-Agent': 'tsutramon-website' } });
   } catch (e) {
     loi(`không tải được catalog ${kho} (${url}): ${e.message}`);
   }
@@ -68,7 +68,7 @@ if (goiCauHinh.winget) {
   duong = ['manifests', goiCauHinh.winget[0].toLowerCase(), ...goiCauHinh.winget.split('.')].map(encodeURIComponent).join('/');
   const r = await fetch(`https://api.github.com/repos/microsoft/winget-pkgs/contents/${duong}`, {
     signal: AbortSignal.timeout(20000),
-    headers: { 'User-Agent': 'tsudev-trafficmonitor-website', ...(process.env.GITHUB_TOKEN && { authorization: `Bearer ${process.env.GITHUB_TOKEN}` }) },
+    headers: { 'User-Agent': 'tsutramon-website', ...(process.env.GITHUB_TOKEN && { authorization: `Bearer ${process.env.GITHUB_TOKEN}` }) },
   }).catch((e) => loi(`không hỏi được winget-pkgs: ${e.message}`));
   if (r.status === 200) wingetCo = true;
   else if (r.status === 404) console.log(`[cai-bang-lenh] winget ${goiCauHinh.winget} chưa có trên winget-pkgs - bỏ qua`);

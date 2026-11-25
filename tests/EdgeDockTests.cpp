@@ -1,7 +1,7 @@
-﻿// Kiểm thử tự động cho logic thuần của tính năng "thu cửa sổ nổi vào mép màn hình" (tsudev-trafficmonitor/EdgeDock.h).
+﻿// Kiểm thử tự động cho logic thuần của tính năng "thu cửa sổ nổi vào mép màn hình" (tsutramon/EdgeDock.h).
 // Build và chạy trong CI (build.yml, job "Kiểm thử C++"); chạy tay:
-//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsudev-trafficmonitor tests\EdgeDockTests.cpp /Fe:EdgeDockTests.exe
-//   g++ -std=c++17 -Wall -Wextra -Werror -fsanitize=address,undefined -I tsudev-trafficmonitor tests/EdgeDockTests.cpp
+//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /I tsutramon tests\EdgeDockTests.cpp /Fe:EdgeDockTests.exe
+//   g++ -std=c++17 -Wall -Wextra -Werror -fsanitize=address,undefined -I tsutramon tests/EdgeDockTests.cpp
 
 #include "EdgeDock.h"
 #include <cmath>

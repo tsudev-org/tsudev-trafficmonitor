@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sinh SBOM (SPDX 2.3, JSON) cho một gói phát hành tsudev-trafficmonitor_<ver>_<arch>_Lite.zip.
+"""Sinh SBOM (SPDX 2.3, JSON) cho một gói phát hành (tsutramon_<ver>_windows-<arch>.zip; thẻ V*-vn: tsudev-trafficmonitor_<ver>_<arch>_Lite.zip).
 
 Ứng dụng là C++/MFC, thư viện bên thứ ba đi kèm dạng mã nguồn nên dependency graph của GitHub
 không thấy được; script liệt kê đúng các thành phần thật được biên dịch vào TsuTramon.exe
@@ -26,7 +26,7 @@ REPO_URL = "https://github.com/tsudev-org/tsudev-trafficmonitor"
 
 
 def tinyxml2_version() -> str:
-    text = (ROOT / "tsudev-trafficmonitor/tinyxml2/tinyxml2.h").read_text(encoding="utf-8", errors="replace")
+    text = (ROOT / "tsutramon/tinyxml2/tinyxml2.h").read_text(encoding="utf-8", errors="replace")
     parts = [re.search(rf"TIXML2_{p}_VERSION\s*=\s*(\d+)", text) for p in ("MAJOR", "MINOR", "PATCH")]
     if not all(parts):
         raise SystemExit("Không đọc được phiên bản tinyxml2")
@@ -83,7 +83,7 @@ def main() -> int:
         "licenseDeclared": "Zlib",
         "copyrightText": "NOASSERTION",
         "primaryPackagePurpose": "LIBRARY",
-        "comment": "Mã nguồn đi kèm trong tsudev-trafficmonitor/tinyxml2, biên dịch tĩnh vào TsuTramon.exe",
+        "comment": "Mã nguồn đi kèm trong tsutramon/tinyxml2, biên dịch tĩnh vào TsuTramon.exe",
         "externalRefs": [{"referenceCategory": "PACKAGE-MANAGER", "referenceType": "purl",
                           "referenceLocator": f"pkg:github/leethomason/tinyxml2@{tinyxml2_version()}"}],
     }

@@ -2,7 +2,7 @@
 """Sinh hai skin "đồ thị mạng" của tsudev cho cửa sổ nổi: tsudev_DoThi_Sang (nền sáng) và tsudev_DoThi_Toi (nền tối).
 
 Nền: thẻ bo góc, lưới mờ, hai đường đồ thị tốc độ (tải xuống/tải lên) dạng vùng tô trong suốt ở nửa dưới,
-dấu hiệu thu gọn của tsudev-trafficmonitor (mặt cú) nhỏ ở góc phải trên. PNG trong suốt ngoài thẻ.
+dấu hiệu thu gọn của tsutramon (mặt cú) nhỏ ở góc phải trên. PNG trong suốt ngoài thẻ.
 Cấu hình skin.xml: cửa sổ lớn 3 hàng (↑/↓, CPU/RAM, GPU/HDD), cửa sổ nhỏ 1 hàng (↑/↓).
 
 Ảnh vẽ ở tỉ lệ 1,5 so với kích thước trong skin.xml (như các skin có sẵn). Đồ thị sinh từ hàm cố định (không ngẫu nhiên)
@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw, ImageFont
 from make_skins import HERE, SHOTS, SKINS, SCALE, card, colorref, hex_rgb
 
 ROOT = HERE.parent.parent
-MARK = ROOT / "assets/brand/mark-tsudev-trafficmonitor.png"   # sinh bởi tools/brand/build_brand.py
+MARK = ROOT / "assets/brand/mark-tsutramon.png"   # sinh bởi tools/brand/build_brand.py
 
 W_L, H_L = 232, 80      # cửa sổ lớn (đơn vị điểm ảnh cửa sổ)
 W_S, H_S = 232, 40      # cửa sổ nhỏ

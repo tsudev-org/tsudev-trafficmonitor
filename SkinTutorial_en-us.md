@@ -4,7 +4,7 @@
 
 A skin defines the background image, font, text colours and item positions of Tsu Tramon's **main window** (the floating window). The taskbar window does not use skins.
 
-> This guide is written from the skin loader source code (`tsudev-trafficmonitor/SkinFile.cpp`).
+> This guide is written from the skin loader source code (`tsutramon/SkinFile.cpp`).
 
 ## 1. Folder structure
 

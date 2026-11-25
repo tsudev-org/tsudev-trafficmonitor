@@ -1,9 +1,9 @@
-# Website trafficmonitor.tsudev.com
+# Website tramon.tsudev.com
 
-Trang sản phẩm của tsudev-trafficmonitor: [Astro](https://astro.build) dựng trang tĩnh; JavaScript phía trình duyệt chỉ có
+Trang sản phẩm của tsutramon: [Astro](https://astro.build) dựng trang tĩnh; JavaScript phía trình duyệt chỉ có
 `public/theme.js` (bộ chọn giao diện Sáng/Tối/Hệ thống ở chân trang, mặc định Tối, khóa `tsudev-theme` như tsudev.com;
 nạp chặn trong `<head>`, CSP `script-src 'self'`, không script nội tuyến),
-host trên Cloudflare Pages (dự án `tsudev-trafficmonitor`).
+host trên Cloudflare Pages (dự án `tsutramon`).
 
 * Nội dung tài liệu lấy trực tiếp từ các tệp `.md` ở gốc repo (`Help.md`, `KhoGiaoDien.md`, `SECURITY.md`...), ảnh từ `Screenshots/`
   - sửa tài liệu ở đó, không sửa trong `website/`.

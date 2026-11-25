@@ -1,6 +1,6 @@
-﻿// Kiểm thử tự động cho logic thuần của kênh cập nhật (tsudev-trafficmonitor/UpdateSecurity.h).
+﻿// Kiểm thử tự động cho logic thuần của kênh cập nhật (tsutramon/UpdateSecurity.h).
 // Build và chạy trong CI (build.yml, job "Kiểm thử C++"); chạy tay trên Windows:
-//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /I tsudev-trafficmonitor tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTests.exe
+//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /I tsutramon tests\UpdateSecurityTests.cpp /Fe:UpdateSecurityTests.exe
 //   UpdateSecurityTests.exe tests\fixtures
 // Dữ liệu mẫu tests/fixtures/version_signed.xml(.sig) là manifest thật của bản 26.11.0902 do release.yml ký,
 // nên test VerifySignature còn kiểm luôn khóa công khai đang nhúng trong ForkConfig.h.
@@ -162,7 +162,7 @@ static void TestUrls()
     CHECK(!IsTrustedDownloadUrl(org));
     CHECK(!IsTrustedDownloadUrl(org + L"V1/../x.zip"));
     CHECK(!IsTrustedDownloadUrl(L"https://github.com/tsudev-org/other-repo/releases/download/V1/x.zip"));
-    CHECK(!IsTrustedDownloadUrl(L"https://github.com/tsudev-org-evil/tsudev-trafficmonitor/releases/download/V1/x.zip"));
+    CHECK(!IsTrustedDownloadUrl(L"https://github.com/tsudev-org-evil/tsutramon/releases/download/V1/x.zip"));
     CHECK(IsTrustedDownloadUrl(rel + L"V1/x.zip", rel));                  // danh sách một tiền tố
     CHECK(!IsTrustedDownloadUrl(org + L"V1/x.zip", rel));
 }

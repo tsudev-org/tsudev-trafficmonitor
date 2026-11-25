@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "name": "tsudev-trafficmonitor",
+  "name": "tsutramon",
   "winget": "tsudev.TrafficMonitor",
   "homepage": "https://tramon.tsudev.com",
   "license": "LicenseRef-Anti-996",

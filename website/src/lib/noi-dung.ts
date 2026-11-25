@@ -113,7 +113,7 @@ let boNho: Promise<BanPhatHanh> | undefined;
 export function banMoiNhat(): Promise<BanPhatHanh> {
   boNho ??= (async () => {
     const res = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`, {
-      headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'tsudev-trafficmonitor-website' },
+      headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'tsutramon-website' },
     });
     if (!res.ok) throw new Error(`GitHub API ${res.status}`);
     const r = await res.json() as { tag_name: string; published_at: string; html_url: string; assets: { name: string; browser_download_url: string; size: number }[] };

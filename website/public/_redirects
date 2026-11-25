@@ -1,0 +1,7 @@
+# Tên ảnh thương hiệu cũ (đổi 25/11/2026, ADR-0001 mục 3.5): repo tsudev (build-eco-icons.js) và liên kết ngoài còn dùng.
+/brand/logo-tsudev-trafficmonitor.png /brand/logo-tsutramon.png 301
+/brand/logo-tsudev-trafficmonitor.webp /brand/logo-tsutramon.webp 301
+/brand/logo-tsudev-trafficmonitor.avif /brand/logo-tsutramon.avif 301
+/brand/mark-tsudev-trafficmonitor.png /brand/mark-tsutramon.png 301
+/brand/mark-tsudev-trafficmonitor.webp /brand/mark-tsutramon.webp 301
+/brand/mark-tsudev-trafficmonitor.avif /brand/mark-tsutramon.avif 301

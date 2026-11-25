@@ -5,7 +5,7 @@
 #   Phiên bản theo khuôn {YY}.{M}.{DD}{NN} (VERSIONING.md của tsudev), ví dụ thẻ v26.11.2401, gói
 #   tsutramon_26.11.2401_windows-x64.zip + bản sao tên cũ tsudev-trafficmonitor_26.11.2401_x64_Lite.zip (ADR-0001 mục 3.2,
 #   cho Scoop/liên kết cũ; bỏ khi kênh gói đã chuyển). Manifest trỏ tệp tên mới, tiền tố repo cũ (mục 3.1).
-#   1. Cập nhật VERSION trong tsudev-trafficmonitor/stdafx.h và version_utf8.info (liên kết tải cho bản cũ V1.86/V1.87,
+#   1. Cập nhật VERSION trong tsutramon/stdafx.h và version_utf8.info (liên kết tải cho bản cũ V1.86/V1.87,
 #      nội dung cập nhật - cũng được đưa vào version_signed.xml có chữ ký mà bản V1.88+ đọc).
 #   2. git tag -s v<phiên bản> -m "Tsu Tramon <phiên bản>" && git push origin v<phiên bản>
 name: Release
@@ -63,7 +63,7 @@ jobs:
           "moi=$($moi.ToString().ToLower())" >> $env:GITHUB_OUTPUT
 
       - name: Build
-        run: msbuild tsudev-trafficmonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143
+        run: msbuild tsutramon_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=${{ matrix.platform }} -p:PlatformToolset=v143
 
       - name: Đóng gói (zip tất định, tools/make_package.ps1 - cùng script với bước thử trong build.yml)
         id: pkg

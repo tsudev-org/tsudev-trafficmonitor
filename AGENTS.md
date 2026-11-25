@@ -1,4 +1,4 @@
-# AGENTS.md - tsudev-trafficmonitor
+# AGENTS.md - tsutramon
 
 > **ĐỌC FILE NÀY ĐẦU TIÊN trong mọi phiên làm việc mới.**
 
@@ -43,7 +43,7 @@ Bản quy ước repo này đang dùng: xem [`.standards-version`](.standards-ve
 # Kiểm tra nhanh (Linux/WSL): URL, Việt hóa, cổng kiểm quy ước
 python3 tools/check_urls.py && python3 tools/check_i18n.py && bash scripts/check-standards.sh
 # Build ứng dụng: chỉ qua GitHub Actions (build.yml) hoặc Windows + VS 2022:
-#   msbuild tsudev-trafficmonitor_Lite.sln -p:Configuration="Release (lite)" -p:Platform=x64
+#   msbuild tsutramon_Lite.sln -p:Configuration="Release (lite)" -p:Platform=x64
 # Website
 cd website && npm ci && npm run build
 ```
@@ -53,26 +53,26 @@ cd website && npm ci && npm run build
 | Vùng | Chủ sở hữu / quy tắc |
 | --- | --- |
 | `LICENSE`, `LICENSE_CN` | Giữ nguyên văn (giấy phép Anti 996 điều 1), `MUST NOT` sửa |
-| `tsudev-trafficmonitor/tinyxml2/`, `OpenHardwareMonitorApi/LibreHardwareMonitorLib.*` | Mã bên thứ ba, giữ nguyên thông báo bản quyền |
-| `tsudev-trafficmonitor/ForkConfig.h` | Nơi duy nhất khai URL của ứng dụng (`tools/check_urls.py` canh) |
+| `tsutramon/tinyxml2/`, `OpenHardwareMonitorApi/LibreHardwareMonitorLib.*` | Mã bên thứ ba, giữ nguyên thông báo bản quyền |
+| `tsutramon/ForkConfig.h` | Nơi duy nhất khai URL của ứng dụng (`tools/check_urls.py` canh) |
 | `assets/brand/source/` | Ảnh gốc logo (nguồn duy nhất của mọi logo/icon/favicon); đổi logo: xem `assets/brand/README.md` |
-| `assets/brand/*.{png,webp,avif}`, `tsudev-trafficmonitor/res/tsudev-trafficmonitor.ico`, `notifyicon*.ico` (icon khay), `about_background_hd.bmp`, `website/public/` (favicon, icon PWA, og-image, `brand/`) | Sản phẩm sinh từ `tools/brand/build_brand.py`, không sửa tay |
-| `tsudev-trafficmonitor/skins/0_tsudev_Cu`, `tsudev_*` | Sinh từ `tools/skin_assets/*.py`, không sửa tay |
+| `assets/brand/*.{png,webp,avif}`, `tsutramon/res/tsutramon.ico`, `notifyicon*.ico` (icon khay), `about_background_hd.bmp`, `website/public/` (favicon, icon PWA, og-image, `brand/`) | Sản phẩm sinh từ `tools/brand/build_brand.py`, không sửa tay |
+| `tsutramon/skins/0_tsudev_Cu`, `tsudev_*` | Sinh từ `tools/skin_assets/*.py`, không sửa tay |
 | `tools/keys/update_signing_pub.pem` | Khóa công khai; khóa bí mật chỉ ở secret `UPDATE_SIGNING_KEY` (environment `release`) |
 
 ### B.4. Điểm lệch chuẩn đã biết
 
 | Lệch ở đâu | Vì sao | Kế hoạch |
 | --- | --- | --- |
-| PROJECT_STRUCTURE: không có `src/`, `assets/`; mã ở `tsudev-trafficmonitor/`, `include/`, script ở `tools/` | Bản phái sinh của mã C++/MFC có sẵn; dời thư mục làm hỏng `.vcxproj`/`.sln` và khó đối chiếu với mã gốc | Giữ nguyên; script mới đặt trong `tools/` |
+| PROJECT_STRUCTURE: không có `src/`, `assets/`; mã ở `tsutramon/`, `include/`, script ở `tools/` | Bản phái sinh của mã C++/MFC có sẵn; dồn vào `src/` làm hỏng `.vcxproj`/`.sln` và khó đối chiếu với mã gốc (25/11/2026 chỉ đổi tên thư mục `tsudev-trafficmonitor/` → `tsutramon/`, ADR-0001 mục 3.5) | Giữ bố cục; script mới đặt trong `tools/` |
 | TESTING_QUALITY: test tự động C++ phủ logic thuần của kênh cập nhật (`tests/UpdateSecurityTests.cpp`), tự tải gói + kiểm SHA-256 (`tests/UpdateDownloadTests.cpp`, tải gói phát hành thật) và phân tích XML (`tests/XmlParsingTests.cpp`, mọi skin.xml thật), di trú tên (`tests/LegacyNamesTests.cpp`), thu vào mép (`tests/EdgeDockTests.cpp`), nhắc gia hạn Pro (`tests/ProRenewalTests.cpp`), đăng nhập OIDC/PKCE + JWS quyền lợi ES256 (`tests/ProAuthTests.cpp`, ký thật bằng BCrypt), tương phản icon khay (`tools/check_tray_icons.py`) - kèm ASan và 3 harness fuzz (`tests/fuzz/`); chưa phủ giao diện MFC | Mã giao diện MFC kế thừa khó tách để test; CI còn build `/WX` có chọn lọc + CodeQL + kiểm Việt hóa/URL/chữ bị cắt + build tái lập (build 2 lần, so SHA-256) | Logic thuần mới tách vào header không phụ thuộc MFC (như `UpdateSecurity.h`, `UpdateDownload.h`, `XmlParsing.h`, `ProAuth.h`) và thêm test vào `tests/` (job "Kiểm thử C++" trong build.yml) |
 | VERSIONING: gói phát hành là `.zip` chạy ngay (không `-setup.exe`), kiến trúc `arm64ec` | Ứng dụng di động (portable), không có bộ cài; build là ARM64EC | Ghi ở README mục Tải về |
 | LANGUAGE_SELECTION: C++/MFC | Kế thừa | Không đổi |
-| BRAND_ASSETS mục 1, 7: logo, icon, favicon KHÔNG lấy từ dấu hiệu cú chung của repo `tsudev` mà từ logo sản phẩm riêng `assets/brand/source/logo-tsudev-trafficmonitor.png` (có chữ "tsudev"); icon <= 40 px dùng mặt cú cắt từ chính logo này (không chữ) | Chủ dự án chọn logo riêng cho sản phẩm (12/11/2026) | Đã gửi phiếu đề xuất cho `tsudev-standards` cho phép logo riêng từng sản phẩm; dây chuyền: `tools/brand/build_brand.py` |
+| BRAND_ASSETS mục 1, 7: logo, icon, favicon KHÔNG lấy từ dấu hiệu cú chung của repo `tsudev` mà từ logo sản phẩm riêng `assets/brand/source/logo-tsutramon.png` (có chữ "tsudev"); icon <= 40 px dùng mặt cú cắt từ chính logo này (không chữ) | Chủ dự án chọn logo riêng cho sản phẩm (12/11/2026) | Đã gửi phiếu đề xuất cho `tsudev-standards` cho phép logo riêng từng sản phẩm; dây chuyền: `tools/brand/build_brand.py` |
 
 ### B.5. Việc riêng của repo cần biết trước khi sửa
 
 - Giấy phép Anti 996: mọi bản phân phối kèm `LICENSE`, `LICENSE_CN`, `NOTICE.md` (release.yml đóng gói sẵn).
-- `tsudev-trafficmonitor/tsudev-trafficmonitor.rc`, `OpenHardwareMonitorApi/app.rc` là **UTF-16 LE có BOM**; script `.ps1` có tiếng Việt lưu UTF-8 có BOM.
+- `tsutramon/tsutramon.rc`, `OpenHardwareMonitorApi/app.rc` là **UTF-16 LE có BOM**; script `.ps1` có tiếng Việt lưu UTF-8 có BOM.
 - Không push thẳng `main`: nhánh → PR → CI → squash merge. Phát hành: README mục "Phát hành (người bảo trì)".
 - Bật hook chặn secret: `git config core.hooksPath .githooks` (cần `gitleaks`).

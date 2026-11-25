@@ -1,14 +1,14 @@
-# Thương hiệu tsudev-trafficmonitor
+# Thương hiệu tsutramon
 
 Một ảnh gốc, một script, mọi logo/icon/favicon sinh ra từ đó. **Không sửa tay** sản phẩm sinh ra.
 
 | Tệp | Là gì |
 | --- | --- |
-| `source/logo-tsudev-trafficmonitor.png` | **Ảnh gốc** (1254x1254, nền đen). Nguồn duy nhất. |
+| `source/logo-tsutramon.png` | **Ảnh gốc** (1254x1254, nền đen). Nguồn duy nhất. |
 | `brand.json` | Cấu hình: tham số tách nền, ô cắt dấu hiệu thu gọn, màu nền đặc |
 | `fonts/BeVietnamPro-*.ttf` | Phông vẽ chữ lên og-image và ảnh hộp thoại Giới thiệu (SIL OFL 1.1, `fonts/OFL.txt`) |
-| `logo-tsudev-trafficmonitor.{png,webp,avif}` | Logo đầy đủ, **nền trong suốt**, 1024x1024 (sinh ra) |
-| `mark-tsudev-trafficmonitor.{png,webp,avif}` | Dấu hiệu thu gọn: mặt cú cắt từ logo, không chữ, ô bo góc 512x512 (sinh ra) |
+| `logo-tsutramon.{png,webp,avif}` | Logo đầy đủ, **nền trong suốt**, 1024x1024 (sinh ra) |
+| `mark-tsutramon.{png,webp,avif}` | Dấu hiệu thu gọn: mặt cú cắt từ logo, không chữ, ô bo góc 512x512 (sinh ra) |
 
 ## Sinh lại
 
@@ -21,15 +21,15 @@ cd tools/skin_assets && ../../.venv/bin/python make_skins.py --font /mnt/c/Windo
   && ../../.venv/bin/python make_skins_dothi.py --font /mnt/c/Windows/Fonts/segoeui.ttf
 ```
 
-Sản phẩm: icon ứng dụng `tsudev-trafficmonitor/res/tsudev-trafficmonitor.ico` (16-256; <= 40 px dùng dấu hiệu thu gọn, <= 20 px ô cắt
+Sản phẩm: icon ứng dụng `tsutramon/res/tsutramon.ico` (16-256; <= 40 px dùng dấu hiệu thu gọn, <= 20 px ô cắt
 chặt hơn cho mắt to), icon vùng thông báo (khay) `notifyicon{,2,3,4,5}.ico` (16-64: mặt cú màu cho taskbar tối/sáng, cú khoét
 trắng/đen đơn sắc, cú tròn viền xanh lơ - các kiểu trong "Đổi Icon khay hệ thống"), ảnh đầu hộp thoại Giới thiệu `about_background_hd.bmp`, và trong `website/public/`: `favicon.ico`
 (16-256), `favicon-{16,32,96}x*.png`, `apple-touch-icon.png` (180, nền đặc), `android-chrome[-maskable]-{192,512}x*.png`
-(maskable chừa vùng an toàn 80%), `og-image.png` (1200x630), `brand/{logo,mark}-tsudev-trafficmonitor.{png,webp,avif}`.
+(maskable chừa vùng an toàn 80%), `og-image.png` (1200x630), `brand/{logo,mark}-tsutramon.{png,webp,avif}`.
 
 ## Đổi logo
 
-1. Thay `source/logo-tsudev-trafficmonitor.png` (vuông, cạnh >= 1024 px, nền đen đặc hoặc trong suốt).
+1. Thay `source/logo-tsutramon.png` (vuông, cạnh >= 1024 px, nền đen đặc hoặc trong suốt).
 2. Mở ảnh, đo lại `mark_box` / `mark_small_box` trong `brand.json` (ô vuông quanh mặt cú, không dính chữ).
 3. Chạy các lệnh ở trên, xem lại icon ở 16/32/48 px và og-image, rồi commit cả ảnh gốc lẫn sản phẩm.
 

@@ -1,10 +1,10 @@
-# Kiến trúc - tsudev-trafficmonitor
+# Kiến trúc - tsutramon
 
 ## Thành phần
 
 | Thành phần | Thư mục | Công nghệ |
 | --- | --- | --- |
-| Ứng dụng giám sát mạng/CPU/RAM | `tsudev-trafficmonitor/` | C++ (MFC, Win32, Direct2D), MSBuild VS 2022 v143 |
+| Ứng dụng giám sát mạng/CPU/RAM | `tsutramon/` | C++ (MFC, Win32, Direct2D), MSBuild VS 2022 v143 |
 | Giao diện plugin (API v8) | `include/PluginInterface.h` | C++ thuần ảo, DLL nạp từ thư mục `plugins` |
 | Plugin mẫu | `PluginDemo/` | C++/MFC DLL |
 | Đo nhiệt độ (chỉ bản đầy đủ, không phát hành) | `OpenHardwareMonitorApi/` | C++/CLI + LibreHardwareMonitor (MPL-2.0) |
@@ -13,7 +13,7 @@
 
 ## Mạng
 
-Ứng dụng chỉ gọi mạng ở hai việc, mọi URL khai trong `tsudev-trafficmonitor/ForkConfig.h`:
+Ứng dụng chỉ gọi mạng ở hai việc, mọi URL khai trong `tsutramon/ForkConfig.h`:
 
 1. Kiểm tra cập nhật: tải `version_signed.xml` + chữ ký từ Releases của repo, xác minh ECDSA P-256 (Windows CNG) bằng khóa công khai nhúng sẵn.
 2. Tra IP công cộng khi người dùng mở Chi tiết mạng: `api.ipify.org`, `api6.ipify.org`.

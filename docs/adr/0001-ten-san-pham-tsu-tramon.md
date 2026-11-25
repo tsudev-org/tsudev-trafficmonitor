@@ -2,7 +2,7 @@
 
 - **Trạng thái**: ĐÃ CHẤP NHẬN (tên do chủ dự án chốt 19/11/2026; phần kỹ thuật do agent chốt theo uỷ quyền phiếu 20261114-01 mục 1)
 - **Ngày**: 24/11/2026
-- **Người quyết định**: chủ dự án (tên, repo, tên miền); phiên tsudev-trafficmonitor (cách chuyển đổi)
+- **Người quyết định**: chủ dự án (tên, repo, tên miền); phiên tsutramon (cách chuyển đổi)
 - **Liên quan**: phiếu `logs/handover/20261119-TC1_yeu-cau-ten-san-pham-rieng.md` (mục 3), `20261117-V1_quy-uoc-phien-ban-thong-nhat.md`,
   `.standards/docs/VERSIONING.md` mục 2.2-2.4, `.standards/docs/PACKAGING.md` mục 2.2, khuôn tsufiles ADR-0003 mục 5-8
 
@@ -54,6 +54,13 @@ Chọn **A**, theo đúng thứ tự (mỗi bước một PR, phase P5-P7 trong 
    cho logic chọn nguồn di trú (logic thuần, header riêng).
 5. **Plugin API**: giữ ABI v8 và tên `ITsudevTrafficMonitor` + alias `ITrafficMonitor` (đổi tên lớp phá biên dịch plugin
    bên thứ ba; tên lớp không hiển thị cho người dùng). Chỉ đổi chú thích/tài liệu.
+   *Bổ sung 25/11/2026 (chuẩn hoá tên, chủ dự án yêu cầu):* lớp đổi thành `ITsuTramon`, `ITsudevTrafficMonitor` và
+   `ITrafficMonitor` thành bí danh `using` trong `include/PluginInterface.h` - vtable và ABI v8 không đổi, mã nguồn plugin
+   cũ vẫn biên dịch được. Cùng đợt: thư mục mã `tsutramon/`, `tsutramon.sln`/`tsutramon_Lite.sln`/`tsutramon.vcxproj`,
+   lớp `CTsuTramonApp`/`CTsuTramonDlg`, macro `TSUTRAMON_*`. Chuỗi KHÔNG đổi: tiền tố tải/manifest theo tên repo cũ,
+   tên miền cũ trong `FORK_TRUSTED_HOSTS`, hằng `LegacyNames.h`, mã winget, gói Scoop `tsudev-trafficmonitor` (tới khi TM1
+   xong), tệp `*_Lite.zip` tên cũ, tên dự án Cloudflare Pages `tsudev-trafficmonitor` (Pages không cho đổi tên dự án),
+   mã bản sắc `trafficmonitor` của tsudev-standards.
 6. **Website**: `tramon.tsudev.com` (custom domain Cloudflare Pages); `trafficmonitor.tsudev.com` chuyển hướng 301 giữ
    đường dẫn + truy vấn; bản mới thêm `tramon.tsudev.com` vào `FORK_TRUSTED_HOSTS`, giữ tên miền cũ.
 7. **winget**: giữ mã `tsudev.TrafficMonitor` (PACKAGING 2.2: mã đã nộp không đổi), đổi `PackageName` thành "Tsu Tramon".
@@ -66,7 +73,7 @@ Chọn **A**, theo đúng thứ tự (mỗi bước một PR, phase P5-P7 trong 
 **Tích cực:** người dùng mọi bản 26.11.09xx-12xx tự lên Tsu Tramon; tên sản phẩm riêng theo khuôn hệ (TsuFiles, Tsu Swico...).
 
 **Tiêu cực và chi phí phải trả:** đường cập nhật của bản cũ phụ thuộc vĩnh viễn vào chuyển hướng của GitHub ⇒ tên
-`tsudev-trafficmonitor` (trong `tsudev-org` lẫn `tsudev-tsudev`) trở thành BẤT KHẢ XÂM PHẠM; bản phát hành đầu tiên gánh
+`tsutramon` (trong `tsudev-org` lẫn `tsudev-tsudev`) trở thành BẤT KHẢ XÂM PHẠM; bản phát hành đầu tiên gánh
 gấp đôi tệp.
 
 **Việc phát sinh cần làm:**

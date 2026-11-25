@@ -1,8 +1,8 @@
-﻿// Kiểm thử tự động cho phần phân tích XML thuần (tsudev-trafficmonitor/XmlParsing.h): skin.xml và thông tin phiên bản.
+﻿// Kiểm thử tự động cho phần phân tích XML thuần (tsutramon/XmlParsing.h): skin.xml và thông tin phiên bản.
 // Build và chạy trong CI (build.yml, job "Kiểm thử C++"); chạy tay trên Windows:
-//   cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 tsudev-trafficmonitor\tinyxml2\tinyxml2.cpp
-//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /I tsudev-trafficmonitor tests\XmlParsingTests.cpp tinyxml2.obj /Fe:XmlParsingTests.exe
-//   XmlParsingTests.exe tsudev-trafficmonitor\skins
+//   cl /nologo /c /std:c++17 /EHsc /W3 /utf-8 tsutramon\tinyxml2\tinyxml2.cpp
+//   cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /I tsutramon tests\XmlParsingTests.cpp tinyxml2.obj /Fe:XmlParsingTests.exe
+//   XmlParsingTests.exe tsutramon\skins
 // Đối số: thư mục skins; mọi skin.xml trong đó phải phân tích được và cho giá trị hợp lệ.
 
 #include "XmlParsing.h"
@@ -208,7 +208,7 @@ static void TestRealSkins(const std::string& skins_dir)
 
 int main(int argc, char* argv[])
 {
-    std::string skins = (argc > 1) ? argv[1] : "tsudev-trafficmonitor\\skins";
+    std::string skins = (argc > 1) ? argv[1] : "tsutramon\\skins";
     TestNumbers();
     TestSimpleNode();
     TestSkinXml();

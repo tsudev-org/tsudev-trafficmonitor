@@ -1,5 +1,5 @@
 ﻿/*********************************************************
-* Giao diện plugin của tsudev-trafficmonitor (API phiên bản 8, tương thích nhị phân với plugin viết cho dự án gốc TrafficMonitor)
+* Giao diện plugin của tsutramon (API phiên bản 8, tương thích nhị phân với plugin viết cho dự án gốc TrafficMonitor)
 * Giấy phép: "Anti 996" License 1.0 - xem tệp LICENSE ở thư mục gốc.
 **********************************************************/
 #pragma once
@@ -170,9 +170,11 @@ public:
     virtual int IsDoubleLineExclusive() const { return 0; }
 };
 
-class ITsudevTrafficMonitor;
-//Tên cũ của giao diện (dự án gốc TrafficMonitor): giữ để mã nguồn plugin có sẵn vẫn biên dịch được; bố cục vtable không đổi.
-using ITrafficMonitor = ITsudevTrafficMonitor;
+class ITsuTramon;
+//Tên cũ của giao diện: ITrafficMonitor (dự án gốc TrafficMonitor) và ITsudevTrafficMonitor (bản 26.11.0901 - 26.11.2501).
+//Giữ làm bí danh để mã nguồn plugin có sẵn vẫn biên dịch được; bố cục vtable không đổi (ADR-0001 mục 3.5).
+using ITrafficMonitor = ITsuTramon;
+using ITsudevTrafficMonitor = ITsuTramon;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //Giao diện plugin
@@ -338,27 +340,27 @@ public:
 
     /**
      * @brief   Khởi tạo plugin
-     * @detail  Được gọi khi plugin được nạp, truyền con trỏ giao diện ITsudevTrafficMonitor. Plugin có thể lưu con trỏ này để gọi các hàm trong giao diện ITsudevTrafficMonitor
+     * @detail  Được gọi khi plugin được nạp, truyền con trỏ giao diện ITsuTramon. Plugin có thể lưu con trỏ này để gọi các hàm trong giao diện ITsuTramon
      * @param   pApp
      */
-    virtual void OnInitialize(ITsudevTrafficMonitor* pApp) {}
+    virtual void OnInitialize(ITsuTramon* pApp) {}
 };
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //Giao diện chương trình chính
-class ITsudevTrafficMonitor
+class ITsuTramon
 {
 public:
     /**
      * @brief   Lấy phiên bản của giao diện này.
-     * @attention Khi plugin gọi các hàm trong ITsudevTrafficMonitor cần kiểm tra phiên bản giao diện trước
+     * @attention Khi plugin gọi các hàm trong ITsuTramon cần kiểm tra phiên bản giao diện trước
      * @return  int
      */
     virtual int GetAPIVersion() = 0;
 
     /**
-     * @brief   Lấy phiên bản tsudev-trafficmonitor.
+     * @brief   Lấy phiên bản tsutramon.
      * @return  const wchar_t*
      */
     virtual const wchar_t* GetVersion() = 0;

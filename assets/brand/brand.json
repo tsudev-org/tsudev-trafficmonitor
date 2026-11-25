@@ -1,7 +1,7 @@
 {
   "_ghi_chu": "Cấu hình dây chuyền thương hiệu (tools/brand/build_brand.py). Đổi logo: thay source/, sửa ô cắt nếu cần, chạy lại script. Toạ độ tính theo ảnh nguồn (px).",
-  "source": "source/logo-tsudev-trafficmonitor.png",
-  "name": "tsudev-trafficmonitor",
+  "source": "source/logo-tsutramon.png",
+  "name": "tsutramon",
   "background": {
     "_ghi_chu": "Nền ảnh nguồn là đen đặc. Vùng tối (max RGB < seed_max) nối với mép ảnh là nền; quầng sáng gần mép lấy alpha theo độ sáng (gỡ nhân trước với nền đen).",
     "seed_max": 12,

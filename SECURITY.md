@@ -52,7 +52,7 @@ openssl dgst -sha256 -verify update_signing_pub.pem -signature sig.der version_s
 Từ 26.11.1001, cùng mã nguồn (cùng commit) build bằng cùng bộ công cụ cho ra `TsuTramon.exe` và gói zip **giống nhau từng byte**:
 
 * `/Brepro` cho trình biên dịch và trình liên kết: PE timestamp và GUID PDB lấy từ băm nội dung thay vì thời điểm build; `/PDBALTPATH:%_PDB%` không ghi đường dẫn thư mục build vào exe ([`Directory.Build.props`](./Directory.Build.props)).
-* "Ngày biên dịch" trong hộp thoại Giới thiệu là **thời điểm commit** (`SOURCE_DATE_EPOCH` hoặc `git log -1 --format=%ct`), không phải giờ build ([`tsudev-trafficmonitor/print_compile_time.bat`](./tsudev-trafficmonitor/print_compile_time.bat)).
+* "Ngày biên dịch" trong hộp thoại Giới thiệu là **thời điểm commit** (`SOURCE_DATE_EPOCH` hoặc `git log -1 --format=%ct`), không phải giờ build ([`tsutramon/print_compile_time.bat`](./tsutramon/print_compile_time.bat)).
 * Gói zip tạo bằng [`tools/make_zip.py`](./tools/make_zip.py): thứ tự mục, thời gian (thời điểm commit), thuộc tính cố định ([`tools/make_package.ps1`](./tools/make_package.ps1), dùng chung cho phát hành và CI).
 * Mỗi lần CI (`build.yml`), mỗi kiến trúc được build hai lần (lần hai là *Rebuild*) và đóng gói ở hai thư mục khác nhau; PE timestamp, SHA-256 của exe và zip phải trùng, nếu không CI báo lỗi.
 
@@ -61,7 +61,7 @@ Tự kiểm một bản phát hành (Windows, Visual Studio 2022 có MFC v143):
 ```powershell
 git clone https://github.com/tsudev-org/tsutramon; cd tsutramon
 git checkout v26.11.2401
-msbuild tsudev-trafficmonitor_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=x64 -p:PlatformToolset=v143
+msbuild tsutramon_Lite.sln -m -p:Configuration="Release (lite)" -p:Platform=x64 -p:PlatformToolset=v143
 Get-FileHash "Bin\x64\Release (lite)\TsuTramon.exe"   # so với TsuTramon.exe trong gói zip của bản phát hành
 ```
 
@@ -113,11 +113,11 @@ Tsu Tramon là ứng dụng desktop chạy với quyền người dùng (bản L
 ### 3b. Đọc tệp skin (`skin.xml`)
 *Rủi ro:* skin tải từ nguồn khác chứa XML độc hại (làm ứng dụng dừng, tốn bộ nhớ, giá trị kích thước bất thường).
 
-* Phần phân tích thuần nằm ở [`tsudev-trafficmonitor/XmlParsing.h`](./tsudev-trafficmonitor/XmlParsing.h) (không phụ thuộc MFC), dùng tinyxml2 11.0.0 (không hỗ trợ DTD/thực thể ngoài, nên không có XXE).
+* Phần phân tích thuần nằm ở [`tsutramon/XmlParsing.h`](./tsutramon/XmlParsing.h) (không phụ thuộc MFC), dùng tinyxml2 11.0.0 (không hỗ trợ DTD/thực thể ngoài, nên không có XXE).
 * Giới hạn: tệp tối đa **1 MB** (kiểm kích thước trước khi đọc), tối đa 4096 phần tử, sâu tối đa 16 cấp; tối đa 256 màu/văn bản hiển thị/mục bố cục/ánh xạ plugin, chuỗi tối đa 256 byte (cắt đúng ranh giới UTF-8), tên phông quá 128 byte thì dùng phông mặc định. Vượt giới hạn hoặc sai cú pháp: skin bị bỏ, ứng dụng dùng giao diện mặc định.
 * Số đọc từ thuộc tính không tràn (thay `atoi`) và bị kẹp: kích thước 0-4096, tọa độ -4096-4096, chiều cao chữ 0-512, cỡ phông 0-72, màu 0-0xFFFFFF, kiểu căn lề lạ coi là căn trái.
 * Thông tin phiên bản (`version_signed.xml`) chỉ được phân tích **sau** khi xác minh chữ ký; hàm tìm nút đơn giản cũng nằm trong `XmlParsing.h` (đã sửa trường hợp thẻ đóng đứng trước thẻ mở).
-* Kiểm thử: `tests/XmlParsingTests.cpp` (kể cả mọi `skin.xml` thật trong `tsudev-trafficmonitor/skins`, chạy thường và dưới ASan) và harness fuzz `tests/fuzz/SkinXmlFuzz.cpp` (libFuzzer + ASan 120 giây mỗi lần CI, hạt giống là các `skin.xml` thật) kiểm mọi giá trị trả về nằm trong khoảng hợp lệ.
+* Kiểm thử: `tests/XmlParsingTests.cpp` (kể cả mọi `skin.xml` thật trong `tsutramon/skins`, chạy thường và dưới ASan) và harness fuzz `tests/fuzz/SkinXmlFuzz.cpp` (libFuzzer + ASan 120 giây mỗi lần CI, hạt giống là các `skin.xml` thật) kiểm mọi giá trị trả về nằm trong khoảng hợp lệ.
 
 ### 4. Gia cố tệp thực thi (cấu hình Release)
 Thiết lập tại [`Directory.Build.props`](./Directory.Build.props):

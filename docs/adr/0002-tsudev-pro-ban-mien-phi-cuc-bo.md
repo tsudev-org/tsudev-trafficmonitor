@@ -3,7 +3,7 @@
 - **Trạng thái**: ĐÃ CHẤP NHẬN (khung chung do chủ dự án chốt 19-20/11/2026 ở PRODUCT_POLICY mục 3, 7; phần riêng của
   sản phẩm do agent chốt theo uỷ quyền phiếu `20261124-UQ1`)
 - **Ngày**: 24/11/2026
-- **Người quyết định**: chủ dự án (gói, giá, kênh thanh toán - hợp đồng chung); phiên tsudev-trafficmonitor (phạm vi Pro của sản phẩm)
+- **Người quyết định**: chủ dự án (gói, giá, kênh thanh toán - hợp đồng chung); phiên tsutramon (phạm vi Pro của sản phẩm)
 - **Liên quan**: phiếu `logs/handover/20261119-PRO1_luu-cuc-bo-pro-dong-bo.md`, `20261120-PRO2_pro-ky-1-nam-nhac-gia-han-xoa-co-xac-minh.md`;
   `.standards/docs/PRODUCT_POLICY.md` mục 3, 7.1-7.6; `.standards/docs/AUTH_AND_ACCOUNT.md`; ADR-0001
 
@@ -37,7 +37,7 @@ không có đăng nhập, không mã cài đặt, không đo đếm (telemetry),
 3. **Kênh thanh toán**: bản tải trực tiếp/winget/Scoop ⇒ nút "Gia hạn"/"Nâng cấp" mở `https://tsudev.com/pro?app=<client_id>`
    (không nhúng cổng thanh toán); Microsoft Store (nếu lên) dùng cùng trang web (PRODUCT_POLICY 3.3). Ủng hộ: trang
    `tramon.tsudev.com/ung-ho/` (VietQR) như hiện tại.
-4. **Nhắc gia hạn / báo hết kỳ (7.6)**: logic thuần `tsudev-trafficmonitor/ProRenewal.h` + 6 ca bắt buộc ở
+4. **Nhắc gia hạn / báo hết kỳ (7.6)**: logic thuần `tsutramon/ProRenewal.h` + 6 ca bắt buộc ở
    `tests/ProRenewalTests.cpp` (job "Kiểm thử C++", có ASan). Chưa có nguồn JWS nên `Evaluate()` luôn trả `None` ở bản
    hiện tại; hộp thoại vi/en (chuỗi trong tài nguyên, nội dung nguyên văn 7.6, nút Gia hạn mở trang ở mục 3) nối cùng lúc
    với đăng nhập - KHÔNG nối hộp thoại khi chưa thể hiện được nó (tránh mã chết trong giao diện).
