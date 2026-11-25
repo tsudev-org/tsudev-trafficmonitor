@@ -1,0 +1,88 @@
+/* Font dự phòng có số đo khớp font tự host (phiếu UI2 mục 0.2): trong lúc woff2 chưa tới, chữ vẽ bằng font hệ thống
+   nhưng chiếm ĐÚNG chỗ font thật sẽ chiếm, nên lúc đổi font không dòng nào đổi bề rộng/chiều cao.
+   size-adjust = bề rộng chữ số của font thật / của font hệ thống; ascent/descent-override = số đo font thật / size-adjust
+   (đơn vị em, trình duyệt nhân lại với size-adjust).
+   Số đo font thật (canvas Chromium, 25/11/2026): JetBrains Mono 600 = rộng 0,600 em, ascent 1,02, descent 0,30;
+   Chivo Mono 400 = 0,600 / 0,94 / 0,25. Font hệ thống: Consolas 0,5498 em (1126/2048); Menlo = DejaVu Sans Mono 0,6021
+   (1233/2048, đo canvas 0,60205); Courier New = Liberation Mono 0,6001 (1229/2048).
+   Mỗi font hệ thống một họ riêng (chỉ một local()) vì size-adjust khác nhau: họ nào máy không có thì trình duyệt bỏ qua. */
+
+/* Be Vietnam Pro: lấy nguyên số đo của tsudev.com (apps/frontend-main/styles/fonts.css, scripts/sync-fonts.js) */
+@font-face {
+  font-family: 'Be Vietnam Pro Fallback';
+  font-weight: 400 500;
+  src: local('Segoe UI'), local('Roboto'), local('Helvetica Neue'), local('Arial'), local('ArialMT');
+  size-adjust: 105.4%;
+  ascent-override: 94.9%;
+  descent-override: 25.6%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro Fallback';
+  font-weight: 600 700;
+  src:
+    local('Segoe UI Bold'), local('SegoeUI-Bold'), local('Roboto Bold'), local('Roboto-Bold'),
+    local('Helvetica Neue Bold'), local('Arial Bold'), local('Arial-BoldMT');
+  size-adjust: 102.4%;
+  ascent-override: 97.7%;
+  descent-override: 26.4%;
+  line-gap-override: 0%;
+}
+
+/* JetBrains Mono 600 (tiêu đề) */
+@font-face {
+  font-family: 'JetBrains Mono Fallback Consolas';
+  font-weight: 100 900;
+  src: local('Consolas Bold'), local('Consolas-Bold'), local('Consolas');
+  size-adjust: 109.13%;
+  ascent-override: 93.47%;
+  descent-override: 27.49%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'JetBrains Mono Fallback Menlo';
+  font-weight: 100 900;
+  src: local('Menlo Bold'), local('Menlo-Bold'), local('DejaVu Sans Mono Bold'), local('DejaVuSansMono-Bold'), local('Menlo'), local('DejaVu Sans Mono');
+  size-adjust: 99.66%;
+  ascent-override: 102.35%;
+  descent-override: 30.1%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'JetBrains Mono Fallback Courier';
+  font-weight: 100 900;
+  src: local('Courier New Bold'), local('CourierNewPS-BoldMT'), local('Liberation Mono Bold'), local('LiberationMono-Bold'), local('Courier New'), local('Liberation Mono');
+  size-adjust: 99.98%;
+  ascent-override: 102.02%;
+  descent-override: 30.01%;
+  line-gap-override: 0%;
+}
+
+/* Chivo Mono 400/600 (nhãn, mã) */
+@font-face {
+  font-family: 'Chivo Mono Fallback Consolas';
+  font-weight: 100 900;
+  src: local('Consolas');
+  size-adjust: 109.13%;
+  ascent-override: 86.14%;
+  descent-override: 22.91%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Chivo Mono Fallback Menlo';
+  font-weight: 100 900;
+  src: local('Menlo'), local('DejaVu Sans Mono');
+  size-adjust: 99.66%;
+  ascent-override: 94.32%;
+  descent-override: 25.09%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Chivo Mono Fallback Courier';
+  font-weight: 100 900;
+  src: local('Courier New'), local('Liberation Mono');
+  size-adjust: 99.98%;
+  ascent-override: 94.02%;
+  descent-override: 25.0%;
+  line-gap-override: 0%;
+}

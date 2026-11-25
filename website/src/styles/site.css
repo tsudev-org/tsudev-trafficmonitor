@@ -4,10 +4,18 @@
    Chế độ màu do public/theme.js đặt vào data-theme; CSS không hỏi hệ điều hành. */
 
 :root {
-  --font-family: 'Be Vietnam Pro', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  /* Họ "* Fallback" (styles/fonts-fallback.css) giữ đúng số đo trong lúc woff2 chưa tới - phiếu UI2 mục 0.2 */
+  --font-family: 'Be Vietnam Pro', 'Be Vietnam Pro Fallback', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --khung: 72rem;
   /* Font mono có số 0 trơn (Chivo Mono, styles/fonts-mono.css) - chủ dự án yêu cầu 16/11/2026; ghi đè --font-mono của token */
-  --font-mono: 'Chivo Mono', 'Cascadia Code', ui-monospace, monospace;
+  --font-mono: 'Chivo Mono', 'Chivo Mono Fallback Consolas', 'Chivo Mono Fallback Menlo', 'Chivo Mono Fallback Courier',
+    'Cascadia Code', ui-monospace, monospace;
+}
+/* Cùng font tiêu đề của products.css (JetBrains Mono), chỉ chen font dự phòng đơn cách trước font không chân;
+   cùng bộ chọn với products.css để thắng nhờ thứ tự nạp */
+:root[data-product="trafficmonitor"] {
+  --font-display: 'JetBrains Mono', 'JetBrains Mono Fallback Consolas', 'JetBrains Mono Fallback Menlo',
+    'JetBrains Mono Fallback Courier', var(--font-family);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -215,6 +223,13 @@ pre {
   .goi__muc { grid-template-columns: 1fr; }
   /* Logo và hai nút cùng hàng; điều hướng xuống hàng dưới */
   .dau-trang nav { order: 3; flex-basis: 100%; margin-left: 0; padding-bottom: 0.5rem; }
+}
+/* Màn hẹp (360-440 px): logo + hai nút không vừa một hàng nên đầu trang dính thành 3 hàng (~145 px, gần 1/5 màn).
+   Bỏ nút "Mã nguồn" ở đầu trang (vẫn có ở chân trang) để đầu trang còn 2 hàng - phiếu UI2 phần A. */
+@media (max-width: 440px) {
+  .dau-trang__trong { gap: 0.5rem; }
+  .dau-trang__nut .nut--phu { display: none; }
+  .dau-trang nav { margin-left: -0.7rem; }
 }
 
 /* Trang Ủng hộ (theo tsudev-files): thẻ kênh; ảnh QR luôn nền trắng + vùng lặng để máy quét đọc được ở chế độ Tối */
