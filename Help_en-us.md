@@ -141,6 +141,31 @@ It relies on the open-source library [LibreHardwareMonitor](https://github.com/L
 Install the latest Microsoft Visual C++ Redistributable from Microsoft:
 [Latest supported Visual C++ Redistributable downloads | Microsoft Learn](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist)
 
+### Do I need a tsudev account? Does the app send my data anywhere?
+
+**No account is needed.** Tsu Tramon runs with every feature without an account. A tsudev account is only used for TsuDEV Pro (an optional paid plan of the tsudev ecosystem). While you are **not signed in**, the app sends none of your data over the network: settings and traffic history stay on your computer.
+
+The full list of the app's network connections, when they open and what they send: [Privacy](./PRIVACY_en-us.md).
+
+### Signing in to a tsudev account
+
+1. Open **Options** → the **tsudev account** tab → click **Sign in to your tsudev account to check and renew TsuDEV Pro...**.
+2. Pick a sign-in option: **Google**, **GitHub**, **tsudev account (email)**, or under **More sign-in options**: a **passkey** or a **QR code** (scan it with a phone signed in to a tsudev account). The first time, tick the box accepting the Terms of Service and the Privacy Policy.
+3. Your default browser opens tsudev.com; sign in and click **Allow**. You have 3 minutes to finish.
+4. Back in Tsu Tramon the tab shows that you are signed in, together with your TsuDEV Pro status.
+
+The **TsuDEV Pro...** button on the same tab opens the TsuDEV Pro screen: see your status, buy or renew on tsudev.com, or support tsudev (no account needed).
+
+Your password is only typed on tsudev.com, **never** into Tsu Tramon. The session is kept in Windows Credential Manager; the Pro status is digitally signed, so the app still knows it while offline.
+
+**Sign out and clear local data** revokes the session on tsudev.com, then deletes the session, the saved Pro status and the installation ID from your computer. Settings and traffic history are not affected.
+
+### What is full offline mode?
+
+A switch in **Options** → **tsudev account**. When it is on, Tsu Tramon **makes no connections on its own**: no update check, no public IP lookup (the Connection Details dialog shows it as blocked), no TsuDEV Pro sign-in or refresh. All monitoring keeps working. Links you click still open your browser; third-party plugins manage their own connections.
+
+With this mode on, **check for new releases yourself** on the [download page](https://tramon.tsudev.com/tai-ve/) so you do not miss security fixes.
+
 ### Plugins
 
 How to install plugins and troubleshoot them: [Plugins](./Plugin_en-us.md); writing your own: [Plugin development](./PluginDev_en-us.md).

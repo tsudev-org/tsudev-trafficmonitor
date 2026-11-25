@@ -5,6 +5,7 @@ Từ 26.11.2401 phần mềm mang tên Tsu Tramon; trước đó là tsudev-traf
 Mỗi bản phát hành một dòng, mới nhất trên cùng. Chi tiết: [UpdateLog/update_log_vi.md](./UpdateLog/update_log_vi.md) ([English](./UpdateLog/update_log_en-us.md)).
 
 ```
+(chưa phát hành) - Tài khoản tsudev tuỳ chọn cho TsuDEV Pro (Google, GitHub, email, khoá truy cập, mã QR); Chế độ ngoại tuyến hoàn toàn; nhắc gia hạn TsuDEV Pro; trang Quyền riêng tư
 26.11.2501 - 25/11/2026 - Icon khay hệ thống dễ nhìn hơn trên thanh tác vụ nền tối; liên kết trong ứng dụng trỏ kho mã tsudev-org/tsutramon
 26.11.2401 - 24/11/2026 - Đổi tên thành Tsu Tramon (TsuTramon.exe, website tramon.tsudev.com); tự chuyển cấu hình, lịch sử, tự khởi động từ mọi tên cũ; sửa lỗi đọc sai đường dẫn tự khởi động
 26.11.1202 - 12/11/2026 - Kéo cửa sổ nổi sát mép màn hình để thu gọn (mũi tên ở mép để hiện lại, chuyển động mượt); icon khay hệ thống đổi sang logo mới

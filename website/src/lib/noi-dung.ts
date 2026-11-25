@@ -24,6 +24,7 @@ const TRANG_MD: Record<string, string> = {
   'PhatTrienPlugin.md': '/huong-dan/phat-trien-plugin/',
   'UpdateLog/update_log_vi.md': '/nhat-ky/',
   'SECURITY.md': '/bao-mat/',
+  'PRIVACY.md': '/quyen-rieng-tu/',
   'NOTICE.md': '/ban-quyen/',
   'LICENSE_VI.md': '/ban-quyen/#ban-dich-giay-phep',
   'LICENSE': '/ban-quyen/#giay-phep-nguyen-van',

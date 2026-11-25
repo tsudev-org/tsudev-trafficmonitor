@@ -1,0 +1,6 @@
+---
+import TaiLieu from '../components/TaiLieu.astro';
+import { renderMd } from '../lib/noi-dung';
+const { html } = renderMd('PRIVACY.md', { boDongNgonNgu: true });
+---
+<TaiLieu tieuDe="Quyền riêng tư" moTa="Tsu Tramon chạy đủ tính năng không cần tài khoản hay mạng: mọi kết nối của ứng dụng, Chế độ ngoại tuyến hoàn toàn, dữ liệu tài khoản lưu trên máy." duongDan="/quyen-rieng-tu/" html={html} nguon="PRIVACY.md" />

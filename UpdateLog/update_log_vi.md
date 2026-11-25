@@ -5,6 +5,22 @@
 Thay đổi của từng bản phát hành Tsu Tramon do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 Bản 26.11.1201-1202 mang tên **tsudev-trafficmonitor**, các bản trước đó mang tên **TrafficMonitor-VN**; nội dung của chúng bên dưới giữ nguyên như lúc phát hành.
 
+## Bản kế tiếp (chưa phát hành)
+
+### Tài khoản tsudev (tuỳ chọn)
+* Thẻ mới **Cài đặt → Tài khoản tsudev**: đăng nhập tài khoản tsudev để kiểm tra và gia hạn **TsuDEV Pro**. Không bắt buộc - **chưa đăng nhập, Tsu Tramon vẫn đủ mọi tính năng và không gửi dữ liệu nào của bạn lên mạng**.
+* Màn đăng nhập: **Google**, **GitHub**, **Tài khoản tsudev (email)**, **khoá truy cập** (passkey) hoặc **mã QR** quét bằng điện thoại đã đăng nhập. Mọi cách đều mở trang tsudev.com trong trình duyệt; mật khẩu không bao giờ nhập vào Tsu Tramon.
+* Phiên đăng nhập lưu trong Windows Credential Manager; trạng thái TsuDEV Pro có chữ ký số nên vẫn đúng khi mất mạng. **Đăng xuất và xóa dữ liệu cục bộ** thu hồi phiên trên tsudev.com và xoá mọi dữ liệu tài khoản trên máy (cấu hình, lịch sử lưu lượng giữ nguyên).
+* Nhắc gia hạn TsuDEV Pro 7 ngày trước khi hết hạn và báo một lần khi đã hết hạn.
+* Màn **TsuDEV Pro**: xem trạng thái, mua hoặc gia hạn trên tsudev.com, ủng hộ tsudev (không cần tài khoản).
+
+### Chế độ ngoại tuyến hoàn toàn
+* Công tắc ở **Cài đặt → Tài khoản tsudev**: khi bật, Tsu Tramon không tự kết nối ra ngoài - không kiểm tra bản cập nhật, không lấy IP công cộng, không đăng nhập hay làm mới TsuDEV Pro.
+* Trang mới [Quyền riêng tư](https://tramon.tsudev.com/quyen-rieng-tu/) liệt kê mọi kết nối mạng của ứng dụng, khi nào mở và gửi gì.
+
+### Plugin
+* Giao diện plugin đổi tên lớp thành `ITsuTramon`; tên cũ `ITsudevTrafficMonitor` và `ITrafficMonitor` vẫn dùng được. API phiên bản 8 và tương thích nhị phân không đổi - plugin đã có không cần build lại.
+
 ## 26.11.2501 (25/11/2026)
 
 ### Icon khay hệ thống

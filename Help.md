@@ -142,6 +142,31 @@ Tính năng này dựa trên thư viện mã nguồn mở [LibreHardwareMonitor]
 Cài đặt Microsoft Visual C++ Redistributable bản mới nhất từ trang chính thức của Microsoft:
 [Latest supported Visual C++ Redistributable downloads | Microsoft Learn](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist)
 
+### Có cần tài khoản tsudev không? Ứng dụng có gửi dữ liệu của tôi đi không?
+
+**Không cần.** Tsu Tramon chạy đủ mọi tính năng mà không cần tài khoản. Tài khoản tsudev chỉ dùng cho TsuDEV Pro (gói trả phí tuỳ chọn của hệ sinh thái tsudev). Khi **chưa đăng nhập**, ứng dụng không gửi dữ liệu nào của bạn lên mạng: cấu hình và lịch sử lưu lượng chỉ nằm trên máy.
+
+Danh sách đầy đủ mọi kết nối mạng của ứng dụng, khi nào mở và gửi gì: trang [Quyền riêng tư](./PRIVACY.md).
+
+### Đăng nhập tài khoản tsudev
+
+1. Mở **Cài đặt** → thẻ **Tài khoản tsudev** → bấm **Đăng nhập tài khoản tsudev để kiểm tra và gia hạn TsuDEV Pro...**.
+2. Chọn cách đăng nhập: **Google**, **GitHub**, **Tài khoản tsudev (email)**, hoặc trong **Thêm tuỳ chọn đăng nhập**: **khoá truy cập** (passkey) và **mã QR** (quét bằng điện thoại đã đăng nhập tài khoản tsudev). Lần đầu cần tích ô đồng ý Điều khoản dịch vụ và Chính sách quyền riêng tư.
+3. Trình duyệt mặc định mở trang tsudev.com; đăng nhập rồi bấm **Cho phép**. Bạn có 3 phút để hoàn tất.
+4. Quay lại Tsu Tramon: thẻ hiện "Đã đăng nhập tài khoản tsudev" cùng trạng thái TsuDEV Pro.
+
+Nút **TsuDEV Pro...** trong cùng thẻ mở màn TsuDEV Pro: xem trạng thái, mua hoặc gia hạn trên tsudev.com, hoặc ủng hộ tsudev (không cần tài khoản).
+
+Mật khẩu chỉ nhập trên trang tsudev.com, **không bao giờ** nhập vào Tsu Tramon. Phiên đăng nhập được lưu trong Windows Credential Manager; trạng thái Pro có chữ ký số nên ứng dụng vẫn biết khi mất mạng.
+
+**Đăng xuất và xóa dữ liệu cục bộ** thu hồi phiên trên tsudev.com rồi xoá phiên, trạng thái Pro đã lưu và mã cài đặt trên máy. Cấu hình và lịch sử lưu lượng không bị ảnh hưởng.
+
+### Chế độ ngoại tuyến hoàn toàn là gì?
+
+Công tắc ở **Cài đặt** → **Tài khoản tsudev**. Khi bật, Tsu Tramon **không tự kết nối ra ngoài**: không kiểm tra bản cập nhật, không lấy địa chỉ IP công cộng (hộp thoại Chi tiết mạng hiện "Bị chặn"), không đăng nhập hay làm mới TsuDEV Pro. Mọi tính năng theo dõi vẫn chạy bình thường. Liên kết bạn tự bấm vẫn mở trình duyệt; plugin bên thứ ba tự quản lý kết nối của chúng.
+
+Khi bật chế độ này bạn cần **tự kiểm tra bản mới** trên [trang Tải về](https://tramon.tsudev.com/tai-ve/) để không bỏ lỡ bản vá bảo mật.
+
 ### Plugin
 
 Cách cài plugin và khắc phục sự cố: trang [Plugin](./Plugin.md); tự viết plugin: [Phát triển plugin](./PhatTrienPlugin.md).
