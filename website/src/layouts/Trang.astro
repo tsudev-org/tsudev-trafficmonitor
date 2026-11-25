@@ -4,6 +4,7 @@ import AnhThuongHieu from '../components/AnhThuongHieu.astro';
 import '../styles/fonts.css';
 import '../styles/fonts-mono.css';
 import '../styles/fonts-display.css';
+import '../styles/fonts-fallback.css';
 // Token chuẩn: lớp nền chung rồi lớp bản sắc sản phẩm, nạp thẳng từ bản sao chỉ-đọc .standards/ (DESIGN_SYSTEM mục 1.2)
 import '../../../.standards/tokens/tokens.css';
 import '../../../.standards/tokens/products.css';
@@ -46,6 +47,12 @@ const dangO = (href: string) => duongDan.startsWith(href);
     <meta name="color-scheme" content="dark light">
     <!-- Giao diện: chạy chặn, SAU meta theme-color và TRƯỚC stylesheet, để không nháy màu (public/theme.js; CSP script-src 'self') -->
     <script is:inline src="/theme.js"></script>
+    <!-- Tải sớm 4 tệp font của màn đầu (thân 400 + tiêu đề 600, subset latin + vietnamese) để chữ không đổi font
+         sau khi hiện - phiếu UI2 mục 0.2. Phần còn lại tải theo unicode-range khi cần. -->
+    <link rel="preload" href="/fonts/be-vietnam-pro-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/be-vietnam-pro-400-vietnamese.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/jetbrains-mono-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/jetbrains-mono-vietnamese-600-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="canonical" href={url}>
     <meta property="og:site_name" content="tsudev">
     <meta property="og:type" content="website">
