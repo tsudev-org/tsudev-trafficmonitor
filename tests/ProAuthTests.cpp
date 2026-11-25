@@ -115,14 +115,14 @@ static void TestAuthorizationUrl()
     r.state = "st-1";
     r.nonce = "no_2";
     r.verifier = "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk";
-    r.challenge = "E9Melhoa2OwvFrEMTJguCHaoeK1zXWxkvkZw0e4FlQ";
+    r.challenge = "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM";
     CHECK(r.redirect_uri == "http://127.0.0.1:53123/callback");
     const std::string url = r.Url();
     CHECK(url ==
           "https://tsudev.com/oidc/auth?response_type=code&client_id=tsutramon"
           "&redirect_uri=http%3A%2F%2F127.0.0.1%3A53123%2Fcallback"
           "&scope=openid%20offline_access%20tsudev.entitlements&state=st-1&nonce=no_2"
-          "&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1zXWxkvkZw0e4FlQ&code_challenge_method=S256&prompt=consent");
+          "&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM&code_challenge_method=S256&prompt=consent");
     CHECK(r.StateMatches("st-1"));
     CHECK(!r.StateMatches("st-2"));
     CHECK(!r.StateMatches(""));
@@ -316,7 +316,7 @@ static void TestResponses()
 static void TestPkceRfc7636()
 {
     // RFC 7636 phụ lục B
-    CHECK(PkceChallenge("dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk") == "E9Melhoa2OwvFrEMTJguCHaoeK1zXWxkvkZw0e4FlQ");
+    CHECK(PkceChallenge("dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk") == "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM");
     auto r = NewAuthorizationRequest(50000);
     CHECK(r.state.size() == 43 && r.nonce.size() == 43 && r.verifier.size() == 43);
     CHECK(r.state != r.nonce && r.nonce != r.verifier);
