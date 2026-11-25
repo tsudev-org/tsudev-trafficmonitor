@@ -5,7 +5,7 @@
 Thay đổi của từng bản phát hành Tsu Tramon do tsudev thực hiện, mới nhất trên cùng. Tóm tắt mỗi bản một dòng: [CHANGELOG.md](../CHANGELOG.md).
 Bản 26.11.1201-1202 mang tên **tsudev-trafficmonitor**, các bản trước đó mang tên **TrafficMonitor-VN**; nội dung của chúng bên dưới giữ nguyên như lúc phát hành.
 
-## Bản kế tiếp (chưa phát hành)
+## 26.11.2502 (25/11/2026)
 
 ### Tài khoản tsudev (tuỳ chọn)
 * Thẻ mới **Cài đặt → Tài khoản tsudev**: đăng nhập tài khoản tsudev để kiểm tra và gia hạn **TsuDEV Pro**. Không bắt buộc - **chưa đăng nhập, Tsu Tramon vẫn đủ mọi tính năng và không gửi dữ liệu nào của bạn lên mạng**.

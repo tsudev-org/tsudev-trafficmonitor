@@ -5,7 +5,7 @@
 Changes in each Tsu Tramon release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 Releases 26.11.1201-1202 were called **tsudev-trafficmonitor** and earlier ones **TrafficMonitor-VN**; their entries below are kept as released.
 
-## Next release (unreleased)
+## 26.11.2502 (25/11/2026)
 
 ### tsudev account (optional)
 * New tab **Options → tsudev account**: sign in to a tsudev account to check and renew **TsuDEV Pro**. Optional - **without signing in, Tsu Tramon keeps every feature and sends none of your data over the network**.
