@@ -1,6 +1,6 @@
 # STATE.md - Trạng thái project
 
-> **Phiên kế tiếp:** đọc phiếu `logs/handover/20261125-02_ban-giao-sau-sec2-2501.md` TRƯỚC (sau SEC2 + phát hành 26.11.2501; P9 chờ client OIDC `tsutramon` - phiếu tsudev DK3; UI2 mới). Repo nay là `tsudev-org/tsutramon`. Uỷ quyền UQ1 đã ĐÓNG - việc khó đảo ngược mới (phát hành, xoá, đổi khoá) phải hỏi chủ dự án.
+> **Phiên kế tiếp:** đọc phiếu `logs/handover/20261125-03_ban-giao-sau-ui2-p9-nen.md` TRƯỚC (UI2 xong; P9 phần 1-2 = `ProAuth.h` + `ProNet.h` đã gộp, CHƯA nối app; việc kế: P9 phần 3 nối vào app + thử thật Windows). Repo `tsudev-org/tsutramon`. Việc khó đảo ngược (phát hành, xoá, đổi khoá) hỏi chủ dự án.
 
 > Agent đọc file này ở đầu mỗi phiên và cập nhật ở cuối mỗi phiên.
 > Quy trình: `.standards/docs/AGENT_PROTOCOL.md`.
@@ -19,10 +19,10 @@
 - [x] **P7** (24/11): repo → `tsudev-org/tsutramon` (4 đường chuyển hướng ĐẠT); phiếu TM1 ở `tsudev` (đã nhắn, việc khẩn: thêm tên cũ vào `~/.claude/CLAUDE.md`) và `scoop-bucket` (gói `tsutramon` + gói chuyển tiếp - checkver cũ `V*-vn` không khớp thẻ mới nên đứng ở 1202, KHÔNG gãy). Còn winget: đổi `PackageName` sau khi #477193 gộp.
 - [x] **P8** (24/11, phần làm được khi app chưa có tài khoản): ADR-0002 Pro + kiểm kê (bản miễn phí không gửi dữ liệu); `ProRenewal.h` + 6 ca test 7.6; UI1 icon khay ≥ 3:1 + `tools/check_tray_icons.py`; good first issue #87-#89; Best Practices: KHÔNG tạo hồ sơ (`floss_license` MUST mà Anti-996 không phải FLOSS - phiếu 15-01).
 - [x] **SEC2** (25/11, phiếu `20261125-SEC2`): trang `/security/` bằng chứng tự kiểm chứng được (SSL Labs A+, Observatory A+, Scorecard 7.5, VirusTotal, chứng thực build) từ `docs/security/trust.json`; sửa allowlist Actions cho Scorecard.
-- [ ] **P9** - đăng nhập OIDC (client trên tsudev.com, PKCE, mã cài đặt 128 bit) + JWS quyền lợi + hộp thoại 7.6 vi/en nối `ProRenewal.h` + màn Pro/Ủng hộ 13.2 + đăng nhập QR (QR1). Cần client OIDC từ phiên `tsudev` trước.
+- [ ] **P9** - phần 1-2 XONG (#97: `ProAuth.h` logic + `ProNet.h` WinHTTP/loopback/Credential Manager, test + fuzz); còn phần 3 nối app (phiếu 20261125-03 mục 2.2). Gốc: đăng nhập OIDC (client trên tsudev.com, PKCE, mã cài đặt 128 bit) + JWS quyền lợi + hộp thoại 7.6 vi/en nối `ProRenewal.h` + màn Pro/Ủng hộ 13.2 + đăng nhập QR (QR1). Cần client OIDC từ phiên `tsudev` trước.
 - [ ] **P10** - đồng bộ qua TsuDEV Sync (cấu hình + lịch sử nhiều máy, E2E) + xuất lịch sử CSV (miễn phí) + thông báo nhiều thiết bị 7.3 (5 test).
 - [x] **Phát hành 26.11.2501** (25/11, #93, thẻ ký `v26.11.2501`): URL trong app trỏ `tsutramon` (giữ 3 tiền tố tải tin cậy), icon khay P8. VT arm64ec 1/74 Malwarebytes ⇒ chủ dự án chấp nhận, đã công bố Latest; SHA256SUMS/attestation/chữ ký manifest ĐẠT; website deploy.
-- [ ] **UI2** (phiếu `20261125-UI2`): rà quét sâu giao diện website bằng trình duyệt (A) + hiện đại hoá (B); đọc mục 0 phiếu toàn hệ trước.
+- [x] **UI2** (25/11, #95 #96, deploy): font màn đầu preload + dự phòng có số đo (CLS 0,0197 → 0,00007), đầu trang 2 hàng ở 360 px, quy ước v6.0.0 nền Sáng giấy, hoạ tiết thẻ/chân trang; quét 78 tổ hợp production 0 lỗi.
 - [ ] Phát hành sau: bỏ tệp tên cũ `*_Lite.zip` khi scoop-bucket chuyển sang gói `tsutramon` (phiếu TM1); thử thật Windows bản 2401 tự lên 2501.
 - [ ] Theo dõi PR winget-pkgs #477193 (`tsudev.TrafficMonitor` 26.11.1001, chờ Microsoft duyệt): phiếu `logs/handover/20261112-03_nhac-theo-doi-winget.md` - kiểm mỗi phiên.
 - 👤 Chủ dự án: thay khoá VirusTotal đã lộ (phiếu SEC1 mục 4).
@@ -36,6 +36,7 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 25/11/2026 - **UI2 + P9 phần 1-2**: #95 (font/đầu trang), #96 (v6.0.0 + hoạ tiết + `GITHUB_TOKEN` cho build website), deploy + nghiệm thu production; #97 `ProAuth.h` (142 phép kiểm g++ ASan/UBSan + MSVC, ES256 thật bằng BCrypt, fuzz 120 giây) + `ProNet.h` (test loopback/Credential Manager). Client OIDC `tsutramon` có từ 25/11 (tsudev DK3).
 - 25/11/2026 - **SEC2 + 26.11.2501**: trang `/security/` (#92; SSL Labs A+ 4/4, Observatory A+ 140, Scorecard 7.5 - workflow trước đó startup_failure vì allowlist Actions của repo chặn `ossf/scorecard-action`, chủ dự án đã thêm); phát hành 26.11.2501 (#93). P9: phiếu DK3 ở tsudev (#382), INSERT client là việc chủ dự án.
 - 24/11/2026 - **P8**: ADR-0002 (kiểm kê dữ liệu rời máy: chỉ manifest cập nhật GitHub + ipify khi mở hộp thoại Thông tin mạng; Pro = đồng bộ), `ProRenewal.h` + `tests/ProRenewalTests.cpp` (27 phép kiểm), UI1: viền màu nhấn cho icon khay taskbar Tối + viền sát mép kiểu Win7, `tools/check_tray_icons.py` trong CI; issue #87-#89.
 - 24/11/2026 - **P6 + P7**: công bố Release `v26.11.2401` (chủ dự án chấp nhận cờ heuristic Malwarebytes trên arm64ec; x64/x86 0/73); kiểm SHA256SUMS + `gh attestation verify` 6 gói + chữ ký ECDSA manifest ĐẠT; link tải tiền tố `tsudev-tsudev/...` tải đúng SHA trong manifest; website tramon.tsudev.com (Tải về 2401) + 301 từ tên miền cũ giữ đường dẫn/truy vấn. Đổi tên repo `tsudev-org/tsutramon`, kiểm manifest/link tải/raw/API theo tên cũ ĐẠT; tài liệu + website trỏ tên mới (chứng thực bản ≤ 2401 kiểm bằng tên repo cũ). Malwarebytes ticket 8706403. Chưa thử tự cập nhật 1202 → 2401 bằng giao diện trên Windows (đường tải + SHA đã kiểm bằng curl).
