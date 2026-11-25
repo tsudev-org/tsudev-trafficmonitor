@@ -83,7 +83,9 @@ public:
     void SetOffline(bool offline);
     void SetInstallationId(const std::string& installation_id);
 
-    void StartSignIn();         // mở trình duyệt, chờ callback (huỷ được)
+    // Mở trình duyệt, chờ callback (huỷ được). idp_hint: "google"/"github" mở thẳng nhà cung cấp (AUTH 13.2),
+    // rỗng = trang đăng nhập tsudev.com (email, khoá truy cập, mã QR); giá trị lạ bị bỏ (ProAuth::IsKnownIdpHint).
+    void StartSignIn(const std::string& idp_hint = std::string());
     void CancelSignIn();
     void RefreshNow();          // chỉ khi đã đăng nhập và không ngoại tuyến
     // Đăng xuất và xoá dữ liệu cục bộ: huỷ lượt đăng nhập đang chờ, thu hồi refresh token (nếu được phép gọi mạng),

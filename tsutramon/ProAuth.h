@@ -53,6 +53,15 @@ namespace ProAuth
     // offline_access để có refresh token; oidc-provider bỏ offline_access nếu thiếu prompt=consent.
     inline constexpr const char* kScope = "openid offline_access tsudev.entitlements";
     inline constexpr const char* kCallbackPath = "/callback";
+    // Lối đăng nhập gợi ý (AUTH 13.2: nút "Tiếp tục với Google/GitHub" mở thẳng nhà cung cấp). Chép NGUYÊN VĂN
+    // IDP_HINTS của auth-service tsudev.com (services/auth-service/src/oidc.ts); giá trị khác bị bỏ, IdP cũng lờ đi.
+    inline constexpr const char* kIdpHints[] = { "google", "github" };
+    inline bool IsKnownIdpHint(const std::string& hint)
+    {
+        for (const char* h : kIdpHints)
+            if (hint == h) return true;
+        return false;
+    }
     inline constexpr const char* kEntitlementType = "tsu-ent+jwt";
     inline constexpr const char* kAlgorithm = "ES256";        // thuật toán DUY NHẤT được nhận
     inline constexpr const char* kInstallationHeader = "X-Tsu-Installation";
@@ -431,6 +440,7 @@ namespace ProAuth
         std::string nonce;       // buộc id_token vào đúng lượt này
         std::string verifier;    // PKCE code_verifier (43 ký tự = 256 bit)
         std::string challenge;   // base64url(SHA-256(verifier))
+        std::string idp_hint;    // rỗng hoặc một giá trị kIdpHints; giá trị lạ KHÔNG được gửi
 
         std::string Url(const std::string& endpoint = kAuthorizationEndpoint) const
         {
@@ -452,6 +462,8 @@ namespace ProAuth
                 url += sep; url += kv.first; url += '='; url += UrlEncode(kv.second);
                 sep = '&';
             }
+            if (IsKnownIdpHint(idp_hint))
+                url += "&idp_hint=" + idp_hint;
             return url;
         }
         bool StateMatches(const std::string& received) const
@@ -814,9 +826,10 @@ namespace ProAuth
     inline std::string NewInstallationId() { return RandomToken(16); }
 
     // Lỗi sinh số ngẫu nhiên => trả yêu cầu rỗng (state rỗng); người gọi phải kiểm IsUsable()
-    inline AuthorizationRequest NewAuthorizationRequest(unsigned port)
+    inline AuthorizationRequest NewAuthorizationRequest(unsigned port, const std::string& idp_hint = std::string())
     {
         AuthorizationRequest r;
+        r.idp_hint = IsKnownIdpHint(idp_hint) ? idp_hint : std::string();
         r.redirect_uri = RedirectUri(port);
         r.state = RandomToken();
         r.nonce = RandomToken();

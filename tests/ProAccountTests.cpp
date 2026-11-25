@@ -98,6 +98,7 @@ struct Fake
     std::vector<std::wstring> headers;
     std::vector<std::string> bodies;
     std::string nonce;
+    std::string idp_hint;      // idp_hint trong URL /authorize lần mở trình duyệt gần nhất
     BrowserMode browser = BrowserMode::Ok;
     int browser_opens = 0;
     bool network_down = false;
@@ -170,6 +171,7 @@ struct Fake
         std::lock_guard<std::mutex> lk(mu);
         browser_opens++;
         nonce = QueryParam(url, "nonce");
+        idp_hint = QueryParam(url, "idp_hint");
         const std::string redirect = QueryParam(url, "redirect_uri");
         const std::string state = QueryParam(url, "state");
         const unsigned port = static_cast<unsigned>(std::stoul(redirect.substr(std::strlen("http://127.0.0.1:"))));
@@ -242,11 +244,11 @@ static void RemoveDir(const std::wstring& dir)
 }
 
 // Chạy trọn lượt đăng nhập thành công, trả về sau khi luồng nền rảnh
-static bool SignIn(Fake& f, CProAccount& a)
+static bool SignIn(Fake& f, CProAccount& a, const std::string& idp_hint = std::string())
 {
     (void)f;
     const uint64_t rev = a.GetStatus().revision;
-    a.StartSignIn();
+    a.StartSignIn(idp_hint);
     return WaitFor(a, [rev](const CProAccount::Status& s) { return s.revision > rev && Idle(s) && (s.has_entitlement || s.last_error != CProAccount::Error::None); });
 }
 
@@ -297,6 +299,7 @@ static void TestSignInFull()
         CHECK(s.signed_in && s.has_entitlement && s.last_error == CProAccount::Error::None);
         CHECK(s.entitlement.sub == "u1" && s.entitlement.pro_until == T0 + 3 * 86400 && s.last_online_ok == T0 + 10);
         CHECK(f.browser_opens == 1 && f.has_secret && f.secret == "rt-1");
+        CHECK(f.idp_hint.empty());
         std::lock_guard<std::mutex> lk(f.mu);
         CHECK(f.calls.size() == 3);
         if (f.calls.size() == 3)
@@ -332,6 +335,29 @@ static void TestSignInFull()
         CHECK(c.GetStatus().signed_in && !c.GetStatus().has_entitlement);
         int64_t exp = 0, until = 0;
         CHECK(!c.RenewalInput(exp, until));
+    }
+    RemoveDir(dir);
+}
+
+// Nút "Tiếp tục với Google/GitHub" (AUTH 13.2): idp_hint chỉ áp cho đúng lượt đó, giá trị lạ không được gửi
+static void TestSignInIdpHint()
+{
+    Fake f;
+    const std::wstring dir = NewTempDir();
+    {
+        CProAccount a(f.Deps());
+        a.Init(dir, kInstallation, false);
+        CHECK(SignIn(f, a, "github"));
+        CHECK(a.GetStatus().signed_in && f.idp_hint == "github");
+        a.SignOutAndClear();
+        CHECK(WaitFor(a, [](const CProAccount::Status& s) { return Idle(s) && !s.signed_in; }));
+        CHECK(SignIn(f, a, "google&prompt=none"));
+        CHECK(a.GetStatus().signed_in && f.idp_hint.empty());
+        a.SignOutAndClear();
+        CHECK(WaitFor(a, [](const CProAccount::Status& s) { return Idle(s) && !s.signed_in; }));
+        CHECK(SignIn(f, a, "google"));
+        CHECK(f.idp_hint == "google");
+        CHECK(f.browser_opens == 3);
     }
     RemoveDir(dir);
 }
@@ -508,6 +534,7 @@ int main()
     TestGuestNoNetwork();
     TestOfflineBlocksSignIn();
     TestSignInFull();
+    TestSignInIdpHint();
     TestBadCallbacks();
     TestCancelSignIn();
     TestWrongEntitlementSubject();

@@ -94,6 +94,7 @@ public:
     CProAccount m_pro_account;
     std::string m_installation_id;          //Mã cài đặt 128 bit (AUTH_AND_ACCOUNT 14.3), chỉ gửi đi khi đã đăng nhập
     int64_t m_pro_notified_until{};         //Khoá tsu.pro_expired.notified_until (PRODUCT_POLICY 7.6)
+    std::wstring m_last_sign_in_method;     //Lối đăng nhập lần trước (google/github/email/passkey/qr) cho nhãn 13.2; xoá khi đăng xuất
 
     CMenu m_main_menu;          //Menu chuột phải của cửa sổ chính
     CMenu m_main_menu_plugin;   //Menu chuột phải khi nhấp vào vùng plugin của cửa sổ chính

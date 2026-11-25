@@ -56,5 +56,9 @@ hiển thị được vì cần tài khoản.
 **Việc phát sinh:**
 - [x] Kiểm kê (mục 1.1), ADR này, `ProRenewal.h` + test (P8, 24/11/2026)
 - [x] Phase đăng nhập OIDC + JWS quyền lợi + hộp thoại 7.6 (P9, 25/11/2026: `ProAuth.h`, `ProNet.h`, `ProAccount.cpp`, thẻ Cài đặt "Tài khoản tsudev", Chế độ ngoại tuyến hoàn toàn)
-- [ ] Màn Pro/Ủng hộ 13.2, đăng nhập QR (QR1)
+- [x] Màn Pro/Ủng hộ 13.2, đăng nhập QR (QR1) (25/11/2026, `SignInDlg`): màn đăng nhập bản địa theo khung 13.2 (Google/GitHub
+  qua `idp_hint`, email, khoá truy cập, mã QR - QR và khoá truy cập do trang tsudev.com làm theo CROSS_DEVICE_LOGIN mục 2,
+  app không tự dựng QR), ô Điều khoản không tích sẵn + bảng đồng ý 13.4, "Dùng ngay, không cần tài khoản"; màn TsuDEV
+  Pro/Ủng hộ cùng khung (mua/gia hạn trên web, ủng hộ không cần tài khoản). Lệch: không có ô chọn ngôn ngữ trên màn
+  (ngôn ngữ theo Cài đặt của app), nền theo hộp thoại Windows (app chưa có chế độ Tối cho hộp thoại)
 - [ ] Phase đồng bộ qua TsuDEV Sync + xuất lịch sử CSV + thông báo nhiều thiết bị (7.3, 5 test bắt buộc)

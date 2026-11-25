@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "TsuTramon.h"
 #include "AccountSettingsDlg.h"
+#include "SignInDlg.h"
 
 static const UINT_PTR ACCOUNT_UI_TIMER = 1;
 
@@ -97,19 +98,7 @@ void CAccountSettingsDlg::UpdateAccountUi(bool force)
     SetDlgItemText(IDC_ACCOUNT_STATUS_STATIC, status);
 
     //Dòng TsuDEV Pro: chỉ dựa vào JWS đã kiểm chữ ký và còn hạn (PRODUCT_POLICY 7.4)
-    CString pro;
-    if (s.has_entitlement && s.entitlement.exp > now)
-    {
-        if (s.entitlement.pro_until > now)
-            pro = CCommon::LoadTextFormat(IDS_ACCOUNT_PRO_ACTIVE, { theApp.FormatProDate(s.entitlement.pro_until) });
-        else if (s.entitlement.pro_until > 0)
-            pro = CCommon::LoadTextFormat(IDS_ACCOUNT_PRO_EXPIRED, { theApp.FormatProDate(s.entitlement.pro_until) });
-        else
-            pro = CCommon::LoadText(IDS_ACCOUNT_PRO_NONE);
-    }
-    else if (s.signed_in)
-        pro = CCommon::LoadText(IDS_ACCOUNT_PRO_UNKNOWN);
-    SetDlgItemText(IDC_ACCOUNT_PRO_STATIC, pro);
+    SetDlgItemText(IDC_ACCOUNT_PRO_STATIC, CSignInDlg::ProStatusText(s, now));
 
     const bool busy = s.op != CProAccount::Op::None;
     const bool offline = m_offline_mode || theApp.m_general_data.offline_mode;
@@ -140,7 +129,9 @@ void CAccountSettingsDlg::OnDestroy()
 
 void CAccountSettingsDlg::OnBnClickedSignIn()
 {
-    theApp.m_pro_account.StartSignIn();
+    //Màn đăng nhập 13.2: chọn lối vào (Google, GitHub, email, khoá truy cập, mã QR) rồi mới mở trình duyệt
+    CSignInDlg dlg(CSignInDlg::Mode::SignIn, this);
+    dlg.DoModal();
     UpdateAccountUi(true);
 }
 
@@ -156,9 +147,14 @@ void CAccountSettingsDlg::OnBnClickedRefresh()
 
 void CAccountSettingsDlg::OnBnClickedPro()
 {
-    //Bản tải trực tiếp/winget/Scoop: trang Pro trên web (ADR-0002 mục 2.3, PRODUCT_POLICY 7.3)
-    const std::string url = ProAuth::ProPageUrl();
-    ShellExecuteW(NULL, L"open", std::wstring(url.begin(), url.end()).c_str(), NULL, NULL, SW_SHOWNORMAL);
+    //Màn TsuDEV Pro/Ủng hộ cùng khung 13.2: mua/gia hạn trên web (ADR-0002 mục 2.3), ủng hộ không cần tài khoản
+    CSignInDlg dlg(CSignInDlg::Mode::Pro, this);
+    if (dlg.DoModal() == IDRETRY)
+    {
+        CSignInDlg sign_in(CSignInDlg::Mode::SignIn, this);
+        sign_in.DoModal();
+    }
+    UpdateAccountUi(true);
 }
 
 void CAccountSettingsDlg::OnBnClickedSignOut()
