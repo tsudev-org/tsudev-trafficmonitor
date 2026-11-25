@@ -34,6 +34,10 @@ jobs:
       - name: Clean Codebase - mã chết, export và phụ thuộc thừa (knip, PROJECT_STRUCTURE mục 3.1)
         run: npm run check:knip
       - run: npm run build
+        env:
+          # Khối "Cài bằng lệnh" hỏi API GitHub (winget-pkgs) lúc build; không xác thực thì runner dùng chung IP
+          # hay bị 403 giới hạn tần suất (PR #96). Token chỉ đọc, mặc định của workflow.
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Cài Chromium cho kiểm tra khả năng truy cập
         run: npx playwright install --with-deps chromium
       - name: Kiểm tra khả năng truy cập (axe-core, WCAG 2.2 AA, Sáng + Tối, CSP production)
