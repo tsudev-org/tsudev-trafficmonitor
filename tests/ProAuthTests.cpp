@@ -73,7 +73,9 @@ static void TestJson()
     CHECK(!v.GetInt("b", n));        // sai kiểu
     CHECK(!v.GetString("a", s));
     // Thoát ký tự, \u có cặp thay thế => UTF-8
-    CHECK(JsonParser::Parse(R"({"s":"a\"b\\c\/\n\u1EC7\uD83D\uDE00"})", v) && v.GetString("s", s)
+    // Chuỗi thường, KHÔNG raw string: MSVC dịch \uXXXX cả trong R"(...)" (g++ thì không) => lỗi C3850 ở CI
+    const std::string esc = "{\"s\":\"a\\\"b\\\\c\\/\\n\\u1EC7\\uD83D\\uDE00\"}";
+    CHECK(JsonParser::Parse(esc, v) && v.GetString("s", s)
           && s == "a\"b\\c/\n\xE1\xBB\x87\xF0\x9F\x98\x80");
     // Số: nguyên int64, biên, thập phân/mũ không phải nguyên
     CHECK(JsonParser::Parse(R"({"n":9223372036854775807,"m":-9223372036854775808})", v));
