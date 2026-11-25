@@ -19,6 +19,9 @@ Phiếu: `logs/handover/20261122-AV1_bao-nham-antivirus.md`. Thư soạn sẵn c
 | 25/11/2026 | `v26.11.2501` | `tsutramon_26.11.2501_windows-arm64ec.zip` (+ bản sao tên cũ cùng byte) | `27e3af98256374b142e37b27a695963755afe4dcefb00a3c0e9072e353a8d19c` | 1+0/74 | Malwarebytes `Malware.Heuristic.2108` |
 | 25/11/2026 | `v26.11.2501` | `tsutramon_26.11.2501_windows-x64.zip` | `3151df0dc8fd942e6f0321401154a7fdf22bcebf2a29498d87ba46da373af878` | 0+0/74 | - |
 | 25/11/2026 | `v26.11.2501` | `tsutramon_26.11.2501_windows-x86.zip` | `8aa3237c497c0906ed456020481880e2d90024b3679b3c102f123622fe365b24` | 0+0/74 | - |
+| 25/11/2026 | `v26.11.2502` | `tsutramon_26.11.2502_windows-arm64ec.zip` (+ bản sao tên cũ cùng byte) | `f19872732301decbe991a5abb7a7bf34b01439f68fa7574179dae99a2a2c4832` | 1+0/74 | Malwarebytes `Malware.Heuristic.2108` |
+| 25/11/2026 | `v26.11.2502` | `tsutramon_26.11.2502_windows-x64.zip` | `65d4222c31bb540a2d857f9e0c4960f0478ff5048ef2eb3e2e9ce6ba85bbd899` | 0+0/74 | - |
+| 25/11/2026 | `v26.11.2502` | `tsutramon_26.11.2502_windows-x86.zip` | `bea246ca36ce206e6f7f64f6e1352dfeb32a48aa7b27b19e36452ba6619889ad` | 0+0/74 | - |
 
 Malwarebytes `Malware.Heuristic.2108` là nhận diện heuristic chung (không phải chữ ký mẫu mã độc cụ thể), chỉ trên
 bản ARM64EC; bản x64/x86 build từ cùng mã nguồn sạch 0/74.
@@ -52,3 +55,6 @@ Kiểm thư soạn sẵn (mục 3.8 phiếu điều phối) ngày 24/11/2026:
   với bản 1202 đang công khai; x64/x86 sạch). Chủ dự án **chấp nhận** và cho công bố trong phiên; hồ sơ báo nhầm nộp cùng
   ngày (ticket 8706403, trong hạn 48 giờ). Nội dung ticket bị cắt ở 500 ký tự (giới hạn chatbot) nhưng đủ tên nhận diện,
   2 SHA-256, link VirusTotal và Releases; nếu hãng hỏi thêm, trả lời thư xác nhận bằng thư đầy đủ ở mục 2 (đã sửa 2 câu).
+- 25/11/2026: `v26.11.2502` về nháp vì đúng cờ đó (arm64ec 1/74 Malwarebytes `Malware.Heuristic.2108`; x64/x86 0/74);
+  SHA256SUMS 6/6, `gh attestation verify` 3/3, chữ ký ECDSA manifest ĐẠT. Chủ dự án **chấp nhận**, công bố Latest trong
+  phiên. Ticket 8706403 vẫn mở: khi hãng trả lời, gửi kèm SHA-256 của 2501 và 2502 (bảng mục 1).
