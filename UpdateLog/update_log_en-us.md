@@ -5,6 +5,22 @@
 Changes in each Tsu Tramon release by tsudev, newest first. One-line summary per release: [CHANGELOG.md](../CHANGELOG.md).
 Releases 26.11.1201-1202 were called **tsudev-trafficmonitor** and earlier ones **TrafficMonitor-VN**; their entries below are kept as released.
 
+## Next release (unreleased)
+
+### tsudev account (optional)
+* New tab **Options → tsudev account**: sign in to a tsudev account to check and renew **TsuDEV Pro**. Optional - **without signing in, Tsu Tramon keeps every feature and sends none of your data over the network**.
+* Sign-in screen: **Google**, **GitHub**, **tsudev account (email)**, a **passkey**, or a **QR code** scanned with a signed-in phone. Every option opens tsudev.com in your browser; your password is never typed into Tsu Tramon.
+* The session is kept in Windows Credential Manager; the TsuDEV Pro status is digitally signed, so it stays correct while offline. **Sign out and clear local data** revokes the session on tsudev.com and deletes all account data on this computer (settings and traffic history are kept).
+* TsuDEV Pro renewal reminder 7 days before expiry and a one-time notice once it has expired.
+* **TsuDEV Pro** screen: see your status, buy or renew on tsudev.com, support tsudev (no account needed).
+
+### Full offline mode
+* A switch in **Options → tsudev account**: when on, Tsu Tramon makes no connections on its own - no update check, no public IP lookup, no TsuDEV Pro sign-in or refresh.
+* New [Privacy](../PRIVACY_en-us.md) page listing every network connection the app makes, when and what it sends.
+
+### Plugins
+* The plugin interface class is renamed `ITsuTramon`; the old names `ITsudevTrafficMonitor` and `ITrafficMonitor` still work. API version 8 and binary compatibility are unchanged - existing plugins need no rebuild.
+
 ## 26.11.2501 (25/11/2026)
 
 ### Tray icon

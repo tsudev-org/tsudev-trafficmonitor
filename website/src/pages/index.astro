@@ -17,6 +17,7 @@ const baoMat = [
   { t: 'Bản cập nhật có chữ ký', d: 'Thông tin phiên bản được ký ECDSA và xác minh trong ứng dụng; kèm SHA-256 của từng gói.' },
   { t: 'Chứng thực nguồn gốc build', d: 'Mỗi gói được GitHub Actions build từ mã nguồn công khai và chứng thực, kiểm tra được bằng gh attestation verify.' },
   { t: 'Chỉ HTTPS, máy chủ cho phép', d: 'Mọi kết nối chỉ qua HTTPS tới danh sách máy chủ cố định, có giới hạn thời gian và kích thước.' },
+  { t: 'Không tài khoản, không gửi dữ liệu', d: 'Chưa đăng nhập tài khoản tsudev thì ứng dụng không gửi dữ liệu nào của bạn; Chế độ ngoại tuyến hoàn toàn chặn mọi kết nối tự động.' },
   { t: 'Gia cố tệp chương trình', d: 'Bật Control Flow Guard, ASLR, DEP, CET; chống nạp DLL giả mạo khi khởi động và khi nạp plugin.' },
 ];
 ---
@@ -95,7 +96,7 @@ const baoMat = [
   <section class="muc" aria-labelledby="bao-mat">
     <div class="khung">
       <h2 id="bao-mat">An toàn từ khâu build tới khâu cập nhật</h2>
-      <p class="muc__dan">Chi tiết và cách tự kiểm tra ở trang <a href="/bao-mat/">Bảo mật</a>.</p>
+      <p class="muc__dan">Chi tiết và cách tự kiểm tra ở trang <a href="/bao-mat/">Bảo mật</a> và <a href="/quyen-rieng-tu/">Quyền riêng tư</a>.</p>
       <ul class="the-luoi">
         {baoMat.map((x) => <li class="the"><h3>{x.t}</h3><p>{x.d}</p></li>)}
       </ul>
