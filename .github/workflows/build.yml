@@ -135,6 +135,15 @@ jobs:
           ProNetTests.exe || exit /b 1
           cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /I tsudev-trafficmonitor tests\ProNetTests.cpp /Fe:ProNetTestsAsan.exe || exit /b 1
           ProNetTestsAsan.exe
+      - name: Kiểm thử luồng tài khoản tsudev (ProAccount.cpp - máy chủ giả, loopback thật; không gọi mạng ngoài) - thường và ASan
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSDIR=%%i
+          call "%VSDIR%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /sdl /DUNICODE /D_UNICODE /I tsudev-trafficmonitor tests\ProAccountTests.cpp tsudev-trafficmonitor\ProAccount.cpp /Fe:ProAccountTests.exe || exit /b 1
+          ProAccountTests.exe || exit /b 1
+          cl /nologo /std:c++17 /EHsc /W4 /WX /utf-8 /Zi /fsanitize=address /DUNICODE /D_UNICODE /I tsudev-trafficmonitor tests\ProAccountTests.cpp tsudev-trafficmonitor\ProAccount.cpp /Fe:ProAccountTestsAsan.exe || exit /b 1
+          ProAccountTestsAsan.exe
       - name: Fuzzing đầu vào đăng nhập (JSON/JWS/callback loopback, libFuzzer + ASan, 120 giây)
         shell: cmd
         run: |
