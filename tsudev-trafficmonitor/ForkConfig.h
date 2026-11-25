@@ -97,3 +97,4 @@
 #define FORK_TSUDEV_PRO_URL_PREFIX      "https://tsudev.com/pro?app="
 // Cổng quay về loopback của app desktop (AUTH mục 4): http://127.0.0.1:<cổng ngẫu nhiên>/callback
 #define FORK_TSUDEV_LOOPBACK_PREFIX     "http://127.0.0.1:"
+#define FORK_TSUDEV_HTTPS_ORIGIN        "https://tsudev.com/"   // ProNet.h chỉ gọi HTTPS tới gốc này

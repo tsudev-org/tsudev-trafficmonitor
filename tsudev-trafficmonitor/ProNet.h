@@ -45,11 +45,11 @@ namespace ProNet
         return w;
     }
 
-    // Đích hợp lệ: https://tsudev.com/<đường dẫn> (không cổng lạ, không thông tin đăng nhập trong URL, không máy chủ khác).
+    // Đích hợp lệ: FORK_TSUDEV_HTTPS_ORIGIN + <đường dẫn> (không cổng lạ, không thông tin đăng nhập trong URL, không máy chủ khác).
     // Trả phần đường dẫn + truy vấn, rỗng nếu không hợp lệ.
     inline std::string PathIfTsudevUrl(const std::string& url)
     {
-        static const std::string prefix = "https://tsudev.com/";
+        static const std::string prefix = FORK_TSUDEV_HTTPS_ORIGIN;
         if (url.compare(0, prefix.size(), prefix) != 0)
             return std::string();
         std::string path = url.substr(prefix.size() - 1);
@@ -75,7 +75,7 @@ namespace ProNet
         const std::string path = PathIfTsudevUrl(url);
         if (path.empty())
         {
-            r.error = L"URL không thuộc https://tsudev.com/";
+            r.error = L"URL không thuộc máy chủ tsudev.com";
             return r;
         }
         HINTERNET session = WinHttpOpen(user_agent.c_str(), WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
