@@ -29,6 +29,7 @@
 #include "HistoryTrafficFile.h"
 #include "EdgeDock.h"
 #include "EdgeHandleWnd.h"
+#include "ProRenewal.h"
 
 // Hộp thoại CTsudevTrafficMonitorDlg
 class CTsudevTrafficMonitorDlg : public CDialog
@@ -156,6 +157,13 @@ protected:
     POINT CalculateWindowMoveOffset(CRect rect, bool screen_changed);  //Tính vị trí cần di chuyển tới khi cửa sổ nằm ngoài vùng màn hình
     void CheckWindowPos(bool screen_changed = false);          //Kiểm tra vị trí cửa sổ; nếu cửa sổ nằm ngoài màn hình thì di chuyển để toàn bộ cửa sổ nằm trong màn hình và trả về vị trí mới
     void GetScreenSize();           //Lấy kích thước màn hình
+
+    // ---- Nhắc gia hạn / báo hết kỳ TsuDEV Pro (PRODUCT_POLICY 7.6; logic: ProRenewal.h; nguồn: JWS của CProAccount) ----
+    ProRenewal::Tracker m_pro_tracker;
+    bool m_pro_renewal_pending{ false };    //Cần đánh giá lại khi rảnh (không hộp thoại nào đang mở)
+    bool m_pro_notice_showing{ false };
+    void CheckProRenewal();
+    void ShowProRenewalNotice(const ProRenewal::Decision& d);
 
     // ---- Thu cửa sổ nổi vào mép màn hình (logic: EdgeDock.h; tay nắm mũi tên: EdgeHandleWnd.h) ----
     enum class EdgeAnim { None, Hide, Show, Glide };
@@ -309,6 +317,7 @@ public:
 protected:
     afx_msg LRESULT OnSettingsApplied(WPARAM wParam, LPARAM lParam);
     afx_msg LRESULT OnReinitConnection(WPARAM wParam, LPARAM lParam);
+    afx_msg LRESULT OnProAccountChanged(WPARAM wParam, LPARAM lParam);
 public:
     afx_msg void OnDisplaySettings();
     afx_msg void OnLButtonUp(UINT nFlags, CPoint point);

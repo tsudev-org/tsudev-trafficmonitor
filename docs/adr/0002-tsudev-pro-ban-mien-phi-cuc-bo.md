@@ -21,6 +21,7 @@ cuối và báo hết kỳ một lần (7.6). Bước 1 của phiếu PRO1 là k
 | Link tải gói `github.com/.../releases/download/...` | Người dùng đồng ý cập nhật | Không | Gói zip (kiểm SHA-256 với manifest) | `UpdateDownload.h` |
 | `api.ipify.org`, `api6.ipify.org` | CHỈ khi người dùng mở hộp thoại "Thông tin kết nối mạng" | Không (dịch vụ thấy IP công cộng - đó chính là thứ được hỏi) | Địa chỉ IP công cộng | Không gửi vị trí, không lưu |
 | `tramon.tsudev.com`, GitHub (Trợ giúp, Nhật ký, Ủng hộ, Kho giao diện) | Người dùng bấm liên kết | Mở trình duyệt mặc định | - | Ứng dụng không tự gọi |
+| `tsudev.com/oidc/token`, `/oidc/jwks`, `/oidc/token/revocation`, `/api/me/entitlements` (từ P9, `ProAccount.cpp`) | CHỈ khi đã đăng nhập tài khoản tsudev: lượt đăng nhập, 15 giây sau khi khởi động rồi mỗi 12 giờ, bấm "Làm mới trạng thái", đăng xuất | Mã đăng nhập + PKCE, refresh token, access token, mã cài đặt (`X-Tsu-Installation`, 128 bit ngẫu nhiên) | Token, JWKS, JWS quyền lợi | Chưa đăng nhập hoặc bật **Chế độ ngoại tuyến hoàn toàn** ⇒ không gọi (có test `tests/ProAccountTests.cpp`); công tắc này chặn cả mọi dòng trên |
 
 Dữ liệu người dùng (cấu hình `config.ini`, lịch sử lưu lượng `history_traffic.dat`, skin, plugin) chỉ nằm ở
 `%AppData%\tsutramon` (hoặc thư mục chương trình ở chế độ di động) - mức D1, **không** có đường gửi lên mạng nào. Ứng dụng
@@ -54,5 +55,6 @@ hiển thị được vì cần tài khoản.
 
 **Việc phát sinh:**
 - [x] Kiểm kê (mục 1.1), ADR này, `ProRenewal.h` + test (P8, 24/11/2026)
-- [ ] Phase đăng nhập OIDC + JWS quyền lợi + hộp thoại 7.6 + màn Pro (cần client OIDC trên tsudev.com)
+- [x] Phase đăng nhập OIDC + JWS quyền lợi + hộp thoại 7.6 (P9, 25/11/2026: `ProAuth.h`, `ProNet.h`, `ProAccount.cpp`, thẻ Cài đặt "Tài khoản tsudev", Chế độ ngoại tuyến hoàn toàn)
+- [ ] Màn Pro/Ủng hộ 13.2, đăng nhập QR (QR1)
 - [ ] Phase đồng bộ qua TsuDEV Sync + xuất lịch sử CSV + thông báo nhiều thiết bị (7.3, 5 test bắt buộc)

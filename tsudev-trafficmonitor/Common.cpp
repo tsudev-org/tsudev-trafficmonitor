@@ -870,6 +870,13 @@ bool CCommon::IsTrustedHostUrl(const wstring& url)
 
 bool CCommon::GetURL(const wstring& url, std::string& result, const wstring& user_agent)
 {
+    //Chế độ ngoại tuyến hoàn toàn: chặn mọi kết nối ra qua hàm này (kiểm tra cập nhật, IP công cộng) - AUTH_AND_ACCOUNT 14.1
+    if (theApp.m_general_data.offline_mode)
+    {
+        if (theApp.m_debug_log)
+            CCommon::WriteLog((L"GetURL: blocked by offline mode: " + url).c_str(), theApp.m_log_path.c_str());
+        return false;
+    }
     //Bảo mật: chỉ cho phép tải qua HTTPS. CInternetSession::OpenURL còn hỗ trợ file:// và ftp://,
     //nếu URL bị thay đổi có thể bị lợi dụng để đọc tệp cục bộ hoặc truyền dữ liệu không mã hóa.
     if (!IsHttpsUrl(url))

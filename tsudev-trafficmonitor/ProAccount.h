@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 // Tài khoản tsudev trong Tsu Tramon (P9 phần 3): nối logic thuần ProAuth.h và tầng Windows ProNet.h thành luồng
 // đăng nhập / làm mới quyền lợi / đăng xuất chạy trên MỘT luồng nền. KHÔNG phụ thuộc MFC (ProAccount.cpp biên dịch
 // không dùng PCH vì ProNet.h cần winsock2.h trước windows.h). Giao diện chỉ đọc Status() và gửi lệnh.

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 // Tầng nền tảng (Windows) của đăng nhập tsudev cho Tsu Tramon (P9 phần 2): HTTPS tới tsudev.com, cổng quay về loopback,
 // kho bí mật của hệ điều hành. Logic thuần (URL, JSON, JWS) ở ProAuth.h. KHÔNG phụ thuộc MFC; kiểm thử ở
 // tests/ProNetTests.cpp (không gọi mạng ra ngoài - chỉ 127.0.0.1 và Credential Manager của tài khoản chạy test).

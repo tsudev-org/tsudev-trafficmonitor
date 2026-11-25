@@ -868,6 +868,11 @@
     <ClInclude Include="UpdateDownload.h" />
     <ClInclude Include="EdgeDock.h" />
     <ClInclude Include="LegacyNames.h" />
+    <ClInclude Include="ProAuth.h" />
+    <ClInclude Include="ProNet.h" />
+    <ClInclude Include="ProRenewal.h" />
+    <ClInclude Include="ProAccount.h" />
+    <ClInclude Include="AccountSettingsDlg.h" />
     <ClInclude Include="EdgeHandleWnd.h" />
     <ClInclude Include="UpdateHelper.h" />
     <ClInclude Include="UpdateSecurity.h" />
@@ -882,6 +887,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AboutDlg.cpp" />
+    <ClCompile Include="AccountSettingsDlg.cpp" />
+    <ClCompile Include="ProAccount.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="AdapterCommon.cpp" />
     <ClCompile Include="AppAlreadyRuningDlg.cpp" />
     <ClCompile Include="auto_start_helper.cpp" />

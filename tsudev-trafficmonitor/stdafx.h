@@ -80,7 +80,9 @@ using std::ofstream;
 
 #define WM_EDGE_HANDLE_ACTION (WM_USER+1013)        //Tay nắm mũi tên ở mép màn hình được bấm/kéo (wParam: EdgeHandleAction, lParam: độ dịch khi kéo)
 
-#define WM_NEXT_USER_MSG (WM_USER+1014)
+#define WM_PRO_ACCOUNT_CHANGED (WM_USER+1014)       //Trạng thái tài khoản tsudev / TsuDEV Pro đổi (luồng nền CProAccount gửi)
+
+#define WM_NEXT_USER_MSG (WM_USER+1015)
 
 //#define CONFIG_PATH _T(".\\config.ini")
 //#define CONFIG_PATHA ".\\config.ini"

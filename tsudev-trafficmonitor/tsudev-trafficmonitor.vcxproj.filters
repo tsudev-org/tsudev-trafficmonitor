@@ -382,6 +382,21 @@
     <ClInclude Include="EdgeDock.h">
       <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
     </ClInclude>
+    <ClInclude Include="ProAuth.h">
+      <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
+    </ClInclude>
+    <ClInclude Include="ProNet.h">
+      <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
+    </ClInclude>
+    <ClInclude Include="ProRenewal.h">
+      <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
+    </ClInclude>
+    <ClInclude Include="ProAccount.h">
+      <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
+    </ClInclude>
+    <ClInclude Include="AccountSettingsDlg.h">
+      <Filter>Mã nguồn và header\Lớp hộp thoại\Hộp thoại Tùy chọn</Filter>
+    </ClInclude>
     <ClInclude Include="LegacyNames.h">
       <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
     </ClInclude>
@@ -662,6 +677,12 @@
     </ClCompile>
     <ClCompile Include="WinVersionHelper.cpp">
       <Filter>Mã nguồn và header\Lớp dùng chung\WinVersionHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="ProAccount.cpp">
+      <Filter>Mã nguồn và header\Lớp dùng chung</Filter>
+    </ClCompile>
+    <ClCompile Include="AccountSettingsDlg.cpp">
+      <Filter>Mã nguồn và header\Lớp hộp thoại\Hộp thoại Tùy chọn</Filter>
     </ClCompile>
     <ClCompile Include="AboutDlg.cpp">
       <Filter>Mã nguồn và header\Lớp hộp thoại\AboutDlg</Filter>

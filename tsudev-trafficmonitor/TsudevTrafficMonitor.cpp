@@ -156,6 +156,29 @@ void CTsudevTrafficMonitorApp::LoadConfig()
 
     //Thiết lập chung
     m_general_data.check_update_when_start = ini.GetBool(_T("general"), _T("check_update_when_start"), true);
+    m_general_data.offline_mode = ini.GetBool(L"general", L"offline_mode", false);
+
+    //Tài khoản tsudev (P9): mã cài đặt ngẫu nhiên 128 bit sinh ở lần chạy đầu, lưu cùng cấu hình (AUTH_AND_ACCOUNT 14.3)
+    {
+        const std::wstring id_w = ini.GetString(L"tsudev_account", L"installation_id", L"");
+        std::string id;
+        bool ascii = true;
+        for (wchar_t c : id_w)
+        {
+            if (c >= 0x80)
+                ascii = false;
+            id += static_cast<char>(c);
+        }
+        if (!ascii || !ProAuth::IsValidInstallationId(id))
+        {
+            id = ProAuth::NewInstallationId();
+            CIniHelper writer{ m_config_path };
+            writer.WriteString(L"tsudev_account", L"installation_id", std::wstring(id.begin(), id.end()));
+            writer.Save();
+        }
+        m_installation_id = id;
+        m_pro_notified_until = _wtoi64(ini.GetString(L"tsudev_account", L"tsu.pro_expired.notified_until", L"0").c_str());
+    }
     //m_general_data.allow_skin_cover_font = ini.GetBool(_T("general"), _T("allow_skin_cover_font"), true);
     //m_general_data.allow_skin_cover_text = ini.GetBool(_T("general"), _T("allow_skin_cover_text"), true);
     m_general_data.show_all_interface = ini.GetBool(L"general", L"show_all_interface", false);
@@ -381,6 +404,9 @@ void CTsudevTrafficMonitorApp::SaveConfig()
 
     //Thiết lập chung
     ini.WriteBool(_T("general"), _T("check_update_when_start"), m_general_data.check_update_when_start);
+    ini.WriteBool(L"general", L"offline_mode", m_general_data.offline_mode);
+    ini.WriteString(L"tsudev_account", L"installation_id", std::wstring(m_installation_id.begin(), m_installation_id.end()));
+    ini.WriteString(L"tsudev_account", L"tsu.pro_expired.notified_until", std::to_wstring(m_pro_notified_until));
     //ini.WriteBool(_T("general"), _T("allow_skin_cover_font"), m_general_data.allow_skin_cover_font);
     //ini.WriteBool(_T("general"), _T("allow_skin_cover_text"), m_general_data.allow_skin_cover_text);
     ini.WriteString(_T("general"), _T("language"), m_general_data.language.toConfigString());
@@ -622,6 +648,13 @@ void CTsudevTrafficMonitorApp::CheckUpdate(bool message)
 {
     if (m_checking_update)      //Nếu vẫn đang kiểm tra cập nhật thì trả về ngay
         return;
+    //Chế độ ngoại tuyến hoàn toàn chặn cả kiểm tra cập nhật (AUTH_AND_ACCOUNT 14.1)
+    if (m_general_data.offline_mode)
+    {
+        if (message)
+            AfxMessageBox(CCommon::LoadText(IDS_OFFLINE_MODE_UPDATE_BLOCKED), MB_OK | MB_ICONINFORMATION);
+        return;
+    }
     CFlagLocker update_locker(m_checking_update);
     CWaitCursor wait_cursor;
 
@@ -1554,6 +1587,9 @@ void CTsudevTrafficMonitorApp::OnUpdateLog()
 
 int CTsudevTrafficMonitorApp::ExitInstance()
 {
+    //Dừng luồng tài khoản tsudev (chờ tối đa 2 giây nếu đang giữa một lượt HTTPS)
+    m_pro_account.Shutdown();
+
     // Giải phóng GDI+
     Gdiplus::GdiplusShutdown(m_gdiplusToken);
 
@@ -1677,4 +1713,37 @@ void* CTsudevTrafficMonitorApp::GetTaskbarWindowHwnd()
 const wchar_t* CTsudevTrafficMonitorApp::GetStringRes(const wchar_t* key, const wchar_t* section)
 {
     return m_str_table.LoadText(key, section).c_str();
+}
+
+void CTsudevTrafficMonitorApp::SignOutTsudevAccount()
+{
+    m_pro_account.SignOutAndClear();
+    //Mã cài đặt cũ mất cùng dữ liệu cục bộ; mã mới chỉ được gửi đi khi đăng nhập lại (AUTH_AND_ACCOUNT 14.3)
+    m_installation_id = ProAuth::NewInstallationId();
+    m_pro_account.SetInstallationId(m_installation_id);
+    m_pro_notified_until = 0;
+    SaveConfig();
+}
+
+CString CTsudevTrafficMonitorApp::FormatProDate(int64_t unix_time) const
+{
+    __time64_t t = static_cast<__time64_t>(unix_time);
+    tm lt{};
+    if (_localtime64_s(&lt, &t) != 0)
+        return CString();
+    CString str;
+    if (m_str_table.GetLanguageInfo().bcp_47 == L"vi-VN")
+    {
+        str.Format(_T("%02d/%02d/%04d"), lt.tm_mday, lt.tm_mon + 1, lt.tm_year + 1900);
+        return str;
+    }
+    SYSTEMTIME st{};
+    st.wYear = static_cast<WORD>(lt.tm_year + 1900);
+    st.wMonth = static_cast<WORD>(lt.tm_mon + 1);
+    st.wDay = static_cast<WORD>(lt.tm_mday);
+    wchar_t buf[64]{};
+    if (GetDateFormatEx(L"en-US", 0, &st, L"MMMM d, yyyy", buf, 64, nullptr) > 0)
+        return CString(buf);
+    str.Format(_T("%04d-%02d-%02d"), lt.tm_year + 1900, lt.tm_mon + 1, lt.tm_mday);
+    return str;
 }
