@@ -83,3 +83,17 @@
 // Ngôn ngữ mặc định khi chưa có cấu hình (lần chạy đầu tiên).
 // Định dạng: "<BCP-47>|<DISPLAY_NAME>|<TRANSLATOR>" - phải khớp với phần [general] của language\Vietnamese.ini
 #define DEFAULT_LANGUAGE_CONFIG     L"vi-VN|Tiếng Việt|tsudev"
+
+// Đăng nhập tài khoản tsudev và quyền lợi TsuDEV Pro (P9, ProAuth.h; AUTH_AND_ACCOUNT mục 4, PRODUCT_POLICY mục 7.4).
+// Chép từ discovery https://tsudev.com/oidc/.well-known/openid-configuration (đo 25/11/2026) và GHI CỨNG: discovery
+// bị giả mạo không đổi được điểm cuối token/JWKS. Chuỗi hẹp (UTF-8) vì dùng trong URL/JSON, không qua giao diện.
+#define FORK_TSUDEV_OIDC_ISSUER         "https://tsudev.com/oidc"
+#define FORK_TSUDEV_OIDC_AUTHORIZE_URL  "https://tsudev.com/oidc/auth"
+#define FORK_TSUDEV_OIDC_TOKEN_URL      "https://tsudev.com/oidc/token"
+#define FORK_TSUDEV_OIDC_REVOKE_URL     "https://tsudev.com/oidc/token/revocation"
+#define FORK_TSUDEV_OIDC_JWKS_URL       "https://tsudev.com/oidc/jwks"
+#define FORK_TSUDEV_ENTITLEMENTS_URL    "https://tsudev.com/api/me/entitlements"
+// Trang mua/gia hạn Pro cho bản ngoài cửa hàng (PRODUCT_POLICY 7.3 "Kênh"), nối thêm client_id
+#define FORK_TSUDEV_PRO_URL_PREFIX      "https://tsudev.com/pro?app="
+// Cổng quay về loopback của app desktop (AUTH mục 4): http://127.0.0.1:<cổng ngẫu nhiên>/callback
+#define FORK_TSUDEV_LOOPBACK_PREFIX     "http://127.0.0.1:"
